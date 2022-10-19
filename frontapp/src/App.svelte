@@ -48,7 +48,7 @@
 		justify-content: space-between;
 	}
 	@media (max-width: 480px) {
-		.Inline{
+		.InlinePage{
 			margin: 0;
 		}
 		.CalculatorWrapper{
