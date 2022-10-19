@@ -1,6 +1,6 @@
 <script>
 	import Header from './Header/Header.svelte';
-
+	import Graphic from "./Ggraphic/Graphic.svelte";
 </script>
 
 
@@ -30,11 +30,7 @@
 		height: fit-content;
 		box-shadow: none;
 	}
-	@media (max-width: 480px) {
-		.Inline{
-			margin: 0;
-		}
-	}
+
 	h1{
 		color: #ff8d48;
 
@@ -51,6 +47,14 @@
 		padding: 10px;
 		justify-content: space-between;
 	}
+	@media (max-width: 480px) {
+		.Inline{
+			margin: 0;
+		}
+		.CalculatorWrapper{
+			flex-direction: column;
+		}
+	}
 	.OptionsWrapper{
 		padding: 10px;
 		height: content-box;
@@ -66,7 +70,7 @@
 </style>
 
 <div class="AppWrapper">
-	<Header/>
+	<Header />
 	<div class="InlinePage">
 		<div class="ContentPage ADV">advertising</div>
 		<div class="ContentPage">
@@ -77,7 +81,7 @@
 					inputs
 				</div>
 				<div class="PictureWrapper">
-					picture
+					<Graphic/>
 				</div>
 			</div>
 		</div>

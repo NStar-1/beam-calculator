@@ -48,7 +48,6 @@
 
 
 <div class="HeaderWrapper">
-
     <div class="ContentHeader">
         <img rel='icon' src='/assets/logo.svg' alt='icon' class="AppName"/>
         <div style="flex-direction: row; display: flex">
