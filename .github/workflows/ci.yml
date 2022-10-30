@@ -13,10 +13,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: cd frontapp
-      - run: pwd
-      - run: npm ci
-      - run: npm build
+      - run: cd frontapp && npm ci
+      - run: cd frontapp && npm build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
