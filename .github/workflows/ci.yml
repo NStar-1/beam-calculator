@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 16
       - run: cd frontapp && npm ci
-      - run: cd frontapp && npm build
+      - run: cd frontapp && npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
