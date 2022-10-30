@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/Graphic.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/Graphic.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +18,7 @@
       <list>
         <option value="Header" />
         <option value="Graphic" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -37,9 +38,10 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/testcrypto&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/beam-calculator&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -68,6 +70,12 @@
       <workItem from="1665565560218" duration="1228000" />
       <workItem from="1665688004461" duration="5546000" />
       <workItem from="1665824311482" duration="638000" />
+      <workItem from="1666215209992" duration="1973000" />
+      <workItem from="1666378777466" duration="1612000" />
+      <workItem from="1666662368290" duration="4799000" />
+      <workItem from="1667080144441" duration="4809000" />
+      <workItem from="1667135160836" duration="3849000" />
+      <workItem from="1667145057123" duration="1111000" />
     </task>
     <servers />
   </component>
