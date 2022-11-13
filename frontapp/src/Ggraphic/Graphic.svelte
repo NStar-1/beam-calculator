@@ -2,8 +2,9 @@
 
 <script>
     import * as d3 from 'd3';
+    import Icon from 'svelte-icon'
     import {onMount, afterUpdate, beforeUpdate} from "svelte";
-    import { writable } from 'svelte/store';
+    import  Arrow from '../../iconsBeam/arrow.svg'
     let data = [{x: 1, y: 10},{x: 2, y: 16},{x: 3, y: 20}, {x: 4, y: 7}, {x: 5, y: 39},{x: 6, y: 13}];
     let data2 = [{x: 1, y: 13},{x: 2, y: 5},{x: 3, y: 14}, {x: 4, y: 9}, {x: 5, y: 59},{x: 6, y: 12}];
     let divSize = {width: 0, height: 0};
@@ -19,20 +20,9 @@
             .append("svg")
             .attr("width", "100%")
             .attr('height', "100%")
-           // .attr('viewBox', '0 0 200 200')
             .append("g")
-             // .attr("transform",
-             //     "translate(" + margin.left + "," + -10 + ")")
-            // // .classed("svg-content", true);
     });
-    // beforeUpdate(()=>{
-    //     try{
-    //         divSize = {width: document.getElementById("chart").offsetWidth, height:document.getElementById("chart").offsetHeight};
-    //     }catch(e){
-    //         divSize = {}
-    //     }
-    //     console.log(divSize)
-    // })
+
     afterUpdate(()=> {
         try{
             divSize = { height:document.getElementById("chart").offsetHeight, width:document.getElementById("chart").offsetWidth};
@@ -77,25 +67,10 @@
                     .x(function(d) { return x(d.x) })
                     .y(function(d) { return y(d.y) })
                 )
-            svg.append("svg:defs").append("svg:marker")
-                .attr("id", "arrow")
-                .attr("refX", 6)
-                .attr("refY", 6)
-                .attr("markerWidth", 30)
-                .attr("markerHeight", 30)
-                .attr("orient", "auto")
-                .append("path")
-                .attr("d", "M 0 0 12 6 0 12 3 6")
-                .style("fill", "black");
-            svg.append("line")
-                .attr("x1",100)
-                .attr("y1",100)
-                .attr("x2",100)
-                .attr("y2",50)
-                .attr("stroke","red")
-                .attr("stroke-width",2)
-                .attr("marker-end","url(#arrow)");
-
+            svg.append('image')
+                .attr('xlink:href', 'assets/arrow.svg')
+                .attr('x', '100')
+                .attr('y', '100')
             let Tooltip = d3.select("#my_dataviz")
                 .append("div")
                 .style("height", "100%")
@@ -127,8 +102,11 @@
         top: 0;
         left: 0;
     }
+    #arrow{
+        height: 400px;
+        width: 100px;
+    }
 </style>
-
 
 <div id="chart">
 </div>

@@ -1,6 +1,7 @@
 <script>
 	import Header from './Header/Header.svelte';
 	import Graphic from "./Ggraphic/Graphic.svelte";
+	import Options from "./Options/Options.svelte";
 </script>
 
 
@@ -78,7 +79,7 @@
 			<p>Some description about calculator(Description)</p>
 			<div class="CalculatorWrapper">
 				<div class="OptionsWrapper">
-					inputs
+					<Options/>
 				</div>
 				<div class="PictureWrapper">
 					<Graphic/>

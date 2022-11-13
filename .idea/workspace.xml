@@ -3,9 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/Graphic.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/Graphic.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +23,7 @@
         <option value="Header" />
         <option value="Graphic" />
         <option value="JavaScript File" />
+        <option value="Options" />
       </list>
     </option>
   </component>
@@ -33,18 +38,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/beam-calculator&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/alex/Documents/beam-calculator/frontapp/public/assets",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontapp/public/assets" />
@@ -75,7 +80,14 @@
       <workItem from="1666662368290" duration="4799000" />
       <workItem from="1667080144441" duration="4809000" />
       <workItem from="1667135160836" duration="3849000" />
-      <workItem from="1667145057123" duration="1111000" />
+      <workItem from="1667145057123" duration="3455000" />
+      <workItem from="1667177267576" duration="17000" />
+      <workItem from="1667350801958" duration="499000" />
+      <workItem from="1667492832041" duration="606000" />
+      <workItem from="1667504331849" duration="599000" />
+      <workItem from="1667842470972" duration="3323000" />
+      <workItem from="1668276333664" duration="3069000" />
+      <workItem from="1668292589449" duration="6405000" />
     </task>
     <servers />
   </component>
