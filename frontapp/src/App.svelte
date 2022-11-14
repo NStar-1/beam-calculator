@@ -2,6 +2,7 @@
 	import Header from './Header/Header.svelte';
 	import Graphic from "./Ggraphic/Graphic.svelte";
 	import Options from "./Options/Options.svelte";
+	import Input from './Inputs/Input.svelte'
 </script>
 
 
@@ -88,4 +89,5 @@
 		</div>
 		<div class="ContentPage ADV">advertising</div>
 	</div>
+	<Input title="something"/>
 </div>

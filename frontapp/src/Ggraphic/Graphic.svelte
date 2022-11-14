@@ -68,7 +68,7 @@
                     .y(function(d) { return y(d.y) })
                 )
             svg.append('image')
-                .attr('xlink:href', 'assets/arrow.svg')
+                .attr('xlink:href', 'assets/arrow1.svg')
                 .attr('x', '100')
                 .attr('y', '100')
             let Tooltip = d3.select("#my_dataviz")
@@ -82,6 +82,9 @@
                 .style("border-width", "2px")
                 .style("border-radius", "5px")
                 .style("padding", "5px")
+            // d3.svg("/assets/arrow1.svg").then(xml=>{
+            //     svg.appendChild(xml).height('100').x('100').y('100')
+            // })
         }catch(e){
             divSize = {}
         }
