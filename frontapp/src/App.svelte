@@ -48,6 +48,7 @@
 		column-gap: 10px;
 		padding: 10px;
 		justify-content: space-between;
+		background-color: #f8f8f8;
 	}
 	@media (max-width: 480px) {
 		.InlinePage{
@@ -61,13 +62,14 @@
 		padding: 10px;
 		height: content-box;
 		width: 30%;
-		border:  #ff8d48 1px solid;
 	}
 	.PictureWrapper{
 		width: 70%;
 		padding: 10px;
 		height: content-box;
 		border:  #ff8d48 1px solid;
+		margin: 10px;
+		background-color: white;
 	}
 </style>
 

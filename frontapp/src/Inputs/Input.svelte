@@ -10,7 +10,6 @@
 <style>
     input{
         border: 2px solid #ababab;
-        border-radius: 10px;
         width: 100%;
         outline:none;
     }

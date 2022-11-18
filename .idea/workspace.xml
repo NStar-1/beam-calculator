@@ -3,14 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/rollup.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/Graphic.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/Graphic.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +22,7 @@
         <option value="Graphic" />
         <option value="JavaScript File" />
         <option value="Options" />
+        <option value="Input" />
       </list>
     </option>
   </component>
@@ -43,7 +42,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/alex/Documents/beam-calculator/frontapp/public/assets",
+    "last_opened_file_path": "/home/alex/Documents/mimir",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
@@ -52,9 +51,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontapp/public/assets/other" />
       <recent name="$PROJECT_DIR$/frontapp/public/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontapp/public/assets/other" />
       <recent name="$PROJECT_DIR$/frontapp/public/assets" />
       <recent name="$PROJECT_DIR$/frontapp/public" />
     </key>
@@ -88,6 +89,12 @@
       <workItem from="1667842470972" duration="3323000" />
       <workItem from="1668276333664" duration="3069000" />
       <workItem from="1668292589449" duration="6405000" />
+      <workItem from="1668363693793" duration="6834000" />
+      <workItem from="1668458882509" duration="1756000" />
+      <workItem from="1668514776960" duration="656000" />
+      <workItem from="1668601023293" duration="2329000" />
+      <workItem from="1668606410777" duration="406000" />
+      <workItem from="1668628188318" duration="1877000" />
     </task>
     <servers />
   </component>

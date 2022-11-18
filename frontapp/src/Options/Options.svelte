@@ -10,7 +10,7 @@
         padding: 0;
     }
     :global([data-accordion-item] button) {
-        border-radius: 10px;
+
         border: 1px solid #ff9859;
         background: #ff9859;
         font: inherit;
@@ -30,7 +30,7 @@
         padding:10px;
     }
     :global([data-accordion-item]) {
-        border-radius: 10px;
+
         border: 1px solid #ff9859;
         margin-bottom: 1rem;
     }
@@ -42,7 +42,6 @@
     }
     .fixationItem{
         border: 1px solid #ababab;
-        border-radius: 10px;
         padding: 0;
         height: 100%;
         width: 100%;
@@ -51,7 +50,8 @@
         margin: 0;
         border: 1px solid #ababab;
         background-color: #ababab;
-        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
         box-sizing: content-box;
         color: white;
     }
@@ -77,38 +77,38 @@
         <div class="fixationWrapper">
             <div class="fixationItem">
                 <div class="fixationItemTitle">
-                    left
+                    Left
                 </div>
                 <form class="fixationItemContent">
                     <div class="inline">
-                        <input type="radio"/>
+                        <input type="radio" name="left"/>
                         <img alt="strong" src="assets/other/svg (14).svg"/>
                     </div>
                     <div class="inline">
-                        <input type="radio"/>
+                        <input type="radio" name="left"/>
                         <img alt="strong" src="assets/other/svg (10).svg"/>
                     </div>
                     <div class="inline">
-                        <input type="radio"/>
+                        <input type="radio" name="left"/>
                         <img alt="strong" src="assets/other/svg (9).svg"/>
                     </div>
                 </form>
             </div>
             <div class="fixationItem">
                 <div class="fixationItemTitle">
-                    right
+                    Right
                 </div>
                 <form class="fixationItemContent">
                     <div class="inline">
-                        <input type="radio"/>
-                        <img alt="strong" src="assets/other/svg (14).svg" style="rotate: 180deg"/>
+                        <input type="radio" name="right"/>
+                        <img alt="strong" src="assets/other/svg (14).svg" style="transform: scaleX(-1)"/>
                     </div>
                     <div class="inline">
-                        <input type="radio"/>
+                        <input type="radio" name="right"/>
                         <img alt="strong" src="assets/other/svg (10).svg"/>
                     </div>
                     <div class="inline">
-                        <input type="radio"/>
+                        <input type="radio" name="right"/>
                         <img alt="strong" src="assets/other/svg (9).svg"/>
                     </div>
                 </form>
