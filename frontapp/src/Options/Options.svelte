@@ -2,8 +2,11 @@
     import { Accordion, AccordionItem } from "svelte-accessible-accordion";
     import Input from '../Inputs/Input.svelte';
     import { length } from '../store.ts';
-
+    import {cutConst} from "./constants";
+    import Icon from "svelte-icon";
+    let materialVal=1;
     let val = 0;
+    let inputValue = []
 </script>
 
 <style>
@@ -11,9 +14,10 @@
         list-style: none;
         width: 100%;
         padding: 0;
+        margin: 0;
     }
     :global([data-accordion-item] button) {
-
+        border-radius: 0;
         border: 1px solid #ff9859;
         background: #ff9859;
         font: inherit;
@@ -29,8 +33,13 @@
     :global([data-accordion-item] button):hover {
         background: #ff8d48;
     }
-    :global([data-accordion-item] div){
-        padding:10px;
+    :global([data-accordion-item] > div){
+        padding:5%;
+    }
+    .accordionWrapper {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
     }
     :global([data-accordion-item]) {
 
@@ -51,6 +60,7 @@
     }
     .fixationItemTitle{
         margin: 0;
+        padding: 10px;
         border: 1px solid #ababab;
         background-color: #ababab;
         text-align: center;
@@ -60,23 +70,46 @@
     }
     .fixationItemContent{
         margin:5px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
     }
     .inline{
+        padding: 0;
         display: flex;
         flex-direction: row;
         height: 100%;
-        padding: 5px;
         justify-content: space-between;
     }
     img{
         width:80%;
     }
 
+    .materialInput{
+        display: none;
+    }
+
+    .materialInput:checked + img{
+        border: 3px solid #ff9859;
+    }
+
+    .materialInput + img {
+        padding: 2px;
+        width: 90%;
+        border: 3px solid #ababab;
+    }
+
+    .column{
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+    }
+
 </style>
 
 <Accordion>
-    <AccordionItem title="Length"><Input title="type length" bind:value={$length} /></AccordionItem>
-    <AccordionItem title="Fixation">
+    <AccordionItem  title="Length"><Input title="type length" bind:value={$length} /></AccordionItem>
+    <AccordionItem  title="Fixation">
         <div class="fixationWrapper">
             <div class="fixationItem">
                 <div class="fixationItemTitle">
@@ -118,5 +151,20 @@
             </div>
         </div>
     </AccordionItem>
-    <AccordionItem title="Title 3">Content 3</AccordionItem>
+    <AccordionItem title="Cut">
+        <div class="column">
+            <div class="inline" style="column-gap: 3%;">
+                {#each cutConst as material, i}
+                    <label>
+                        <input type="radio" bind:group={materialVal} name="material" class="materialInput" value={i}/>
+                        <img alt="square" src={material.src}>
+                    </label>
+                {/each}
+            </div>
+            {#each cutConst[materialVal].inputs as input, i}
+                <Input title={input} bind:value={inputValue[i]}/>
+            {/each}
+            <Icon/>
+        </div>
+    </AccordionItem>
 </Accordion>
