@@ -21,7 +21,7 @@
 
 	}
 	.ContentPage{
-		padding: 10px;
+		padding: 30px;
 		border-radius: 5px;
 		width: 70%;
 		background: white;
@@ -41,15 +41,14 @@
 	p{
 	}
 	.CalculatorWrapper{
-		height: 600px;
+		height: 70vh;
 		border: #ff8d48 1px solid;
-		margin: 20px;
+		margin-top: 20px;
 		display: flex;
 		flex-direction: row;
-		column-gap: 10px;
-		padding: 10px;
+		column-gap: 2%;
+		padding:2%;
 		justify-content: space-between;
-		background-color: #f8f8f8;
 	}
 	@media (max-width: 480px) {
 		.InlinePage{
@@ -60,16 +59,13 @@
 		}
 	}
 	.OptionsWrapper{
-		padding: 10px;
 		height: content-box;
 		width: 30%;
 	}
 	.PictureWrapper{
 		width: 70%;
-		padding: 10px;
 		height: content-box;
 		border:  #ff8d48 1px solid;
-		margin: 10px;
 		background-color: white;
 	}
 </style>

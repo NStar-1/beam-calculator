@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +38,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/alex/Documents/beam-calculator",
+    "last_opened_file_path": "/home/alex/Documents/test-table",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
@@ -92,7 +93,8 @@
       <workItem from="1668628188318" duration="1877000" />
       <workItem from="1668809700904" duration="1100000" />
       <workItem from="1668872053739" duration="21000" />
-      <workItem from="1668901057855" duration="599000" />
+      <workItem from="1668901057855" duration="2857000" />
+      <workItem from="1668942922619" duration="35000" />
     </task>
     <servers />
   </component>
