@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/public/build/bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/build/bundle.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +37,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/alex/Documents/mimir",
+    "last_opened_file_path": "/home/alex/Documents/beam-calculator",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
@@ -95,6 +90,9 @@
       <workItem from="1668601023293" duration="2329000" />
       <workItem from="1668606410777" duration="406000" />
       <workItem from="1668628188318" duration="1877000" />
+      <workItem from="1668809700904" duration="1100000" />
+      <workItem from="1668872053739" duration="21000" />
+      <workItem from="1668901057855" duration="599000" />
     </task>
     <servers />
   </component>

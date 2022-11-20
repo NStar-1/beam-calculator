@@ -1,6 +1,5 @@
 <script>
   import * as d3 from 'd3';
-  import './chart'
   import {onMount, afterUpdate, beforeUpdate} from "svelte";
   let svg;
 
