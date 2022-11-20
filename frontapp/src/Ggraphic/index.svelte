@@ -1,6 +1,7 @@
 <script>
   import * as d3 from 'd3';
   import {onMount, afterUpdate, beforeUpdate} from "svelte";
+  import { dimensionLine } from './util.ts'
   let svg;
 
   onMount(()=> {
@@ -12,11 +13,11 @@
 
     svg.append("svg:defs").append("svg:marker")
       .attr("id", "triangle")
-      .attr("refX", 5)
+      .attr("refX", 3)
       .attr("refY", 3)
       .attr("markerWidth", 12)
       .attr("markerHeight", 12)
-      .attr("orient", "auto")
+      .attr("orient", "auto-start-reverse")
       .append("path")
       .attr("d", "M 0 0 6 3 0 6 1.5 3")
       .style("fill", "black")
@@ -29,14 +30,21 @@
       .attr('x', 32)
 
     const lcData = [{x: 100, y: 250}, {x: 350, y: 260}, {x: 500, y: 300}]
+    const frame = {
+      x0: 100,
+      y0: 250,
+      x1: 500,
+      y1: 250
+    }
 
     svg.append("line")
-      .attr("x1", 100)
-      .attr("y1", 250)
-      .attr("x2", 500)
-      .attr("y2", 250)
+      .attr("x1", frame.x0)
+      .attr("y1", frame.y0)
+      .attr("x2", frame.x1)
+      .attr("y2", frame.y1)
       .attr("stroke", "black")
       .attr("stroke-width", 3)
+      .attr('shape-rendering', 'crispedges')
 
     const loadedBeam = d3.line(d => d.x, d => d.y)
       .curve(d3.curveBasis)
@@ -63,55 +71,8 @@
       .style('font-size', "18px")
       .text('F = 10H')
 
-    const points = [{x: 55, y: 155}, {x: 400, y: 155}]
-
-    const x0 = points[0].x
-    const y0 = points[0].y
-    const x1 = points[1].x
-    const y1 = points[1].y
-    const dim = svg.append('g')
-      .attr(
-        'transform', 
-        `rotate(10, ${x0}, ${y0}) translate(${x0}, ${y0})`
-      )
-
-    const dx = x0 - points[1].x
-    const dy = y0 - points[1].y
-    const length = Math.sqrt((dx * dx) + (dy * dy))
-    const offset = 30
-
-    dim.append('line')
-      .attr('x1', 0)
-      .attr('y1', -offset)
-      .attr('x2', length)
-      .attr('y2', -offset)
-      .attr("stroke", "black")
-      .attr("stroke-width", 2)
-      .attr("marker-start", "url(#triangle)")
-      .attr("marker-end", "url(#triangle)")
-
-    dim.append('line')
-      .attr('x1', 0)
-      .attr('y1', -offset - 10)
-      .attr('x2', 0)
-      .attr('y2', -offset + 35)
-      .attr("stroke", "black")
-      .attr("stroke-width", 2)
-
-    dim.append('line')
-      .attr('x1', length)
-      .attr('y1', -offset - 10)
-      .attr('x2', length)
-      .attr('y2', -offset + 35)
-      .attr("stroke", "black")
-      .attr("stroke-width", 2)
-
-    dim.append('text')
-      .attr('x', length / 2)
-      .attr('y', -40)
-      .attr('fill', 'black')
-      .style('font-size', "18px")
-      .text('Text')
+    svg.append(() => dimensionLine([{x: frame.x0, y: frame.y0}, {x: frame.x1, y: frame.y1}]).node())
+    svg.append(() => dimensionLine([{x: frame.x1, y: frame.y1}, {x: lcData[2].x, y: lcData[2].y}]).node())
   });
 
   afterUpdate(function() {
