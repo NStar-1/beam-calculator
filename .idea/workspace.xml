@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +19,7 @@
         <option value="JavaScript File" />
         <option value="Options" />
         <option value="Input" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -38,7 +39,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/alex/Documents/test-table",
+    "last_opened_file_path": "/home/alex/Documents/beam-calculator/frontapp/public/assets/razrez",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
@@ -47,6 +48,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontapp/public/assets/razrez" />
       <recent name="$PROJECT_DIR$/frontapp/public/assets/other" />
       <recent name="$PROJECT_DIR$/frontapp/public/assets" />
     </key>
@@ -95,6 +97,7 @@
       <workItem from="1668872053739" duration="21000" />
       <workItem from="1668901057855" duration="2857000" />
       <workItem from="1668942922619" duration="35000" />
+      <workItem from="1668954899709" duration="11161000" />
     </task>
     <servers />
   </component>
