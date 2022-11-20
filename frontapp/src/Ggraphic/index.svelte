@@ -5,8 +5,12 @@
   import { dimensionLine } from './util.ts'
   import { length } from '../store.ts';
   let svg;
+  let clientWidth;
+  let clientHeight;
 
   let currentLen;
+
+  $: console.info(clientWidth, clientHeight)
 
   length.subscribe((val) => {
     currentLen = val;
@@ -19,7 +23,8 @@
         .attr('height', "100%")
         .attr('shape-rendering', 'geometricPrecision')
 
-    const { width, height } = svg.node().getClientRects()[0];
+    const height = clientHeight;
+    const width = clientWidth;
 
     const frame = {
       x0: 100,
@@ -31,7 +36,6 @@
     const x = d3.scaleLinear()
       .domain([0, Math.abs(frame.x0 - frame.x1)])
       .range([0, width])
-    
 
     svg.append("svg:defs").append("svg:marker")
       .attr("id", "triangle")
@@ -89,8 +93,17 @@
       .style('font-size', "18px")
       .text('F = 10H')
 
+    svg.append('g')
+      .attr('class', 'x-dimension')
+
     svg.append(() => dimensionLine([{x: frame.x0, y: frame.y0}, {x: frame.x1, y: frame.y1}]).node())
     svg.append(() => dimensionLine([{x: frame.x1, y: frame.y1}, {x: lcData[2].x, y: lcData[2].y}]).node())
+
+    const xTicks = d3.axisBottom()
+      .scale(x)
+
+    svg.append('g')
+      .attr('class', 'x-axis')
 
     length.subscribe((val) => {
       svg.select('.line')
@@ -99,6 +112,9 @@
       svg.select('.force-line')
         .attr('x1', val)
         .attr('x2', val)
+
+      svg.select('.x-axis')
+        .call(xTicks)
     })
 
   });
@@ -116,5 +132,4 @@
     }
 </style>
 
-<div id="chart">
-</div>
+<div id="chart" bind:clientWidth bind:clientHeight></div>
