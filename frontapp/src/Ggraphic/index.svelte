@@ -3,7 +3,14 @@
   import './chart'
   import {onMount, afterUpdate, beforeUpdate} from "svelte";
   import { dimensionLine } from './util.ts'
+  import { length } from '../store.ts';
   let svg;
+
+  let currentLen;
+
+  length.subscribe((val) => {
+    currentLen = val;
+  })
 
   onMount(()=> {
     svg = d3.select("#chart")
@@ -11,6 +18,20 @@
         .attr("width", "100%")
         .attr('height', "100%")
         .attr('shape-rendering', 'geometricPrecision')
+
+    const { width, height } = svg.node().getClientRects()[0];
+
+    const frame = {
+      x0: 100,
+      y0: 250,
+      x1: 100 + currentLen,
+      y1: 250
+    }
+
+    const x = d3.scaleLinear()
+      .domain([0, Math.abs(frame.x0 - frame.x1)])
+      .range([0, width])
+    
 
     svg.append("svg:defs").append("svg:marker")
       .attr("id", "triangle")
@@ -31,14 +52,9 @@
       .attr('x', 32)
 
     const lcData = [{x: 100, y: 250}, {x: 350, y: 260}, {x: 500, y: 300}]
-    const frame = {
-      x0: 100,
-      y0: 250,
-      x1: 500,
-      y1: 250
-    }
 
     svg.append("line")
+      .attr('class', 'line')
       .attr("x1", frame.x0)
       .attr("y1", frame.y0)
       .attr("x2", frame.x1)
@@ -57,6 +73,7 @@
       .attr("fill", "none")
 
     svg.append('line')
+      .attr('class', 'force-line')
       .attr("x1", 500)
       .attr("y1", 300)
       .attr("x2", 500)
@@ -74,11 +91,22 @@
 
     svg.append(() => dimensionLine([{x: frame.x0, y: frame.y0}, {x: frame.x1, y: frame.y1}]).node())
     svg.append(() => dimensionLine([{x: frame.x1, y: frame.y1}, {x: lcData[2].x, y: lcData[2].y}]).node())
+
+    length.subscribe((val) => {
+      svg.select('.line')
+        .attr('x2', val)
+
+      svg.select('.force-line')
+        .attr('x1', val)
+        .attr('x2', val)
+    })
+
   });
 
   afterUpdate(function() {
-
+    console.log('UPD')
   })
+
 </script>
 <style>
     #chart{

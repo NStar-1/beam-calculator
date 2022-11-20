@@ -1,3 +1,8 @@
+@font-face {
+  font-family: CMU Concrete Roman;
+  src: url('cmu.concrete-roman.ttf');
+}
+
 html, body {
 	position: relative;
 	width: 100%;
@@ -60,4 +65,8 @@ button:not(:disabled):active {
 
 button:focus {
 	border-color: #666;
+}
+
+#chart {
+  font-family: CMU Concrete Roman;
 }

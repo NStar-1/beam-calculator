@@ -1,10 +1,8 @@
 <script>
     import {afterUpdate} from "svelte";
     export let title;
-    let value = '';
-    afterUpdate(()=>{
-        console.log(value)
-    })
+    export let value = '';
+    console.log(value)
 </script>
 
 <style>
