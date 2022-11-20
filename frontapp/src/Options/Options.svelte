@@ -1,6 +1,9 @@
 <script>
     import { Accordion, AccordionItem } from "svelte-accessible-accordion";
     import Input from '../Inputs/Input.svelte';
+    import { length } from '../store.ts';
+
+    let val = 0;
 </script>
 
 <style>
@@ -72,7 +75,7 @@
 </style>
 
 <Accordion>
-    <AccordionItem title="Length"><Input title="type length"/></AccordionItem>
+    <AccordionItem title="Length"><Input title="type length" bind:value={$length} /></AccordionItem>
     <AccordionItem title="Fixation">
         <div class="fixationWrapper">
             <div class="fixationItem">
