@@ -1,6 +1,5 @@
 <script>
 	import Header from './Header/Header.svelte';
-	import Graphic from "./Ggraphic/Graphic.svelte";
     import Graph from "./Ggraphic/index.svelte"
 	import Options from "./Options/Options.svelte";
 	import Input from './Inputs/Input.svelte'
