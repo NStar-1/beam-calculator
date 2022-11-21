@@ -1,6 +1,6 @@
 @font-face {
   font-family: CMU Concrete Roman;
-  src: url('cmu.concrete-roman.ttf');
+  src: url('./cmu.concrete-roman.ttf');
 }
 
 html, body {
