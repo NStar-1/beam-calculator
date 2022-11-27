@@ -1,7 +1,7 @@
 <script>
     import {profileVal, profileInputs} from "../store";
     import Input from "../Inputs/Input.svelte";
-    import {profileConst} from "./constants";
+    import {profC} from "./constants";
 </script>
 
 <style>
@@ -35,14 +35,14 @@
 
 <div class="column">
     <div class="inline" style="column-gap: 3%;">
-        {#each profileConst as material, i}
+        {#each Object.keys(profC) as profile}
             <label on:click={()=>profileInputs.set([])}>
-                <input type="radio" bind:group={$profileVal} name="material" class="materialInput" value={i}/>
-                <img alt="square" src={material.src}>
+                <input type="radio" bind:group={$profileVal} name="material" class="materialInput" value={profile}/>
+                <img alt={profC[profile].alt} src={profC[profile].img}>
             </label>
         {/each}
     </div>
-    {#each profileConst[$profileVal].inputs as input, i}
-        <Input title={input} bind:value={$profileInputs[i]}/>
+    {#each profC[$profileVal].inputs as input, i}
+        <Input title={input.placeholder} bind:value={$profileInputs[i]}/>
     {/each}
 </div>
