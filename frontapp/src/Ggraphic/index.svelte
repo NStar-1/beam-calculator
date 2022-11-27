@@ -1,7 +1,8 @@
 <script>
   import * as d3 from 'd3';
   import {onMount, afterUpdate, beforeUpdate} from "svelte";
-  import { dimensionLine } from './util.ts'
+  import { initDefs } from './util.ts'
+  import DimensionLine from './dimension-line.js'
   import { length } from '../store.ts';
   let svg;
   let clientWidth;
@@ -25,95 +26,124 @@
     const height = clientHeight;
     const width = clientWidth;
 
-    const frame = {
-      x0: 100,
-      y0: 250,
-      x1: 100 + currentLen,
-      y1: 250
-    }
+    svg.call(initDefs)
 
-    const x = d3.scaleLinear()
-      .domain([0, Math.abs(frame.x0 - frame.x1)])
-      .range([0, width])
+    const drawingOffset = 200;
+    const drawingWidth = width - drawingOffset;
+    const drawingHeight = height - drawingOffset;
 
-    svg.append("svg:defs").append("svg:marker")
-      .attr("id", "triangle")
-      .attr("refX", 3)
-      .attr("refY", 3)
-      .attr("markerWidth", 12)
-      .attr("markerHeight", 12)
-      .attr("orient", "auto-start-reverse")
-      .append("path")
-      .attr("d", "M 0 0 6 3 0 6 1.5 3")
-      .style("fill", "black")
+    const deflection = 50
 
-    svg.append("image")
+    const drawing = svg.append('g')
+      .attr('class', 'drawing')
+      .attr('transform', `translate(${drawingOffset/2}, ${drawingOffset/2})`)
+
+    drawing.append('rect')
+      .attr('y', 0)
+      .attr('x', 0)
+      .attr('width', drawingWidth)
+      .attr('height', drawingHeight)
+      .style('fill', 'none')
+      .style('stroke', 'green')
+
+    const local = drawing.append('g')
+      .attr('class', 'drawing-local')
+      .attr('transform', `translate(0, ${drawingHeight / 2})`)
+
+    local.append("image")
       .attr("xlink:href", "assets/other/svg%20(14).svg")
       .attr("width", 120)
       .attr("height", 120)
-      .attr('y', 190)
-      .attr('x', 32)
+      .attr('y', -60)
+      .attr('x', -68)
 
-    const lcData = [{x: 100, y: 250}, {x: 350, y: 260}, {x: 500, y: 300}]
+    drawing.append('g')
+      .attr('class', 'x-dimension')
 
-    svg.append("line")
+    local.append("line")
       .attr('class', 'line')
-      .attr("x1", frame.x0)
-      .attr("y1", frame.y0)
-      .attr("x2", frame.x1)
-      .attr("y2", frame.y1)
+      .attr("x1", 0)
+      .attr("y1", 0)
+      .attr("y2", 0)
       .attr("stroke", "black")
       .attr("stroke-width", 3)
       .attr('shape-rendering', 'crispedges')
 
-    const loadedBeam = d3.line(d => d.x, d => d.y)
-      .curve(d3.curveBasis)
-
-    svg.append('path')
-      .attr('d', loadedBeam(lcData))
+    const curveEl = local.append('path')
       .attr('stroke', 'blue')
       .attr("stroke-width", 3)
       .attr("fill", "none")
 
-    svg.append('line')
+    local.append('line')
       .attr('class', 'force-line')
-      .attr("x1", 500)
-      .attr("y1", 300)
-      .attr("x2", 500)
-      .attr("y2", 350)
+      .attr("y1", 0)
       .attr("stroke", "black")
       .attr("stroke-width", 3)
       .attr("marker-end", "url(#triangle)")
 
-    svg.append('text')
-      .attr('x', 515)
-      .attr('y', 350)
+    const forceLabel = local.append('text')
       .attr('fill', 'black')
       .style('font-size', "18px")
       .text('F = 10H')
 
-    svg.append('g')
-      .attr('class', 'x-dimension')
-
-    svg.append(() => dimensionLine([{x: frame.x0, y: frame.y0}, {x: frame.x1, y: frame.y1}]).node())
-    svg.append(() => dimensionLine([{x: frame.x1, y: frame.y1}, {x: lcData[2].x, y: lcData[2].y}]).node())
+    drawing.append('g')
+      .attr('class', 'd1')
 
     const xTicks = d3.axisBottom()
-      .scale(x)
 
-    svg.append('g')
+    drawing.append('g')
       .attr('class', 'x-axis')
 
+    const dimLimeXEl = local.append('g')
+    const dimLimeYEl = local.append('g')
+
+    const dimLineX = new DimensionLine()
+      .start({x: 0, y: 0})
+
+    const dimLineY = new DimensionLine()
+    const uniform = d3.scaleLinear()
+      .range([0, drawingWidth])
+
     length.subscribe((val) => {
+      uniform.domain([0, val])
+
+      xTicks.scale(uniform)
+      dimLineX
+        .scale(uniform)
+        .end({x: val, y: 0})
+
+      dimLineY
+        .start({x: val, y: 0})
+        .end({x: val, y: deflection})
+        .scale(uniform)
+
+      const curve = d3.path()
+      curve.moveTo(0, 0)
+      curve.bezierCurveTo(
+        uniform(val/1.33), 0,
+        uniform(val), uniform(deflection),
+        uniform(val), uniform(deflection)
+      )
+      curveEl.attr('d', curve)
+
       svg.select('.line')
-        .attr('x2', val)
+        .attr('x2', uniform(val))
 
       svg.select('.force-line')
-        .attr('x1', val)
-        .attr('x2', val)
+        .attr('x1', uniform(val))
+        .attr('y1', uniform(deflection))
+        .attr('x2', uniform(val))
+        .attr('y2', 2 * uniform(deflection))
 
       svg.select('.x-axis')
         .call(xTicks)
+
+      forceLabel
+        .attr('x', uniform(val) + 15)
+        .attr('y', uniform(deflection) + 50)
+
+      dimLimeXEl.call(dimLineX)
+      dimLimeYEl.call(dimLineY)
     })
 
   });

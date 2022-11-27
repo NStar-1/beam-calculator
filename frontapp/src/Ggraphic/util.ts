@@ -2,15 +2,61 @@ import * as d3 from "d3";
 
 type Point = { x: number; y: number };
 
+export function initDefs(
+  context: d3.Selection<SVGSVGElement, {}, HTMLElement, any>
+) {
+  return context
+    .append("svg:defs")
+    .append("svg:marker")
+    .attr("id", "triangle")
+    .attr("refX", 3)
+    .attr("refY", 3)
+    .attr("markerWidth", 12)
+    .attr("markerHeight", 12)
+    .attr("orient", "auto-start-reverse")
+    .append("path")
+    .attr("d", "M 0 0 6 3 0 6 1.5 3")
+    .style("fill", "black");
+}
+
+export function DimensionLine() {
+  const group = d3.create("svg:g");
+
+  // Configuration
+  const lineOffset = 10; // From the top of the tick
+  const tickLength = 45; // Overall tick length
+  const tickOffset = 10; // distance betweeb the Point and tick start position
+
+  // Calculated
+  const linePosY = -tickLength - tickOffset + lineOffset;
+
+
+  const scope = {};
+
+  const bound = function (
+    context: d3.Selection<SVGSVGElement, {}, HTMLElement, any>
+  ) {
+    const dx = this.x0 - this.x1;
+    const dy = this.y0 - this.y1;
+    const length = Math.sqrt(dx * dx + dy * dy);
+    const text = String(Math.round(length));
+    const rot = (Math.atan2(-dy, -dx) * 180) / Math.PI;
+
+    group.attr(
+      "transform",
+      `rotate(${rot}, ${this.x0}, ${this.y0}) translate(${this.x0}, ${this.y0})`
+    );
+
+    return group;
+  };
+  Object.assign(bound, Bound);
+  return bound;
+}
+
 export function dimensionLine([{ x: x0, y: y0 }, { x: x1, y: y1 }]: [
   Point,
   Point
 ]) {
-  const dx = x0 - x1;
-  const dy = y0 - y1;
-  const length = Math.sqrt(dx * dx + dy * dy);
-  const text = String(Math.round(length))
-  const rot = Math.atan2(-dy, -dx) * 180 / Math.PI;
 
   const group = d3
     .create("svg:g")
@@ -22,7 +68,7 @@ export function dimensionLine([{ x: x0, y: y0 }, { x: x1, y: y1 }]: [
   const tickOffset = 10; // distance betweeb the Point and tick start position
 
   // Calculated
-  const linePosY = -tickLength - tickOffset + lineOffset
+  const linePosY = -tickLength - tickOffset + lineOffset;
 
   group
     .append("line")
