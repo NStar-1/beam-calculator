@@ -3,7 +3,7 @@
     import Input from '../Inputs/Input.svelte';
     import { length } from '../store.ts';
     import Icon from "svelte-icon";
-    import Cut from "./Cut.svelte";
+    import Profile from "./Profile.svelte";
     import Fixation from "./Fixation.svelte";
 </script>
 
@@ -48,7 +48,7 @@
     <AccordionItem  title="Fixation">
         <Fixation/>
     </AccordionItem>
-    <AccordionItem title="Cut">
-        <Cut/>
+    <AccordionItem title="Profile">
+        <Profile/>
     </AccordionItem>
 </Accordion>

@@ -1,8 +1,7 @@
 <script>
-
-    import {cutVal, cutInputs} from "../store";
+    import {profileVal, profileInputs} from "../store";
     import Input from "../Inputs/Input.svelte";
-    import {cutConst} from "./constants";
+    import {profileConst} from "./constants";
 </script>
 
 <style>
@@ -36,14 +35,14 @@
 
 <div class="column">
     <div class="inline" style="column-gap: 3%;">
-        {#each cutConst as material, i}
-            <label on:click={()=>cutInputs.set([])}>
-                <input type="radio" bind:group={$cutVal} name="material" class="materialInput" value={i}/>
+        {#each profileConst as material, i}
+            <label on:click={()=>profileInputs.set([])}>
+                <input type="radio" bind:group={$profileVal} name="material" class="materialInput" value={i}/>
                 <img alt="square" src={material.src}>
             </label>
         {/each}
     </div>
-    {#each cutConst[$cutVal].inputs as input, i}
-        <Input title={input} bind:value={$cutInputs[i]}/>
+    {#each profileConst[$profileVal].inputs as input, i}
+        <Input title={input} bind:value={$profileInputs[i]}/>
     {/each}
 </div>
