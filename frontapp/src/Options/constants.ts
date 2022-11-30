@@ -47,25 +47,25 @@ export const profC = {
     // },
     "circle1":{
         img: CircleShtr,
-        inputs: [{placeholder: 'Radius'}],
         alt:"Circle",
-        id:"circle1"
+      //  inputs: [{placeholder: 'Radius'}],
+      //  id:"circle1"
     },
     "circle2":{
         img: CircCircShtr,
-        inputs: [{placeholder: 'Outer radius'}, {placeholder: 'Inner Radius'}],
         alt:"Circle 2",
-        id:"circle2"
+     //   inputs: [{placeholder: 'Outer radius'}, {placeholder: 'Inner Radius'}],
+      //  id:"circle2"
     },
 }
 
-export const profileConst=[
-    // {src: '/assets/razrez/SquareShtr.svg', inputs: ['Width']},
-    // {src: '/assets/razrez/SqwSqwShtr.svg', inputs: ['Outer width', 'Inner width']},
-    // {src: '/assets/razrez/IShtr2.svg', inputs: ['Height', 'Width', 'Line width']},
-    {src: '/assets/razrez/CircShtr.svg', inputs: ['Radius']},
-    {src: '/assets/razrez/CircCircShtr.svg', inputs: ['Outer radius', 'Inner Radius']},
-]
+// export const profileConst=[
+//     // {src: '/assets/razrez/SquareShtr.svg', inputs: ['Width']},
+//     // {src: '/assets/razrez/SqwSqwShtr.svg', inputs: ['Outer width', 'Inner width']},
+//     // {src: '/assets/razrez/IShtr2.svg', inputs: ['Height', 'Width', 'Line width']},
+//     {src: '/assets/razrez/CircShtr.svg', inputs: ['Radius']},
+//     {src: '/assets/razrez/CircCircShtr.svg', inputs: ['Outer radius', 'Inner Radius']},
+// ]
 
 export const fixationConst = [
     {src: 'none'},

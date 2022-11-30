@@ -1,7 +1,10 @@
 <script>
-    import {profileVal, profileInputs} from "../store";
-    import Input from "../Inputs/Input.svelte";
-    import {profC} from "./constants";
+    import {profileVal, profileInputs, inertiaMoment} from "../../store";
+    import Input from "../../Inputs/Input.svelte";
+    import {profC} from "../constants";
+    import RoundBeam from "./Inputs/RoundBeam.svelte";
+    import Pipe from "./Inputs/Pipe.svelte";
+
 </script>
 
 <style>
@@ -36,13 +39,19 @@
 <div class="column">
     <div class="inline" style="column-gap: 3%;">
         {#each Object.keys(profC) as profile}
-            <label on:click={()=>profileInputs.set([])}>
+            <label on:click={()=>{inertiaMoment.set(0);profileInputs.set([])}}>
                 <input type="radio" bind:group={$profileVal} name="material" class="materialInput" value={profile}/>
                 <img alt={profC[profile].alt} src={profC[profile].img}>
             </label>
         {/each}
     </div>
-    {#each profC[$profileVal].inputs as input, i}
-        <Input title={input.placeholder} bind:value={$profileInputs[i]}/>
-    {/each}
+    {$inertiaMoment}
+    {#if $profileVal === "circle1"}
+        <RoundBeam/>
+    {:else if $profileVal === "circle2"}
+        <Pipe/>
+    {/if}
+    <!--{#each profC[$profileVal].inputs as input, i}-->
+    <!--    <Input title={input.placeholder} bind:value={$profileInputs[i]}/>-->
+    <!--{/each}-->
 </div>

@@ -3,7 +3,7 @@
     import Input from '../Inputs/Input.svelte';
     import { length } from '../store.ts';
     import Icon from "svelte-icon";
-    import Profile from "./Profile.svelte";
+    import Profile from "./ Profile/Profile.svelte";
     import Fixation from "./Fixation.svelte";
 </script>
 
