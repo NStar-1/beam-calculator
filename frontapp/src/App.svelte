@@ -12,7 +12,7 @@
 	.InlinePage{
 		display: flex;
 		flex-direction: row;
-		margin: 60px auto;
+		margin: 60px auto 0 auto;
 		column-gap: 10px;
 		height: auto;
 		width: 100%;
@@ -24,7 +24,6 @@
 		border-radius: 5px;
 		width: 70%;
 		background: white;
-		height: 100vh;
 		box-shadow: 0 0 10px rgba(153, 153, 153, 0.28);
 	}
 	.ADV {
@@ -35,12 +34,10 @@
 
 	h1{
 		color: #ff8d48;
+	}
 
-	}
-	p{
-	}
 	.CalculatorWrapper{
-		height: 70vh;
+		height: 600px;
 		border: #ff8d48 1px solid;
 		margin-top: 20px;
 		display: flex;
@@ -87,5 +84,4 @@
 		</div>
 		<div class="ContentPage ADV">advertising</div>
 	</div>
-	<Input title="something"/>
 </div>
