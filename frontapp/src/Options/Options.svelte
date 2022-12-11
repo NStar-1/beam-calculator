@@ -1,23 +1,30 @@
 <script>
-  import { Accordion, AccordionItem } from "svelte-accessible-accordion";
-  import Input from "../Inputs/Input.svelte";
   import { length } from "../store.ts";
-  import Icon from "svelte-icon";
   import Cut from "./Cut.svelte";
   import Fixation from "./Fixation.svelte";
   import Textfield from "@smui/textfield";
+  import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
 </script>
 
 <Accordion>
-  <AccordionItem title="Length">
-    <Textfield type="number" label="Length" bind:value={$length} />
-  </AccordionItem>
-  <AccordionItem title="Fixation">
-    <Fixation />
-  </AccordionItem>
-  <AccordionItem title="Cut">
-    <Cut />
-  </AccordionItem>
+  <Panel>
+    <Header>Length</Header>
+    <Content>
+      <Textfield type="number" label="Length" bind:value={$length} />
+    </Content>
+  </Panel>
+  <Panel>
+    <Header>Fixation</Header>
+    <Content>
+      <Fixation />
+    </Content>
+  </Panel>
+  <Panel>
+    <Header>Cut</Header>
+    <Content>
+      <Cut />
+    </Content>
+  </Panel>
 </Accordion>
 
 <style>
