@@ -26,7 +26,7 @@
           class="materialInput"
           value={pType}
         />
-        <img alt="square" src={"/assets/razrez/" + data.img + ".svg"} />
+        <img alt="square" src={"assets/razrez/" + data.img + ".svg"} />
       </label>
     {/each}
   </div>

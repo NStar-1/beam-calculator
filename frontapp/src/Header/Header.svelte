@@ -49,7 +49,7 @@
 
 <div class="HeaderWrapper">
     <div class="ContentHeader">
-        <img rel='icon' src='/assets/logo.svg' alt='icon' class="AppName"/>
+        <img rel='icon' src='assets/logo.svg' alt='icon' class="AppName"/>
         <div style="flex-direction: row; display: flex">
             <button>switch lng wbh</button>
             <button on:click={()=> console.log('a')}>
