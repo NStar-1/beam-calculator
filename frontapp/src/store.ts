@@ -52,5 +52,7 @@ export const profileData = writable<Profile>({
   outerRadius: 10,
   innerRadius: 8,
 });
+// TODO add typing
+export const material = writable<number>(1);
 
 export const fixationType = writable({ left: "0", right: "0" });

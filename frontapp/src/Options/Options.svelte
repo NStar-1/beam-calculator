@@ -4,6 +4,7 @@
   import Fixation from "./Fixation.svelte";
   import Textfield from "@smui/textfield";
   import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
+  import Material from "./Material.svelte";
 </script>
 
 <Accordion>
@@ -23,6 +24,12 @@
     <Header>Cut</Header>
     <Content>
       <Cut />
+    </Content>
+  </Panel>
+  <Panel>
+    <Header>Material</Header>
+    <Content>
+      <Material />
     </Content>
   </Panel>
 </Accordion>
