@@ -2,9 +2,9 @@
     import { Accordion, AccordionItem } from "svelte-accessible-accordion";
     import Input from '../Inputs/Input.svelte';
     import { length } from '../store.ts';
-    import Icon from "svelte-icon";
     import Profile from "./ Profile/Profile.svelte";
     import Fixation from "./Fixation.svelte";
+    import Material from "./Material.svelte";
 </script>
 
 <style>
@@ -50,5 +50,8 @@
     </AccordionItem>
     <AccordionItem title="Profile">
         <Profile/>
+    </AccordionItem>
+    <AccordionItem title="Material">
+        <Material/>
     </AccordionItem>
 </Accordion>

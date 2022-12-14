@@ -5,7 +5,6 @@
     let innerD = "0";
     $: console.log($inertiaMoment)
     function countInertiaMoment(){
-        console.log(parseInt('0.1'))
         inertiaMoment.set(0.0491 * (Math.pow(parseFloat(D), 4)-Math.pow(parseFloat(innerD), 4)))
     }
 </script>

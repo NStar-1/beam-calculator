@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Inputs/Pipe.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Inputs/Pipe.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Profile.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Profile.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +29,7 @@
         <option value="Inputs" />
         <option value="Pipe" />
         <option value="RoundBeam" />
+        <option value="Material" />
       </list>
     </option>
   </component>
@@ -50,7 +49,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/beam-calculator/frontapp/src&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/testcr2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -122,6 +121,9 @@
       <workItem from="1669570893542" duration="1692000" />
       <workItem from="1669672329066" duration="3359000" />
       <workItem from="1669843915972" duration="1843000" />
+      <workItem from="1669931523560" duration="1096000" />
+      <workItem from="1670106729738" duration="632000" />
+      <workItem from="1670118008974" duration="154000" />
     </task>
     <servers />
   </component>
