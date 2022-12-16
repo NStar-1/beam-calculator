@@ -5,10 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/Cylinder.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/RoundTube.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/materials.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Inputs/Pipe.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Inputs/Pipe.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Cut.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Cut.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Fixation.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Fixation.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Material.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Material.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +61,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/testcr2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/beam-calculator&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -124,6 +136,8 @@
       <workItem from="1669931523560" duration="1096000" />
       <workItem from="1670106729738" duration="632000" />
       <workItem from="1670118008974" duration="154000" />
+      <workItem from="1671058643114" duration="912000" />
+      <workItem from="1671130737887" duration="2341000" />
     </task>
     <servers />
   </component>
