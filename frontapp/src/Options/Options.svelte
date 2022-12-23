@@ -6,6 +6,8 @@
   import Textfield from "@smui/textfield";
   import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
   import Material from "./Material.svelte";
+  import LoadCases from "./LoadCases.svelte";
+  import {loads} from "../store";
 </script>
 
 <Accordion>
@@ -23,7 +25,7 @@
     </Content>
   </Panel>
   <Panel>
-    <Header>Cut</Header>
+    <Header>Profile</Header>
     <Content>
       <Cut />
     </Content>
@@ -32,6 +34,12 @@
     <Header>Material</Header>
     <Content>
       <Material />
+    </Content>
+  </Panel>
+  <Panel>
+    <Header>Load cases</Header>
+    <Content>
+      <LoadCases/>
     </Content>
   </Panel>
 </Accordion>

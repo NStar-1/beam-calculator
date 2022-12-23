@@ -1,111 +1,60 @@
 <script>
     import {fixationConst} from "./constants";
-    import {fixationType} from "../store";
-    import TextField from "@smui/textfield";
-    import {Accordion, AccordionItem, TreeView} from "carbon-components-svelte";
-    import "carbon-components-svelte/css/g10.css";
+    import "@smui/select"
+    import Select, {Option} from "@smui/select";
+    //make var in the store to store it :)
+    let leftIndex
+    let rightIndex
 
 </script>
 
 <style>
     .fixationWrapper{
         display: flex;
+        margin: 0;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: left;
         column-gap: 5px;
-    }
-
-    .fixationItemContent{
-        margin:5px;
-        display: flex;
-        flex-direction: column;
-        row-gap: 10px;
-    }
-    .inline{
-        padding: 0;
-        display: flex;
-        flex-direction: row;
-        height: 100%;
-        column-gap: 10px;
+        width: 100%;
     }
     img{
-        width:80%;
+        height: 60%;
     }
-    :global([bx--accordion__item]){
-        width: 100%;
+    .label{
+        padding: 0;
+        margin: 0;
+        text-align: left;
     }
 </style>
 
 
 
 <div class="fixationWrapper">
-<!--    <div class="fixationItem">-->
-        <Accordion size="sm">
-            <div style="display: flex; flex-direction: row; width:100%">
-                <AccordionItem title="Left" style="width:100%">
-                    <form class="fixationItemContent">
-                        {#each fixationConst as fixation, i}
-                            <div class="inline">
-                                <input type="radio" name="left" bind:group={$fixationType.left} value={i}/>
-                                {#if fixation.src === 'none'}
-                                    <div>none</div>
-                                {:else}
-                                    <img alt="strong" src={fixation.src}/>
-                                {/if}
-                            </div>
-                        {/each}
-                    </form>
-                </AccordionItem>
-                <AccordionItem title="Right" style="width:100%">
-                    <form class="fixationItemContent">
-                        {#each fixationConst as fixation, i}
-                            <div class="inline">
-                                <input type="radio" name="right" bind:group={$fixationType.right} value={i}/>
-                                {#if fixation.src === 'none'}
-                                    <div>none</div>
-                                {:else}
-                                    <img alt="strong" src={fixation.src} style="transform: scaleX(-1)"/>
-                                {/if}
-                            </div>
-                        {/each}
-                    </form>
-                </AccordionItem>
-            </div>
+    <Select bind:value={leftIndex} label="Left" style="width: 50%">
+        {#each fixationConst as fixation, i}
+            <Option value={i} >
+                {#if fixation.src === 'none'}
+                    <div></div>
+                    <div class="label">{fixation.desc}</div>
+                {:else}
+                    <img alt={fixation.desc} src={fixation.src}/>
+                    <div class="label">{fixation.desc}</div>
+                {/if}
+            </Option>
+        {/each}
 
-        </Accordion>
-
-<!--        <div class="fixationItemTitle">-->
-<!--            Left-->
-<!--        </div>-->
-<!--        <form class="fixationItemContent">-->
-<!--            {#each fixationConst as fixation, i}-->
-<!--                <div class="inline">-->
-<!--                    <input type="radio" name="left" bind:group={$fixationType.left} value={i}/>-->
-<!--                    {#if fixation.src === 'none'}-->
-<!--                        <div>none</div>-->
-<!--                    {:else}-->
-<!--                        <img alt="strong" src={fixation.src}/>-->
-<!--                    {/if}-->
-<!--                </div>-->
-<!--            {/each}-->
-<!--        </form>-->
-
-<!--    </div>-->
-<!--    <div class="fixationItem">-->
-<!--        <div class="fixationItemTitle">-->
-<!--            Right-->
-<!--        </div>-->
-<!--        <form class="fixationItemContent">-->
-<!--            {#each fixationConst as fixation, i}-->
-<!--                <div class="inline">-->
-<!--                    <input type="radio" name="right" bind:group={$fixationType.right} value={i}/>-->
-<!--                    {#if fixation.src === 'none'}-->
-<!--                        <div>none</div>-->
-<!--                    {:else}-->
-<!--                        <img alt="strong" src={fixation.src} style="transform: scaleX(-1)"/>-->
-<!--                    {/if}-->
-<!--                </div>-->
-<!--            {/each}-->
-<!--        </form>-->
-<!--    </div>-->
+    </Select>
+    <Select bind:value={rightIndex} label="Right" style="width: 50%">
+        {#each fixationConst as fixation, i}
+            <Option value={i}  >
+                {#if fixation.src === 'none'}
+                    <div></div>
+                    <div class="label">{fixation.desc}</div>
+                {:else}
+                    <img alt={fixation.desc} src={fixation.src} style={fixation.desc === "fixed end"?"transform: scaleX(-1)":null}/>
+                    <div class="label">{fixation.desc}</div>
+                {/if}
+            </Option>
+        {/each}
+    </Select>
 </div>
