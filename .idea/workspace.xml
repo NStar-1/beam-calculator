@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +39,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/beam-calculator/frontapp/public/assets/razrez&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl$/Ubuntu/home/alex/beam-calculator&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
@@ -103,6 +99,8 @@
       <workItem from="1668942922619" duration="35000" />
       <workItem from="1668954899709" duration="14074000" />
       <workItem from="1668984890957" duration="2715000" />
+      <workItem from="1672590162204" duration="20000" />
+      <workItem from="1672590184013" duration="907000" />
     </task>
     <servers />
   </component>
