@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/LoadCases.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/LoadCases.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,6 +137,10 @@
       <workItem from="1671724683829" duration="1419000" />
       <workItem from="1671808714236" duration="4148000" />
       <workItem from="1671814906844" duration="6946000" />
+      <workItem from="1672612938049" duration="1395000" />
+      <workItem from="1672666721727" duration="594000" />
+      <workItem from="1672684306529" duration="3915000" />
+      <workItem from="1672882972450" duration="1189000" />
     </task>
     <servers />
   </component>

@@ -4,7 +4,7 @@
     import Select, { Option } from '@smui/select';
     import Textfield from "@smui/textfield";
     let active = ""
-    let nodes = [1, $length]
+    let nodes = [1, 2]
 </script>
 
 <style>
@@ -81,6 +81,9 @@
             </div>
         {/if}
     </div>
-    <Textfield type="number" label="angle" bind:value={$loads[active].angle} />
-    <Textfield type="number" label="force" bind:value={$loads[active].force} />
+    <div class="inline">
+        <Textfield type="number" label="angle" bind:value={$loads[active].angle} />
+        <Textfield type="number" label="force" bind:value={$loads[active].force} />
+    </div>
+
 {/if}
