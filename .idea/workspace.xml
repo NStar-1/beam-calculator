@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/LoadCases.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/LoadCases.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,9 +23,14 @@
         <option value="JavaScript File" />
         <option value="Options" />
         <option value="Input" />
-        <option value="TypeScript File" />
         <option value="Cut" />
         <option value="Fixation" />
+        <option value="TypeScript File" />
+        <option value="Inputs" />
+        <option value="Pipe" />
+        <option value="RoundBeam" />
+        <option value="Material" />
+        <option value="LoadCases" />
       </list>
     </option>
   </component>
@@ -43,20 +50,26 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/beam-calculator/frontapp/public/assets/razrez&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/beam-calculator/frontapp/public/assets/other&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/294/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontapp/public/assets/razrez" />
       <recent name="$PROJECT_DIR$/frontapp/public/assets/other" />
+      <recent name="$PROJECT_DIR$/frontapp/src" />
+      <recent name="$PROJECT_DIR$/frontapp/public/assets/razrez" />
       <recent name="$PROJECT_DIR$/frontapp/public/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontapp/src/Options/ Profile" />
       <recent name="$PROJECT_DIR$/frontapp/public/assets/other" />
       <recent name="$PROJECT_DIR$/frontapp/public/assets" />
       <recent name="$PROJECT_DIR$/frontapp/public" />
@@ -103,6 +116,31 @@
       <workItem from="1668942922619" duration="35000" />
       <workItem from="1668954899709" duration="14074000" />
       <workItem from="1668984890957" duration="2715000" />
+      <workItem from="1669460309615" duration="1352000" />
+      <workItem from="1669470789889" duration="1089000" />
+      <workItem from="1669558904449" duration="3900000" />
+      <workItem from="1669570893542" duration="1692000" />
+      <workItem from="1669672329066" duration="3359000" />
+      <workItem from="1669843915972" duration="1843000" />
+      <workItem from="1669931523560" duration="1096000" />
+      <workItem from="1670106729738" duration="632000" />
+      <workItem from="1670118008974" duration="154000" />
+      <workItem from="1671058643114" duration="912000" />
+      <workItem from="1671130737887" duration="2341000" />
+      <workItem from="1671228435784" duration="607000" />
+      <workItem from="1671314231330" duration="1748000" />
+      <workItem from="1671404788185" duration="3674000" />
+      <workItem from="1671486086081" duration="868000" />
+      <workItem from="1671489693887" duration="6773000" />
+      <workItem from="1671561650802" duration="6849000" />
+      <workItem from="1671672527498" duration="1271000" />
+      <workItem from="1671724683829" duration="1419000" />
+      <workItem from="1671808714236" duration="4148000" />
+      <workItem from="1671814906844" duration="6946000" />
+      <workItem from="1672612938049" duration="1395000" />
+      <workItem from="1672666721727" duration="594000" />
+      <workItem from="1672684306529" duration="3915000" />
+      <workItem from="1672882972450" duration="1189000" />
     </task>
     <servers />
   </component>

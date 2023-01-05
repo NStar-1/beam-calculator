@@ -2,7 +2,6 @@
 	import Header from './Header/Header.svelte';
     import Graph from "./Ggraphic/index.svelte"
 	import Options from "./Options/Options.svelte";
-	import Input from './Inputs/Input.svelte'
 </script>
 
 
@@ -45,6 +44,7 @@
 		column-gap: 2%;
 		padding:2%;
 		justify-content: space-between;
+
 	}
 	@media (max-width: 480px) {
 		.InlinePage{
@@ -57,6 +57,7 @@
 	.OptionsWrapper{
 		height: content-box;
 		width: 30%;
+		overflow-y: scroll;
 	}
 	.PictureWrapper{
 		width: 70%;
