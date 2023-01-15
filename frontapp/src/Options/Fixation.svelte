@@ -2,9 +2,7 @@
     import {fixationConst} from "./constants";
     import "@smui/select"
     import Select, {Option} from "@smui/select";
-    //make var in the store to store it :)
-    let leftIndex
-    let rightIndex
+    import {fixationType} from "../store";
 
 </script>
 
@@ -21,6 +19,8 @@
         height: 60%;
     }
     .label{
+        position: absolute;
+        left: 50%;
         padding: 0;
         margin: 0;
         text-align: left;
@@ -30,7 +30,7 @@
 
 
 <div class="fixationWrapper">
-    <Select bind:value={leftIndex} label="Left" style="width: 50%">
+    <Select bind:value={$fixationType.left} label="Left" style="width: 50%">
         {#each fixationConst as fixation, i}
             <Option value={i} >
                 {#if fixation.src === 'none'}
@@ -44,7 +44,7 @@
         {/each}
 
     </Select>
-    <Select bind:value={rightIndex} label="Right" style="width: 50%">
+    <Select bind:value={$fixationType.right} label="Right" style="width: 50%">
         {#each fixationConst as fixation, i}
             <Option value={i}  >
                 {#if fixation.src === 'none'}

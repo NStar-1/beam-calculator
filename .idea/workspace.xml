@@ -6,9 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/public/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/global.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/LoadCases.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/LoadCases.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Fixation.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Fixation.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,14 +55,15 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/alex/Documents/beam-calculator/frontapp/public/assets/other&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl$/Ubuntu/home/alex/frame3dd-wasm-js&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;wsl://Ubuntu@/home/alex/.nvm/versions/node/v18.12.1/bin/node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/294/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2022.3.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -140,7 +146,19 @@
       <workItem from="1672612938049" duration="1395000" />
       <workItem from="1672666721727" duration="594000" />
       <workItem from="1672684306529" duration="3915000" />
-      <workItem from="1672882972450" duration="1189000" />
+      <workItem from="1672882972450" duration="3416000" />
+      <workItem from="1672961342515" duration="2249000" />
+      <workItem from="1672974120390" duration="145000" />
+      <workItem from="1672998279781" duration="848000" />
+      <workItem from="1673353663868" duration="9000" />
+      <workItem from="1673451875132" duration="366000" />
+      <workItem from="1673452518174" duration="3463000" />
+      <workItem from="1673477566288" duration="1138000" />
+      <workItem from="1673633339203" duration="16000" />
+      <workItem from="1673715527775" duration="2513000" />
+      <workItem from="1673737429933" duration="5480000" />
+      <workItem from="1673790607538" duration="1539000" />
+      <workItem from="1673815632643" duration="888000" />
     </task>
     <servers />
   </component>

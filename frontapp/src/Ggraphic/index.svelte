@@ -3,7 +3,8 @@
   import { onMount, afterUpdate, beforeUpdate } from "svelte";
   import { initDefs } from "./util.ts";
   import DimensionLine from "./dimension-line.js";
-  import { length } from "../store.ts";
+  import { length, fixationType } from "../store.ts";
+  import {fixationConst} from "../Options/constants";
   let svg;
 
   const xTicks = d3.axisBottom();
@@ -14,10 +15,14 @@
 
   let clientWidth;
   let clientHeight;
-
+  let currentLeftFix;
   let currentLen;
 
   console.info(clientWidth, clientHeight);
+
+  fixationType.subscribe((value)=>{
+      currentLeftFix = fixationConst[value.left];
+  })
 
   length.subscribe((val) => {
     currentLen = val;
@@ -30,7 +35,6 @@
       .attr("width", "100%")
       .attr("height", "100%")
       .attr("shape-rendering", "geometricPrecision");
-
     svg.call(initDefs);
 
     const height = clientHeight;
@@ -56,11 +60,13 @@
 
     local
       .append("image")
-      .attr("xlink:href", "assets/other/svg%20(14).svg")
-      .attr("width", 120)
-      .attr("height", 120)
-      .attr("y", -60)
-      .attr("x", -68);
+      .attr("id", "leftFix")
+      //.attr("xlink:href", "assets/other/svg%20(14).svg")
+      .attr("xlink:href", fixationConst[$fixationType.left].src)
+        //.attr("width", 120)
+      .attr("height", fixationConst[$fixationType.left].height)
+      .attr("y", fixationConst[$fixationType.left].leftY)
+      .attr("x", fixationConst[$fixationType.left].leftX);
 
     drawing.append("g").attr("class", "x-dimension");
 
@@ -104,18 +110,32 @@
     const dimLimeYEl = local.append("g").attr("class", "dimension-y");
   });
 
+
   afterUpdate(() => {
     const height = clientHeight;
     const width = clientWidth;
-
     const marginRight = 50;
     const drawingOffset = 100;
     const drawingWidth = width - drawingOffset - marginRight;
     const drawingHeight = height - drawingOffset;
-
     const deflection = 50;
 
-    const uniform = d3.scaleLinear().range([0, drawingWidth]);
+    const image = document.getElementById('leftFix');
+    image.href.baseVal = currentLeftFix.src;
+    image.y.baseVal.value = currentLeftFix.leftY;
+    image.x.baseVal.value = currentLeftFix.leftX;
+    image.height.baseVal.value = currentLeftFix.height;
+      // local
+      //     .append("image")
+      //     .attr("id", "leftFix")
+      //     //.attr("xlink:href", "assets/other/svg%20(14).svg")
+      //     .attr("xlink:href", fixationConst[$fixationType.left].src)
+      //     .attr("width", 120)
+      //     .attr("height", 120)
+      //     .attr("y", -60)
+      //     .attr("x", -68);
+
+      const uniform = d3.scaleLinear().range([0, drawingWidth]);
 
     const drawing = svg
       .select(".drawing")

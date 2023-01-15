@@ -11,7 +11,7 @@
 	.InlinePage{
 		display: flex;
 		flex-direction: row;
-		margin: 60px auto 0 auto;
+		margin: 30px auto 0 auto;
 		column-gap: 10px;
 		height: auto;
 		width: 100%;
@@ -36,7 +36,7 @@
 	}
 
 	.CalculatorWrapper{
-		height: 600px;
+		height: 65vh;
 		border: #ff8d48 1px solid;
 		margin-top: 20px;
 		display: flex;

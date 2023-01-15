@@ -74,4 +74,4 @@ export const material = writable<number>(1);
 
 export const loads = writable<Array<IBeamLoad>>([newEmptyLoadObj()]);
 
-export const fixationType = writable({ left: "0", right: "0" });
+export const fixationType = writable({ left: 1, right: 0 });
