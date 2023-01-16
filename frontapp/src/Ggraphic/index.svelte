@@ -1,22 +1,22 @@
 <script>
   import * as d3 from "d3";
-  import { onMount, afterUpdate, beforeUpdate } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
   import { initDefs } from "./util.ts";
   import DimensionLine from "./dimension-line.js";
-  import { length, fixationType } from "../store.ts";
-  import {fixationConst} from "../Options/constants";
+  import { length, fixationType, results } from "../store.ts";
+  import { fixationConst } from "../Options/constants";
   let svg;
 
   const xTicks = d3.axisBottom();
 
   const dimLineX = new DimensionLine().start({ x: 0, y: 0 });
-
   const dimLineY = new DimensionLine();
 
   let clientWidth;
   let clientHeight;
   let currentLeftFix;
   let currentLen;
+  let deflection;
 
   console.info(clientWidth, clientHeight);
 
@@ -37,16 +37,6 @@
       .attr("shape-rendering", "geometricPrecision");
     svg.call(initDefs);
 
-    const height = clientHeight;
-    const width = clientWidth;
-
-    const marginRight = 50;
-    const drawingOffset = 100;
-    const drawingWidth = width - drawingOffset - marginRight;
-    const drawingHeight = height - drawingOffset;
-
-    const deflection = 50;
-
     const drawing = svg.append("g").attr("class", "drawing");
 
     drawing
@@ -54,7 +44,6 @@
       .attr("y", 0)
       .attr("x", 0)
       .style("fill", "none")
-      .style("stroke", "green");
 
     const local = drawing.append("g").attr("class", "drawing-local");
 
@@ -80,7 +69,7 @@
       .attr("stroke-width", 3)
       .attr("shape-rendering", "crispedges");
 
-    const curveEl = local
+    local
       .append("path")
       .attr("class", "loaded-beam")
       .attr("stroke", "blue")
@@ -95,7 +84,7 @@
       .attr("stroke-width", 3)
       .attr("marker-end", "url(#triangle)");
 
-    const forceLabel = local
+    local
       .append("text")
       .attr("class", "force-label")
       .attr("fill", "black")
@@ -106,8 +95,8 @@
 
     drawing.append("g").attr("class", "x-axis");
 
-    const dimLimeXEl = local.append("g").attr("class", "dimension-x");
-    const dimLimeYEl = local.append("g").attr("class", "dimension-y");
+    local.append("g").attr("class", "dimension-x");
+    local.append("g").attr("class", "dimension-y");
   });
 
 
@@ -118,7 +107,6 @@
     const drawingOffset = 100;
     const drawingWidth = width - drawingOffset - marginRight;
     const drawingHeight = height - drawingOffset;
-    const deflection = 50;
 
     const image = document.getElementById('leftFix');
     image.href.baseVal = currentLeftFix.src;
@@ -135,7 +123,7 @@
       //     .attr("y", -60)
       //     .attr("x", -68);
 
-      const uniform = d3.scaleLinear().range([0, drawingWidth]);
+    const uniform = d3.scaleLinear().range([0, drawingWidth]);
 
     const drawing = svg
       .select(".drawing")
@@ -154,6 +142,16 @@
       .attr("transform", `translate(0, ${drawingHeight / 2})`);
 
     length.subscribe((val) => {
+      update();
+    });
+
+    results.subscribe((res) => {
+      deflection = res.D ? -res.D[1].y : 50
+      update();
+    })
+
+    function update() {
+      const val = currentLen;
       uniform.domain([0, val]);
 
       xTicks.scale(uniform);
@@ -195,7 +193,7 @@
 
       local.select(".dimension-x").call(dimLineX);
       local.select(".dimension-y").call(dimLineY);
-    });
+    }
   });
 </script>
 
