@@ -10,6 +10,7 @@
         height: 60px;
         background: #ff9859;
         box-shadow: 10px 0 50px rgba(153, 153, 153, 0.54);
+        z-index: 1;
     }
     .ContentHeader{
         display: flex;
