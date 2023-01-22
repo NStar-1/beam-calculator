@@ -3,6 +3,7 @@
   import { onMount, afterUpdate } from "svelte";
   import { initDefs } from "./util.ts";
   import DimensionLine from "./dimension-line.js";
+  import NodeNumber from "./node-number.ts"
   import { length, fixationType, results } from "../store.ts";
   import { fixationConst } from "../Options/constants";
   let svg;
@@ -11,22 +12,16 @@
 
   const dimLineX = new DimensionLine().start({ x: 0, y: 0 });
   const dimLineY = new DimensionLine();
+  const nodeNumber = new NodeNumber();
 
   let clientWidth;
   let clientHeight;
   let currentLeftFix;
-  let currentLen;
   let deflection;
-
-  console.info(clientWidth, clientHeight);
 
   fixationType.subscribe((value)=>{
       currentLeftFix = fixationConst[value.left];
   })
-
-  length.subscribe((val) => {
-    currentLen = val;
-  });
 
   onMount(() => {
     svg = d3
@@ -141,17 +136,13 @@
       .select(".drawing-local")
       .attr("transform", `translate(0, ${drawingHeight / 2})`);
 
-    length.subscribe((val) => {
-      update();
-    });
-
     results.subscribe((res) => {
       deflection = res.D ? -res.D[1].y : 50
       update();
     })
 
     function update() {
-      const val = currentLen;
+      const val = $length;
       uniform.domain([0, val]);
 
       xTicks.scale(uniform);
@@ -193,6 +184,7 @@
 
       local.select(".dimension-x").call(dimLineX);
       local.select(".dimension-y").call(dimLineY);
+      local.call(nodeNumber)
     }
   });
 </script>

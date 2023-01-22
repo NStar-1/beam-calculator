@@ -5,6 +5,11 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 export default defineConfig({
   plugins: [svelte()],
   base: "/beam-calculator/",
+  resolve: {
+    alias: {
+      src: "/src",
+    },
+  },
   optimizeDeps: {
     exclude: ["frame3dd-wasm-js"],
   },

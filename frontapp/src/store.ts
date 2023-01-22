@@ -62,9 +62,9 @@ export function newEmptyLoadObj(){
 
 export const length = writable(300);
 
-
 export const cutVal = writable(0);
 export const cutInputs = writable([]);
+
 export const profileType = writable<ProfileType>(ProfileType.CYLINDRICAL);
 export const profileData = writable<Profile>({
   outerRadius: 10,
@@ -84,6 +84,7 @@ length.subscribe(async (value) => {
     const Frame3DD = await Frame3ddLoader()
     const model = Frame3DD.inputScopeJSON
     model.points[1].x = value;
+    console.log(model.points)
     const res = Frame3DD.calculate(model)
     results.set(res.result)
 })

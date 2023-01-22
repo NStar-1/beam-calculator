@@ -1,6 +1,6 @@
 <script>
 	import Header from './Header/Header.svelte';
-    import Graph from "./Ggraphic/index.svelte"
+    import Graph from "./Ggraphic/newchart.svelte"
 	import Options from "./Options/Options.svelte";
 	import {dictionary, locale, _} from "svelte-i18n"
 	import {dict} from "./dictionary";
@@ -76,8 +76,8 @@
 	<div class="InlinePage">
 		<div class="ContentPage ADV">advertising</div>
 		<div class="ContentPage">
-			<h1>Beam calculator(Title){$_('app.title')}</h1>
-			<p>Some description about calculator(Description)</p>
+			<h1>{$_('app.title')}</h1>
+			<p>{$_('app.desc')}</p>
 			<div class="CalculatorWrapper">
 				<div class="OptionsWrapper">
 					<Options/>

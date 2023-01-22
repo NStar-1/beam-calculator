@@ -5,56 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f74a12a0-8251-4618-a783-9b178c51fade" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontapp/custom.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/public/assets/other/close.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Inputs/Pipe.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Inputs/RoundBeam.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Profile.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/LoadCases.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/arrow.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/arrow1.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/CrossFull.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/close.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (10).svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (11).svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (12).svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (13).svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (14).svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (9).svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/CircCircFull.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/CircCircShtr.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/CircFull.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/CircShtr.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/IFull.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/IShtr.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/IShtr2.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/SquareShtr.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/SqwFull.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/SqwSqwFull.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/SqwSqwShtr.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/shortlogo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontapp/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/beam-calculator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/beam-calculator.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/base-component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/dimension-line.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/force-line.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/markers.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/newchart.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/node-number.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/node-number.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/svelte.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/tsconfig.node.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/public/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/global.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/Graphic.svelte" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Fixation.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Fixation.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Material.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Material.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontapp/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/dictionary.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/dictionary.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/src/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontapp/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -109,6 +75,7 @@
       <workItem from="1673985077286" duration="3003000" />
       <workItem from="1674082415126" duration="1173000" />
       <workItem from="1674398801066" duration="258000" />
+      <workItem from="1674400206057" duration="130000" />
     </task>
     <servers />
   </component>
