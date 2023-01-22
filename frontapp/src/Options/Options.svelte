@@ -1,13 +1,11 @@
 <script>
-
-  import { length } from "../store.ts";
+  import { length } from "../store";
   import Cut from "./Cut.svelte";
   import Fixation from "./Fixation.svelte";
   import Textfield from "@smui/textfield";
   import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
   import Material from "./Material.svelte";
   import LoadCases from "./LoadCases.svelte";
-  import {loads} from "../store";
 </script>
 
 <Accordion>

@@ -1,5 +1,7 @@
-import { writable } from "svelte/store";
-import Frame3ddLoader from 'frame3dd-wasm-js';
+import { writable, get } from "svelte/store";
+import Frame3ddLoader from "frame3dd-wasm-js";
+import materials from "./materials";
+import type { Material } from "./materials";
 
 export enum ProfileType {
   UNSET,
@@ -47,20 +49,20 @@ export type TBeamProfile = {
 export type IBeamLoad = {
   type: string;
   x: Array<number>;
-  angle:number;
+  angle: number;
   force: number;
 };
 
-export function newEmptyLoadObj(){
+export function newEmptyLoadObj() {
   return {
-    type: 'pointed',
+    type: "pointed",
     x: [0],
     angle: 90,
-    force: 0
+    force: 0,
   };
 }
 
-export const length = writable(300);
+export const length = writable(2000);
 
 export const cutVal = writable(0);
 export const cutInputs = writable([]);
@@ -70,21 +72,42 @@ export const profileData = writable<Profile>({
   outerRadius: 10,
   innerRadius: 8,
 });
+
 // TODO add typing
-export const material = writable<number>(1);
+export const material_id = writable<number>(1);
+
+export const material = writable<Material>(materials[0]);
 
 export const loads = writable<Array<IBeamLoad>>([newEmptyLoadObj()]);
 
 export const fixationType = writable({ left: 1, right: 0 });
 
-export const results = writable({})
-export const context = writable({})
+export const results = writable({});
+export const context = writable({});
 
-length.subscribe(async (value) => {
-    const Frame3DD = await Frame3ddLoader()
-    const model = Frame3DD.inputScopeJSON
-    model.points[1].x = value;
-    console.log(model.points)
-    const res = Frame3DD.calculate(model)
-    results.set(res.result)
-})
+const solve_model = async function () {
+  const Frame3DD = await Frame3ddLoader();
+  const model = Frame3DD.inputScopeJSON;
+  model.points[1].x = get(length);
+  const mat = get(material);
+  model.material.E = mat.E;
+  model.material.G = mat.G;
+  // FIXME not sure
+  model.material.density = mat.density / 1_000_000;
+  console.log(model);
+  console.log(model.points);
+  const res = Frame3DD.calculate(model);
+  results.set(res.result);
+};
+
+length.subscribe(async () => {
+  await solve_model();
+});
+
+material_id.subscribe((value) => {
+  material.set(materials[value]);
+});
+
+material.subscribe(async () => {
+  await solve_model();
+});

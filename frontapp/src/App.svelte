@@ -60,7 +60,8 @@
 	}
 	.OptionsWrapper{
 		height: content-box;
-		width: 30%;
+		width: 300px;
+		min-width: 30%;
 		overflow-y: scroll;
 	}
 	.PictureWrapper{
