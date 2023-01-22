@@ -1,5 +1,5 @@
 <script language="ts">
-  import { length, fixationType, results } from "src/store";
+  import { material, length, fixationType, results } from "src/store";
   import { scaleLinear, path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
   import ForceLine from "./force-line.svelte";
@@ -43,6 +43,12 @@
       class="drawing"
       transform="translate({drawingOffset / 2}, {drawingOffset / 2})"
     >
+      <text class="material-info">
+        <tspan x={0} dy=".6em">Material: {$material.name}</tspan>
+        <tspan x={0} dy="1.2em">E: {$material.E}</tspan>
+        <tspan x={0} dy="1.2em">G: {$material.G}</tspan>
+      </text>
+
       <g class="drawing-local" transform="translate(0, {drawingHeight / 2})">
         <g class="x-dimension" />
         <line class="line" x1={0} y1={0} x2={uniform($length)} y2="0" />
@@ -84,5 +90,10 @@
     stroke: blue;
     stroke-width: 3;
     fill: none;
+  }
+
+  .material-info {
+    font-size: 18px;
+    font-family: monospace;
   }
 </style>
