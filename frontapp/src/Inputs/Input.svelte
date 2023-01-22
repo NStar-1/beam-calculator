@@ -1,8 +1,7 @@
 <script>
-    import {afterUpdate} from "svelte";
     export let title;
+    export let onChange;
     export let value = '';
-    console.log(value)
 </script>
 
 <style>
@@ -17,4 +16,4 @@
     }
 </style>
 
-<input placeholder={title} bind:value={value}/>
+<input placeholder={title} bind:value={value} on:input={onChange}/>

@@ -1,27 +1,26 @@
 <script>
+
   import { length } from "../store.ts";
   import Cut from "./Cut.svelte";
   import Fixation from "./Fixation.svelte";
   import Textfield from "@smui/textfield";
   import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
   import Material from "./Material.svelte";
+  import LoadCases from "./LoadCases.svelte";
+  import {loads} from "../store";
 </script>
 
 <Accordion>
-  <Panel>
-    <Header>Length</Header>
+  <Panel open>
+    <Header>Beam configuration</Header>
     <Content>
       <Textfield type="number" label="Length" bind:value={$length} />
-    </Content>
-  </Panel>
-  <Panel>
-    <Header>Fixation</Header>
-    <Content>
+      <div style="margin: 10px 0">fixation type:</div>
       <Fixation />
     </Content>
   </Panel>
   <Panel>
-    <Header>Cut</Header>
+    <Header>Profile</Header>
     <Content>
       <Cut />
     </Content>
@@ -32,36 +31,14 @@
       <Material />
     </Content>
   </Panel>
+  <Panel>
+    <Header>Load cases</Header>
+    <Content>
+      <LoadCases/>
+    </Content>
+  </Panel>
 </Accordion>
 
 <style>
-  :global([data-accordion]) {
-    list-style: none;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-  :global([data-accordion-item] button) {
-    border-radius: 0;
-    border: 1px solid #ff9859;
-    background: #ff9859;
-    font: inherit;
-    line-height: inherit;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    text-align: left;
-    margin: 0;
-    color: white;
-  }
-  :global([data-accordion-item] button):hover {
-    background: #ff8d48;
-  }
-  :global([data-accordion-item] > div) {
-    padding: 5%;
-  }
-  :global([data-accordion-item]) {
-    border: 1px solid #ff9859;
-    margin-bottom: 1rem;
-  }
+
 </style>

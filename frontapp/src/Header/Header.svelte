@@ -1,4 +1,7 @@
 <script>
+    import Switch from '@smui/switch';
+    let lng = false;
+    import {locale} from "svelte-i18n";
 </script>
 
 <style>
@@ -10,6 +13,7 @@
         height: 60px;
         background: #ff9859;
         box-shadow: 10px 0 50px rgba(153, 153, 153, 0.54);
+        z-index: 1;
     }
     .ContentHeader{
         display: flex;
@@ -51,7 +55,7 @@
     <div class="ContentHeader">
         <img rel='icon' src='assets/logo.svg' alt='icon' class="AppName"/>
         <div style="flex-direction: row; display: flex">
-            <button>switch lng wbh</button>
+            <Switch bind:checked={lng} color="secondary" icons={false} on:SMUISwitch:change={() => (locale.set(lng?"ru":"en"))}/>
             <button on:click={()=> console.log('a')}>
                 About us
             </button>

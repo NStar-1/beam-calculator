@@ -2,7 +2,10 @@
 	import Header from './Header/Header.svelte';
     import Graph from "./Ggraphic/index.svelte"
 	import Options from "./Options/Options.svelte";
-	import Input from './Inputs/Input.svelte'
+	import {dictionary, locale, _} from "svelte-i18n"
+	import {dict} from "./dictionary";
+	dictionary.set(dict)
+	locale.set("en")
 </script>
 
 
@@ -12,7 +15,7 @@
 	.InlinePage{
 		display: flex;
 		flex-direction: row;
-		margin: 60px auto 0 auto;
+		margin: 30px auto 0 auto;
 		column-gap: 10px;
 		height: auto;
 		width: 100%;
@@ -37,7 +40,7 @@
 	}
 
 	.CalculatorWrapper{
-		height: 600px;
+		height: 65vh;
 		border: #ff8d48 1px solid;
 		margin-top: 20px;
 		display: flex;
@@ -45,6 +48,7 @@
 		column-gap: 2%;
 		padding:2%;
 		justify-content: space-between;
+
 	}
 	@media (max-width: 480px) {
 		.InlinePage{
@@ -57,6 +61,7 @@
 	.OptionsWrapper{
 		height: content-box;
 		width: 30%;
+		overflow-y: scroll;
 	}
 	.PictureWrapper{
 		width: 70%;
@@ -71,7 +76,7 @@
 	<div class="InlinePage">
 		<div class="ContentPage ADV">advertising</div>
 		<div class="ContentPage">
-			<h1>Beam calculator(Title)</h1>
+			<h1>Beam calculator(Title){$_('app.title')}</h1>
 			<p>Some description about calculator(Description)</p>
 			<div class="CalculatorWrapper">
 				<div class="OptionsWrapper">

@@ -1,8 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="">
+    <list default="true" id="f74a12a0-8251-4618-a783-9b178c51fade" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontapp/custom.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/public/assets/other/close.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Inputs/Pipe.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Inputs/RoundBeam.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/ Profile/Profile.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/Options/LoadCases.svelte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/arrow.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/arrow1.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/CrossFull.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/close.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (10).svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (11).svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (12).svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (13).svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (14).svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/other/svg (9).svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/CircCircFull.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/CircCircShtr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/CircFull.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/CircShtr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/IFull.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/IShtr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/IShtr2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/SquareShtr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/SqwFull.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/SqwSqwFull.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/razrez/SqwSqwShtr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/src/assets/shortlogo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontapp/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/beam-calculator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/beam-calculator.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/public/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/public/global.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/App.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/Graphic.svelte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Ggraphic/index.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Header/Header.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Inputs/Input.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Fixation.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Fixation.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Material.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Material.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/Options.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/Options/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/src/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/src/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontapp/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontapp/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,14 +65,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Header" />
-        <option value="Graphic" />
         <option value="JavaScript File" />
-        <option value="Options" />
-        <option value="Input" />
-        <option value="TypeScript File" />
-        <option value="Cut" />
-        <option value="Fixation" />
       </list>
     </option>
   </component>
@@ -29,7 +75,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2FmDQzoDtGsWt1r1uhD5Y5u69aj" />
+  <component name="ProjectId" id="2KT47mr4K6Xocx02ogg2mxVqD4l" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -39,83 +85,34 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;//wsl$/Ubuntu/home/alex/beam-calculator&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/281/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontapp/public/assets/razrez" />
-      <recent name="$PROJECT_DIR$/frontapp/public/assets/other" />
-      <recent name="$PROJECT_DIR$/frontapp/public/assets" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontapp/public/assets/other" />
-      <recent name="$PROJECT_DIR$/frontapp/public/assets" />
-      <recent name="$PROJECT_DIR$/frontapp/public" />
+      <recent name="\\wsl$\Ubuntu\home\alex\beam-calculator\frontapp\src" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b9b88354-b9f8-457c-87b1-27efa9385db4" name="Changes" comment="" />
-      <created>1665088354327</created>
+      <changelist id="f74a12a0-8251-4618-a783-9b178c51fade" name="Changes" comment="" />
+      <created>1673985074982</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1665088354327</updated>
-      <workItem from="1665088355756" duration="369000" />
-      <workItem from="1665356009992" duration="2278000" />
-      <workItem from="1665416568080" duration="1731000" />
-      <workItem from="1665432841422" duration="9154000" />
-      <workItem from="1665448697920" duration="2209000" />
-      <workItem from="1665565560218" duration="1228000" />
-      <workItem from="1665688004461" duration="5546000" />
-      <workItem from="1665824311482" duration="638000" />
-      <workItem from="1666215209992" duration="1973000" />
-      <workItem from="1666378777466" duration="1612000" />
-      <workItem from="1666662368290" duration="4799000" />
-      <workItem from="1667080144441" duration="4809000" />
-      <workItem from="1667135160836" duration="3849000" />
-      <workItem from="1667145057123" duration="3455000" />
-      <workItem from="1667177267576" duration="17000" />
-      <workItem from="1667350801958" duration="499000" />
-      <workItem from="1667492832041" duration="606000" />
-      <workItem from="1667504331849" duration="599000" />
-      <workItem from="1667842470972" duration="3323000" />
-      <workItem from="1668276333664" duration="3069000" />
-      <workItem from="1668292589449" duration="6405000" />
-      <workItem from="1668363693793" duration="6834000" />
-      <workItem from="1668458882509" duration="1756000" />
-      <workItem from="1668514776960" duration="656000" />
-      <workItem from="1668601023293" duration="2329000" />
-      <workItem from="1668606410777" duration="406000" />
-      <workItem from="1668628188318" duration="1877000" />
-      <workItem from="1668809700904" duration="1100000" />
-      <workItem from="1668872053739" duration="21000" />
-      <workItem from="1668901057855" duration="2857000" />
-      <workItem from="1668942922619" duration="35000" />
-      <workItem from="1668954899709" duration="14074000" />
-      <workItem from="1668984890957" duration="2715000" />
-      <workItem from="1672590162204" duration="20000" />
-      <workItem from="1672590184013" duration="907000" />
+      <updated>1673985074982</updated>
+      <workItem from="1673985077286" duration="3003000" />
+      <workItem from="1674082415126" duration="1173000" />
+      <workItem from="1674398801066" duration="258000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

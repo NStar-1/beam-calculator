@@ -1,4 +1,5 @@
 import { writable } from "svelte/store";
+import Frame3ddLoader from 'frame3dd-wasm-js';
 
 export enum ProfileType {
   UNSET,
@@ -43,7 +44,24 @@ export type TBeamProfile = {
   thickness: number;
 };
 
+export type IBeamLoad = {
+  type: string;
+  x: Array<number>;
+  angle:number;
+  force: number;
+};
+
+export function newEmptyLoadObj(){
+  return {
+    type: 'pointed',
+    x: [0],
+    angle: 90,
+    force: 0
+  };
+}
+
 export const length = writable(300);
+
 
 export const cutVal = writable(0);
 export const cutInputs = writable([]);
@@ -55,4 +73,17 @@ export const profileData = writable<Profile>({
 // TODO add typing
 export const material = writable<number>(1);
 
-export const fixationType = writable({ left: "0", right: "0" });
+export const loads = writable<Array<IBeamLoad>>([newEmptyLoadObj()]);
+
+export const fixationType = writable({ left: 1, right: 0 });
+
+export const results = writable({})
+export const context = writable({})
+
+length.subscribe(async (value) => {
+    const Frame3DD = await Frame3ddLoader()
+    const model = Frame3DD.inputScopeJSON
+    model.points[1].x = value;
+    const res = Frame3DD.calculate(model)
+    results.set(res.result)
+})
