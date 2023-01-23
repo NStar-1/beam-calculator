@@ -1,7 +1,8 @@
 <script>
   import Textfield from "@smui/textfield";
   import { profileData } from "../store.ts";
+  import {_} from "svelte-i18n";
 </script>
 
-<Textfield label="Outer Diameter" bind:value={$profileData.outerRadius} />
-<Textfield label="Inner Diameter" bind:value={$profileData.innerRadius} />
+<Textfield label={$_('options.profile.roundTube.outer')} bind:value={$profileData.outerRadius} />
+<Textfield label={$_('options.profile.roundTube.inner')} bind:value={$profileData.innerRadius} />

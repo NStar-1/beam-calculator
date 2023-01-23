@@ -1,7 +1,7 @@
 <script>
     import Switch from '@smui/switch';
     let lng = false;
-    import {locale} from "svelte-i18n";
+    import {locale, _} from "svelte-i18n";
 </script>
 
 <style>
@@ -57,7 +57,7 @@
         <div style="flex-direction: row; display: flex">
             <Switch bind:checked={lng} color="secondary" icons={false} on:SMUISwitch:change={() => (locale.set(lng?"ru":"en"))}/>
             <button on:click={()=> console.log('a')}>
-                About us
+                {$_('app.about')}
             </button>
         </div>
 
