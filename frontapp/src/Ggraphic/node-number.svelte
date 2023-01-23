@@ -13,14 +13,14 @@
 
 <style>
   circle {
-    stroke: green;
-    stroke-width: 2;
-    fill: none;
+    stroke: none;
+    fill: mediumseagreen;
   }
 
   text {
     font-size: 20px;
     font-family: monospace;
-    fill: green;
+    font-weight: bold;
+    fill: white;
   }
 </style>
