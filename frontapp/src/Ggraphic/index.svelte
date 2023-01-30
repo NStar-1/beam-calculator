@@ -3,7 +3,7 @@
   import { onMount, afterUpdate } from "svelte";
   import { initDefs } from "./util.ts";
   import DimensionLine from "./dimension-line.js";
-  import NodeNumber from "./node-number.ts"
+  import NodeNumber from "./node-number.ts";
   import { length, fixationType, results } from "../store.ts";
   import { fixationConst } from "../Options/constants";
   let svg;
@@ -19,9 +19,9 @@
   let currentLeftFix;
   let deflection;
 
-  fixationType.subscribe((value)=>{
-      currentLeftFix = fixationConst[value.left];
-  })
+  fixationType.subscribe((value) => {
+    currentLeftFix = fixationConst[value.left];
+  });
 
   onMount(() => {
     svg = d3
@@ -34,11 +34,7 @@
 
     const drawing = svg.append("g").attr("class", "drawing");
 
-    drawing
-      .append("rect")
-      .attr("y", 0)
-      .attr("x", 0)
-      .style("fill", "none")
+    drawing.append("rect").attr("y", 0).attr("x", 0).style("fill", "none");
 
     const local = drawing.append("g").attr("class", "drawing-local");
 
@@ -47,7 +43,7 @@
       .attr("id", "leftFix")
       //.attr("xlink:href", "assets/other/svg%20(14).svg")
       .attr("xlink:href", fixationConst[$fixationType.left].src)
-        //.attr("width", 120)
+      //.attr("width", 120)
       .attr("height", fixationConst[$fixationType.left].height)
       .attr("y", fixationConst[$fixationType.left].leftY)
       .attr("x", fixationConst[$fixationType.left].leftX);
@@ -94,7 +90,6 @@
     local.append("g").attr("class", "dimension-y");
   });
 
-
   afterUpdate(() => {
     const height = clientHeight;
     const width = clientWidth;
@@ -103,20 +98,20 @@
     const drawingWidth = width - drawingOffset - marginRight;
     const drawingHeight = height - drawingOffset;
 
-    const image = document.getElementById('leftFix');
+    const image = document.getElementById("leftFix");
     image.href.baseVal = currentLeftFix.src;
     image.y.baseVal.value = currentLeftFix.leftY;
     image.x.baseVal.value = currentLeftFix.leftX;
     image.height.baseVal.value = currentLeftFix.height;
-      // local
-      //     .append("image")
-      //     .attr("id", "leftFix")
-      //     //.attr("xlink:href", "assets/other/svg%20(14).svg")
-      //     .attr("xlink:href", fixationConst[$fixationType.left].src)
-      //     .attr("width", 120)
-      //     .attr("height", 120)
-      //     .attr("y", -60)
-      //     .attr("x", -68);
+    // local
+    //     .append("image")
+    //     .attr("id", "leftFix")
+    //     //.attr("xlink:href", "assets/other/svg%20(14).svg")
+    //     .attr("xlink:href", fixationConst[$fixationType.left].src)
+    //     .attr("width", 120)
+    //     .attr("height", 120)
+    //     .attr("y", -60)
+    //     .attr("x", -68);
 
     const uniform = d3.scaleLinear().range([0, drawingWidth]);
 
@@ -137,9 +132,9 @@
       .attr("transform", `translate(0, ${drawingHeight / 2})`);
 
     results.subscribe((res) => {
-      deflection = res.D ? -res.D[1].y : 50
+      deflection = res.D ? -res.D[1].y : 50;
       update();
-    })
+    });
 
     function update() {
       const val = $length;
@@ -184,7 +179,7 @@
 
       local.select(".dimension-x").call(dimLineX);
       local.select(".dimension-y").call(dimLineY);
-      local.call(nodeNumber)
+      local.call(nodeNumber);
     }
   });
 </script>

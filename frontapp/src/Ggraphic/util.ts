@@ -30,7 +30,6 @@ export function DimensionLine() {
   // Calculated
   const linePosY = -tickLength - tickOffset + lineOffset;
 
-
   const scope = {};
 
   const bound = function (
@@ -57,7 +56,6 @@ export function dimensionLine([{ x: x0, y: y0 }, { x: x1, y: y1 }]: [
   Point,
   Point
 ]) {
-
   const group = d3
     .create("svg:g")
     .attr("transform", `rotate(${rot}, ${x0}, ${y0}) translate(${x0}, ${y0})`);

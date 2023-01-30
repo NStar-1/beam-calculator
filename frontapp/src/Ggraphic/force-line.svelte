@@ -11,21 +11,9 @@
 </script>
 
 <g transform="translate({scale(x0)}, {scale(y0)})">
-        <line
-          class="force-line"
-          y1={0}
-          x1={0}
-          x2={scale(dx)}
-          y2={scale(dy)}
-        />
-        <text
-          class="force-label"
-          x={15}
-          y={scale(dy) + 5}
-        >
-          F = 10H
-        </text>
-      </g>
+  <line class="force-line" y1={0} x1={0} x2={scale(dx)} y2={scale(dy)} />
+  <text class="force-label" x={15} y={scale(dy) + 5}> F = 10H </text>
+</g>
 
 <style>
   .force-line {
