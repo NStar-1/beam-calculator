@@ -63,6 +63,8 @@ export function newEmptyLoadObj() {
   };
 }
 
+export const isPhone = writable(false);
+
 export const length = writable(7000);
 
 export const cutVal = writable(0);

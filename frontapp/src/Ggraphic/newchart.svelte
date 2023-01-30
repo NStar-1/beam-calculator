@@ -1,5 +1,5 @@
 <script language="ts">
-  import { material, length, fixationType, results } from "src/store";
+  import { isPhone, material, length, fixationType, results } from "src/store";
   import { scaleLinear, path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
   import ForceLine from "./force-line.svelte";
@@ -7,8 +7,8 @@
   import Markers from "./markers.svelte";
   let clientWidth;
   let clientHeight;
-  const marginRight = 50;
-  const drawingOffset = 100;
+  const marginRight = 70;
+  let drawingOffset;
 
   let drawingWidth;
 
@@ -19,6 +19,7 @@
   let curve;
   let deflection;
   $: {
+    drawingOffset = $isPhone ? 50 : 100;
     deflection = $results.D ? -$results.D[1].y : 50;
     console.log(deflection);
     drawingWidth = clientWidth - drawingOffset - marginRight;

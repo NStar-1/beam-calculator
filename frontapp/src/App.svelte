@@ -5,11 +5,12 @@
   import { dictionary, locale, _ } from "svelte-i18n";
   import { dict } from "./dictionary";
   import { onMount } from "svelte";
+  import { isPhone } from "./store";
   dictionary.set(dict);
   locale.set("en");
-  let isPhone;
+
   onMount(() => {
-    isPhone = window.matchMedia("(max-width: 480px)").matches;
+    isPhone.set(window.matchMedia("(max-width: 480px)").matches);
   });
 </script>
 
@@ -21,7 +22,7 @@
       <h1>{$_("app.title")}</h1>
       <p>{$_("app.desc")}</p>
       <div class="CalculatorWrapper">
-        {#if isPhone}
+        {#if $isPhone}
           <div class="PictureWrapper">
             <Graph />
           </div>
