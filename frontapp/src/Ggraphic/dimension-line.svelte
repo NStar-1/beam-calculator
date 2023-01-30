@@ -9,6 +9,7 @@
   const lineOffset = 10; // From the top of the tick
   const tickLength = 45; // Overall tick length
   const tickOffset = 10; // distance betweeb the Point and tick start position
+  const minScreenLiength = 30;
 
   // Calculated
   const linePosY = -tickLength - tickOffset + lineOffset;
@@ -24,29 +25,55 @@
   }
 
   // Screen-space coordinates
-  let effectiveLength: number;
-  let effectiveX0: number;
-  let effectiveY0: number;
+  let screenLength: number;
+  let screenX0: number;
+  let screenY0: number;
+  let isShort: boolean = false;
   $: {
-    effectiveLength = scale(length);
-    effectiveX0 = scale(x0);
-    effectiveY0 = scale(y0);
+    screenLength = scale(length);
+    screenX0 = scale(x0);
+    screenY0 = scale(y0);
+    isShort = screenLength < minScreenLiength;
   }
 </script>
 
 <g
   transform="
-        rotate({rot}, {effectiveX0}, {effectiveY0})
-        translate({effectiveX0} {effectiveY0})
+        rotate({rot}, {screenX0}, {screenY0})
+        translate({screenX0} {screenY0})
     "
 >
-  <line
-    x1={5}
-    y1={linePosY}
-    x2={effectiveLength - 5}
-    y2={linePosY}
-    class="dimension"
-  />
+  {#if isShort}
+    <line
+      x1={-40}
+      y1={linePosY}
+      x2={-5}
+      y2={linePosY}
+      class="dimension arrow-end"
+    />
+    <line
+      x1={0}
+      y1={linePosY}
+      x2={screenLength}
+      y2={linePosY}
+      class="dimension"
+    />
+    <line
+      x1={screenLength + 30}
+      y1={linePosY}
+      x2={screenLength + 5}
+      y2={linePosY}
+      class="dimension arrow-end"
+    />
+  {:else}
+    <line
+      x1={5}
+      y1={linePosY}
+      x2={screenLength - 5}
+      y2={linePosY}
+      class="dimension arrow-both"
+    />
+  {/if}
 
   <line
     x1={0}
@@ -57,21 +84,30 @@
   />
 
   <line
-    x1={effectiveLength}
+    x1={screenLength}
     y1={-tickOffset}
-    x2={effectiveLength}
+    x2={screenLength}
     y2={-tickOffset - tickLength}
     class="tick"
   />
 
-  <text x={effectiveLength / 2} y={-tickOffset - tickLength}> {text}</text>
+  <text x={isShort ? -25 : screenLength / 2} y={-tickOffset - tickLength}
+    >{text}</text
+  >
 </g>
 
 <style>
   .dimension {
     stroke: black;
     stroke-width: 2;
+  }
+
+  .arrow-both {
     marker-start: url(#triangle);
+    marker-end: url(#triangle);
+  }
+
+  .arrow-end {
     marker-end: url(#triangle);
   }
 
