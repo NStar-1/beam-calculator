@@ -8,11 +8,21 @@
 	dictionary.set(dict)
 	locale.set("en")
 	onMount(()=>{
+			// if(window.matchMedia('(max-width: 480px)').matches)
+			// {
+			// 	let options = document.getElementById('options');
+			// 	let picture = document.getElementById('picture');
+			// 	picture.parentNode.appendChild(options);
+			// }
+			let calcBody = document.querySelector(".CalculatorWrapper")
 			if(window.matchMedia('(max-width: 480px)').matches)
 			{
-				let options = document.getElementById('options');
-				let picture = document.getElementById('picture');
-				picture.parentNode.appendChild(options);
+				let template = document.querySelector("#mobile")
+				calcBody.appendChild(template.content.cloneNode(true))
+			}
+			else{
+				let template = document.querySelector("#desktop")
+				calcBody.appendChild(template.content.cloneNode(true))
 			}
 	})
 
@@ -114,14 +124,26 @@
 			<h1>{$_('app.title')}</h1>
 			<p>{$_('app.desc')}</p>
 			<div class="CalculatorWrapper">
-				<div class="OptionsWrapper" id="options">
-					<Options/>
-				</div>
-				<div class="PictureWrapper" id="picture">
-					<Graph/>
-				</div>
+				
 			</div>
 		</div>
 		<div class="ContentPage ADV">advertising</div>
 	</div>
 </div>
+
+<template id="desktop">
+	<div class="OptionsWrapper" >
+		<Options/>
+	</div>
+	<div class="PictureWrapper">
+		<Graph/>
+	</div>
+</template>
+<template id="mobile">
+	<div class="PictureWrapper">
+		<Graph/>
+	</div>
+	<div class="OptionsWrapper">
+		<Options/>
+	</div>
+</template>

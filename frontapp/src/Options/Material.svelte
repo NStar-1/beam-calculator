@@ -27,6 +27,8 @@
   }
 
   function new_filter(items, query) {
+    console.log(items)
+    console.log('new filter!')
     return items.map((d, idx) => ({
       id: idx,
       text: d.name,
