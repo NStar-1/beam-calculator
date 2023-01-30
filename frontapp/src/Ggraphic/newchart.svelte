@@ -87,8 +87,8 @@
   }
 
   .loaded-beam {
-    stroke: blue;
-    stroke-width: 3;
+    stroke: cornflowerblue;
+    stroke-width: 4;
     fill: none;
   }
 
