@@ -4,8 +4,18 @@
 	import Options from "./Options/Options.svelte";
 	import {dictionary, locale, _} from "svelte-i18n"
 	import {dict} from "./dictionary";
+    import { onMount } from 'svelte';
 	dictionary.set(dict)
 	locale.set("en")
+	onMount(()=>{
+			if(window.matchMedia('(max-width: 480px)').matches)
+			{
+				let options = document.getElementById('options');
+				let picture = document.getElementById('picture');
+				picture.parentNode.appendChild(options);
+			}
+	})
+
 </script>
 
 
@@ -50,14 +60,6 @@
 		justify-content: space-between;
 
 	}
-	@media (max-width: 480px) {
-		.InlinePage{
-			margin: 0;
-		}
-		.CalculatorWrapper{
-			flex-direction: column;
-		}
-	}
 	.OptionsWrapper{
 		height: content-box;
 		width: 300px;
@@ -70,6 +72,38 @@
 		border:  #ff8d48 1px solid;
 		background-color: white;
 	}
+	@media (max-width: 480px) {
+		.InlinePage{
+			margin: 0;
+			column-gap: 0;
+			width: 100%;
+			height: auto;
+		}
+		.ADV{
+			display: none;
+		}
+		.CalculatorWrapper{
+			border: none;
+			column-gap: 0;
+			row-gap: 10px;
+			padding: 0;
+			flex-direction: column;
+			justify-content: unset;
+		}
+		.ContentPage{
+			width: 100%;
+			height: 100%;
+		}
+		.OptionsWrapper{
+			width: 100%;
+			overflow: unset;
+		}
+		.PictureWrapper{
+			width: 100%;
+			min-height: 35vh;
+		}
+	}
+
 </style>
 
 <div class="AppWrapper">
@@ -80,10 +114,10 @@
 			<h1>{$_('app.title')}</h1>
 			<p>{$_('app.desc')}</p>
 			<div class="CalculatorWrapper">
-				<div class="OptionsWrapper">
+				<div class="OptionsWrapper" id="options">
 					<Options/>
 				</div>
-				<div class="PictureWrapper">
+				<div class="PictureWrapper" id="picture">
 					<Graph/>
 				</div>
 			</div>
