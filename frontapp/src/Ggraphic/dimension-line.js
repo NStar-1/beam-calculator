@@ -4,18 +4,18 @@ export default class DimensionLine extends Function {
   isMounted = false;
 
   // Input
-  _scale = undefined
-  x0 = 0
-  y0 = 0
-  x1 = 0
-  y1 = 0
+  _scale = undefined;
+  x0 = 0;
+  y0 = 0;
+  x1 = 0;
+  y1 = 0;
 
   // SVG elements
   group = undefined;
-  line = undefined
-  tick0 = undefined
-  ticke1 = undefined
-  textEl = undefined
+  line = undefined;
+  tick0 = undefined;
+  ticke1 = undefined;
+  textEl = undefined;
 
   constructor() {
     super("...args", "return this._bound._call(...args)");
@@ -71,7 +71,7 @@ export default class DimensionLine extends Function {
 
   mount(selection) {
     this.isMounted = true;
-    selection.append(() => this.group.node())
+    selection.append(() => this.group.node());
   }
 
   update() {
@@ -82,9 +82,9 @@ export default class DimensionLine extends Function {
     const rot = (Math.atan2(-dy, -dx) * 180) / Math.PI;
 
     // Screen-space coordinates
-    const effectiveLength = this._scale(length)
-    const effectiveX0 = this._scale(this.x0)
-    const effectiveY0 = this._scale(this.y0)
+    const effectiveLength = this._scale(length);
+    const effectiveX0 = this._scale(this.x0);
+    const effectiveY0 = this._scale(this.y0);
 
     this.group.attr(
       "transform",

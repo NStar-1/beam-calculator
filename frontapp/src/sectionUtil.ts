@@ -27,7 +27,7 @@ export function cylindrical({
   const Ax = Math.PI * ro * ro;
   const Asy = Ax;
   const Asz = Asy;
-  const Jx = (Math.PI * (ro ** 4)) / 2;
+  const Jx = (Math.PI * ro ** 4) / 2;
   const Iy = Jx / 2;
   const Iz = Iy;
 

@@ -7,8 +7,8 @@
 </script>
 
 <g transform="translate({x}, {y})">
-  <circle x={0} y={0} r={r} />
-  <text x={-r/2} y={r/2}>{text}</text>
+  <circle x={0} y={0} {r} />
+  <text x={-r / 2} y={r / 2}>{text}</text>
 </g>
 
 <style>

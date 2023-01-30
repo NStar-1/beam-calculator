@@ -10,13 +10,13 @@ export default abstract class BaseD3Component extends Function {
     return this._bound;
   }
 
-  abstract init(): void
+  abstract init(): void;
 
-  abstract update(): void
+  abstract update(): void;
 
   mount(selection: any, element: any) {
     this.isMounted = true;
-    selection.append(() => element.node())
+    selection.append(() => element.node());
   }
 
   _call(context: any) {
