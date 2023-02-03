@@ -40,18 +40,22 @@
   }
   let trueTree = []
   let i = 0;
+  let j = arr.length;
   for(const category in tree){
     let categoryChildren = [];
     //let j = 0
     for(const subcategory in tree[category]){
       let subcategoryChildren = tree[category][subcategory].map((item) => ({id: i++, text: item.name, children: null}))
-      categoryChildren.push({id: i, text: subcategory, children:subcategoryChildren})
-      i++
+      //в каждый элемент массива явно прописать id(чтобы в дальнейшем совпадало, а для id не входящих в диапозон использовать мок)
+      
+      categoryChildren.push({id: j++, text: subcategory, children:subcategoryChildren})
+      //i++
       //j++
     }
-    trueTree.push({id: i, text: category, children: categoryChildren})
-    i++
+    trueTree.push({id: j++, text: category, children: categoryChildren})
+    //i++
   }
+  console.log(trueTree)
   return trueTree;
 }
 

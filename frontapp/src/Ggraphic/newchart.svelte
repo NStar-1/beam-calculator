@@ -5,6 +5,7 @@
   import ForceLine from "./force-line.svelte";
   import NodeNumber from "./node-number.svelte";
   import Markers from "./markers.svelte";
+    import { fixationConst } from "../Options/constants";
   let clientWidth;
   let clientHeight;
   const marginRight = 70;

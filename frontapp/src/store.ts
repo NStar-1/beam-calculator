@@ -142,9 +142,9 @@ length.subscribe(async () => {
 });
 
 material_id.subscribe((value) => {
-  material.set(materials[value]);
+  material.set(materials[value] || materials[0]);
 });
-
+//заглушка для material_id > material.length
 material.subscribe(async () => {
   await solve_model();
 });
