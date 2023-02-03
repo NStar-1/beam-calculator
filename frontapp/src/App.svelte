@@ -84,6 +84,7 @@
   }
   .OptionsWrapper {
     height: content-box;
+    padding: 5px;
     width: 300px;
     min-width: 30%;
     overflow-y: scroll;

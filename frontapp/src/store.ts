@@ -1,51 +1,63 @@
 import { writable, get } from "svelte/store";
 import Frame3ddLoader from "frame3dd-wasm-js";
 import materials from "./materials";
-import { cylindrical, roundTube } from "./sectionUtil";
+import {
+  cylindrical,
+  roundTube,
+  rectangular,
+  rectangularTube,
+  iBeam,
+} from "./sectionUtil";
 import type { Material } from "./materials";
 
 export enum ProfileType {
-  UNSET,
   CYLINDRICAL,
   ROUND_TUBE,
+  RECTANGLE,
+  RECTANGULAR_TUBE,
+  I_BEAM,
 }
 
 // The user should be able to change different profile types without loosing
 // the data. Plus, it's neat that data will be naturally mapped between
 // similar profiles
-export type Profile = CylindricalProfile & RoundTubeProfile;
+export type Profile = CylindricalProfile &
+  RoundTubeProfile &
+  HollowRectangularProfile &
+  IBeamProfile;
 
-export type CylindricalProfile = {
+export type CylindricalProfile = Partial<{
   outerRadius: number;
-};
+}>;
 
-export type RoundTubeProfile = {
+export type RoundTubeProfile = Partial<{
   outerRadius: number;
   innerRadius: number;
-};
+}>;
 
-export type SquareProfile = {
+export type RectangularProfile = Partial<{
   width: number;
   height: number;
-};
+}>;
 
-export type HollowSquareProfile = {
-  width: number;
-  height: number;
-  thickness: number;
-};
-
-export type IBeamProfile = {
+export type HollowRectangularProfile = Partial<{
   width: number;
   height: number;
   thickness: number;
-};
+}>;
 
-export type TBeamProfile = {
+export type IBeamProfile = Partial<{
   width: number;
-  height: number;
+  depth: number;
+  flangeThickness: number;
+  webThickness: number;
+}>;
+
+export type TBeamProfile = Partial<{
+  width: number;
+  depth: number;
   thickness: number;
-};
+}>;
 
 export type IBeamLoad = {
   type: string;
@@ -74,6 +86,12 @@ export const profileType = writable<ProfileType>(ProfileType.CYLINDRICAL);
 export const profileData = writable<Profile>({
   outerRadius: 10,
   innerRadius: 8,
+  height: 10,
+  width: 20,
+  thickness: 3,
+  depth: 10,
+  webThickness: 3,
+  flangeThickness: 2,
 });
 
 // TODO add typing
@@ -107,6 +125,9 @@ const updateProfile = function () {
   const calculate = {
     [ProfileType.CYLINDRICAL]: cylindrical,
     [ProfileType.ROUND_TUBE]: roundTube,
+    [ProfileType.RECTANGLE]: rectangular,
+    [ProfileType.RECTANGULAR_TUBE]: rectangularTube,
+    [ProfileType.I_BEAM]: iBeam,
   }[get(profileType)];
   profile.set(calculate(get(profileData)));
 };

@@ -1,6 +1,6 @@
 <script>
   import Textfield from "@smui/textfield";
-  import { profileData } from "../store.ts";
+  import { profileData } from "../../store";
   import { _ } from "svelte-i18n";
 </script>
 
