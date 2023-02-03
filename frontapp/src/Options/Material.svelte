@@ -7,6 +7,8 @@
   import materials from "./materials.js";
   import new_mat from "src/materials.ts";
   import { children } from "svelte/internal";
+    import { tree } from "d3";
+    import Accordion from "@smui-extra/accordion/src/Accordion.svelte";
 
   let activeId = "";
 
@@ -25,19 +27,43 @@
     }, []);
   }
 
+  function convertToTree(arr) {
+  const tree = {};
+  for (const item of arr) {
+    if (!tree[item.category]) {
+      tree[item.category] = {};
+    }
+    if (!tree[item.category][item.subcategory]) {
+      tree[item.category][item.subcategory] = [];
+    }
+    tree[item.category][item.subcategory].push(item);
+  }
+  let trueTree = []
+  let i = 0;
+  for(const category in tree){
+    let categoryChildren = [];
+    //let j = 0
+    for(const subcategory in tree[category]){
+      let subcategoryChildren = tree[category][subcategory].map((item) => ({id: i++, text: item.name, children: null}))
+      categoryChildren.push({id: i, text: subcategory, children:subcategoryChildren})
+      i++
+      //j++
+    }
+    trueTree.push({id: i, text: category, children: categoryChildren})
+    i++
+  }
+  return trueTree;
+}
+
   function new_filter(items, query) {
-    console.log(items);
-    console.log("new filter!");
-    return items.map((d, idx) => ({
-      id: idx,
-      text: d.name,
-      children: null,
-    }));
+    return convertToTree(items.filter((item)=> (item.category.includes(query) || item.subcategory.includes(query) || item.name.includes(query))))
   }
 
   let filtered = [];
+
   //$: filtered = filter(materials, query);
   $: filtered = new_filter(new_mat, query);
+  console.log($material_id)
 </script>
 
 <TextField label="Filter" bind:value={query} />

@@ -32,4 +32,21 @@ export default <Array<Material>>[
     G: 77_000,
     density: 7_850,
   },
+  {
+    category: "alluminium",
+    subcategory: "reinfrorcement",
+    name: "26Г2С",
+    E: 200_000,
+    G: 77_000,
+    density: 7_850,
+  },
+  {
+    category: "alluminium",
+    subcategory: "reinfrorcement",
+    name: "26Г2С",
+    E: 200_000,
+    G: 77_000,
+    density: 7_850,
+  },
+
 ];
