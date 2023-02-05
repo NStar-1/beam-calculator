@@ -72,6 +72,8 @@
           y1={deflection}
           scale={uniform}
         />
+        <image href={fixationRight.src} height={fixationRight.height} x={uniform($length)*($fixationType.right === 1?-1:1)+fixationRight.leftX} y={fixationRight.leftY} style={$fixationType.right === 1?"transform: scaleX(-1)":""}/>
+
         <ForceLine
           x0={$length}
           y0={deflection}
