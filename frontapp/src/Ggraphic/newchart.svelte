@@ -5,6 +5,7 @@
   import ForceLine from "./force-line.svelte";
   import NodeNumber from "./node-number.svelte";
   import Markers from "./markers.svelte";
+    import { fixationConst } from "../Options/constants";
   let clientWidth;
   let clientHeight;
   const marginRight = 70;
@@ -14,6 +15,12 @@
 
   let drawingHeight;
   $: drawingHeight = clientHeight - drawingOffset;
+
+  let fixationLeft
+  $:fixationLeft = fixationConst[$fixationType.left]
+
+  let fixationRight
+  $:fixationRight = fixationConst[$fixationType.right]
 
   let uniform = scaleLinear();
   let curve;
@@ -52,6 +59,7 @@
 
       <g class="drawing-local" transform="translate(0, {drawingHeight / 2})">
         <g class="x-dimension" />
+        <image href={fixationLeft.src} height={fixationLeft.height} x={fixationLeft.leftX} y={fixationLeft.leftY}/>
         <line class="line" x1={0} y1={0} x2={uniform($length)} y2="0" />
         <path class="loaded-beam" d={curve} />
         <NodeNumber x={uniform(0) + 20} y={uniform(0) - 20} text="1" />

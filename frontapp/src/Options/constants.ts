@@ -1,7 +1,7 @@
 import { _ } from "svelte-i18n";
 
 export const fixationConst = [
-  { src: "none", desc: "none" },
+  { src: "none", desc: "none", height: 0 },
   {
     src: "assets/other/svg (14).svg",
     desc: "fixed end",
