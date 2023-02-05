@@ -18,6 +18,26 @@ export enum ProfileType {
   I_BEAM,
 }
 
+export const profileNamesLnKeys = {
+  [ProfileType.CYLINDRICAL]: {
+    i18nKey: "profiles.name.cylindrical",
+    img: "CircShtr",
+  },
+  [ProfileType.ROUND_TUBE]: {
+    i18nKey: "profiles.name.roundTube",
+    img: "CircCircShtr",
+  },
+  [ProfileType.RECTANGLE]: {
+    i18nKey: "profiles.name.rectangle",
+    img: "SquareShtr",
+  },
+  [ProfileType.RECTANGULAR_TUBE]: {
+    i18nKey: "profiles.name.rectangularTube",
+    img: "SqwSqwShtr",
+  },
+  [ProfileType.I_BEAM]: { i18nKey: "profiles.name.iBeam", img: "IShtr" },
+};
+
 // The user should be able to change different profile types without loosing
 // the data. Plus, it's neat that data will be naturally mapped between
 // similar profiles
@@ -120,6 +140,7 @@ const defaultProfileDescription = {
 };
 
 export const profile = writable<ProfileDescription>(defaultProfileDescription);
+export const profileInfo = writable();
 
 const updateProfile = function () {
   const calculate = {
@@ -130,6 +151,35 @@ const updateProfile = function () {
     [ProfileType.I_BEAM]: iBeam,
   }[get(profileType)];
   profile.set(calculate(get(profileData)));
+
+  const {
+    outerRadius,
+    innerRadius,
+    thickness,
+    height,
+    width,
+    depth,
+    flangeThickness,
+    webThickness,
+  } = get(profileData);
+
+  switch (get(profileType)) {
+    case ProfileType.CYLINDRICAL:
+      profileInfo.set(`r=${outerRadius}`);
+      break;
+    case ProfileType.ROUND_TUBE:
+      profileInfo.set(`ri=${innerRadius}, ro=${outerRadius}`);
+      break;
+    case ProfileType.RECTANGLE:
+      profileInfo.set(`h=${height},w=${width}`);
+      break;
+    case ProfileType.RECTANGULAR_TUBE:
+      profileInfo.set(`h=${height},w=${width},t=${thickness}`);
+      break;
+    case ProfileType.I_BEAM:
+      profileInfo.set(`d=${depth},w=${width},t=${webThickness},f=${flangeThickness}`);
+      break;
+  }
 };
 
 profileType.subscribe(updateProfile);
