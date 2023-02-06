@@ -3,6 +3,11 @@
   src: url("cmu.concrete-roman.ttf");
 }
 
+@font-face {
+  font-family: "GOST type A"; 
+  src: url("fonts/GOST_A_.ttf") format("truetype");
+}
+
 html,
 body {
   position: relative;

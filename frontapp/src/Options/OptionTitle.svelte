@@ -11,7 +11,7 @@
     <slot name="icon" />
   {/if}
   {#if $$slots.info}
-    <slot name="info" />
+    <span class="info"><slot name="info" /></span>
   {/if}
 </div>
 
@@ -19,6 +19,11 @@
   .title {
     display: flex;
     float: left;
+  }
+  .info {
+    font-family: "GOST type A";
+    font-style: italic;
+    font-size: 18px;
   }
   .separator {
     height: 25px;

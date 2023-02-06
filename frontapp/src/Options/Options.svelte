@@ -50,7 +50,7 @@
     <Header>
       <OptionTitle title={$_("options.profile.title")}
         ><div class="profileIcon" slot="icon"><ProfileIcon /></div>
-        <span style="font-style: italic;" slot="info">{$profileInfo}</span>
+        <span slot="info">{$profileInfo}</span>
       </OptionTitle>
       <div class="toggleIcon">
         {#if panel2Open}
