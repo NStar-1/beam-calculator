@@ -92,7 +92,7 @@
         {/if}
       </div>
     </Header>
-    <Content>
+    <Content style="padding: 0;">
       <LoadCases />
     </Content>
   </Panel>

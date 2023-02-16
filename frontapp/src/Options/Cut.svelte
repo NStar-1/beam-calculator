@@ -42,7 +42,7 @@
         <input
           type="radio"
           bind:group={$profileType}
-          name="material"
+          name="profile"
           class="materialInput"
           value={profile.type}
         />
@@ -58,7 +58,7 @@
   .materialInput {
     display: none;
   }
-  .inline {
+  .inline { 
     padding: 0;
     display: flex;
     flex-direction: row;

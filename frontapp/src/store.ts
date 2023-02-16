@@ -79,19 +79,25 @@ export type TBeamProfile = Partial<{
   thickness: number;
 }>;
 
-export type IBeamLoad = {
-  type: string;
-  x: Array<number>;
+export type LoadType = "pointed" | "distributed";
+
+export type PointLoad = {
+  type: LoadType;
+  node: number;
+  offset: number;
   angle: number;
-  force: number;
+  load: number;
+  loadValueType: "mass" | "force";
 };
 
-export function newEmptyLoadObj() {
+export function newEmptyLoadObj(): PointLoad {
   return {
     type: "pointed",
-    x: [0],
+    node: 0,
+    offset: 0,
     angle: 90,
-    force: 0,
+    load: 0,
+    loadValueType: "force",
   };
 }
 
@@ -185,24 +191,54 @@ const updateProfile = function () {
 profileType.subscribe(updateProfile);
 profileData.subscribe(updateProfile);
 
-export const loads = writable<Array<IBeamLoad>>([newEmptyLoadObj()]);
+export const loads = writable<Array<PointLoad>>([newEmptyLoadObj()]);
+export const seletedLoad = writable<number>(-1);
+
+export type Point = {
+  id: number;
+  isFixed: 0 | 1;
+  x: number;
+  y: number;
+  z: number;
+};
+
+const defaultPoint: Point = { id: 1, isFixed: 1, x: 0, y: 0, z: 0 };
+export const points = writable<Array<Point>>([defaultPoint]);
+export const getLastPointId = () => get(points)[get(points).length - 1].id;
 
 export const fixationType = writable({ left: 1, right: 0 });
 
 export const results = writable({});
 export const context = writable({});
 
+const convertLoads = () => {
+  const ls = get(loads);
+  return ls.map(l => ({
+    axial: [Math.cos(l.angle) * l.load, Math.sin(l.angle) * l.load, 0],
+    id: l.node,
+    number: 1,
+    rotational: [0,0,0],
+  }));
+}
+
 const solve_model = async function () {
   const Frame3DD = await Frame3ddLoader();
   const model = Frame3DD.inputScopeJSON;
-  model.points[1].x = get(length);
+  console.log(model);
+  const lastPointId = getLastPointId() + 1;
+  model.points = [...get(points)];
+  model.points.push({ id: lastPointId, isFixed: 1, x: get(length), y: 0, z: 0 });
+  model.nN = 3;
+  model.nE = model.nN - 1;
+  console.log(convertLoads());
+  model.pointLoads = convertLoads();
   const mat = get(material);
   model.material.E = mat.E;
   model.material.G = mat.G;
   model.profile = get(profile);
   // FIXME not sure
   model.material.density = mat.density / 1_000_000;
-  console.log(model);
+  console.log(JSON.stringify(model));
   console.log(model.points);
   const res = Frame3DD.calculate(model);
   results.set(res.result);
@@ -221,5 +257,9 @@ material.subscribe(async () => {
 });
 
 profile.subscribe(async () => {
+  await solve_model();
+});
+
+loads.subscribe(async () => {
   await solve_model();
 });

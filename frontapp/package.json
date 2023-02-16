@@ -30,7 +30,7 @@
     "vite": "^3.2.3"
   },
   "dependencies": {
-    "frame3dd-wasm-js": "github:NStar-1/frame3dd-wasm-js#v0.1.2",
+    "frame3dd-wasm-js": "github:NStar-1/frame3dd-wasm-js#v0.1.3",
     "svelte-i18n": "^3.6.0",
     "svelte-material-ui": "^7.0.0-beta.0"
   }
