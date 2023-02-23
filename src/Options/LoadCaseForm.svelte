@@ -49,7 +49,7 @@
         class="loadTypeInput"
         value="pointed"
       />
-      <img alt="pointed load icon" src="../assets/icons/point_load_32.svg" />
+      <img alt="pointed load icon" src="assets/icons/point_load_32.svg" />
     </label>
     <label class="radioLabel">
       <input
@@ -61,7 +61,7 @@
       />
       <img
         alt="distributed load icon"
-        src="../assets/icons/distributed_load_32.svg"
+        src="assets/icons/distributed_load_32.svg"
       />
     </label>
   </div>
@@ -74,7 +74,7 @@
         class="loadTypeInput"
         value="left"
       />
-      <img alt="pointed load icon" src="../assets/icons/left_side_32.svg" />
+      <img alt="pointed load icon" src="assets/icons/left_side_32.svg" />
     </label>
     <label class="radioLabel">
       <input
@@ -86,7 +86,7 @@
       />
       <img
         alt="distributed load icon"
-        src="../assets/icons/middle_point_32.svg"
+        src="assets/icons/middle_point_32.svg"
       />
     </label>
     <label class="radioLabel">
@@ -99,7 +99,7 @@
       />
       <img
         alt="distributed load icon"
-        src="../assets/icons/right_side_32.svg"
+        src="assets/icons/right_side_32.svg"
       />
     </label>
     <Textfield
