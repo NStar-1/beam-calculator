@@ -13,12 +13,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: cd frontapp && npm ci
-      - run: cd frontapp && npm run build
+      - run: npm ci
+      - run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: 'frontapp/dist/'
+          path: 'dist/'
   deploy:
     runs-on: ubuntu-latest
     needs: build
