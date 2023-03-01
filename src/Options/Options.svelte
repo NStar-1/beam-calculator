@@ -1,10 +1,11 @@
 <script>
-  import { length, profileInfo, material, loads } from "../store";
+  import { length, profileInfo, material, solve_model } from "../store";
   import Cut from "./Cut.svelte";
   import Fixation from "./Fixation.svelte";
   import Textfield from "@smui/textfield";
   import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
   import { Icon } from "@smui/icon-button";
+  import Button from "@smui/button";
   import Material from "./Material.svelte";
   import LoadCases from "./LoadCases.svelte";
   import OptionTitle from "./OptionTitle.svelte";
@@ -97,6 +98,7 @@
     </Content>
   </Panel>
 </Accordion>
+<Button on:click={solve_model}>Calculate</Button>
 
 <style>
   :global(.smui-accordion__header__title) {

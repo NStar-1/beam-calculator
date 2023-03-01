@@ -103,7 +103,7 @@ export function newEmptyLoadObj(): PointLoad {
 
 export const isPhone = writable(false);
 
-export const length = writable(7000);
+export const length = writable(0);
 
 export const cutVal = writable(0);
 export const cutInputs = writable([]);
@@ -183,16 +183,15 @@ const updateProfile = function () {
       profileInfo.set(`h=${height},w=${width},t=${thickness}`);
       break;
     case ProfileType.I_BEAM:
-      profileInfo.set(`d=${depth},w=${width},t=${webThickness},f=${flangeThickness}`);
+      profileInfo.set(
+        `d=${depth},w=${width},t=${webThickness},f=${flangeThickness}`
+      );
       break;
   }
 };
 
 profileType.subscribe(updateProfile);
 profileData.subscribe(updateProfile);
-
-export const loads = writable<Array<PointLoad>>([newEmptyLoadObj()]);
-export const seletedLoad = writable<number>(-1);
 
 export type Point = {
   id: number;
@@ -202,35 +201,50 @@ export type Point = {
   z: number;
 };
 
-const defaultPoint: Point = { id: 1, isFixed: 1, x: 0, y: 0, z: 0 };
-export const points = writable<Array<Point>>([defaultPoint]);
-export const getLastPointId = () => get(points)[get(points).length - 1].id;
+export const points = writable<Array<Point>>([]);
+export const getNextPointId = () => {
+  const pts = get(points);
+  if (pts.length === 0) return 2;
+  return pts[pts.length - 1].id + 1;
+};
+
+export const loads = writable<Array<PointLoad>>([]);
+export const selectedLoad = writable<number>(-1);
+
+const convertLoads = () => {
+  const ls = get(loads);
+  return ls.map((l) => ({
+    axial: [Math.cos(l.angle) * l.load, Math.sin(l.angle) * l.load, 0],
+    id: l.node,
+    number: 1,
+    rotational: [0, 0, 0],
+  }));
+};
 
 export const fixationType = writable({ left: 1, right: 0 });
 
 export const results = writable({});
 export const context = writable({});
 
-const convertLoads = () => {
-  const ls = get(loads);
-  return ls.map(l => ({
-    axial: [Math.cos(l.angle) * l.load, Math.sin(l.angle) * l.load, 0],
-    id: l.node,
-    number: 1,
-    rotational: [0,0,0],
-  }));
-}
+export const solve_model = async function () {
+  // TODO we need normal, form-based validation
+  if (get(points).length === 0) {
+    throw new Error("Points can't be empty");
+  }
+  if (get(loads).length === 0) {
+    throw new Error("Loads can't be empty");
+  }
 
-const solve_model = async function () {
+  console.log(get(fixationType));
   const Frame3DD = await Frame3ddLoader();
   const model = Frame3DD.inputScopeJSON;
-  console.log(model);
-  const lastPointId = getLastPointId() + 1;
-  model.points = [...get(points)];
-  model.points.push({ id: lastPointId, isFixed: 1, x: get(length), y: 0, z: 0 });
-  model.nN = 3;
+  model.points = [
+    { id: 1, isFixed: get(fixationType).left, x: 0, y: 0, z: 0 },
+    ...get(points),
+    { id: getNextPointId(), isFixed: get(fixationType).right, x: get(length), y: 0, z: 0 },
+  ];
+  model.nN = model.points.length;
   model.nE = model.nN - 1;
-  console.log(convertLoads());
   model.pointLoads = convertLoads();
   const mat = get(material);
   model.material.E = mat.E;
@@ -238,28 +252,7 @@ const solve_model = async function () {
   model.profile = get(profile);
   // FIXME not sure
   model.material.density = mat.density / 1_000_000;
-  console.log(JSON.stringify(model));
-  console.log(model.points);
+  console.log(model);
   const res = Frame3DD.calculate(model);
   results.set(res.result);
 };
-
-length.subscribe(async () => {
-  await solve_model();
-});
-
-material_id.subscribe((value) => {
-  material.set(materials[value]);
-});
-
-material.subscribe(async () => {
-  await solve_model();
-});
-
-profile.subscribe(async () => {
-  await solve_model();
-});
-
-loads.subscribe(async () => {
-  await solve_model();
-});
