@@ -6,6 +6,7 @@
   import NodeNumber from "./node-number.svelte";
   import Markers from "./markers.svelte";
     import { fixationConst } from "../Options/constants";
+    import { _ } from "svelte-i18n";
   let clientWidth;
   let clientHeight;
   const marginRight = 70;
@@ -52,9 +53,9 @@
       transform="translate({drawingOffset / 2}, {drawingOffset / 2})"
     >
       <text class="material-info">
-        <tspan x={0} dy=".6em">Material: {$material.name}</tspan>
-        <tspan x={0} dy="1.2em">E: {$material.E}</tspan>
-        <tspan x={0} dy="1.2em">G: {$material.G}</tspan>
+        <tspan x={0} dy=".6em">{$_('graph.material')}: {$material.name}</tspan>
+        <tspan x={0} dy="1.2em">E: {$material.E} {" " + $_('graph.gpa')}</tspan>
+        <tspan x={0} dy="1.2em">G: {$material.G} {" " + $_('graph.gpa')}</tspan>
       </text>
 
       <g class="drawing-local" transform="translate(0, {drawingHeight / 2})">

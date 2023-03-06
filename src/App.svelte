@@ -6,6 +6,9 @@
   import { dict } from "./dictionary";
   import { onMount } from "svelte";
   import { isPhone } from "./store";
+  import {Router, Route} from "svelte-navigator"
+    import About from "./pages/About.svelte";
+    import Footer from "./Footer/Footer.svelte";
   dictionary.set(dict);
   locale.set("en");
 
@@ -14,34 +17,42 @@
   });
 </script>
 
-<div class="AppWrapper">
-  <Header />
-  <div class="InlinePage">
-    <div class="ContentPage ADV">advertising</div>
-    <div class="ContentPage">
-      <h1>{$_("app.title")}</h1>
-      <p>{$_("app.desc")}</p>
-      <div class="CalculatorWrapper">
-        {#if $isPhone}
-          <div class="PictureWrapper">
-            <Graph />
+
+<Router>
+  <div class="AppWrapper">
+    <Header />
+
+    <div class="InlinePage">
+      <div class="ContentPage ADV">advertising</div>
+      <div class="ContentPage">
+      <Route path={"/*"}>
+          <h1>{$_("app.title")}</h1>
+          <div class="CalculatorWrapper">
+            {#if $isPhone}
+              <div class="PictureWrapper">
+                <Graph />
+              </div>
+              <div class="OptionsWrapper">
+                <Options />
+              </div>
+            {:else}
+              <div class="OptionsWrapper">
+                <Options />
+              </div>
+              <div class="PictureWrapper">
+                <Graph />
+              </div>
+            {/if}
           </div>
-          <div class="OptionsWrapper">
-            <Options />
-          </div>
-        {:else}
-          <div class="OptionsWrapper">
-            <Options />
-          </div>
-          <div class="PictureWrapper">
-            <Graph />
-          </div>
-        {/if}
-      </div>
+      </Route>
+      <Route path={'/beam-calculator/about'} component={About}/>
     </div>
-    <div class="ContentPage ADV">advertising</div>
+      <div class="ContentPage ADV">advertising</div>
+    </div>
+    <Footer/>
   </div>
-</div>
+</Router>
+
 
 <style>
   .AppWrapper {
@@ -112,6 +123,7 @@
       padding: 0;
       flex-direction: column;
       justify-content: unset;
+      height: auto;
     }
     .ContentPage {
       width: 100%;

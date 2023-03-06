@@ -2,8 +2,7 @@ export const dict = {
   en: {
     app: {
       title: "Beam calculator",
-      desc: "Some description about calculator(Description)",
-      about: "About us",
+      about: "About project",
     },
     options: {
       config: {
@@ -59,12 +58,15 @@ export const dict = {
         },
       },
     },
+    graph:{
+      material: "Material",
+      gpa: "MPa"
+    },
   },
   ru: {
     app: {
-      title: "Калькулятор палки-копалки",
-      desc: "Какое-то описание калькулятора",
-      about: "О трёх додиках",
+      title: "Калькулятор нагрузки",
+      about: "О проекте",
     },
     options: {
       config: {
@@ -108,6 +110,10 @@ export const dict = {
         angle: "угол",
         force: "сила",
       },
+    },
+    graph:{
+      material: "Материал",
+      gpa: "МПа"
     },
   },
 };

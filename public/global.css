@@ -40,7 +40,12 @@ a:visited {
 label {
   display: block;
 }
-
+h1{
+  color: #ff8d48;
+}
+h1:focus{
+  outline: none;
+}
 input,
 button,
 select,

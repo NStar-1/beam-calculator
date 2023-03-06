@@ -2,11 +2,13 @@
   import Switch from "@smui/switch";
   let lng = false;
   import { locale, _ } from "svelte-i18n";
+    import { Link } from "svelte-navigator";
 </script>
 
 <div class="HeaderWrapper">
   <div class="ContentHeader">
-    <img rel="icon" src="assets/logo.svg" alt="icon" class="AppName" />
+    <Link to={'/beam-calculator/'}>   <img rel="icon" src="assets/logo.svg" alt="icon" class="AppName" /> </Link>
+ 
     <div style="flex-direction: row; display: flex">
       <Switch
         bind:checked={lng}
@@ -14,9 +16,11 @@
         icons={false}
         on:SMUISwitch:change={() => locale.set(lng ? "ru" : "en")}
       />
-      <button on:click={() => console.log("a")}>
-        {$_("app.about")}
-      </button>
+
+      <Link to={'/beam-calculator/about'} style="text-decoration: none"> <div class="Link">{$_("app.about")}</div></Link>
+      <!-- <button on:click={}>
+      
+      </button> -->
     </div>
   </div>
 </div>
@@ -39,7 +43,7 @@
     margin: 0 15%;
     flex-direction: row;
   }
-  button {
+  .Link {
     display: flex;
     height: 100%;
     border: none;
@@ -48,21 +52,26 @@
     background: transparent;
     text-decoration: 1px solid white underline;
     cursor: pointer;
+    text-decoration: none;
   }
-  button:active,
-  button:hover {
+  .Link:active,
+  .Link:hover {
     background: #ff8d48;
+    text-decoration: none;
   }
   .AppName {
     display: flex;
-    height: 100%;
-
-    align-self: center;
+    height: 80%;
+    margin: 1% 0;
     color: white;
   }
   @media (max-width: 480px) {
     .AppName {
-      height: 60%;
+      height: 40%;
+      margin: 8% 0;
+    }
+    .ContentHeader{
+      margin: 0 5%;
     }
   }
 </style>
