@@ -227,22 +227,58 @@ export const results = writable({});
 export const context = writable({});
 
 export const solve_model = async function () {
-  // TODO we need normal, form-based validation
+  // TODO: we need normal, form-based validation
+  const pointsArr = [...get(points)];
+  const loadsArr = [...get(loads)];
   if (get(points).length === 0) {
     throw new Error("Points can't be empty");
   }
-  if (get(loads).length === 0) {
+  if (loadsArr.length === 0) {
     throw new Error("Loads can't be empty");
   }
 
-  console.log(get(fixationType));
   const Frame3DD = await Frame3ddLoader();
   const model = Frame3DD.inputScopeJSON;
-  model.points = [
-    { id: 1, isFixed: get(fixationType).left, x: 0, y: 0, z: 0 },
-    ...get(points),
-    { id: getNextPointId(), isFixed: get(fixationType).right, x: get(length), y: 0, z: 0 },
-  ];
+
+  // FIXME: This crap isn't working if we first set loads as 0 then setting equals to length
+  if (loadsArr[0].offset === 0) {
+    if (loadsArr[0].node > 1) {
+      points.set(
+        pointsArr.map((pt) => {
+          pt.id = pt.id - 1;
+          return pt;
+        })
+      );
+      loads.set(
+        loadsArr.map((ld) => {
+          ld.node = ld.node - 1;
+          return ld;
+        })
+      );
+    }
+    model.points = [...get(points)];
+    model.points[0].isFixed = get(fixationType).left;
+  } else {
+    model.points = [...get(points)];
+    model.points.unshift({
+      id: 1,
+      isFixed: get(fixationType).left,
+      x: 0,
+      y: 0,
+      z: 0,
+    });
+  }
+  if (loadsArr[loadsArr.length - 1].offset !== get(length)) {
+    model.points.push({
+      id: getNextPointId(),
+      isFixed: get(fixationType).right,
+      x: get(length),
+      y: 0,
+      z: 0,
+    });
+  } else {
+    model.points[model.points.length - 1].isFixed = get(fixationType).right;
+  }
   model.nN = model.points.length;
   model.nE = model.nN - 1;
   model.pointLoads = convertLoads();
@@ -253,6 +289,15 @@ export const solve_model = async function () {
   // FIXME not sure
   model.material.density = mat.density / 1_000_000;
   console.log(model);
-  const res = Frame3DD.calculate(model);
-  results.set(res.result);
+  try {
+    const res = Frame3DD.calculate(model);
+    results.set(res.result);
+  } catch (e) {
+    console.error("Error in frame3dd calculations", e);
+  } finally {
+    console.log(pointsArr);
+    console.log(loadsArr);
+    points.set(pointsArr);
+    loads.set(loadsArr);
+  }
 };

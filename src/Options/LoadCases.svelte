@@ -14,9 +14,9 @@
       >
         <LoadCase loadId={i} />
       </Item>
+      <Separator />
     {/each}
-    <Separator />
-    <Item style="height: auto;">
+    <Item ripple={false} style="height: auto;">
       <LoadCaseForm />
     </Item>
   </List>
