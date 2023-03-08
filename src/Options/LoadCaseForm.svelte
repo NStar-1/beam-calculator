@@ -6,6 +6,8 @@
     points,
     getNextPointId,
     selectedLoad,
+    type PointLoad,
+    type Point,
   } from "../store";
   import { _ } from "svelte-i18n";
   import Textfield from "@smui/textfield";
@@ -78,7 +80,12 @@
       const pointId = $points[$selectedLoad].id;
       if (firstPoint) {
         $points = [
-          { ...$points[$selectedLoad], x: 0, id: 1, isFixed: $fixationType.left },
+          {
+            ...$points[$selectedLoad],
+            x: 0,
+            id: 1,
+            isFixed: $fixationType.left,
+          },
           ...$points.slice(0, $selectedLoad),
           ...$points.slice($selectedLoad + 1).map(shiftNode),
         ];
@@ -136,27 +143,25 @@
         fixation = $fixationType.right;
       }
 
-      $points = [
-        ...$points,
-        {
-          id: pointLoadId,
-          isFixed: fixation,
-          x: Number(realOffset),
-          y: 0,
-          z: 0,
-        },
-      ];
-      $loads = [
-        ...$loads,
-        {
-          type: loadType,
-          node: pointLoadId,
-          offset: realOffset,
-          angle,
-          load,
-          loadValueType: "force",
-        },
-      ];
+      const newPoint: Point = {
+        id: pointLoadId,
+        isFixed: fixation,
+        x: Number(realOffset),
+        y: 0,
+        z: 0,
+      };
+
+      const newLoad: PointLoad = {
+        type: loadType,
+        node: pointLoadId,
+        offset: realOffset,
+        angle,
+        load,
+        loadValueType: "force",
+      };
+      $points = firstPoint ? [newPoint, ...$points] : [...$points, newPoint];
+      $loads = firstPoint ? [newLoad, ...$loads] : [...$loads, newLoad];
+
       console.log($points);
       console.log($loads);
     }
