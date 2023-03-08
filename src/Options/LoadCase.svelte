@@ -1,6 +1,7 @@
 <script>
   import IconButton from "@smui/icon-button";
   import { loads, points, selectedLoad } from "../store";
+  import { shiftNode } from "../utils/store-utils";
 
   export let loadId;
 
@@ -15,18 +16,14 @@
       if (arr.length === 1) {
         return [];
       }
-      const shiftNodes = (el) => {
-        if (el.id) {
-          el.id = el.id - 1;
-        } else {
-          el.node = el.node - 1;
-        }
-        return el;
-      };
+      
+      if (num === 0 && (arr[num].id === 1 || arr[num].node === 1)) {
+        return arr.slice(1);
+      }
 
       return num > 0
-        ? [...arr.slice(0, num), ...arr.slice(num + 1).map(shiftNodes)]
-        : [...arr.slice(num + 1).map(shiftNodes)];
+        ? [...arr.slice(0, num), ...arr.slice(num + 1).map(shiftNode)]
+        : [...arr.slice(num + 1).map(shiftNode)];
     };
 
     $loads = removeItem(loadId, $loads);

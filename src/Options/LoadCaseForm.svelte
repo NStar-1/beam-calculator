@@ -2,6 +2,7 @@
   import {
     loads,
     length,
+    fixationType,
     points,
     getNextPointId,
     selectedLoad,
@@ -11,6 +12,7 @@
   import IconButton from "@smui/icon-button";
 
   import type { LoadType } from "../store";
+  import { shiftNode } from "../utils/store-utils";
 
   let loadType: LoadType = "pointed";
   let offsetPosition = "left";
@@ -69,29 +71,76 @@
   };
 
   const addPointLoad = () => {
+    const firstPoint = realOffset === 0;
+    const lastPoint = realOffset === $length;
+
     if (isEdit) {
       const pointId = $points[$selectedLoad].id;
-      $points[$selectedLoad] = {
-        ...$points[$selectedLoad],
-        x: Number(realOffset),
-      };
-      $points = [...$points];
-      $loads[$selectedLoad] = {
-        ...$loads[$selectedLoad],
-        type: loadType,
-        node: pointId,
-        offset: realOffset,
-        angle,
-        load,
-      };
-      $loads = [...$loads];
+      if (firstPoint) {
+        $points = [
+          { ...$points[$selectedLoad], x: 0, id: 1, isFixed: $fixationType.left },
+          ...$points.slice(0, $selectedLoad),
+          ...$points.slice($selectedLoad + 1).map(shiftNode),
+        ];
+        $loads = [
+          {
+            ...$loads[$selectedLoad],
+            type: loadType,
+            node: 1,
+            offset: 0,
+            angle,
+            load,
+          },
+          ...$loads.slice(0, $selectedLoad),
+          ...$loads.slice($selectedLoad + 1).map(shiftNode),
+        ];
+      } else if (lastPoint) {
+        $points = [
+          ...$points.slice(0, $selectedLoad).map(shiftNode),
+          { ...$points[$selectedLoad], x: 0, id: 1 },
+        ];
+        $loads = [
+          ...$loads.slice(0, $selectedLoad).map(shiftNode),
+          {
+            ...$loads[$selectedLoad],
+            type: loadType,
+            node: getNextPointId(),
+            offset: $length,
+            angle,
+            load,
+          },
+        ];
+      } else {
+        $points[$selectedLoad] = {
+          ...$points[$selectedLoad],
+          x: Number(realOffset),
+        };
+        $points = [...$points];
+        $loads[$selectedLoad] = {
+          ...$loads[$selectedLoad],
+          type: loadType,
+          node: pointId,
+          offset: realOffset,
+          angle,
+          load,
+        };
+        $loads = [...$loads];
+      }
     } else {
-      const pointLoadId = getNextPointId();
+      let pointLoadId = getNextPointId();
+      let fixation: 0 | 1 = 0;
+      if (firstPoint) {
+        pointLoadId = 1;
+        fixation = $fixationType.left;
+      } else if (lastPoint) {
+        fixation = $fixationType.right;
+      }
+
       $points = [
         ...$points,
         {
           id: pointLoadId,
-          isFixed: 0,
+          isFixed: fixation,
           x: Number(realOffset),
           y: 0,
           z: 0,
