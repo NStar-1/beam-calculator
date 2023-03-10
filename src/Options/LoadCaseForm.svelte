@@ -12,7 +12,7 @@
   import { _ } from "svelte-i18n";
   import Textfield from "@smui/textfield";
   import IconButton from "@smui/icon-button";
-
+  import AngleComponent from "../Options/AngleComponent/AngleComponent.svelte"
   import type { LoadType } from "../store";
   import { shiftNode } from "../utils/store-utils";
 
@@ -261,6 +261,7 @@
         label={$_("options.loadCaseForm.angle.label")}
         required
       />
+      <AngleComponent angle={angle}/>
     </div>
     <div class="loadAmount">
       <Textfield
@@ -314,5 +315,9 @@
 
   .actions {
     padding-top: 5px;
+  }
+  .loadAngle{
+    display: flex;
+    flex-direction: row;
   }
 </style>
