@@ -261,7 +261,9 @@
         label={$_("options.loadCaseForm.angle.label")}
         required
       />
-      <AngleComponent angle={angle}/>
+      <div class="angleComponent">
+        <AngleComponent angle={angle}/>
+      </div>
     </div>
     <div class="loadAmount">
       <Textfield
@@ -305,6 +307,9 @@
     display: flex;
     padding-top: 15px;
   }
+  .angleComponent {
+    width: 40%
+  }
 
   .offsetSelector {
     padding-left: 15px;
@@ -319,5 +324,11 @@
   .loadAngle{
     display: flex;
     flex-direction: row;
+  }
+
+  @media(max-width: 480px){
+    .angleComponent{
+      width: 30%;
+    }
   }
 </style>

@@ -25,7 +25,7 @@
     <div class="InlinePage">
       <div class="ContentPage ADV">advertising</div>
       <div class="ContentPage">
-      <Route path={"/*"}>
+      <Route path={"*/*"}>
           <h1>{$_("app.title")}</h1>
           <div class="CalculatorWrapper">
             {#if $isPhone}
