@@ -1,4 +1,5 @@
 <script>
+  import { base } from "$app/paths";
   import { profileType, ProfileType } from "../store";
   import Cylinder from "./ProfileTypes/Cylinder.svelte";
   import RoundTube from "./ProfileTypes/RoundTube.svelte";
@@ -46,7 +47,7 @@
           class="materialInput"
           value={profile.type}
         />
-        <img alt="square" src={"assets/razrez/" + profile.img + ".svg"} />
+        <img alt="square" src={base + "/assets/razrez/" + profile.img + ".svg"} />
       </label>
     {/each}
   </div>

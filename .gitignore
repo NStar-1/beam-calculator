@@ -1,3 +1,4 @@
 ./.idea
 .session.vim
+.svelte-kit
 node_modules

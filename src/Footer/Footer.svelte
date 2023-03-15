@@ -1,27 +1,21 @@
 <script>
-
 </script>
 
-
-<div class="footer-wrapper">
-
-
-</div>
-
+<div class="footer-wrapper" />
 
 <style>
-    .footer-wrapper{
-        display: flex;
-        z-index: 0;
-        position: fixed;
-        bottom: 0;
-        background-color: #ff9859;
-        height: 5vh;
-        width: 100%;
+  .footer-wrapper {
+    display: flex;
+    z-index: 0;
+    position: fixed;
+    bottom: 0;
+    background-color: #ff9859;
+    height: 5vh;
+    width: 100%;
+  }
+  @media (max-width: 480px) {
+    .footer-wrapper {
+      position: static;
     }
-    @media(max-width: 480px){
-        .footer-wrapper{
-            position: static;
-        }
-    }
+  }
 </style>
