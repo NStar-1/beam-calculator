@@ -19,9 +19,9 @@ const config = {
       strict: true,
       appDir: 'internal',
     }),
-    paths: {
-      base: "/beam-calculator",
-    },
+    //paths: {
+    //  base: "/beam-calculator",
+    //},
   },
 };
 
