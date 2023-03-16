@@ -1,13 +1,14 @@
 <script>
     import { navigate } from "svelte-navigator";
+    //on:click={()=>navigate('https://github.com/NStar-1/beam-calculator')}
 </script>
 
 
 <div class="footer-wrapper">
-    <div class="github-style" on:click={()=>navigate('https://github.com/NStar-1/beam-calculator')}>
-        <img alt="github image"  src="assets/icons/github_logo.svg" class="logo"/>
+    <a class="github-style" href={'https://github.com/NStar-1/beam-calculator'}>
+        <img alt="github image"  src="public/assets/icons/github_logo.svg" class="logo"/>
         <p>project on github</p>
-    </div>
+    </a>
 
 </div>
 
@@ -30,6 +31,8 @@
     .github-style{
         display: flex;
         cursor: pointer;
+        color: white;
+        text-decoration: none;
     }
     @media(max-width: 480px){
         .footer-wrapper{
@@ -37,3 +40,4 @@
         }
     }
 </style>
+

@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "prepare": "npm run smui-theme-light && npm run smui-theme-dark",
+    "smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
+    "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark"
   },
   "devDependencies": {
     "@material/elevation": "^14.0.0",
@@ -18,17 +21,20 @@
     "@smui/select": "^7.0.0-beta.0",
     "@smui/slider": "^7.0.0-beta.0",
     "@smui/textfield": "^7.0.0-beta.0",
-    "@sveltejs/vite-plugin-svelte": "^1.4.0",
+    "@sveltejs/adapter-auto": "^2.0.0",
+    "@sveltejs/kit": "^1.5.0",
     "@types/d3": "^7.4.0",
     "carbon-components-svelte": "^0.70.13",
     "d3": "^7.6.1",
     "prettier": "^2.8.1",
     "prettier-plugin-svelte": "^2.9.0",
-    "svelte": "^3.52.0",
+    "smui-theme": "^7.0.0-beta.0",
+    "svelte": "^3.54.0",
     "svelte-icon": "^1.3.0",
     "svelte-preprocess": "^5.0.0",
+    "tslib": "^2.4.1",
     "typescript": "^4.9.4",
-    "vite": "^3.2.3"
+    "vite": "^4.0.0"
   },
   "dependencies": {
     "frame3dd-wasm-js": "github:NStar-1/frame3dd-wasm-js#v0.1.3",

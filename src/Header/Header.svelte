@@ -1,26 +1,34 @@
 <script>
-  import Switch from "@smui/switch";
-  let lng = false;
+  import { base } from "$app/paths";
   import { locale, _ } from "svelte-i18n";
-    import { Link } from "svelte-navigator";
+  import Switch from "@smui/switch";
+
+  let lng = false;
 </script>
 
 <div class="HeaderWrapper">
   <div class="ContentHeader">
-    <Link to={'/beam-calculator/'}>   <img rel="icon" src="assets/logo.svg" alt="icon" class="AppName" /> </Link>
- 
+    <!--<a href="{base}/"
+      ><img
+        rel="icon"
+        src="{base}/assets/logo.svg"
+        alt="icon"
+        class="AppName"
+      /></a
+  >-->
+
     <div style="flex-direction: row; display: flex">
-      <Switch
+      <!-- FIXME -->
+      <!--<Switch
         bind:checked={lng}
         color="secondary"
         icons={false}
         on:SMUISwitch:change={() => locale.set(lng ? "ru" : "en")}
-      />
+      />-->
 
-      <Link to={'/beam-calculator/about'} style="text-decoration: none"> <div class="Link">{$_("app.about")}</div></Link>
-      <!-- <button on:click={}>
-      
-      </button> -->
+      <a href="{base}/about" class="Link" style="text-decoration: none"
+        >{$_("app.about")}</a
+      >
     </div>
   </div>
 </div>
@@ -70,7 +78,7 @@
       height: 40%;
       margin: 8% 0;
     }
-    .ContentHeader{
+    .ContentHeader {
       margin: 0 5%;
     }
   }

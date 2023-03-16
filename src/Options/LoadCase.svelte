@@ -1,4 +1,5 @@
 <script>
+  import { base } from "$app/paths";
   import IconButton from "@smui/icon-button";
   import { loads, points, selectedLoad } from "../store";
   import { shiftNode } from "../utils/store-utils";
@@ -39,7 +40,7 @@
 
 {#if load}
   <div class="loadItem">
-    <img alt="load type icon" src={`assets/icons/${loadTypeIcon}`} />
+    <img alt="load type icon" src={`${base}/assets/icons/${loadTypeIcon}`} />
     <div>#{load.node - 1} |</div>
     <div>{load.offset} |</div>
     <div>{load.angle} |</div>

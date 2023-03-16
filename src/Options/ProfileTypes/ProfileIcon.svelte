@@ -1,8 +1,9 @@
 <script>
+  import { base } from "$app/paths";
   import { profileType, profileNamesLnKeys } from "../../store";
 </script>
 
-<img class="profileIcon" src={"assets/razrez/" + profileNamesLnKeys[$profileType].img + ".svg"} />
+<img class="profileIcon" src={base + "/assets/razrez/" + profileNamesLnKeys[$profileType].img + ".svg"} />
 
 <style>
   .profileIcon {

@@ -11,9 +11,6 @@
   import OptionTitle from "./OptionTitle.svelte";
   import { _ } from "svelte-i18n";
   import ProfileIcon from "./ProfileTypes/ProfileIcon.svelte";
-  console.log(
-    document.getElementsByClassName(".smui-accordion__header__title")
-  );
 
   let panel1Open = true;
   let panel2Open = false;
