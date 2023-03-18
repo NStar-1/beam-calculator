@@ -1,5 +1,5 @@
 <script language="ts">
-  import { isPhone, material, length, fixationType, results } from "src/store";
+  import { isPhone, material, length, fixationType, results } from "$lib/store";
   import { scaleLinear, path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
   import ForceLine from "./force-line.svelte";

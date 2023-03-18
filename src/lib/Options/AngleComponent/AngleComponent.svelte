@@ -1,5 +1,5 @@
-<script>
-  export let angle;
+<script lang="ts">
+  export let angle: number;
 </script>
 
 <svg viewBox="0 0 80 80" style="cursor: auto;">

@@ -1,8 +1,8 @@
 <script>
-  import Graph from "./Ggraphic/index.svelte";
-  import Options from "./Options/Options.svelte";
   import { _ } from "svelte-i18n";
-  import { isPhone } from "./store";
+  import Graph from "$lib/Ggraphic/index.svelte";
+  import Options from "$lib/Options/Options.svelte";
+  import { isPhone } from "$lib/store";
 </script>
 
 <h1>{$_("app.title")}</h1>

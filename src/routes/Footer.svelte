@@ -1,7 +1,5 @@
 <script>
   import { base } from "$app/paths";
-  import { navigate } from "svelte-navigator";
-  //on:click={()=>navigate('https://github.com/NStar-1/beam-calculator')}
 </script>
 
 <div class="footer-wrapper">

@@ -1,4 +1,6 @@
 import { writable, get } from "svelte/store";
+// TODO
+// @ts-ignore
 import Frame3ddLoader from "frame3dd-wasm-js";
 import materials from "./materials";
 import {

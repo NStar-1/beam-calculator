@@ -3,7 +3,7 @@
   import TextField from "@smui/textfield";
   import { TreeView } from "carbon-components-svelte";
   import materials from "./materials.js";
-  import new_mat from "src/materials.ts";
+  import new_mat from "../materials";
   import { children } from "svelte/internal";
 
   let activeId = "";

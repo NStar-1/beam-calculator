@@ -15,7 +15,7 @@
   import IconButton from "@smui/icon-button";
   import AngleComponent from "../Options/AngleComponent/AngleComponent.svelte"
   import type { LoadType } from "../store";
-  import { shiftNode } from "../utils/store-utils";
+  import { shiftNode } from "../store-utils";
 
   let loadType: LoadType = "pointed";
   let offsetPosition = "left";

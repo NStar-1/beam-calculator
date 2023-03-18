@@ -1,6 +1,6 @@
 <script>
   import { base } from "$app/paths";
-  import { profileType, profileNamesLnKeys } from "../../store";
+  import { profileType, profileNamesLnKeys } from "$lib/store";
 </script>
 
 <img class="profileIcon" src={base + "/assets/razrez/" + profileNamesLnKeys[$profileType].img + ".svg"} />

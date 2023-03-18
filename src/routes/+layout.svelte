@@ -1,10 +1,10 @@
-<script>
-  import Header from "../Header/Header.svelte";
+<script lang="ts">
   import { dictionary, locale, _ } from "svelte-i18n";
-  import { dict } from "../dictionary";
+  import { dict } from "$lib/dictionary";
   import { onMount } from "svelte";
-  import { isPhone } from "../store";
-  import Footer from "../Footer/Footer.svelte";
+  import { isPhone } from "$lib/store";
+  import Header from "./Header.svelte";
+  import Footer from "./Footer.svelte";
   dictionary.set(dict);
   locale.set("en");
 
