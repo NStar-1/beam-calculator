@@ -9,7 +9,7 @@
 
 <Select bind:value label={$_(`options.config.${side}`)} style="width: 50%">
   {#each fixationConst as fixation, i}
-    <Option value={i}>
+    <Option value={fixation.key}>
       {#if fixation.src === "none"}
         <div />
         <div class="label">

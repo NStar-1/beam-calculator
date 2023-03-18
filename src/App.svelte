@@ -3,7 +3,6 @@
   import Options from "./Options/Options.svelte";
   import { _ } from "svelte-i18n";
   import { isPhone } from "./store";
-
 </script>
 
 <h1>{$_("app.title")}</h1>

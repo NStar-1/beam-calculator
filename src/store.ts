@@ -18,6 +18,8 @@ export enum ProfileType {
   I_BEAM,
 }
 
+type FixationType = "NONE" | "FIXED" | "PIN" | "ROLLER"
+
 export const profileNamesLnKeys = {
   [ProfileType.CYLINDRICAL]: {
     i18nKey: "profiles.name.cylindrical",
@@ -221,21 +223,21 @@ const convertLoads = () => {
   }));
 };
 
-export type Fixation = { left: 0 | 1; right: 0 | 1 };
-export const fixationType = writable<Fixation>({ left: 1, right: 0 });
+export type Fixation = { left: FixationType; right: FixationType };
+export const fixationType = writable<Fixation>({ left: "FIXED", right: "NONE" });
 
 fixationType.subscribe((fixation) => {
   const pts = get(points);
-  
+
   if (!pts || pts.length === 0) {
     return;
   }
 
   if (pts[0].id === 1) {
-    pts[0].isFixed = fixation.left;
+    pts[0].isFixed = fixation.left === "FIXED" ? 1 : 0;
   }
   if (pts[pts.length - 1].x === get(length)) {
-    pts[pts.length - 1].isFixed === fixation.right;
+    pts[pts.length - 1].isFixed = fixation.right === "FIXED" ? 1: 0;
   }
 
   points.set(pts);

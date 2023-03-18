@@ -18,10 +18,10 @@
   $: drawingHeight = clientHeight - drawingOffset;
 
   let fixationLeft;
-  $: fixationLeft = fixationConst[$fixationType.left];
+  $: fixationLeft = fixationConst.find((d) => d.key === $fixationType.left);
 
   let fixationRight;
-  $: fixationRight = fixationConst[$fixationType.right];
+  $: fixationRight = fixationConst.find((d) => d.key === $fixationType.right);
 
   let uniform = scaleLinear();
   let curve;
@@ -84,10 +84,10 @@
           <image
             href={fixationRight.src ?? ""}
             height={fixationRight.height}
-            x={uniform($length) * ($fixationType.right === 1 ? -1 : 1) +
+            x={uniform($length) * ($fixationType.right === "FIXED" ? -1 : 1) +
               fixationRight.leftX}
             y={fixationRight.leftY}
-            style={$fixationType.right === 1 ? "transform: scaleX(-1)" : ""}
+            style={$fixationType.right === "FIXED" ? "transform: scaleX(-1)" : ""}
           />
         {/if}
 
