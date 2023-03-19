@@ -1,30 +1,37 @@
 <script>
   import { base } from "$app/paths";
   import { locale, _ } from "svelte-i18n";
-  import Switch from "@smui/switch";
+  import Select, { Option } from "@smui/select";
+  import Icon from "@smui/select/icon";
 
-  let lng = false;
+  let lng = "ru";
 </script>
 
 <div class="HeaderWrapper">
   <div class="ContentHeader">
-    <!--<a href="{base}/"
+    <a href="{base}/"
       ><img
         rel="icon"
         src="{base}/assets/logo.svg"
         alt="icon"
         class="AppName"
       /></a
-  >-->
+    >
 
     <div style="flex-direction: row; display: flex">
       <!-- FIXME -->
-      <!--<Switch
-        bind:checked={lng}
-        color="secondary"
-        icons={false}
-        on:SMUISwitch:change={() => locale.set(lng ? "ru" : "en")}
-      />-->
+      <Select
+        bind:value={lng}
+        on:SMUISelect:change={() => locale.set(lng)}
+        withLeadingIcon={true}
+        noLabel={true}
+      >
+        <svelte:fragment slot="leadingIcon">
+          <Icon class="material-icons">translate</Icon>
+        </svelte:fragment>
+        <Option value="ru">Ru</Option>
+        <Option value="en">En</Option>
+      </Select>
 
       <a href="{base}/about" class="Link" style="text-decoration: none"
         >{$_("app.about")}</a
