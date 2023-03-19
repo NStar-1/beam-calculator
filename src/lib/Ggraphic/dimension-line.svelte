@@ -97,9 +97,13 @@
 </g>
 
 <style>
+  * {
+    font-family: "GOST type A";
+  }
+
   .dimension {
     stroke: black;
-    stroke-width: 2;
+    stroke-width: 1;
   }
 
   .arrow-both {
@@ -117,7 +121,6 @@
   }
 
   text {
-    font-family: monospace;
     text-anchor: middle;
     font-size: 18px;
     fill: black;

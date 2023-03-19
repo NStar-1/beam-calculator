@@ -104,6 +104,10 @@
 </div>
 
 <style>
+  * {
+    font-family: "GOST type A";
+  }
+
   .graphic-container {
     width: 100%;
     height: 100%;
@@ -121,7 +125,6 @@
   }
 
   .material-info {
-    font-size: 18px;
-    font-family: monospace;
+    font-size: 20px;
   }
 </style>
