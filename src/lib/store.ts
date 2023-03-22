@@ -99,7 +99,7 @@ export function newEmptyLoadObj(): PointLoad {
     type: "pointed",
     node: 0,
     offset: 0,
-    angle: 90,
+    angle: 0,
     load: 0,
     loadValueType: "force",
   };

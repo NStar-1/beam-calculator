@@ -1,5 +1,5 @@
 <script language="ts">
-  import { isPhone, material, length, fixationType, results } from "$lib/store";
+  import { isPhone, material, length, fixationType, results, points, loads } from "$lib/store";
   import { scaleLinear, path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
   import ForceLine from "./force-line.svelte";
@@ -43,6 +43,8 @@
       uniform(deflection)
     );
   }
+  console.log($loads)
+
 </script>
 
 <div bind:clientWidth bind:clientHeight class="graphic-container">
@@ -72,6 +74,20 @@
         <path class="loaded-beam" d={curve} />
         <NodeNumber x={uniform(0) + 20} y={uniform(0) - 20} text="1" />
         <NodeNumber x={uniform($length) - 20} y={uniform(0) - 20} text="2" />
+       
+        {#if $points.length !== 0}
+        {#each $points as point}
+          <NodeNumber x={uniform(point.x)} y={uniform(0)-20} text={point.id + 1} />
+          <ForceLine
+          x0={point.x}
+          y0={0}
+          x1={point.x - Math.sin(($loads.find((load)=>load.node === point.id  ).angle  * Math.PI)/180)*$loads.find((load)=>load.node === point.id  ).load /100 }
+          y1={Math.cos(($loads.find((load)=>load.node === point.id  ).angle  * Math.PI)/180)*$loads.find((load)=>load.node === point.id  ).load /100}
+
+           scale={uniform}
+        />
+        {/each}
+        {/if}
         <DimensionLine x0={0} y0={0} x1={$length} y1={0} scale={uniform} />
         <DimensionLine
           x0={$length}
