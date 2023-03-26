@@ -1,12 +1,8 @@
-<script>
+<script lang="ts">
   import { material_id } from "../store";
   import TextField from "@smui/textfield";
   import { TreeView } from "carbon-components-svelte";
-  import materials from "./materials.js";
-  import new_mat from "../materials";
-  import { children } from "svelte/internal";
-
-  let activeId = "";
+  import materials from "../materials";
 
   let query = "";
 
@@ -23,9 +19,7 @@
     }, []);
   }
 
-  function new_filter(items, query) {
-    console.log(items);
-    console.log("new filter!");
+  function new_filter(items: typeof materials, query: string) {
     return items.map((d, idx) => ({
       id: idx,
       text: d.name,
@@ -33,13 +27,13 @@
     }));
   }
 
-  let filtered = [];
-  //$: filtered = filter(materials, query);
-  $: filtered = new_filter(new_mat, query);
+  let filtered: typeof materials = [];
+  $: filtered = new_filter(materials, query);
 </script>
 
 <TextField label="Filter" bind:value={query} />
 <TreeView
+  style="padding-left: 0"
   labelText="List of materials"
   children={filtered}
   bind:activeId={$material_id}
