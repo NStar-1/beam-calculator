@@ -73,18 +73,18 @@
         <line class="line" x1={0} y1={0} x2={uniform($length)} y2="0" />
         <path class="loaded-beam" d={curve} />
         <NodeNumber x={uniform(0) + 20} y={uniform(0) - 20} text="1" />
-        <NodeNumber x={uniform($length) - 20} y={uniform(0) - 20} text="2" />
+        <NodeNumber x={uniform($length) + 20} y={uniform(0) - 20} text="2" />
        
         {#if $points.length !== 0}
         {#each $points as point}
-          <NodeNumber x={uniform(point.x)} y={uniform(0)-20} text={point.id + 1} />
+          <NodeNumber x={uniform(point.x) + 20} y={uniform(0)-20} text={String(point.id + 1)} />
           <ForceLine
           x0={point.x}
           y0={0}
           x1={point.x - Math.sin(($loads.find((load)=>load.node === point.id  ).angle  * Math.PI)/180)*$loads.find((load)=>load.node === point.id  ).load /100 }
           y1={Math.cos(($loads.find((load)=>load.node === point.id  ).angle  * Math.PI)/180)*$loads.find((load)=>load.node === point.id  ).load /100}
-
-           scale={uniform}
+          label={"F = " + $loads.find((load)=>load.node === point.id)?.load}
+          scale={uniform}
         />
         {/each}
         {/if}
@@ -106,14 +106,6 @@
             style={$fixationType.right === "FIXED" ? "transform: scaleX(-1)" : ""}
           />
         {/if}
-
-        <ForceLine
-          x0={$length}
-          y0={deflection}
-          x1={$length}
-          y1={deflection * 2}
-          scale={uniform}
-        />
       </g>
     </g>
   </svg>
