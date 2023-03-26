@@ -11,6 +11,34 @@
   $error: color-palette.$red-700
 );
 
+// -- CARBON --
+// FIXME themes does not change
+@use '@carbon/themes/scss/themes' as *;
+@use '@carbon/themes' with ($theme: $g90);
+
+:root {
+  @include themes.theme($g90);
+}
+
+// Your entrypoint for including sass files from Carbon
+// FIXME themes does not change
+$css--font-face: true;
+$css--helpers: true;
+$css--body: true;
+$css--use-layer: true;
+$css--reset: false;
+$css--default-type: true;
+$css--plex: true;
+
+// Include defaults typically provided through the `styles.scss` entrypoint
+@import 'carbon-components/scss/globals/scss/_css--reset.scss';
+@import 'carbon-components/scss/globals/scss/_css--font-face.scss';
+@import 'carbon-components/scss/globals/scss/_css--helpers.scss';
+@import 'carbon-components/scss/globals/scss/_css--body.scss';
+
+@import 'carbon-components/scss/components/treeview/_treeview.scss';
+// -- CARBON END --
+
 html,
 body {
   background-color: #000;
