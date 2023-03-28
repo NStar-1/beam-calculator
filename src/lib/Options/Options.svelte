@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { length, profileInfo, material, loads, solve_model } from "../store";
   import Cut from "./Cut.svelte";
   import Fixation from "./Fixation.svelte";
@@ -7,15 +7,31 @@
   import { Icon } from "@smui/icon-button";
   import Button from "@smui/button";
   import Material from "./Material.svelte";
-  import LoadCases from "./LoadCases.svelte";
+  import LoadCases from "./LoadCases/LoadCases.svelte";
   import OptionTitle from "./OptionTitle.svelte";
   import { _ } from "svelte-i18n";
   import ProfileIcon from "./ProfileTypes/ProfileIcon.svelte";
+  import validate from "../../utils/validation";
+  import { createLengthRules } from "./validators";
+  import HelperText from "@smui/textfield/helper-text";
+
+  import type { ValidationResult } from "../../utils/validation";
 
   let panel1Open = true;
   let panel2Open = false;
   let panel3Open = false;
   let panel4Open = false;
+
+  let lengthValidation: ValidationResult = { valid: true, errors: [] };
+
+  const validateLength = () => {
+    lengthValidation = validate(
+      createLengthRules(
+        $loads && $loads.length > 0 ? $loads[$loads.length - 1].offset : -1
+      ),
+      $length
+    );
+  };
 </script>
 
 <Accordion>
@@ -39,6 +55,14 @@
         type="number"
         label={$_("options.config.length")}
         bind:value={$length}
+        required
+        invalid={!lengthValidation.valid}
+        on:blur={validateLength}
+      >
+        <HelperText validationMsg slot="helper"
+          >{lengthValidation.errors.join(", ")}</HelperText
+        >
+      </Textfield>
       />
       <div style="margin: 10px 0">{$_("options.config.fixType.title")}</div>
       <Fixation />

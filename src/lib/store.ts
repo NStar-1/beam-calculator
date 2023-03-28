@@ -11,6 +11,7 @@ import {
   iBeam,
 } from "./sectionUtil";
 import type { Material } from "./materials";
+import {convertFixation} from "./store-utils";
 
 export enum ProfileType {
   CYLINDRICAL,
@@ -20,7 +21,7 @@ export enum ProfileType {
   I_BEAM,
 }
 
-type FixationType = "NONE" | "FIXED" | "PIN" | "ROLLER"
+export type FixationType = "NONE" | "FIXED" | "PIN" | "ROLLER";
 
 export const profileNamesLnKeys = {
   [ProfileType.CYLINDRICAL]: {
@@ -107,7 +108,7 @@ export function newEmptyLoadObj(): PointLoad {
 
 export const isPhone = writable(false);
 
-export const length = writable(0);
+export const length = writable(5000);
 
 export const cutVal = writable(0);
 export const cutInputs = writable([]);
@@ -226,7 +227,11 @@ const convertLoads = () => {
 };
 
 export type Fixation = { left: FixationType; right: FixationType };
-export const fixationType = writable<Fixation>({ left: "FIXED", right: "NONE" });
+export const fixationType = writable<Fixation>({
+  left: "FIXED",
+  right: "NONE",
+});
+
 
 fixationType.subscribe((fixation) => {
   const pts = get(points);
@@ -236,10 +241,10 @@ fixationType.subscribe((fixation) => {
   }
 
   if (pts[0].id === 1) {
-    pts[0].isFixed = fixation.left === "FIXED" ? 1 : 0;
+    pts[0].isFixed = convertFixation(fixation.left);
   }
   if (pts[pts.length - 1].x === get(length)) {
-    pts[pts.length - 1].isFixed = fixation.right === "FIXED" ? 1: 0;
+    pts[pts.length - 1].isFixed = fixation.right === "FIXED" ? 1 : 0;
   }
 
   points.set(pts);
@@ -266,7 +271,7 @@ export const solve_model = async function () {
   if (model.points[0].id !== 1) {
     model.points.unshift({
       id: 1,
-      isFixed: get(fixationType).left,
+      isFixed: convertFixation(get(fixationType).left),
       x: 0,
       y: 0,
       z: 0,
@@ -275,7 +280,7 @@ export const solve_model = async function () {
   if (model.points[model.points.length - 1].x !== get(length)) {
     model.points.push({
       id: getNextPointId(),
-      isFixed: get(fixationType).right,
+      isFixed: convertFixation(get(fixationType).right),
       x: get(length),
       y: 0,
       z: 0,

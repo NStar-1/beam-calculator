@@ -9,13 +9,16 @@
     selectedLoad,
     type PointLoad,
     type Point,
-  } from "../store";
-  import { _ } from "svelte-i18n";
+  } from "../../store";
+  import { waitLocale, _ } from "svelte-i18n";
   import Textfield from "@smui/textfield";
   import IconButton from "@smui/icon-button";
-  import AngleComponent from "../Options/AngleComponent/AngleComponent.svelte"
-  import type { LoadType } from "../store";
-  import { shiftNode } from "../store-utils";
+  import AngleComponent from "../AngleComponent/AngleComponent.svelte";
+  import type { LoadType } from "../../store";
+  import { convertFixation, shiftNode } from "../../store-utils";
+  import validate, { type ValidationResult } from "../../../utils/validation";
+  import { angleRules, createOffsetRules, loadRules } from "./validatiors";
+  import HelperText from "@smui/textfield/helper-text";
 
   let loadType: LoadType = "pointed";
   let offsetPosition = "left";
@@ -28,7 +31,7 @@
   let isEdit = $selectedLoad >= 0;
   let isFormVisible = isEdit;
 
-  let currentLoad;
+  let currentLoad: number | undefined;
   $: if ($selectedLoad >= 0 && currentLoad !== $selectedLoad) {
     const sLoad = $loads[$selectedLoad];
     loadType = sLoad.type;
@@ -73,10 +76,67 @@
     currentLoad = undefined;
   };
 
-  const addPointLoad = () => {
+  let offsetValidation: ValidationResult = { valid: true, errors: [] };
+  let angleValidation: ValidationResult = { valid: true, errors: [] };
+  let loadValidation: ValidationResult = { valid: true, errors: [] };
+
+  const isFormValid = () =>
+    [offsetValidation, angleValidation, loadValidation].every((v) => v.valid);
+
+  let formInvalid = false;
+
+  $: {
+    formInvalid = [offsetValidation, angleValidation, loadValidation].some(
+      (v) => !v.valid
+    );
+  }
+
+  const validateOffset = () => {
+    let previousOffset = -1;
+    if ($selectedLoad > -1) {
+      $loads.forEach((_load, i) => {
+        if (i === $selectedLoad && i > 0) {
+          previousOffset = $loads[i - 1].offset;
+        }
+      });
+    } else {
+      previousOffset =
+        $loads.length > 0 ? $loads[$loads.length - 1].offset : -1;
+    }
+
+    offsetValidation = validate(
+      createOffsetRules($length, previousOffset),
+      offsetPosition === "left" || offsetPosition === "center"
+        ? offset
+        : $length - offset
+    );
+    console.log(offsetValidation);
+  };
+
+  const validateAngle = () => {
+    angleValidation = validate(angleRules, angle);
+  };
+
+  const validateLoad = () => {
+    loadValidation = validate(loadRules, load);
+  };
+
+  const validateForm = () => {
+    validateOffset();
+    validateAngle();
+    validateLoad();
+  };
+
+  const savePointLoad = () => {
+    validateForm();
+    if (!isFormValid()) {
+      return;
+    }
+
     const firstPoint = realOffset === 0;
     const lastPoint = realOffset === $length;
 
+    // FIXME: Need completely rewrite editing, fixation should be replaced by two separate dedicated points, last and first, which would then combined together with all points
     if (isEdit) {
       const pointId = $points[$selectedLoad].id;
       if (firstPoint) {
@@ -85,7 +145,7 @@
             ...$points[$selectedLoad],
             x: 0,
             id: 1,
-            isFixed: $fixationType.left,
+            isFixed: convertFixation($fixationType.left),
           },
           ...$points.slice(0, $selectedLoad),
           ...$points.slice($selectedLoad + 1).map(shiftNode),
@@ -139,9 +199,9 @@
       let fixation: 0 | 1 = 0;
       if (firstPoint) {
         pointLoadId = 1;
-        fixation = $fixationType.left;
+        fixation = convertFixation($fixationType.left);
       } else if (lastPoint) {
-        fixation = $fixationType.right;
+        fixation = convertFixation($fixationType.right);
       }
 
       const newPoint: Point = {
@@ -215,7 +275,13 @@
         disabled={offsetPosition === "middle"}
         label={$_("options.loadCaseForm.offset.label")}
         required
-      />
+        invalid={!offsetValidation.valid}
+        on:blur={validateOffset}
+      >
+        <HelperText validationMsg slot="helper"
+          >{offsetValidation.errors.join(", ")}</HelperText
+        >
+      </Textfield>
       <div class="offsetSelector">
         <label class="radioLabel">
           <input
@@ -225,7 +291,10 @@
             class="loadTypeInput"
             value="left"
           />
-          <img alt="pointed load icon" src="{base}/assets/icons/left_side_32.svg" />
+          <img
+            alt="pointed load icon"
+            src="{base}/assets/icons/left_side_32.svg"
+          />
         </label>
         <label class="radioLabel">
           <input
@@ -234,6 +303,7 @@
             name="offsetPosition"
             class="loadTypeInput"
             value="middle"
+            disabled={$loads.some((l) => l.offset === Math.round($length / 2))}
           />
           <img
             alt="distributed load icon"
@@ -261,9 +331,15 @@
         bind:value={angle}
         label={$_("options.loadCaseForm.angle.label")}
         required
-      />
+        invalid={!angleValidation.valid}
+        on:blur={validateAngle}
+      >
+        <HelperText validationMsg slot="helper"
+          >{angleValidation.errors.join(", ")}</HelperText
+        >
+      </Textfield>
       <div class="angleComponent">
-        <AngleComponent angle={angle}/>
+        <AngleComponent {angle} />
       </div>
     </div>
     <div class="loadAmount">
@@ -272,11 +348,19 @@
         bind:value={load}
         label={$_("options.loadCaseForm.load.label")}
         required
-      />
+        invalid={!loadValidation.valid}
+        on:blur={validateLoad}
+      >
+        <HelperText validationMsg slot="helper"
+          >{loadValidation.errors.join(", ")}</HelperText
+        >
+      </Textfield>
     </div>
     <div class="actions">
-      <IconButton class="material-icons" on:click={addPointLoad}
-        >check_circle</IconButton
+      <IconButton
+        class="material-icons"
+        on:click={savePointLoad}
+        disabled={formInvalid}>check_circle</IconButton
       >
       <IconButton class="material-icons" on:click={cancelEditing}
         >cancel</IconButton
@@ -309,7 +393,7 @@
     padding-top: 15px;
   }
   .angleComponent {
-    width: 40%
+    width: 40%;
   }
 
   .offsetSelector {
@@ -322,13 +406,13 @@
   .actions {
     padding-top: 5px;
   }
-  .loadAngle{
+  .loadAngle {
     display: flex;
     flex-direction: row;
   }
 
-  @media(max-width: 480px){
-    .angleComponent{
+  @media (max-width: 480px) {
+    .angleComponent {
       width: 30%;
     }
   }
