@@ -63,7 +63,6 @@
           >{lengthValidation.errors.join(", ")}</HelperText
         >
       </Textfield>
-      />
       <div style="margin: 10px 0">{$_("options.config.fixType.title")}</div>
       <Fixation />
     </Content>

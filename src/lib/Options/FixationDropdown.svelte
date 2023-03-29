@@ -1,15 +1,16 @@
-<script>
+<script lang="ts">
   import { fixationConst } from "./constants";
   import Select, { Option } from "@smui/select";
   import { _ } from "svelte-i18n";
+  import type { FixationEnum } from "$lib/store";
 
-  export let value;
-  export let side;
+  export let value: FixationEnum;
+  export let side: string;
 </script>
 
 <Select bind:value label={$_(`options.config.${side}`)} style="width: 50%">
   {#each fixationConst as fixation, i}
-    <Option value={fixation.key}>
+    <Option value={fixation.value}>
       {#if fixation.src === "none"}
         <div />
         <div class="label">

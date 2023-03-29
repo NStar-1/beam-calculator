@@ -3,10 +3,12 @@
     isPhone,
     material,
     length,
-    fixationType,
+    firstPoint,
+    lastPoint,
     results,
     points,
     loads,
+    FixationEnum,
   } from "$lib/store";
   import { scaleLinear, path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
@@ -26,10 +28,10 @@
   $: drawingHeight = clientHeight - drawingOffset;
 
   let fixationLeft;
-  $: fixationLeft = fixationConst.find((d) => d.key === $fixationType.left);
+  $: fixationLeft = fixationConst.find((d) => d.value === $firstPoint.isFixed);
 
   let fixationRight;
-  $: fixationRight = fixationConst.find((d) => d.key === $fixationType.right);
+  $: fixationRight = fixationConst.find((d) => d.value === $lastPoint.isFixed);
 
   let uniform = scaleLinear();
   let curve;
@@ -127,10 +129,10 @@
           <image
             href={fixationRight.src ?? ""}
             height={fixationRight.height}
-            x={uniform($length) * ($fixationType.right === "FIXED" ? -1 : 1) +
+            x={uniform($length) * ($firstPoint.isFixed === FixationEnum.FIXED ? -1 : 1) +
               fixationRight.leftX}
             y={fixationRight.leftY}
-            style={$fixationType.right === "FIXED"
+            style={$lastPoint.isFixed === FixationEnum.FIXED
               ? "transform: scaleX(-1)"
               : ""}
           />

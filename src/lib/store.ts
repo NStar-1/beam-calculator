@@ -11,7 +11,7 @@ import {
   iBeam,
 } from "./sectionUtil";
 import type { Material } from "./materials";
-import {convertFixation} from "./store-utils";
+import {convertLoads, processPointLoads} from "./store-utils";
 
 export enum ProfileType {
   CYLINDRICAL,
@@ -198,9 +198,16 @@ const updateProfile = function () {
 profileType.subscribe(updateProfile);
 profileData.subscribe(updateProfile);
 
+export enum FixationEnum {
+  NONE = 0,
+  FIXED = 1,
+  ROLLER = 2,
+  PIN = 3,
+}
+
 export type Point = {
   id: number;
-  isFixed: 0 | 1;
+  isFixed: FixationEnum;
   x: number;
   y: number;
   z: number;
@@ -216,38 +223,28 @@ export const getNextPointId = () => {
 export const loads = writable<Array<PointLoad>>([]);
 export const selectedLoad = writable<number>(-1);
 
-const convertLoads = () => {
-  const ls = get(loads);
-  return ls.map((l) => ({
-    axial: [Math.cos(l.angle) * l.load, Math.sin(l.angle) * l.load, 0],
-    id: l.node,
-    number: 1,
-    rotational: [0, 0, 0],
-  }));
-};
 
-export type Fixation = { left: FixationType; right: FixationType };
-export const fixationType = writable<Fixation>({
-  left: "FIXED",
-  right: "NONE",
+export const firstPoint = writable<Point>({
+  id: 1,
+  isFixed: FixationEnum.FIXED,
+  x: 0,
+  y: 0,
+  z: 0,
 });
 
+export const lastPoint = writable<Point>({
+  id: -1,
+  isFixed: FixationEnum.NONE,
+  x: -1,
+  y: 0,
+  z: 0,
+});
 
-fixationType.subscribe((fixation) => {
-  const pts = get(points);
-
-  if (!pts || pts.length === 0) {
-    return;
-  }
-
-  if (pts[0].id === 1) {
-    pts[0].isFixed = convertFixation(fixation.left);
-  }
-  if (pts[pts.length - 1].x === get(length)) {
-    pts[pts.length - 1].isFixed = fixation.right === "FIXED" ? 1 : 0;
-  }
-
-  points.set(pts);
+length.subscribe((l) => {
+  lastPoint.set({
+    ...get(lastPoint),
+    x: l,
+  });
 });
 
 export const results = writable({});
@@ -267,29 +264,12 @@ export const solve_model = async function () {
   const Frame3DD = await Frame3ddLoader();
   const model = Frame3DD.inputScopeJSON;
 
-  model.points = pointsArr;
-  if (model.points[0].id !== 1) {
-    model.points.unshift({
-      id: 1,
-      isFixed: convertFixation(get(fixationType).left),
-      x: 0,
-      y: 0,
-      z: 0,
-    });
-  }
-  if (model.points[model.points.length - 1].x !== get(length)) {
-    model.points.push({
-      id: getNextPointId(),
-      isFixed: convertFixation(get(fixationType).right),
-      x: get(length),
-      y: 0,
-      z: 0,
-    });
-  }
+  const lp = processPointLoads(get(firstPoint), get(lastPoint), pointsArr, loadsArr, get(length));
 
+  model.points = lp.points;
   model.nN = model.points.length;
   model.nE = model.nN - 1;
-  model.pointLoads = convertLoads();
+  model.pointLoads = convertLoads(lp.loads);
   const mat = get(material);
   model.material.E = mat.E;
   model.material.G = mat.G;

@@ -1,11 +1,11 @@
 <script>
-  import { fixationType } from "../store";
+  import { firstPoint, lastPoint } from "../store";
   import FixationDropdown from './FixationDropdown.svelte'
 </script>
 
 <div class="fixationWrapper">
-  <FixationDropdown bind:value={$fixationType.left} side="left" />
-  <FixationDropdown bind:value={$fixationType.right} side="right" />
+  <FixationDropdown bind:value={$firstPoint.isFixed} side="left" />
+  <FixationDropdown bind:value={$lastPoint.isFixed} side="right" />
 </div>
 
 <style>
