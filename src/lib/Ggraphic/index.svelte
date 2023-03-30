@@ -53,7 +53,6 @@
       uniform(deflection)
     );
   }
-  console.log($loads);
 </script>
 
 <div bind:clientWidth bind:clientHeight class="graphic-container">
@@ -91,7 +90,7 @@
               y={uniform(0) - 20}
               text={String(point.id + 1)}
             />
-            {#if $loads && loads.length > 0}
+            {#if $loads && $loads.length > 0}
               <ForceLine
                 x0={point.x}
                 y0={0}
