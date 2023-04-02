@@ -1,4 +1,10 @@
-import type { FixationType, Point, PointLoad } from "./store";
+import {
+  AnchorPoint,
+  FixationEnum,
+  type FixationType,
+  type Point,
+  type PointLoad,
+} from "./store";
 
 export function shiftNode(el: any) {
   const res = { ...el };
@@ -30,25 +36,109 @@ export const convertLoads = (loads: PointLoad[]) => {
   }));
 };
 
+/**
+ * Tells if the `point` is placed at one of the beam ends
+ * Returns the beam point or false
+ */
+export function isBeamPoint(
+  [start, end]: Array<Point>,
+  point: Point
+): Point | false {
+  // Check if the point is exactly the same beam point
+  if (point === start || point === end) return point;
+  else if (point.x === start.x) return start;
+  else if (point.x === end.x) return end;
+  return false;
+}
+
+/**
+ * Similar to `isBeamPoint`. Check if the point load is applied to an
+ * existing beam point
+ */
+export function isBeamEndForce(
+  [start, end]: Array<Point>,
+  pointLoad: PointLoad
+): Point | false {
+  if (pointLoad.anchor === AnchorPoint.START && pointLoad.offset === 0)
+    return start;
+  else if (pointLoad.anchor === AnchorPoint.START && pointLoad.offset === end.x)
+    return end;
+  else if (pointLoad.anchor === AnchorPoint.END && pointLoad.offset === 0)
+    return end;
+  else if (pointLoad.anchor === AnchorPoint.END && pointLoad.offset === end.x)
+    return start;
+  return false;
+}
+
+/**
+ * Calcolate position of the point with given anchor and offset on the beam
+ * relative to the 'start' point of the beam
+ */
+export function realPosition(
+  [start, end]: Array<Point>,
+  anchor: AnchorPoint,
+  offset: number
+): number {
+  const effectiveLength = end.x - start.x;
+
+  if (anchor === AnchorPoint.MIDDLE) return effectiveLength / 2;
+  else if (anchor === AnchorPoint.START) return start.x + offset;
+  else if (anchor === AnchorPoint.END) return end.x - offset;
+  // Will never happen / TS bug?
+  return 0;
+}
+
+/**
+ * Creates new points on the beam for the point loads if they do not exist
+ */
 export const processPointLoads = (
   firstPoint: Point,
   lastPoint: Point,
   points: Point[],
-  loads: PointLoad[],
+  pointLoads: PointLoad[],
   length: number
 ): { points: Point[]; loads: PointLoad[] } => {
+  const resultFramePoints: Point[] = [firstPoint, lastPoint];
+  const resultPointLoads: PointLoad[] = [];
+  const beam = [firstPoint, lastPoint];
+
+  pointLoads.map((d) => {
+    const beamPoint = isBeamEndForce(beam, d);
+    if (beamPoint !== false) {
+      // Use beam point
+      resultPointLoads.push({ ...d, node: beamPoint.id });
+    } else {
+      // Create new point for the point load
+      const newNodeID = resultFramePoints.length + 1;
+      resultFramePoints.push({
+        id: newNodeID,
+        isFixed: FixationEnum.NONE,
+        x: realPosition(beam, d.anchor, d.offset),
+        y: 0,
+        z: 0,
+      });
+      resultPointLoads.push({
+        ...d,
+        node: newNodeID,
+      });
+    }
+  });
+  return { points: resultFramePoints, loads: resultPointLoads };
+
   let pointsRes: Point[] = [firstPoint, ...points];
-  let loadsRes: PointLoad[] = [...loads];
+  let loadsRes: PointLoad[] = [...pointLoads];
   if (points[0].x === 0) {
     pointsRes = [firstPoint, ...points.slice(1).map(shiftNode)];
-    loadsRes = loads.map(shiftNode);
+    loadsRes = pointLoads.map(shiftNode);
   }
   const lastPtIdx = points.length - 1;
   if (points[lastPtIdx].x === length) {
-    pointsRes[lastPtIdx] = {
-      ...pointsRes[lastPtIdx],
-      isFixed: lastPoint.isFixed,
-    };
+    if (lastPtIdx > 0) {
+      pointsRes[lastPtIdx] = {
+        ...pointsRes[lastPtIdx],
+        isFixed: lastPoint.isFixed,
+      };
+    }
   } else {
     pointsRes.push({
       ...lastPoint,

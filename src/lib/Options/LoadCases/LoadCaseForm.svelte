@@ -6,10 +6,11 @@
     points,
     getNextPointId,
     selectedLoad,
+    AnchorPoint,
     type PointLoad,
     type Point,
     newEmptyLoadObj,
-  } from "../../store";
+  } from "$lib/store";
   import { waitLocale, _ } from "svelte-i18n";
   import Textfield from "@smui/textfield";
   import IconButton from "@smui/icon-button";
@@ -20,17 +21,16 @@
   import HelperText from "@smui/textfield/helper-text";
 
   let loadType: LoadType = "pointed";
-  let offsetPosition = "left";
-  let prevOffsetPositon = offsetPosition;
+  let anchor = AnchorPoint.START;
   let offset = 0;
   let realOffset = offset;
   let angle = 0;
   let load = 0;
 
-  $:$tempLoad.node = $loads.length + 2 
-  $: $tempLoad.angle = angle
-  $: $tempLoad.offset = offset
-  $: $tempLoad.load = load
+  $: $tempLoad.node = $loads.length + 2;
+  $: $tempLoad.angle = angle;
+  $: $tempLoad.offset = offset;
+  $: $tempLoad.load = load;
 
   let isEdit = $selectedLoad >= 0;
 
@@ -47,30 +47,23 @@
   }
 
   $: {
-    if (prevOffsetPositon === "middle") {
-      offset = 0;
-    }
-
-    switch (offsetPosition) {
-      case "left":
+    switch (anchor) {
+      case AnchorPoint.START:
         realOffset = offset;
         break;
-      case "middle":
+      case AnchorPoint.MIDDLE:
         realOffset = $length / 2;
         offset = realOffset;
         break;
-      case "right":
+      case AnchorPoint.END:
         realOffset = $length - offset;
         break;
     }
-
-    prevOffsetPositon = offsetPosition;
   }
 
   const cancelEditing = () => {
-    $tempLoad = newEmptyLoadObj()
+    $tempLoad = newEmptyLoadObj();
     loadType = "pointed";
-    offsetPosition = "left";
     offset = 0;
     angle = 0;
     load = 0;
@@ -108,7 +101,7 @@
 
     offsetValidation = validate(
       createOffsetRules($length, previousOffset),
-      offsetPosition === "left" || offsetPosition === "center"
+      anchor === AnchorPoint.START || anchor === AnchorPoint.END
         ? offset
         : $length - offset
     );
@@ -146,6 +139,7 @@
         type: loadType,
         node: pointId,
         offset: realOffset,
+        anchor,
         angle,
         load,
       };
@@ -162,7 +156,8 @@
       const newLoad: PointLoad = {
         type: loadType,
         node: pointLoadId,
-        offset: realOffset,
+        offset: offset,
+        anchor,
         angle,
         load,
         loadValueType: "force",
@@ -205,7 +200,7 @@
     <Textfield
       type="number"
       bind:value={offset}
-      disabled={offsetPosition === "middle"}
+      disabled={anchor === AnchorPoint.MIDDLE}
       label={$_("options.loadCaseForm.offset.label")}
       required
       invalid={!offsetValidation.valid}
@@ -219,10 +214,10 @@
       <label class="radioLabel">
         <input
           type="radio"
-          bind:group={offsetPosition}
+          bind:group={anchor}
           name="offsetPosition"
           class="loadTypeInput"
-          value="left"
+          value={AnchorPoint.START}
         />
         <img
           alt="pointed load icon"
@@ -232,10 +227,10 @@
       <label class="radioLabel">
         <input
           type="radio"
-          bind:group={offsetPosition}
+          bind:group={anchor}
           name="offsetPosition"
           class="loadTypeInput"
-          value="middle"
+          value={AnchorPoint.MIDDLE}
           disabled={$loads.some((l) => l.offset === Math.round($length / 2))}
         />
         <img
@@ -246,10 +241,10 @@
       <label class="radioLabel">
         <input
           type="radio"
-          bind:group={offsetPosition}
+          bind:group={anchor}
           name="offsetPosition"
           class="loadTypeInput"
-          value="right"
+          value={AnchorPoint.END}
         />
         <img
           alt="distributed load icon"

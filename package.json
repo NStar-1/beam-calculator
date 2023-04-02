@@ -10,7 +10,8 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "prepare": "npm run smui-theme-light && npm run smui-theme-dark",
     "smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
-    "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark"
+    "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark",
+    "test": "vitest"
   },
   "devDependencies": {
     "@material/elevation": "^14.0.0",
@@ -36,7 +37,8 @@
     "svelte-preprocess": "^5.0.0",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4",
-    "vite": "^4.0.0"
+    "vite": "^4.0.0",
+    "vitest": "^0.29.8"
   },
   "dependencies": {
     "@carbon/themes": "^11.17.0",

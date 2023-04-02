@@ -2,7 +2,7 @@
   import { base } from "$app/paths";
   import IconButton from "@smui/icon-button";
   import { loads, points, selectedLoad } from "../../store";
-  import { shiftNode } from "../../store-utils";
+  import { shiftNode } from "$lib/store-utils";
 
   export let loadId: number;
 

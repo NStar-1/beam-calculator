@@ -1,4 +1,4 @@
-<script language="ts">
+<script lang="ts">
   import {
     isPhone,
     material,
@@ -18,10 +18,10 @@
   import Markers from "./markers.svelte";
   import { fixationConst } from "../Options/constants";
   import { _ } from "svelte-i18n";
-  let clientWidth;
-  let clientHeight;
+  let clientWidth: number;
+  let clientHeight: number;
   const marginRight = 70;
-  let drawingOffset;
+  let drawingOffset: number;
 
   let drawingWidth;
 

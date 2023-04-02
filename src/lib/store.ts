@@ -11,7 +11,7 @@ import {
   iBeam,
 } from "./sectionUtil";
 import type { Material } from "./materials";
-import {convertLoads, processPointLoads} from "./store-utils";
+import { convertLoads, processPointLoads } from "./store-utils";
 
 export enum ProfileType {
   CYLINDRICAL,
@@ -84,24 +84,32 @@ export type TBeamProfile = Partial<{
   thickness: number;
 }>;
 
+export enum AnchorPoint {
+  START,
+  END,
+  MIDDLE,
+}
+
 export type LoadType = "pointed" | "distributed";
 
 export type PointLoad = {
-  type: LoadType;
-  node: number;
+  type: LoadType; // FIXME point load can not be distributed
+  node: number; // Computed value
   offset: number;
+  anchor: AnchorPoint;
   angle: number;
   load: number;
-  loadValueType: "mass" | "force";
+  loadValueType: "mass" | "force"; // FIXME foce should be enough
 };
 
-export const tempLoad = writable<PointLoad>(newEmptyLoadObj())
+export const tempLoad = writable<PointLoad>(newEmptyLoadObj());
 
 export function newEmptyLoadObj(): PointLoad {
   return {
     type: "pointed",
     node: -1,
     offset: 0,
+    anchor: AnchorPoint.END,
     angle: 0,
     load: 0,
     loadValueType: "force",
@@ -225,7 +233,6 @@ export const getNextPointId = () => {
 export const loads = writable<Array<PointLoad>>([]);
 export const selectedLoad = writable<number>(-1);
 
-
 export const firstPoint = writable<Point>({
   id: 1,
   isFixed: FixationEnum.FIXED,
@@ -235,7 +242,7 @@ export const firstPoint = writable<Point>({
 });
 
 export const lastPoint = writable<Point>({
-  id: -1,
+  id: 2,
   isFixed: FixationEnum.NONE,
   x: -1,
   y: 0,
@@ -252,7 +259,7 @@ length.subscribe((l) => {
 export const results = writable({});
 export const context = writable({});
 
-export const solve_model = async function () {
+export const solveModel = async function () {
   // TODO: we need normal, form-based validation
   const pointsArr = [...get(points)];
   const loadsArr = [...get(loads)];
@@ -266,7 +273,13 @@ export const solve_model = async function () {
   const Frame3DD = await Frame3ddLoader();
   const model = Frame3DD.inputScopeJSON;
 
-  const lp = processPointLoads(get(firstPoint), get(lastPoint), pointsArr, loadsArr, get(length));
+  const lp = processPointLoads(
+    get(firstPoint),
+    get(lastPoint),
+    pointsArr,
+    loadsArr,
+    get(length)
+  );
 
   model.points = lp.points;
   model.nN = model.points.length;
