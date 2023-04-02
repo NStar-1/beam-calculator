@@ -9,6 +9,7 @@
     points,
     loads,
     FixationEnum,
+    tempLoad
   } from "$lib/store";
   import { scaleLinear, path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
@@ -86,7 +87,7 @@
         {#if $points.length !== 0}
           {#each $points as point}
             <NodeNumber
-              x={uniform(point.x) + 20}
+              x={uniform(point.x)}
               y={uniform(0) - 20}
               text={String(point.id + 1)}
             />
@@ -115,6 +116,36 @@
               />
             {/if}
           {/each}
+        {/if}
+        {#if $tempLoad.node !== -1}
+        <NodeNumber
+        x={uniform($tempLoad.offset)}
+        y={uniform(0) - 20}
+        text={String($tempLoad.node + 1)}
+      />
+
+        <ForceLine
+          x0={$tempLoad.offset}
+          y0={0}
+          x1={$tempLoad.offset -
+            (Math.sin(
+              ($tempLoad.angle *
+                Math.PI) /
+                180
+            ) *
+              $tempLoad.load) /
+              100}
+          y1={(Math.cos(
+            ($tempLoad.angle *
+              Math.PI) /
+              180
+          ) *
+            $tempLoad.load) /
+            100}
+          label={"F = " +
+            $tempLoad.load}
+          scale={uniform}
+        />
         {/if}
         <DimensionLine x0={0} y0={0} x1={$length} y1={0} scale={uniform} />
         <DimensionLine

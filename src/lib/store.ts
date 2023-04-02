@@ -95,10 +95,12 @@ export type PointLoad = {
   loadValueType: "mass" | "force";
 };
 
+export const tempLoad = writable<PointLoad>(newEmptyLoadObj())
+
 export function newEmptyLoadObj(): PointLoad {
   return {
     type: "pointed",
-    node: 0,
+    node: -1,
     offset: 0,
     angle: 0,
     load: 0,

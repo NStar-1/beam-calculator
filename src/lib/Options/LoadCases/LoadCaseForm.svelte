@@ -8,12 +8,13 @@
     selectedLoad,
     type PointLoad,
     type Point,
+    newEmptyLoadObj,
   } from "../../store";
   import { waitLocale, _ } from "svelte-i18n";
   import Textfield from "@smui/textfield";
   import IconButton from "@smui/icon-button";
   import AngleComponent from "../AngleComponent/AngleComponent.svelte";
-  import type { LoadType } from "../../store";
+  import { tempLoad, type LoadType } from "../../store";
   import validate, { type ValidationResult } from "../../../utils/validation";
   import { angleRules, createOffsetRules, loadRules } from "./validatiors";
   import HelperText from "@smui/textfield/helper-text";
@@ -25,6 +26,11 @@
   let realOffset = offset;
   let angle = 0;
   let load = 0;
+
+  $:$tempLoad.node = $loads.length + 2 
+  $: $tempLoad.angle = angle
+  $: $tempLoad.offset = offset
+  $: $tempLoad.load = load
 
   let isEdit = $selectedLoad >= 0;
 
@@ -62,6 +68,7 @@
   }
 
   const cancelEditing = () => {
+    $tempLoad = newEmptyLoadObj()
     loadType = "pointed";
     offsetPosition = "left";
     offset = 0;
