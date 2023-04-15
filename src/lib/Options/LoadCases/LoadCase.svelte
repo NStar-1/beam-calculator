@@ -1,14 +1,14 @@
 <script lang="ts">
   import { base } from "$app/paths";
   import IconButton from "@smui/icon-button";
-  import { loads, points, selectedLoad } from "../../store";
+  import { loads, selectedLoad } from "../../store";
   import { shiftNode } from "$lib/store-utils";
 
   export let loadId: number;
 
   $: load = $loads[loadId];
-  $: loadTypeIcon =
-    load?.type === "pointed" ? "point_load_32.svg" : "distributed_load_32.svg";
+  // TODO Other load types
+  $: loadTypeIcon = "point_load_32.svg" // : "distributed_load_32.svg";
 
   const deleteLoad = (evt: Event) => {
     evt.stopPropagation();
@@ -32,24 +32,21 @@
     };
 
     $loads = removeItem(loadId, $loads);
-    $points = removeItem(loadId, $points);
 
     if ($loads.length === 0) {
       $selectedLoad = -1;
     }
     console.log($loads);
-    console.log($points);
   };
 </script>
 
 {#if load}
   <div class="loadItem" on:click={() => ($selectedLoad = loadId)}>
     <img alt="load type icon" src={`${base}/assets/icons/${loadTypeIcon}`} />
-    <div>#{load.node - 1} |</div>
+    <div>#{loadId} |</div>
     <div>{load.offset} |</div>
     <div>{load.angle} |</div>
-    <div>{load.load} |</div>
-    <div>{load.loadValueType} |</div>
+    <div>{load.value} |</div>
     <IconButton class="material-icons" on:click={deleteLoad}>delete</IconButton>
   </div>
 {/if}

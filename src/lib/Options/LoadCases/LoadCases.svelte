@@ -1,4 +1,5 @@
-<script> import List, { Item, Separator, Text } from "@smui/list";
+<script>
+  import List, { Item, Separator, Text } from "@smui/list";
   import { loads } from "../../store";
   import { _ } from "svelte-i18n";
   import LoadCase from "./LoadCase.svelte";

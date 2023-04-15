@@ -6,7 +6,6 @@
     firstPoint,
     lastPoint,
     results,
-    points,
     loads,
     FixationEnum,
     tempLoad
@@ -18,6 +17,7 @@
   import Markers from "./markers.svelte";
   import { fixationConst } from "../Options/constants";
   import { _ } from "svelte-i18n";
+  import {getLoadRelativePos} from "$lib/store-utils";
   let clientWidth: number;
   let clientHeight: number;
   const marginRight = 70;
@@ -81,15 +81,21 @@
         {/if}
         <line class="line" x1={0} y1={0} x2={uniform($length)} y2="0" />
         <path class="loaded-beam" d={curve} />
-        <NodeNumber x={uniform(0) + 20} y={uniform(0) - 20} text="1" />
-        <NodeNumber x={uniform($length) + 20} y={uniform(0) - 20} text="2" />
 
-        {#if $points.length !== 0}
+        {#each $loads as load, idx}
+            <NodeNumber
+              x={uniform(getLoadRelativePos(load, $length))}
+              y={uniform(0) - 20}
+              text={String(idx)}
+            />
+        {/each}
+
+        <!--{#if $points.length !== 0}
           {#each $points as point}
             <NodeNumber
               x={uniform(point.x)}
               y={uniform(0) - 20}
-              text={String(point.id + 1)}
+              text={String(point.id)}
             />
             {#if $loads && $loads.length > 0}
               <ForceLine
@@ -118,11 +124,6 @@
           {/each}
         {/if}
         {#if $tempLoad.node !== -1}
-        <NodeNumber
-        x={uniform($tempLoad.offset)}
-        y={uniform(0) - 20}
-        text={String($tempLoad.node + 1)}
-      />
 
         <ForceLine
           x0={$tempLoad.offset}
@@ -146,7 +147,7 @@
             $tempLoad.load}
           scale={uniform}
         />
-        {/if}
+        {/if}-->
         <DimensionLine x0={0} y0={0} x1={$length} y1={0} scale={uniform} />
         <DimensionLine
           x0={$length}

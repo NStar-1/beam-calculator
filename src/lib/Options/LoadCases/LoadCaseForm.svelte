@@ -3,15 +3,12 @@
   import {
     loads,
     length,
-    points,
-    getNextPointId,
     selectedLoad,
     AnchorPoint,
     type PointLoad,
-    type Point,
     newEmptyLoadObj,
   } from "$lib/store";
-  import { waitLocale, _ } from "svelte-i18n";
+  import { _ } from "svelte-i18n";
   import Textfield from "@smui/textfield";
   import IconButton from "@smui/icon-button";
   import AngleComponent from "../AngleComponent/AngleComponent.svelte";
@@ -20,53 +17,35 @@
   import { angleRules, createOffsetRules, loadRules } from "./validatiors";
   import HelperText from "@smui/textfield/helper-text";
 
-  let loadType: LoadType = "pointed";
   let anchor = AnchorPoint.START;
   let offset = 0;
   let realOffset = offset;
   let angle = 0;
-  let load = 0;
+  let value = 0;
 
-  $: $tempLoad.node = $loads.length + 2;
   $: $tempLoad.angle = angle;
   $: $tempLoad.offset = offset;
-  $: $tempLoad.load = load;
+  $: $tempLoad.value = value;
 
   let isEdit = $selectedLoad >= 0;
 
   let currentLoad: number | undefined;
   $: if ($selectedLoad >= 0 && currentLoad !== $selectedLoad) {
     const sLoad = $loads[$selectedLoad];
-    loadType = sLoad.type;
+    //loadType = sLoad.type;
     offset = sLoad.offset;
     realOffset = offset;
     angle = sLoad.angle;
-    load = sLoad.load;
+    value = sLoad.value;
     isEdit = true;
     currentLoad = $selectedLoad;
   }
 
-  $: {
-    switch (anchor) {
-      case AnchorPoint.START:
-        realOffset = offset;
-        break;
-      case AnchorPoint.MIDDLE:
-        realOffset = $length / 2;
-        offset = realOffset;
-        break;
-      case AnchorPoint.END:
-        realOffset = $length - offset;
-        break;
-    }
-  }
-
   const cancelEditing = () => {
     $tempLoad = newEmptyLoadObj();
-    loadType = "pointed";
     offset = 0;
     angle = 0;
-    load = 0;
+    value = 0;
     $selectedLoad = -1;
     currentLoad = undefined;
   };
@@ -112,7 +91,7 @@
   };
 
   const validateLoad = () => {
-    loadValidation = validate(loadRules, load);
+    loadValidation = validate(loadRules, value);
   };
 
   const validateForm = () => {
@@ -128,42 +107,21 @@
     }
 
     if (isEdit) {
-      const pointId = $points[$selectedLoad].id;
-
-      $points[$selectedLoad] = {
-        ...$points[$selectedLoad],
-        x: Number(realOffset),
-      };
       $loads[$selectedLoad] = {
         ...$loads[$selectedLoad],
-        type: loadType,
-        node: pointId,
-        offset: realOffset,
+        offset,
         anchor,
         angle,
-        load,
+        value,
       };
     } else {
-      let pointLoadId = getNextPointId();
-
-      const newPoint: Point = {
-        id: pointLoadId,
-        isFixed: 0,
-        x: Number(realOffset),
-        y: 0,
-        z: 0,
-      };
       const newLoad: PointLoad = {
-        type: loadType,
-        node: pointLoadId,
         offset: offset,
         anchor,
         angle,
-        load,
-        loadValueType: "force",
+        value: value,
       };
 
-      $points = [...$points, newPoint];
       $loads = [...$loads, newLoad];
     }
     cancelEditing();
@@ -273,7 +231,7 @@
   <div class="loadAmount">
     <Textfield
       type="number"
-      bind:value={load}
+      bind:value={value}
       label={$_("options.loadCaseForm.load.label")}
       required
       invalid={!loadValidation.valid}

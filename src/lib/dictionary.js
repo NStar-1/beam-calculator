@@ -34,7 +34,7 @@ export const dict = {
         desc: "List of materials",
       },
       load: {
-        title: "Load cases",
+        title: "Loads",
         type: {
           title: "type",
           pointed: "pointed",

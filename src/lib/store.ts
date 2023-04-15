@@ -1,6 +1,5 @@
 import { writable, get } from "svelte/store";
 // TODO
-// @ts-ignore
 import Frame3ddLoader from "frame3dd-wasm-js";
 import materials from "./materials";
 import {
@@ -11,7 +10,7 @@ import {
   iBeam,
 } from "./sectionUtil";
 import type { Material } from "./materials";
-import { convertLoads, processPointLoads } from "./store-utils";
+import { convertLoads } from "./store-utils";
 
 export enum ProfileType {
   CYLINDRICAL,
@@ -93,26 +92,23 @@ export enum AnchorPoint {
 export type LoadType = "pointed" | "distributed";
 
 export type PointLoad = {
-  type: LoadType; // FIXME point load can not be distributed
-  node: number; // Computed value
   offset: number;
+  /**
+   * Left or right side of the loaded beam
+   */
   anchor: AnchorPoint;
   angle: number;
-  load: number;
-  loadValueType: "mass" | "force"; // FIXME foce should be enough
+  value: number;
 };
 
 export const tempLoad = writable<PointLoad>(newEmptyLoadObj());
 
 export function newEmptyLoadObj(): PointLoad {
   return {
-    type: "pointed",
-    node: -1,
     offset: 0,
     anchor: AnchorPoint.END,
     angle: 0,
-    load: 0,
-    loadValueType: "force",
+    value: 10,
   };
 }
 
@@ -215,57 +211,45 @@ export enum FixationEnum {
   PIN = 3,
 }
 
-export type Point = {
-  id: number;
+export type BeamEnd = {
   isFixed: FixationEnum;
-  x: number;
-  y: number;
-  z: number;
 };
 
-export const points = writable<Array<Point>>([]);
-export const getNextPointId = () => {
-  const pts = get(points);
-  if (pts.length === 0) return 2;
-  return pts[pts.length - 1].id + 1;
-};
+//export const points = writable<Array<BeamEnd>>([]);
+//export const getNextPointId = () => {
+//  const pts = get(points);
+//  if (pts.length === 0) return 2;
+//  return pts[pts.length - 1].id + 1;
+//};
 
 export const loads = writable<Array<PointLoad>>([]);
 export const selectedLoad = writable<number>(-1);
 
-export const firstPoint = writable<Point>({
-  id: 1,
+export const firstPoint = writable<BeamEnd>({
   isFixed: FixationEnum.FIXED,
-  x: 0,
-  y: 0,
-  z: 0,
 });
 
-export const lastPoint = writable<Point>({
-  id: 2,
+export const lastPoint = writable<BeamEnd>({
   isFixed: FixationEnum.NONE,
-  x: -1,
-  y: 0,
-  z: 0,
 });
 
-length.subscribe((l) => {
-  lastPoint.set({
-    ...get(lastPoint),
-    x: l,
-  });
-});
+//length.subscribe((l) => {
+//  lastPoint.set({
+//    ...get(lastPoint),
+//    x: l,
+//  });
+//});
 
 export const results = writable({});
 export const context = writable({});
 
 export const solveModel = async function () {
   // TODO: we need normal, form-based validation
-  const pointsArr = [...get(points)];
+  //const pointsArr = [...get(points)];
   const loadsArr = [...get(loads)];
-  if (pointsArr.length === 0) {
-    throw new Error("Points can't be empty");
-  }
+  //if (pointsArr.length === 0) {
+  //  throw new Error("Points can't be empty");
+  //}
   if (loadsArr.length === 0) {
     throw new Error("Loads can't be empty");
   }
@@ -273,16 +257,16 @@ export const solveModel = async function () {
   const Frame3DD = await Frame3ddLoader();
   const model = Frame3DD.inputScopeJSON;
 
-  const lp = processPointLoads(
-    get(firstPoint),
-    get(lastPoint),
-    pointsArr,
-    loadsArr,
-    get(length)
-  );
+  //const lp = processPointLoads(
+  //  get(firstPoint),
+  //  get(lastPoint),
+  //  pointsArr,
+  //  loadsArr,
+  //  get(length)
+  //);
 
-  model.points = lp.points;
-  model.nN = model.points.length;
+  //model.points = lp.points;
+  //model.nN = model.points.length;
   model.nE = model.nN - 1;
   model.pointLoads = convertLoads(lp.loads);
   const mat = get(material);
@@ -293,5 +277,6 @@ export const solveModel = async function () {
   model.material.density = mat.density / 1_000_000;
   console.log(model);
   const res = Frame3DD.calculate(model);
+  // TODO map result back to frame data
   results.set(res.result);
 };
