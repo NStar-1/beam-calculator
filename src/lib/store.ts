@@ -1,6 +1,6 @@
 import { writable, get } from "svelte/store";
 // TODO
-import Frame3ddLoader from "frame3dd-wasm-js";
+import Frame3ddLoader, { type InputScope, type F3DD } from "frame3dd-wasm-js";
 import materials from "./materials";
 import {
   cylindrical,
@@ -10,7 +10,7 @@ import {
   iBeam,
 } from "./sectionUtil";
 import type { Material } from "./materials";
-import { convertLoads } from "./store-utils";
+import { convertLoads, getLoadAbsPos as getLoadAbsPos } from "./store-utils";
 
 export enum ProfileType {
   CYLINDRICAL,
@@ -267,7 +267,6 @@ export const solveModel = async function () {
 
   //model.points = lp.points;
   //model.nN = model.points.length;
-  model.nE = model.nN - 1;
   model.pointLoads = convertLoads(lp.loads);
   const mat = get(material);
   model.material.E = mat.E;
@@ -280,3 +279,126 @@ export const solveModel = async function () {
   // TODO map result back to frame data
   results.set(res.result);
 };
+
+function getF3DDFixation(fixation: FixationEnum): 1 | 0 {
+  return fixation === FixationEnum.NONE ? 0 : 1;
+}
+
+function getInitialPoints(
+  beam: [BeamEnd, BeamEnd],
+  length: number
+): [F3DD.Point, F3DD.Point] {
+  return [
+    { id: 0, isFixed: getF3DDFixation(beam[0].isFixed), x: 0, y: 0, z: 0 },
+    { id: 0, isFixed: getF3DDFixation(beam[1].isFixed), x: length, y: 0, z: 0 },
+  ];
+}
+
+function generateLoadedPoints(
+  loads: Array<PointLoad>,
+  length: number
+): Array<F3DD.Point> {
+  return loads.map((load) => ({
+    id: 0,
+    isFixed: 0,
+    x: getLoadAbsPos(load, length),
+    y: 0,
+    z: 0,
+  }));
+}
+
+/**
+ * ! Beam Points must go before other points!
+ */
+function deduplicatePoints(points: Array<F3DD.Point>): Array<F3DD.Point> {
+  return (
+    points
+      .reduce((acc: Array<F3DD.Point>, point) => {
+        const exists = !!acc.find((d) => d.x === point.x);
+        if (exists) {
+          return acc;
+        } else {
+          return acc.concat(point);
+        }
+      }, [])
+      // Sorts points by x position
+      .sort((a, b) => a.x - b.x)
+      // Assign IDs
+      .map((d, idx) => ({
+        ...d,
+        id: idx + 1,
+      }))
+  );
+}
+
+function getElements(points: Array<F3DD.Point>): Array<F3DD.Element> {
+  const elements: Array<F3DD.Element> = [];
+  points.reduce((previous, current, idx) => {
+    // Skip first iteration
+    if (previous !== current)
+      elements.push({
+        id: idx,
+        from: previous.id,
+        to: current.id,
+      });
+    return current;
+  }, points[0]);
+  return elements;
+}
+
+function getPointLoads(
+  points: Array<F3DD.Point>,
+  loads: Array<PointLoad>,
+  length: number
+): Array<F3DD.PointLoad> {
+  return loads.map((load) => {
+    const pos = getLoadAbsPos(load, length)
+    const point = points.find((d) => d.x === pos)!
+    // derived
+    const xLoad = Math.cos(load.angle) * load.value
+    // derived
+    const yLoad = Math.sin(load.angle) * load.value
+    return {
+      id: point.id,
+      axial: [xLoad, yLoad, 0],
+      rotational: [0, 0, 0],
+    } as F3DD.PointLoad
+  })
+  // Collapse multiple loads per node
+  .reduce((acc, f3ddPointLoad) => {
+    const existing = acc.find((d) => d.id === f3ddPointLoad.id)!;
+    if (existing !== undefined) {
+      existing.axial[0] += f3ddPointLoad.axial[0]
+      existing.axial[1] += f3ddPointLoad.axial[1]
+      existing.axial[2] += f3ddPointLoad.axial[2]
+      existing.rotational[0] += f3ddPointLoad.rotational[0]
+      existing.rotational[1] += f3ddPointLoad.rotational[1]
+      existing.rotational[2] += f3ddPointLoad.rotational[2]
+      return acc
+    } else {
+      return acc.concat(f3ddPointLoad)
+    }
+  }, [] as Array<F3DD.PointLoad>)
+}
+
+export async function solveModel2(): Promise<InputScope> {
+  const Frame3DD = await Frame3ddLoader();
+  const model = Frame3DD.inputScopeJSON;
+
+  const points = deduplicatePoints(
+    getInitialPoints([get(firstPoint), get(lastPoint)], get(length)).concat(
+      generateLoadedPoints(get(loads), get(length))
+    )
+  );
+
+  model.points = points;
+  model.elements = getElements(points)
+  model.pointLoads = getPointLoads(points, get(loads), get(length))
+
+  console.log(model);
+  const res = Frame3DD.calculate(model);
+  console.log(res)
+  // TODO map result back to frame data
+  results.set(res.result);
+  return model;
+}

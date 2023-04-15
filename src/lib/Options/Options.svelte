@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { length, profileInfo, material, loads, solveModel } from "../store";
+  import { length, profileInfo, material, loads, solveModel2 } from "../store";
   import Cut from "./Cut.svelte";
   import Fixation from "./Fixation.svelte";
   import Textfield from "@smui/textfield";
@@ -120,7 +120,7 @@
     </Content>
   </Panel>
 </Accordion>
-<Button on:click={solveModel}>Calculate</Button>
+<Button on:click={solveModel2}>Calculate</Button>
 
 <style>
   :global(.smui-accordion__header__title) {

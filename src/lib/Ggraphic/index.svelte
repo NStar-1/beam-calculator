@@ -8,7 +8,7 @@
     results,
     loads,
     FixationEnum,
-    tempLoad
+    tempLoad,
   } from "$lib/store";
   import { scaleLinear, path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
@@ -17,7 +17,7 @@
   import Markers from "./markers.svelte";
   import { fixationConst } from "../Options/constants";
   import { _ } from "svelte-i18n";
-  import {getLoadRelativePos} from "$lib/store-utils";
+  import { getLoadAbsPos } from "$lib/store-utils";
   let clientWidth: number;
   let clientHeight: number;
   const marginRight = 70;
@@ -83,11 +83,11 @@
         <path class="loaded-beam" d={curve} />
 
         {#each $loads as load, idx}
-            <NodeNumber
-              x={uniform(getLoadRelativePos(load, $length))}
-              y={uniform(0) - 20}
-              text={String(idx)}
-            />
+          <NodeNumber
+            x={uniform(getLoadAbsPos(load, $length))}
+            y={uniform(0) - 20}
+            text={String(idx)}
+          />
         {/each}
 
         <!--{#if $points.length !== 0}
@@ -160,7 +160,8 @@
           <image
             href={fixationRight.src ?? ""}
             height={fixationRight.height}
-            x={uniform($length) * ($firstPoint.isFixed === FixationEnum.FIXED ? -1 : 1) +
+            x={uniform($length) *
+              ($firstPoint.isFixed === FixationEnum.FIXED ? -1 : 1) +
               fixationRight.leftX}
             y={fixationRight.leftY}
             style={$lastPoint.isFixed === FixationEnum.FIXED

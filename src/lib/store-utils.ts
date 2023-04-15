@@ -70,7 +70,7 @@ export const convertLoads = (loads: PointLoad[]) => {
 //  return false;
 //}
 
-export function getLoadRelativePos(load: PointLoad, length: number) {
+export function getLoadAbsPos(load: PointLoad, length: number) {
   const { anchor, offset } = load;
   if (anchor === AnchorPoint.MIDDLE) return length / 2;
   else if (anchor === AnchorPoint.START) return offset;

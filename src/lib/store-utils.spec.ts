@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { isBeamPoint, isBeamEndForce } from "./store-utils";
-import { type Point, type PointLoad, FixationEnum, AnchorPoint } from "./store";
+import { type BeamEnd, type PointLoad, FixationEnum, AnchorPoint } from "./store";
 
 const LENGTH = 1000;
-const beam: Array<Point> = [
+const beam: Array<BeamEnd> = [
   {
     id: 1,
     isFixed: FixationEnum.FIXED,
