@@ -29,7 +29,7 @@ export default defineConfig({
   // For frame3dd-wasm-js development
   server: {
     fs: {
-      allow: [".", "../../frame3dd-wasm-js/build"],
+      allow: [".", "../frame3dd-wasm-js/build"],
     },
   },
 });

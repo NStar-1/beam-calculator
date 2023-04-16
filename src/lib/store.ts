@@ -355,9 +355,9 @@ function getPointLoads(
     const pos = getLoadAbsPos(load, length)
     const point = points.find((d) => d.x === pos)!
     // derived
-    const xLoad = Math.cos(load.angle) * load.value
+    const xLoad = Math.sin(load.angle) * load.value
     // derived
-    const yLoad = Math.sin(load.angle) * load.value
+    const yLoad = -Math.cos(load.angle) * load.value
     return {
       id: point.id,
       axial: [xLoad, yLoad, 0],
@@ -394,6 +394,26 @@ export async function solveModel2(): Promise<InputScope> {
   model.points = points;
   model.elements = getElements(points)
   model.pointLoads = getPointLoads(points, get(loads), get(length))
+  //model.profile = get(profile);
+  //const mat = get(material);
+  //model.material.E = mat.E;
+  //model.material.G = mat.G;
+  //// FIXME: not sure
+  //model.material.density = mat.density / 1_000_000;
+
+  model.material = {
+    density: 2.78e-9,
+    E: 731000,
+    G: 280000
+  }
+  model.profile = {
+    Ax: 40.1,
+    Asy: 21.3,
+    Asz: 21.3,
+    Jx: 746,
+    Iy: 373,
+    Iz: 373
+  },
 
   console.log(model);
   const res = Frame3DD.calculate(model);
