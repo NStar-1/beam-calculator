@@ -280,8 +280,13 @@ export const solveModel = async function () {
   results.set(res.result);
 };
 
-function getF3DDFixation(fixation: FixationEnum): 1 | 0 {
-  return fixation === FixationEnum.NONE ? 0 : 1;
+function getF3DDFixation(fixation: FixationEnum): number[] {
+  return {
+    [FixationEnum.NONE]: [0, 0, 0, 0, 0, 0],
+    [FixationEnum.FIXED]: [1, 1, 1, 1, 1, 1],
+    [FixationEnum.ROLLER]: [0, 1, 1, 1, 1, 1],
+    [FixationEnum.PIN]: [1, 1, 1, 0, 0, 1],
+  }[fixation]
 }
 
 function getInitialPoints(
@@ -289,8 +294,8 @@ function getInitialPoints(
   length: number
 ): [F3DD.Point, F3DD.Point] {
   return [
-    { id: 0, isFixed: getF3DDFixation(beam[0].isFixed), x: 0, y: 0, z: 0 },
-    { id: 0, isFixed: getF3DDFixation(beam[1].isFixed), x: length, y: 0, z: 0 },
+    { id: 0, reactions: getF3DDFixation(beam[0].isFixed), x: 0, y: 0, z: 0 },
+    { id: 0, reactions: getF3DDFixation(beam[1].isFixed), x: length, y: 0, z: 0 },
   ];
 }
 
@@ -300,7 +305,7 @@ function generateLoadedPoints(
 ): Array<F3DD.Point> {
   return loads.map((load) => ({
     id: 0,
-    isFixed: 0,
+    reactions: [0, 0, 0, 0, 0, 0],
     x: getLoadAbsPos(load, length),
     y: 0,
     z: 0,
@@ -395,17 +400,12 @@ export async function solveModel2(): Promise<InputScope> {
   model.elements = getElements(points)
   model.pointLoads = getPointLoads(points, get(loads), get(length))
   //model.profile = get(profile);
-  //const mat = get(material);
-  //model.material.E = mat.E;
-  //model.material.G = mat.G;
-  //// FIXME: not sure
-  //model.material.density = mat.density / 1_000_000;
+  const mat = get(material);
+  model.material.E = mat.E;
+  model.material.G = mat.G;
+  // FIXME: not sure
+  model.material.density = mat.density / 1_000_000;
 
-  model.material = {
-    density: 2.78e-9,
-    E: 731000,
-    G: 280000
-  }
   model.profile = {
     Ax: 40.1,
     Asy: 21.3,
