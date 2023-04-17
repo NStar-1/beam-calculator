@@ -6,12 +6,14 @@
     firstPoint,
     lastPoint,
     results,
+    newresults,
     loads,
     FixationEnum,
     tempLoad,
   } from "$lib/store";
   import { scaleLinear, path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
+  import Point from "./Point.svelte";
   import ForceLine from "./force-line.svelte";
   import NodeNumber from "./node-number.svelte";
   import Markers from "./markers.svelte";
@@ -40,19 +42,45 @@
   $: {
     drawingOffset = $isPhone ? 50 : 100;
     deflection = $results.D ? -$results.D[1].y : 50;
-    console.log(deflection);
     drawingWidth = clientWidth - drawingOffset - marginRight;
     uniform = uniform.range([0, drawingWidth]).domain([0, $length]);
+    // TODO Use cubic Hermite spline to Bezier (https://math.stackexchange.com/a/4139433)
     curve = path();
     curve.moveTo(0, 0);
-    curve.bezierCurveTo(
-      uniform($length / 1.33),
-      0,
-      uniform($length),
-      uniform(deflection),
-      uniform($length),
-      uniform(deflection)
-    );
+    //curve.bezierCurveTo(
+    //  uniform($length / 1.33),
+    //  0,
+
+    //  uniform($length),
+    //  uniform(deflection),
+
+    //  uniform($length),
+    //  uniform(deflection)
+    //);
+
+    let prev = $newresults[0];
+    // Start/end slopes (first derivatives)
+    const d0 = 0;
+    const d1 = 0;
+    $newresults.forEach((d, idx) => {
+      // Skip the first point
+      if (idx === 0) return;
+      let curr = d;
+      const dx = curr.x - prev.x;
+      console.log(dx);
+      // Kind of cubic Hermite...
+      curve.bezierCurveTo(
+        uniform(prev.x + dx / 3),
+        uniform(-prev.displacement.y + (d0 * dx) / 3),
+
+        uniform(curr.x - dx / 3),
+        uniform(-curr.displacement.y - (d1 * dx) / 3),
+
+        uniform(curr.x),
+        uniform(-curr.displacement.y)
+      );
+      prev = curr;
+    });
   }
 </script>
 
@@ -81,6 +109,18 @@
         {/if}
         <line class="line" x1={0} y1={0} x2={uniform($length)} y2="0" />
         <path class="loaded-beam" d={curve} />
+        {#each $newresults as r}
+          <Point x={uniform(r.x)} y={uniform(-r.displacement.y)} />
+          {#if r.displacement.y !== 0}
+            <DimensionLine
+              x0={r.x}
+              y0={0}
+              x1={r.x}
+              y1={-r.displacement.y}
+              scale={uniform}
+            />
+          {/if}
+        {/each}
 
         {#each $loads as load, idx}
           <NodeNumber
@@ -149,26 +189,17 @@
         />
         {/if}-->
         <DimensionLine x0={0} y0={0} x1={$length} y1={0} scale={uniform} />
-        <DimensionLine
-          x0={$length}
-          y0={0}
-          x1={$length}
-          y1={deflection}
-          scale={uniform}
+        <image
+          href={fixationRight.src ?? ""}
+          height={fixationRight.height}
+          x={uniform($length) *
+            ($lastPoint.isFixed === FixationEnum.FIXED ? -1 : 1) +
+            fixationRight.leftX}
+          y={fixationRight.leftY}
+          style={$lastPoint.isFixed === FixationEnum.FIXED
+            ? "transform: scaleX(-1)"
+            : ""}
         />
-        {#if fixationRight.src}
-          <image
-            href={fixationRight.src ?? ""}
-            height={fixationRight.height}
-            x={uniform($length) *
-              ($firstPoint.isFixed === FixationEnum.FIXED ? -1 : 1) +
-              fixationRight.leftX}
-            y={fixationRight.leftY}
-            style={$lastPoint.isFixed === FixationEnum.FIXED
-              ? "transform: scaleX(-1)"
-              : ""}
-          />
-        {/if}
       </g>
     </g>
   </svg>

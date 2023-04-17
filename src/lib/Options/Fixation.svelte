@@ -1,6 +1,6 @@
 <script>
   import { firstPoint, lastPoint } from "../store";
-  import FixationDropdown from './FixationDropdown.svelte'
+  import FixationDropdown from "./FixationDropdown.svelte";
 </script>
 
 <div class="fixationWrapper">
