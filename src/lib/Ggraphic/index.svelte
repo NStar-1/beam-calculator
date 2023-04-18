@@ -11,7 +11,7 @@
     FixationEnum,
     tempLoad,
   } from "$lib/store";
-  import { scaleLinear, path } from "d3";
+  import { scaleLinear, path, type Path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
   import Point from "./Point.svelte";
   import ForceLine from "./force-line.svelte";
@@ -27,46 +27,33 @@
 
   let drawingWidth;
 
-  let drawingHeight;
+  let drawingHeight: number;
   $: drawingHeight = clientHeight - drawingOffset;
 
   let fixationLeft;
-  $: fixationLeft = fixationConst.find((d) => d.value === $firstPoint.isFixed);
-
   let fixationRight;
+  $: fixationLeft = fixationConst.find((d) => d.value === $firstPoint.isFixed);
   $: fixationRight = fixationConst.find((d) => d.value === $lastPoint.isFixed);
 
   let uniform = scaleLinear();
-  let curve;
-  let deflection;
+  let curve: Path;
   $: {
     drawingOffset = $isPhone ? 50 : 100;
-    deflection = $results.D ? -$results.D[1].y : 50;
     drawingWidth = clientWidth - drawingOffset - marginRight;
     uniform = uniform.range([0, drawingWidth]).domain([0, $length]);
-    // TODO Use cubic Hermite spline to Bezier (https://math.stackexchange.com/a/4139433)
     curve = path();
     curve.moveTo(0, 0);
-    //curve.bezierCurveTo(
-    //  uniform($length / 1.33),
-    //  0,
 
-    //  uniform($length),
-    //  uniform(deflection),
-
-    //  uniform($length),
-    //  uniform(deflection)
-    //);
-
+    // Use cubic Hermite spline to Bezier (https://math.stackexchange.com/a/4139433)
     let prev = $newresults[0];
-    // Start/end slopes (first derivatives)
-    const d0 = 0;
-    const d1 = 0;
     $newresults.forEach((d, idx) => {
       // Skip the first point
       if (idx === 0) return;
       let curr = d;
       const dx = curr.x - prev.x;
+      // Start/end slopes (first derivatives)
+      const d0 = -prev.displacement.zz;
+      const d1 = -curr.displacement.zz;
       console.log(dx);
       // Kind of cubic Hermite...
       curve.bezierCurveTo(
