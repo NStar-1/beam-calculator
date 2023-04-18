@@ -69,6 +69,17 @@
       prev = curr;
     });
   }
+
+  let loadsPos: Array<{}>;
+  $: loadsPos = $loads.map((load) => {
+    const x = getLoadAbsPos(load, $length)
+    const result = $newresults.find((d) => d.x === x)
+    console.log(result)
+    return {
+      x,
+      y: result ? -result.displacement.y : 0
+    }
+  })
 </script>
 
 <div bind:clientWidth bind:clientHeight class="graphic-container">
@@ -109,10 +120,10 @@
           {/if}
         {/each}
 
-        {#each $loads as load, idx}
+        {#each loadsPos as pos, idx}
           <NodeNumber
-            x={uniform(getLoadAbsPos(load, $length))}
-            y={uniform(0) - 20}
+            x={uniform(pos.x)}
+            y={uniform(pos.y) - 23}
             text={String(idx)}
           />
         {/each}

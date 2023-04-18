@@ -429,15 +429,9 @@ export async function solveModel2(): Promise<InputScope> {
     console.log(model);
   const res = Frame3DD.calculate(model);
   console.log(res);
-  function isFirst(idx: number) {
-    return idx === 0;
-  }
-  function isLast(idx: number) {
-    return idx === res.result.D.length - 1;
-  }
   results.set(res.result);
   const resAgg = res.result.D.map((d, idx) => ({
-    x: isFirst(idx) ? 0 : isLast(idx) ? get(length) : loadedPoints[idx - 1].x,
+    x: points[idx].x,
     displacement: d,
     reaction: res.result.R[idx],
   }));
