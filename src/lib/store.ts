@@ -435,7 +435,7 @@ export async function solveModel2(): Promise<InputScope> {
     displacement: d,
     reaction: res.result.R[idx],
   }));
-  console.log(resAgg);
+  console.log(resAgg );
   newresults.set(resAgg);
   return model;
 }
