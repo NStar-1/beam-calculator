@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     sveltekit(),
 
-    content.default({
+    content({
       csv: {
         csvOptions: {
           delimiter: ";",
