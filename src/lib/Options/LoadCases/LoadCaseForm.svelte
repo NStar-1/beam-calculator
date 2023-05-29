@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { assets, base } from "$app/paths";
   import {
     loads,
     length,
@@ -16,9 +15,10 @@
   import validate, { type ValidationResult } from "../../../utils/validation";
   import { angleRules, createOffsetRules, loadRules } from "./validatiors";
   import HelperText from "@smui/textfield/helper-text";
-  import IconLeftSide from "$lib/assets/icons/leftSide.svg"
-  import IconRightSide from "$lib/assets/icons/rightSide.svg"
-  import IconMiddlePoint from "$lib/assets/icons/middlePoint.svg"
+  import IconLeftSide from "$lib/assets/icons/leftSide.svg";
+  import IconRightSide from "$lib/assets/icons/rightSide.svg";
+  import IconMiddlePoint from "$lib/assets/icons/middlePoint.svg";
+  import LoadSelector from "./LoadSelector.svelte";
 
   let anchor = AnchorPoint.START;
   let offset = 0;
@@ -171,39 +171,6 @@
         >{offsetValidation.errors.join(", ")}</HelperText
       >
     </Textfield>
-    <div class="offsetSelector">
-      <label class="radioLabel">
-        <input
-          type="radio"
-          bind:group={anchor}
-          name="offsetPosition"
-          class="loadTypeInput"
-          value={AnchorPoint.START}
-        />
-        <IconLeftSide />
-      </label>
-      <label class="radioLabel">
-        <input
-          type="radio"
-          bind:group={anchor}
-          name="offsetPosition"
-          class="loadTypeInput"
-          value={AnchorPoint.MIDDLE}
-          disabled={$loads.some((l) => l.offset === Math.round($length / 2))}
-        />
-        <IconMiddlePoint />
-      </label>
-      <label class="radioLabel">
-        <input
-          type="radio"
-          bind:group={anchor}
-          name="offsetPosition"
-          class="loadTypeInput"
-          value={AnchorPoint.END}
-        />
-        <IconRightSide />
-      </label>
-    </div>
   </div>
   <div class="loadAngle">
     <Textfield
@@ -222,10 +189,11 @@
       <AngleComponent {angle} />
     </div>
   </div>
+  <LoadSelector bind:selected={anchor} />
   <div class="loadAmount">
     <Textfield
       type="number"
-      bind:value={value}
+      bind:value
       label={$_("options.loadCaseForm.load.label")}
       required
       invalid={!loadValidation.valid}
@@ -246,37 +214,12 @@
 </div>
 
 <style>
-  .loadTypeInput {
-    display: none;
-  }
-
-  .loadTypeInput:checked {
-    border: 2px solid #ff9859;
-  }
-
-  .loadTypeInput {
-    padding: 2px;
-    width: 100%;
-    border: 2px solid #ababab;
-  }
-
-  .radioLabel {
-    width: 40px;
-  }
-
   .loadPosition {
     display: flex;
     padding-top: 15px;
   }
   .angleComponent {
     width: 40%;
-  }
-
-  .offsetSelector {
-    padding-left: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
   }
 
   .actions {
