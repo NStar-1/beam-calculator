@@ -3,41 +3,24 @@
   import { locale, _ } from "svelte-i18n";
   import Select, { Option } from "@smui/select";
   import Icon from "@smui/select/icon";
+  import { onMount } from "svelte";
 
   let lng = "ru";
+  let setTheme = () =>{
+    console.log(window.matchMedia('(prefers-color-scheme: dark)').matches)
+  }
 </script>
 
 <div class="HeaderWrapper">
-  <div class="ContentHeader">
-    <a href="{base}/"
-      ><img
-        rel="icon"
-        src="{base}/assets/logo.svg"
-        alt="icon"
-        class="AppName"
-      /></a
-    >
-
-    <div style="flex-direction: row; display: flex">
-      <!-- FIXME -->
-      <Select
-        bind:value={lng}
-        on:SMUISelect:change={() => locale.set(lng)}
-        withLeadingIcon={true}
-        noLabel={true}
-      >
-        <svelte:fragment slot="leadingIcon">
-          <Icon class="material-icons">translate</Icon>
-        </svelte:fragment>
-        <Option value="ru">Ru</Option>
-        <Option value="en">En</Option>
-      </Select>
-
-      <a href="{base}/about" class="Link" style="text-decoration: none"
-        >{$_("app.about")}</a
-      >
+    <div>
+      LOGO
     </div>
-  </div>
+    <div>
+      ABOUT CONTACT
+    </div>
+    <div on:click={setTheme}>
+      SIDE
+    </div>
 </div>
 
 <style>
@@ -46,47 +29,13 @@
     position: sticky;
     top: 0;
     width: 100%;
-    height: 60px;
-    background: #ff9859;
-    box-shadow: 10px 0 50px rgba(153, 153, 153, 0.54);
-    z-index: 1;
-  }
-  .ContentHeader {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    margin: 0 15%;
-    flex-direction: row;
-  }
-  .Link {
-    display: flex;
-    height: 100%;
-    border: none;
+    height: 78px;
+    background: var(--cds-background);
+    box-shadow: 0px 3px 20px rgba(64, 64, 64, 0.1);
+    padding: 17px 40px;
+    box-sizing: border-box;
+    justify-content:space-between;
     align-items: center;
-    color: #ffffff;
-    background: transparent;
-    text-decoration: 1px solid white underline;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .Link:active,
-  .Link:hover {
-    background: #ff8d48;
-    text-decoration: none;
-  }
-  .AppName {
-    display: flex;
-    height: 80%;
-    margin: 1% 0;
-    color: white;
-  }
-  @media (max-width: 480px) {
-    .AppName {
-      height: 40%;
-      margin: 8% 0;
-    }
-    .ContentHeader {
-      margin: 0 5%;
-    }
+    z-index: 1;
   }
 </style>
