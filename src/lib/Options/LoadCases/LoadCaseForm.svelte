@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { base } from "$app/paths";
+  import { assets, base } from "$app/paths";
   import {
     loads,
     length,
@@ -16,6 +16,9 @@
   import validate, { type ValidationResult } from "../../../utils/validation";
   import { angleRules, createOffsetRules, loadRules } from "./validatiors";
   import HelperText from "@smui/textfield/helper-text";
+  import IconLeftSide from "$lib/assets/icons/leftSide.svg"
+  import IconRightSide from "$lib/assets/icons/rightSide.svg"
+  import IconMiddlePoint from "$lib/assets/icons/middlePoint.svg"
 
   let anchor = AnchorPoint.START;
   let offset = 0;
@@ -177,10 +180,7 @@
           class="loadTypeInput"
           value={AnchorPoint.START}
         />
-        <img
-          alt="pointed load icon"
-          src="{base}/assets/icons/left_side_32.svg"
-        />
+        <IconLeftSide />
       </label>
       <label class="radioLabel">
         <input
@@ -191,10 +191,7 @@
           value={AnchorPoint.MIDDLE}
           disabled={$loads.some((l) => l.offset === Math.round($length / 2))}
         />
-        <img
-          alt="distributed load icon"
-          src="{base}/assets/icons/middle_point_32.svg"
-        />
+        <IconMiddlePoint />
       </label>
       <label class="radioLabel">
         <input
@@ -204,10 +201,7 @@
           class="loadTypeInput"
           value={AnchorPoint.END}
         />
-        <img
-          alt="distributed load icon"
-          src="{base}/assets/icons/right_side_32.svg"
-        />
+        <IconRightSide />
       </label>
     </div>
   </div>
@@ -256,11 +250,11 @@
     display: none;
   }
 
-  .loadTypeInput:checked + img {
+  .loadTypeInput:checked {
     border: 2px solid #ff9859;
   }
 
-  .loadTypeInput + img {
+  .loadTypeInput {
     padding: 2px;
     width: 100%;
     border: 2px solid #ababab;

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { base } from "$app/paths";
   import IconButton from "@smui/icon-button";
   import { loads, selectedLoad } from "../../store";
   import { shiftNode } from "$lib/store-utils";
+  import IconPointLoad from "$lib/assets/icons/pointLoad.svg?component"
 
   export let loadId: number;
 
@@ -42,7 +42,7 @@
 
 {#if load}
   <div class="loadItem" on:click={() => ($selectedLoad = loadId)}>
-    <img alt="load type icon" src={`${base}/assets/icons/${loadTypeIcon}`} />
+    <IconPointLoad />
     <div>#{loadId} |</div>
     <div>{load.offset} |</div>
     <div>{load.angle} |</div>

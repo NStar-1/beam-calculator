@@ -15,12 +15,23 @@
 
 <div class="loads">
   <List>
+    <div>
+      Loads:
+    </div>
     {#each $loads as _, i}
       <Item style="padding: 10px; text-align: center; justify-content: center">
         <LoadCase loadId={i} />
       </Item>
       <Separator />
     {/each}
+    {#if $loads.length === 0}
+      <div>
+        - empty -
+      </div>
+    {/if}
+    <div>
+    New:
+    </div>
     <Item ripple={false} style="height: auto;">
       <LoadCaseForm />
     </Item>
@@ -29,6 +40,5 @@
 
 <style>
   .loads {
-    border-top: 1px solid #c7c7c7;
   }
 </style>

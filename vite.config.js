@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import content from "@originjs/vite-plugin-content";
+import svelteSVG from "vite-plugin-svelte-svg";
 
 import { sveltekit } from "@sveltejs/kit/vite";
 
@@ -16,6 +17,10 @@ export default defineConfig({
           enconding: "utf-8",
         },
       },
+    }),
+    svelteSVG({
+      svgoConfig: {},
+      requireSuffix: false,
     }),
   ],
   resolve: {
