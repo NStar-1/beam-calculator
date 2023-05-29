@@ -40,7 +40,6 @@
     padding: 30px;
     border-radius: 5px;
     width: 70%;
-    background: white;
     box-shadow: 0 0 10px rgba(153, 153, 153, 0.28);
   }
   .ADV {
