@@ -1,26 +1,26 @@
 <script lang="ts">
-  import { length, profileInfo, material, loads, solveModel2 } from "../store";
+  import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
+  import Button from "@smui/button";
   import Cut from "./Cut.svelte";
   import Fixation from "./Fixation.svelte";
-  import Textfield from "@smui/textfield";
-  import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
-  import { Icon } from "@smui/icon-button";
-  import Button from "@smui/button";
-  import Material from "./Material.svelte";
-  import LoadCases from "./LoadCases/LoadCases.svelte";
-  import OptionTitle from "./OptionTitle.svelte";
-  import { _ } from "svelte-i18n";
-  import ProfileIcon from "./ProfileTypes/ProfileIcon.svelte";
-  import validate from "../../utils/validation";
-  import { createLengthRules } from "./validators";
   import HelperText from "@smui/textfield/helper-text";
+  import LoadCases from "./LoadCases/LoadCases.svelte";
+  import Material from "./Material.svelte";
+  import OptionTitle from "./OptionTitle.svelte";
+  import ProfileIcon from "./ProfileTypes/ProfileIcon.svelte";
+  import Textfield from "@smui/textfield";
+  import Toggler from "./Toggler.svelte";
+  import validate from "../../utils/validation";
+  import { Icon } from "@smui/icon-button";
+  import { _ } from "svelte-i18n";
+  import { createLengthRules } from "./validators";
+  import { length, profileInfo, material, loads, solveModel2 } from "../store";
 
   import type { ValidationResult } from "../../utils/validation";
 
   let panel1Open = true;
   let panel2Open = false;
   let panel3Open = false;
-  let panel4Open = false;
 
   let lengthValidation: ValidationResult = { valid: true, errors: [] };
 
@@ -42,13 +42,7 @@
           >{!Number.isNaN($length.valueOf()) && `l=${$length}`}</span
         >
       </OptionTitle>
-      <div class="toggleIcon">
-        {#if panel1Open}
-          <Icon class="material-icons" on>expand_less</Icon>
-        {:else}
-          <Icon class="material-icons">expand_more</Icon>
-        {/if}
-      </div>
+      <Toggler isOpen={panel1Open} slot="icon" />
     </Header>
     <Content>
       <Textfield
@@ -73,13 +67,7 @@
         ><div class="profileIcon" slot="icon"><ProfileIcon /></div>
         <span slot="info">{$profileInfo}</span>
       </OptionTitle>
-      <div class="toggleIcon">
-        {#if panel2Open}
-          <Icon class="material-icons" on>expand_less</Icon>
-        {:else}
-          <Icon class="material-icons">expand_more</Icon>
-        {/if}
-      </div>
+      <Toggler isOpen={panel2Open} slot="icon" />
     </Header>
     <Content>
       <Cut />
@@ -90,30 +78,18 @@
       <OptionTitle title={$_("options.material.title")}
         ><span slot="info">{$material.name}</span></OptionTitle
       >
-      <div class="toggleIcon">
-        {#if panel3Open}
-          <Icon class="material-icons" on>expand_less</Icon>
-        {:else}
-          <Icon class="material-icons">expand_more</Icon>
-        {/if}
-      </div>
+      <Toggler isOpen={panel3Open} slot="icon" />
     </Header>
     <Content>
       <Material />
     </Content>
   </Panel>
-  <Panel bind:open={panel4Open}>
+  <Panel on:click={() => console.log("asd")}>
     <Header>
       <OptionTitle title={$_("options.load.title")}
         ><span slot="info">{`n=${$loads.length || 0}`}</span></OptionTitle
       >
-      <div class="toggleIcon">
-        {#if panel3Open}
-          <Icon class="material-icons" on>expand_less</Icon>
-        {:else}
-          <Icon class="material-icons">expand_more</Icon>
-        {/if}
-      </div>
+      <Icon slot="icon" class="material-icons">arrow_forward</Icon>
     </Header>
     <Content style="padding: 0;">
       <LoadCases />
@@ -125,10 +101,6 @@
 <style>
   :global(.smui-accordion__header__title) {
     padding: 10px 15px;
-  }
-
-  .toggleIcon {
-    float: right;
   }
 
   .profileIcon {
