@@ -6,7 +6,7 @@ export const dict = {
     },
     options: {
       config: {
-        title: "Beam configuration",
+        title: "Beam",
         length: "Length",
         fixType: {
           title: "fixation type",
