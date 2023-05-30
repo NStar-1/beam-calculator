@@ -6,7 +6,7 @@
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
   dictionary.set(dict);
-  locale.set("en");
+  locale.set("En");
 
   onMount(() => {
     isPhone.set(window.matchMedia("(max-width: 480px)").matches);

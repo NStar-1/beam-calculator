@@ -1,5 +1,5 @@
 export const dict = {
-  en: {
+  "En": {
     app: {
       title: "Beam calculator",
       about: "About project",
@@ -63,7 +63,7 @@ export const dict = {
       gpa: "MPa"
     },
   },
-  ru: {
+  "Ru": {
     app: {
       title: "Калькулятор нагрузки",
       about: "О проекте",
