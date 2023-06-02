@@ -16,12 +16,8 @@
 <style>
   .footer-wrapper {
     display: flex;
-    z-index: 0;
-    position: fixed;
-    bottom: 0;
     background-color: #ff8d48;
     height: 5vh;
-    width: 100%;
     padding: 10px 15%;
   }
   .logo {

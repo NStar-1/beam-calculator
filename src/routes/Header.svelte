@@ -7,24 +7,27 @@
   import NightIcon from "../assets/night.svelte"
   import List, { Item, Separator, Text } from '@smui/list';
   import { dict } from "$lib/dictionary";
+  import { StructuredListHead } from "carbon-components-svelte";
   const lngs = Object.keys(dict);
   let selectedLng = "En"
   let menu = {}
-  let theme = true;
+  let currentTheme = "light";
+
+
 </script>
 
 <div class="HeaderWrapper">
-    <div>
+    <a href="/" class="no-hover">
       <img alt="logo" src={`${base}/assets/IconColor.svg`}/>
       <p>Beam Calculator</p>
-    </div>
+    </a>
     <div class="links">
-      <a>About us</a>
-      <a>Contact</a>
+      <a href="/about">About us</a>
+      <a href="/contact">Contact</a>
     </div>
     <div class="active-buttons">
-      <Button variant="outlined" class="styledButton">
-        {#if theme}
+      <Button variant="outlined" class="styledButton" >
+        {#if currentTheme ==="dark"}
         <DayIcon/>
         {:else}
         <NightIcon/>
@@ -35,7 +38,7 @@
           <span class="material-symbols-outlined">
             language
           </span>
-          {selectedLng}
+          {$locale}
           <span class="material-symbols-outlined">
             arrow_drop_down
           </span>
@@ -43,7 +46,7 @@
       <Menu bind:this={menu}>
         <List>
           {#each lngs as lng}
-            <Item>
+            <Item on:click={()=> locale.set(lng)}>
               <Text>{lng}</Text>
             </Item>        
           {/each}
@@ -79,22 +82,28 @@
   .HeaderWrapper ~ div{
     cursor: pointer;
   }
-  .HeaderWrapper p{
-    font-family: 'Josefin Sans';
+  .links {
+    column-gap: 32px;
+  }
+  .no-hover{
+    &:hover{
+        color: initial;
+      }
+      font-family: 'Josefin Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 20px;
-    margin-left: 16px;
-  }
-  .links {
-    column-gap: 32px;
   }
   a{
     color: inherit;
     cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
     &:hover{
       color: var(--main-orange);
+      
     }
   }
   :global(.styledButton){

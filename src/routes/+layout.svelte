@@ -14,19 +14,29 @@
 </script>
 
 <div class="AppWrapper">
-  <Header />
+  <div>
+    <Header />
 
-  <div class="InlinePage">
-    <div class="ContentPage ADV">advertising</div>
-    <div class="ContentPage">
-      <slot />
+    <div class="InlinePage">
+      <div class="ContentPage ADV">advertising</div>
+      <div class="ContentPage">
+        <slot />
+      </div>
+      <div class="ContentPage ADV">advertising</div>
     </div>
-    <div class="ContentPage ADV">advertising</div>
   </div>
+ 
   <Footer />
 </div>
 
 <style>
+  .AppWrapper{
+    display: flex;
+    height: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   .InlinePage {
     display: flex;
     flex-direction: row;
