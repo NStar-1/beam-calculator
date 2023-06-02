@@ -37,7 +37,6 @@
     justify-content: space-between;
   }
   .OptionsWrapper {
-    height: content-box;
     padding: 5px;
     width: 300px;
     min-width: 30%;
@@ -47,7 +46,6 @@
     width: 70%;
     height: content-box;
     border: #ff8d48 1px solid;
-    background-color: white;
   }
   @media (max-width: 480px) {
   
