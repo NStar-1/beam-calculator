@@ -7,7 +7,6 @@
   import NightIcon from "../assets/night.svelte"
   import List, { Item, Separator, Text } from '@smui/list';
   import { dict } from "$lib/dictionary";
-  import { StructuredListHead } from "carbon-components-svelte";
   const lngs = Object.keys(dict);
   let selectedLng = "En"
   let menu = {}
@@ -22,8 +21,8 @@
       <p>Beam Calculator</p>
     </a>
     <div class="links">
-      <a href="/about">About us</a>
-      <a href="/contact">Contact</a>
+      <a href="/about">{$_("app.about")}</a>
+      <a href="/contact">{$_("app.contact")}</a>
     </div>
     <div class="active-buttons">
       <Button variant="outlined" class="styledButton" >
@@ -92,8 +91,9 @@
       font-family: 'Josefin Sans';
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 20px !important;
     line-height: 20px;
+    column-gap: 16px;
   }
   a{
     color: inherit;

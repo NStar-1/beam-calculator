@@ -25,7 +25,10 @@ body {
   font-style: normal;
   font-weight: 500;
 }
-
+p{
+  font-size: inherit;
+  font-weight: inherit;
+}
 
 #chart {
   font-family: CMU Concrete Roman;

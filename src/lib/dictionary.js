@@ -2,7 +2,8 @@ export const dict = {
   "En": {
     app: {
       title: "Beam calculator",
-      about: "About project",
+      about: "About us",
+      contact: "Contact"
     },
     options: {
       config: {
@@ -62,11 +63,29 @@ export const dict = {
       material: "Material",
       gpa: "MPa"
     },
+    footer:{
+      community:{
+        title:"Community",
+        about:"About",
+        github:"GitHub Repo"
+      },
+      help:{
+        title:"Help",
+        contact:"Contact us",
+        faqs:"FAQs"
+      },
+      legal:{
+        title:"Legal",
+        privacy:"Privacy Policy",
+        terms:"Terms of service"
+      }
+    }
   },
   "Ru": {
     app: {
       title: "Калькулятор нагрузки",
-      about: "О проекте",
+      about: "О нас",
+      contact: "Контакты"
     },
     options: {
       config: {
@@ -115,5 +134,22 @@ export const dict = {
       material: "Материал",
       gpa: "МПа"
     },
+    footer:{
+      community:{
+        title:"Сообщество",
+        about:"О нас",
+        github:"GitHub репозиторий"
+      },
+      help:{
+        title:"Помощь",
+        contact:"Контакты",
+        faqs:"FAQs"
+      },
+      legal:{
+        title:"Легальность",
+        privacy:"Политика Конфиденциальности",
+        terms:"Условия использования"
+      }
+    }
   },
 };

@@ -18,14 +18,15 @@
     <Header />
 
     <div class="InlinePage">
-      <div class="ContentPage ADV">advertising</div>
       <div class="ContentPage">
         <slot />
       </div>
-      <div class="ContentPage ADV">advertising</div>
+      <div class="ContentPage adv">advertising</div>
     </div>
   </div>
- 
+  <div class="adv bottom ">
+    ADV BOTTOM
+  </div>
   <Footer />
 </div>
 
@@ -36,7 +37,28 @@
     min-height: 100vh;
     flex-direction: column;
     justify-content: space-between;
+
   }
+  .ContentPage {
+    padding: 30px;
+    border-radius: 5px;
+    width: 70%;
+    box-shadow: 0 0 10px rgba(153, 153, 153, 0.28);
+  }
+  .adv {
+    width: 10%;
+    height: fit-content;
+    box-shadow: none;
+  }
+  .bottom{
+    display: flex;
+    width: auto;
+    height: 215px;
+    background-color: bisque;
+    margin: 40px;
+
+  }
+
   .InlinePage {
     display: flex;
     flex-direction: row;
@@ -46,17 +68,8 @@
     width: 100%;
     justify-content: center;
   }
-  .ContentPage {
-    padding: 30px;
-    border-radius: 5px;
-    width: 70%;
-    box-shadow: 0 0 10px rgba(153, 153, 153, 0.28);
-  }
-  .ADV {
-    width: 10%;
-    height: fit-content;
-    box-shadow: none;
-  }
+  
+ 
 
   @media (max-width: 480px) {
     .InlinePage {
