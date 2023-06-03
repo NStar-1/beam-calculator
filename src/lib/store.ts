@@ -223,7 +223,7 @@ export type BeamEnd = {
 //};
 
 export const loads = writable<Array<PointLoad>>([]);
-export const selectedLoad = writable<number>(-1);
+export const selectedLoad = writable<number | null>(null);
 
 export const firstPoint = writable<BeamEnd>({
   isFixed: FixationEnum.FIXED,
@@ -435,7 +435,7 @@ export async function solveModel2(): Promise<InputScope> {
     displacement: d,
     reaction: res.result.R[idx],
   }));
-  console.log(resAgg );
+  console.log(resAgg);
   newresults.set(resAgg);
   return model;
 }

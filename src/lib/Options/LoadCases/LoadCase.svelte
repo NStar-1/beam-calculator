@@ -2,13 +2,13 @@
   import IconButton from "@smui/icon-button";
   import { loads, selectedLoad } from "../../store";
   import { shiftNode } from "$lib/store-utils";
-  import IconPointLoad from "$lib/assets/icons/pointLoad.svg?component"
+  import IconPointLoad from "$lib/assets/icons/pointLoad.svg?component";
 
   export let loadId: number;
 
   $: load = $loads[loadId];
   // TODO Other load types
-  $: loadTypeIcon = "point_load_32.svg" // : "distributed_load_32.svg";
+  $: loadTypeIcon = "point_load_32.svg"; // : "distributed_load_32.svg";
 
   const deleteLoad = (evt: Event) => {
     evt.stopPropagation();
@@ -34,9 +34,10 @@
     $loads = removeItem(loadId, $loads);
 
     if ($loads.length === 0) {
-      $selectedLoad = -1;
+      $selectedLoad = null;
+    } else if ($selectedLoad === loadId) {
+      $selectedLoad -= 1;
     }
-    console.log($loads);
   };
 </script>
 
