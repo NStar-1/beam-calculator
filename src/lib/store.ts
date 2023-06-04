@@ -11,6 +11,7 @@ import {
 } from "./sectionUtil";
 import type { Material } from "./materials";
 import { convertLoads, getLoadAbsPos as getLoadAbsPos } from "./store-utils";
+import * as ProfileIcon from "$lib/assets/xsection"
 
 export enum ProfileType {
   CYLINDRICAL,
@@ -26,20 +27,27 @@ export const profileNamesLnKeys = {
   [ProfileType.CYLINDRICAL]: {
     i18nKey: "profiles.name.cylindrical",
     img: "CircShtr",
+    icon: ProfileIcon.CircShtr,
   },
   [ProfileType.ROUND_TUBE]: {
     i18nKey: "profiles.name.roundTube",
     img: "CircCircShtr",
+    icon: ProfileIcon.CircCircShtr,
   },
   [ProfileType.RECTANGLE]: {
     i18nKey: "profiles.name.rectangle",
     img: "SquareShtr",
+    icon: ProfileIcon.SquareShtr,
   },
   [ProfileType.RECTANGULAR_TUBE]: {
     i18nKey: "profiles.name.rectangularTube",
     img: "SqwSqwShtr",
+    icon: ProfileIcon.SqwSqwShtr,
   },
-  [ProfileType.I_BEAM]: { i18nKey: "profiles.name.iBeam", img: "IShtr" },
+  [ProfileType.I_BEAM]: {
+    i18nKey: "profiles.name.iBeam", img: "IShtr",
+    icon: ProfileIcon.IShtr,
+  },
 };
 
 // The user should be able to change different profile types without loosing

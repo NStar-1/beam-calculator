@@ -27,7 +27,7 @@
    r="58.5"
    cy="64.5"
    cx="238.5"
-   class="st0" />
+    />
    <line
    id="svg_2"
    stroke-miterlimit="10"
@@ -37,7 +37,7 @@
    x2="93"
    y1="95.400002"
    x1="188.8"
-   class="st0" />
+    />
    <line
    id="svg_3"
    stroke-miterlimit="10"
@@ -47,39 +47,39 @@
    x2="385"
    y1="95"
    x1="289"
-   class="st0" />
+    />
    <g
    id="svg_4">
     <polygon
    id="svg_5"
    stroke-miterlimit="10"
    points="413.10001,331.39999 407.10001,331.39999 440.10001,283.39999 446.10001,283.39999 "
-   class="st1" />
+    />
     <polygon
    id="svg_6"
    stroke-miterlimit="10"
    points="173.89999,331.39999 167.89999,331.39999 200.89999,283.39999 206.89999,283.39999 "
-   class="st1" />
+    />
     <polygon
    id="svg_7"
    stroke-miterlimit="10"
    points="254.60001,331.39999 248.60001,331.39999 281.60001,283.39999 287.60001,283.39999 "
-   class="st1" />
+    />
     <polygon
    id="svg_8"
    stroke-miterlimit="10"
    points="333,331.29999 327,331.29999 360,283.29999 366,283.29999 "
-   class="st1" />
+    />
     <polygon
    id="svg_9"
    stroke-miterlimit="10"
    points="93.300003,331.39999 87.300003,331.39999 120.3,283.39999 126.3,283.39999 "
-   class="st1" />
+    />
     <polygon
    id="svg_10"
    stroke-miterlimit="10"
    points="12.700001,331.39999 6.7000008,331.39999 39.700001,283.39999 45.700001,283.39999 "
-   class="st1" />
+    />
     <line
    id="svg_11"
    stroke-miterlimit="10"
@@ -89,7 +89,7 @@
    x2="467.60001"
    y1="282.39999"
    x1="2.9000001"
-   class="st0" />
+    />
    </g>
   </g>
  </g>
