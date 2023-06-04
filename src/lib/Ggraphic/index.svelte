@@ -8,6 +8,7 @@
     newresults,
     loads,
     FixationEnum,
+    solveModel2,
   } from "$lib/store";
   import { scaleLinear, path, type Path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
