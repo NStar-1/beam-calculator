@@ -5,11 +5,9 @@
     length,
     firstPoint,
     lastPoint,
-    results,
     newresults,
     loads,
     FixationEnum,
-    tempLoad,
   } from "$lib/store";
   import { scaleLinear, path, type Path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
@@ -17,9 +15,12 @@
   import ForceLine from "./force-line.svelte";
   import NodeNumber from "./node-number.svelte";
   import Markers from "./markers.svelte";
-  import { fixationConst } from "../Options/constants";
   import { _ } from "svelte-i18n";
   import { getLoadAbsPos } from "$lib/store-utils";
+  import FixRigid from "./FixRigid.svelte";
+  import FixRoller from "./FixRoller.svelte";
+  import FixPin from "./FixPin.svelte";
+  import type { ComponentType } from "svelte";
   let clientWidth: number;
   let clientHeight: number;
   const marginRight = 70;
@@ -30,10 +31,17 @@
   let drawingHeight: number;
   $: drawingHeight = clientHeight - drawingOffset;
 
-  let fixationLeft;
-  let fixationRight;
-  $: fixationLeft = fixationConst.find((d) => d.value === $firstPoint.isFixed);
-  $: fixationRight = fixationConst.find((d) => d.value === $lastPoint.isFixed);
+  const fixationComonent: { [key in FixationEnum]?: any } = {
+    [FixationEnum.NONE]: null,
+    [FixationEnum.FIXED]: FixRigid,
+    [FixationEnum.ROLLER]: FixRoller,
+    [FixationEnum.PIN]: FixPin,
+  };
+
+  let fixationLeft: ComponentType | null;
+  let fixationRight: ComponentType | null;
+  $: fixationLeft = fixationComonent[$firstPoint.isFixed];
+  $: fixationRight = fixationComonent[$lastPoint.isFixed];
 
   let uniform = scaleLinear();
   let curve: Path;
@@ -72,14 +80,14 @@
 
   let loadsPos: Array<{}>;
   $: loadsPos = $loads.map((load) => {
-    const x = getLoadAbsPos(load, $length)
-    const result = $newresults.find((d) => d.x === x)
-    console.log(result)
+    const x = getLoadAbsPos(load, $length);
+    const result = $newresults.find((d) => d.x === x);
+    console.log(result);
     return {
       x,
-      y: result ? -result.displacement.y : 0
-    }
-  })
+      y: result ? -result.displacement.y : 0,
+    };
+  });
 </script>
 
 <div bind:clientWidth bind:clientHeight class="graphic-container">
@@ -97,14 +105,16 @@
 
       <g class="drawing-local" transform="translate(0, {drawingHeight / 2})">
         <g class="x-dimension" />
-        {#if fixationLeft.src}
-          <image
-            href={fixationLeft.src}
-            height={fixationLeft.height}
-            x={fixationLeft.leftX}
-            y={fixationLeft.leftY}
+
+        {#if fixationLeft}
+          <svelte:component
+            this={fixationLeft}
+            x={0}
+            y={0}
+            orientation="left"
           />
         {/if}
+
         <line class="line" x1={0} y1={0} x2={uniform($length)} y2="0" />
         <path class="loaded-beam" d={curve} />
         {#each $newresults as r}
@@ -187,17 +197,15 @@
         />
         {/if}-->
         <DimensionLine x0={0} y0={0} x1={$length} y1={0} scale={uniform} />
-        <image
-          href={fixationRight.src ?? ""}
-          height={fixationRight.height}
-          x={uniform($length) *
-            ($lastPoint.isFixed === FixationEnum.FIXED ? -1 : 1) +
-            fixationRight.leftX}
-          y={fixationRight.leftY}
-          style={$lastPoint.isFixed === FixationEnum.FIXED
-            ? "transform: scaleX(-1)"
-            : ""}
-        />
+
+        {#if fixationRight}
+          <svelte:component
+            this={fixationRight}
+            x={uniform($length)}
+            y={0}
+            orientation="right"
+          />
+        {/if}
       </g>
     </g>
   </svg>
@@ -211,11 +219,10 @@
   .graphic-container {
     width: 100%;
     height: 100%;
-    background-color: white;
   }
 
   .line {
-    stroke: black;
+    stroke: currentColor;
     stroke-width: 3;
   }
 
@@ -227,5 +234,6 @@
 
   .material-info {
     font-size: 20px;
+    fill: currentColor;
   }
 </style>
