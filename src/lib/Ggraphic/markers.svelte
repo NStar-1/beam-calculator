@@ -13,6 +13,6 @@
 
 <style>
   path {
-    fill: black;
+    fill: currentColor;
   }
 </style>

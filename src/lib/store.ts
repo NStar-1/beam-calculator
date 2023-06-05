@@ -1,4 +1,4 @@
-import { writable, get } from "svelte/store";
+import { writable, get, derived } from "svelte/store";
 // TODO
 import Frame3ddLoader, { type InputScope, type F3DD } from "frame3dd-wasm-js";
 import materials from "./materials";
@@ -11,6 +11,7 @@ import {
 } from "./sectionUtil";
 import type { Material } from "./materials";
 import { convertLoads, getLoadAbsPos as getLoadAbsPos } from "./store-utils";
+import * as ProfileIcon from "$lib/assets/xsection";
 
 export enum ProfileType {
   CYLINDRICAL,
@@ -26,20 +27,28 @@ export const profileNamesLnKeys = {
   [ProfileType.CYLINDRICAL]: {
     i18nKey: "profiles.name.cylindrical",
     img: "CircShtr",
+    icon: ProfileIcon.CircShtr,
   },
   [ProfileType.ROUND_TUBE]: {
     i18nKey: "profiles.name.roundTube",
     img: "CircCircShtr",
+    icon: ProfileIcon.CircCircShtr,
   },
   [ProfileType.RECTANGLE]: {
     i18nKey: "profiles.name.rectangle",
     img: "SquareShtr",
+    icon: ProfileIcon.SquareShtr,
   },
   [ProfileType.RECTANGULAR_TUBE]: {
     i18nKey: "profiles.name.rectangularTube",
     img: "SqwSqwShtr",
+    icon: ProfileIcon.SqwSqwShtr,
   },
-  [ProfileType.I_BEAM]: { i18nKey: "profiles.name.iBeam", img: "IShtr" },
+  [ProfileType.I_BEAM]: {
+    i18nKey: "profiles.name.iBeam",
+    img: "IShtr",
+    icon: ProfileIcon.IShtr,
+  },
 };
 
 // The user should be able to change different profile types without loosing
@@ -222,7 +231,15 @@ export type BeamEnd = {
 //  return pts[pts.length - 1].id + 1;
 //};
 
-export const loads = writable<Array<PointLoad>>([]);
+export const loads = writable<Array<PointLoad>>([
+  {
+    anchor: AnchorPoint.END,
+    angle: 0,
+    offset: 0,
+    value: 10,
+  },
+]);
+
 export const selectedLoad = writable<number | null>(null);
 
 export const firstPoint = writable<BeamEnd>({
@@ -232,13 +249,6 @@ export const firstPoint = writable<BeamEnd>({
 export const lastPoint = writable<BeamEnd>({
   isFixed: FixationEnum.NONE,
 });
-
-//length.subscribe((l) => {
-//  lastPoint.set({
-//    ...get(lastPoint),
-//    x: l,
-//  });
-//});
 
 export const results = writable({});
 export const context = writable({});
@@ -438,4 +448,16 @@ export async function solveModel2(): Promise<InputScope> {
   console.log(resAgg);
   newresults.set(resAgg);
   return model;
+}
+
+// virtual store
+const modelState = derived(
+  [length, loads, profileType, profileData, material, firstPoint, lastPoint],
+  (x) => x
+);
+
+// FIXME this would fail if you try to subscribe Hermite
+// Probably, svelete(kit) executes code here on compile time
+export function subscribeAutoRefresh() {
+  modelState.subscribe(() => solveModel2());
 }

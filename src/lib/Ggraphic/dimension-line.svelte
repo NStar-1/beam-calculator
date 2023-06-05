@@ -102,7 +102,7 @@
   }
 
   .dimension {
-    stroke: black;
+    stroke: currentColor;
     stroke-width: 1;
   }
 
@@ -116,13 +116,13 @@
   }
 
   .tick {
-    stroke: black;
+    stroke: currentColor;
     stroke-width: 2;
   }
 
   text {
     text-anchor: middle;
     font-size: 18px;
-    fill: black;
+    fill: currentColor;
   }
 </style>

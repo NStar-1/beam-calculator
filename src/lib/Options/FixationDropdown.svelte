@@ -1,31 +1,32 @@
 <script lang="ts">
-  import { fixationConst } from "./constants";
+  import { fixations } from "../fixations";
   import Select, { Option } from "@smui/select";
   import { _ } from "svelte-i18n";
   import type { FixationEnum } from "$lib/store";
 
   export let value: FixationEnum;
   export let side: string;
+  let strVal: string;
+
+  // Strings could only be used with Select component
+  strVal= "" + value
+
+  // Map value back
+  $: value = +strVal;
 </script>
 
-<Select bind:value label={$_(`options.config.${side}`)} style="width: 50%">
-  {#each fixationConst as fixation, i}
-    <Option value={fixation.value}>
-      {#if fixation.src === "none"}
+<Select bind:value={strVal} label={$_(`options.config.${side}`)} style="width: 50%">
+  {#each fixations as fixation}
+    <Option value={"" + fixation.value}>
+      {#if fixation.icon === undefined}
         <div />
         <div class="label">
-          {$_(`options.config.fixType.${fixation.desc}`)}
+          {$_(`options.config.fixType.${fixation.label}`)}
         </div>
       {:else}
-        <img
-          alt={$_(`options.config.fixType.${fixation.desc}`)}
-          src={fixation.src}
-          style={fixation.desc === "fixed end" && side === "right"
-            ? "transform: scaleX(-1)"
-            : null}
-        />
+        <svelte:component this={fixation.icon} width="32" height="32" viewBox="6 6 90 90"/>
         <div class="label">
-          {$_(`options.config.fixType.${fixation.desc}`)}
+          {$_(`options.config.fixType.${fixation.label}`)}
         </div>
       {/if}
     </Option>
