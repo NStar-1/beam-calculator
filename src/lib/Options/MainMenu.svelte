@@ -52,6 +52,7 @@
         required
         invalid={!lengthValidation.valid}
         on:blur={validateLength}
+        variant="outlined"
       >
         <HelperText validationMsg slot="helper"
           >{lengthValidation.errors.join(", ")}</HelperText

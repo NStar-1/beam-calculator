@@ -2914,11 +2914,7 @@ body {
   color: #161616;
   line-height: 1;
 }
-body *,
-body *::before,
-body *::after {
-  box-sizing: inherit;
-}
+
 @keyframes skeleton {
   0% {
     opacity: 0.3;

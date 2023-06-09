@@ -7,11 +7,29 @@
   import NightIcon from "../assets/night.svelte"
   import List, { Item, Separator, Text } from '@smui/list';
   import { dict } from "$lib/dictionary";
+  import { onMount } from "svelte";
   const lngs = Object.keys(dict);
   let selectedLng = "En"
   let menu = {}
   let currentTheme = "light";
+  onMount(()=>{
+    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+      const link = document.getElementById('theme')
+      link?.setAttribute('href', "/smui-dark.css")
+      currentTheme= "dark"
+    }
+  })
+  function setTheme(){
+    const link = document.getElementById('theme')
+    if(currentTheme == "light"){
+      link?.setAttribute('href', "/smui-dark.css")
+      currentTheme= "dark"
+    }else{
+      link?.setAttribute('href', "/smui.css")
+      currentTheme = "light"
+    }
 
+  }
 
 </script>
 
@@ -25,8 +43,8 @@
       <a href="/contact">{$_("app.contact")}</a>
     </div>
     <div class="active-buttons">
-      <Button variant="outlined" class="styledButton" >
-        {#if currentTheme ==="dark"}
+      <Button variant="outlined" class="styledButton" on:click={setTheme}>
+        {#if currentTheme =="dark"}
         <DayIcon/>
         {:else}
         <NightIcon/>
@@ -84,9 +102,10 @@
   .links {
     column-gap: 32px;
   }
+
   .no-hover{
     &:hover{
-        color: initial;
+        color: inherit;
       }
       font-family: 'Josefin Sans';
     font-style: normal;
