@@ -2,7 +2,12 @@
   import { _ } from "svelte-i18n";
   import Graph from "$lib/Ggraphic/index.svelte";
   import Options from "$lib/Options/Options.svelte";
-  import { isPhone } from "$lib/store";
+  import { isPhone, subscribeAutoRefresh } from "$lib/store";
+  import { onMount } from "svelte";
+
+  onMount(() => {
+    subscribeAutoRefresh();
+  });
 </script>
 
 <h1>{$_("app.title")}</h1>
@@ -25,7 +30,6 @@
 </div>
 
 <style>
-
   .CalculatorWrapper {
     height: 65vh;
     border: #ff8d48 1px solid;
@@ -48,7 +52,6 @@
     border: #ff8d48 1px solid;
   }
   @media (max-width: 480px) {
-  
     .CalculatorWrapper {
       border: none;
       column-gap: 0;

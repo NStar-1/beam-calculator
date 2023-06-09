@@ -6,32 +6,38 @@
   import Rectangle from "./ProfileTypes/Rectangle.svelte";
   import RectangularTube from "./ProfileTypes/RectangularTube.svelte";
   import IBeam from "./ProfileTypes/IBeam.svelte";
+  import * as ProfileIcon from "$lib/assets/xsection"
 
   const options = [ 
     {
       component: Cylinder,
       img: "CircShtr",
       type: ProfileType.CYLINDRICAL,
+      icon: ProfileIcon.CircShtr,
     },
     {
       component: RoundTube,
       img: "CircCircShtr",
       type: ProfileType.ROUND_TUBE,
+      icon: ProfileIcon.CircCircShtr,
     },
     {
       component: Rectangle,
       img: "SquareShtr",
       type: ProfileType.RECTANGLE,
+      icon: ProfileIcon.SquareShtr,
     },
     {
       component: RectangularTube,
       img: "SqwSqwShtr",
       type: ProfileType.RECTANGULAR_TUBE,
+      icon: ProfileIcon.SqwSqwFull,
     },
     {
       component: IBeam,
       img: "IShtr",
       type: ProfileType.I_BEAM,
+      icon: ProfileIcon.IShtr,
     },
   ];
 </script>
@@ -47,7 +53,7 @@
           class="materialInput"
           value={profile.type}
         />
-        <img alt="square" src={base + "/assets/razrez/" + profile.img + ".svg"} />
+        <svelte:component this={profile.icon} />
       </label>
     {/each}
   </div>

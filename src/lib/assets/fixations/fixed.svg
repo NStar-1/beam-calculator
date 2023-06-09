@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="96"
+   height="96"
+   viewBox="0 0 96 96"
+   version="1.1"
+   xml:space="preserve"
+   stroke="currentColor"
+   id="svg13"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs17" />
+ <g
+   id="g11"
+   transform="matrix(0,0.20797742,-0.20797742,0,95.094929,-0.53250122)">
+  <g
+   id="g9">
+   <polygon
+   points="445.76039,211.60001 412.76039,259.60001 406.76039,259.60001 439.76039,211.60001 "
+   stroke-miterlimit="10"
+   fill="currentColor"
+   id="svg_2" />
+   <polygon
+   points="206.56038,211.60001 173.56038,259.60001 167.56038,259.60001 200.56038,211.60001 "
+   stroke-miterlimit="10"
+   fill="currentColor"
+   id="svg_3" />
+   <polygon
+   points="287.26039,211.60001 254.26039,259.60001 248.26039,259.60001 281.26039,211.60001 "
+   stroke-miterlimit="10"
+   fill="currentColor"
+   id="svg_4" />
+   <polygon
+   points="365.66039,211.39999 332.66039,259.39999 326.66039,259.39999 359.66039,211.39999 "
+   stroke-miterlimit="10"
+   fill="currentColor"
+   id="svg_5" />
+   <polygon
+   points="125.96037,211.60001 92.960381,259.60001 86.960381,259.60001 119.96037,211.60001 "
+   stroke-miterlimit="10"
+   fill="currentColor"
+   id="svg_6" />
+   <polygon
+   points="45.360382,211.60001 12.360382,259.60001 6.3603821,259.60001 39.360382,211.60001 "
+   stroke-miterlimit="10"
+   fill="currentColor"
+   id="svg_7" />
+   <line
+   x1="2.56038"
+   y1="210.5"
+   x2="467.26038"
+   y2="210.5"
+   fill="none"
+   stroke-width="10"
+   stroke-miterlimit="10"
+   id="svg_8" />
+  </g>
+ </g>
+
+</svg>
