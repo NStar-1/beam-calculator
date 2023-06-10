@@ -11,7 +11,7 @@
 <Button
   variant="outlined"
   color={selected === AnchorPoint.START ? "primary" : "secondary"}
-  on:click={() => selected = AnchorPoint.START}
+  on:click={() => (selected = AnchorPoint.START)}
 >
   <IconLeftSide />
 </Button>
@@ -19,7 +19,7 @@
 <Button
   variant="outlined"
   color={selected === AnchorPoint.MIDDLE ? "primary" : "secondary"}
-  on:click={() => selected = AnchorPoint.MIDDLE}
+  on:click={() => (selected = AnchorPoint.MIDDLE)}
 >
   <IconMiddlePoint />
 </Button>
@@ -27,7 +27,7 @@
 <Button
   variant="outlined"
   color={selected === AnchorPoint.END ? "primary" : "secondary"}
-  on:click={() => selected = AnchorPoint.END}
+  on:click={() => (selected = AnchorPoint.END)}
 >
   <IconRightSide />
 </Button>

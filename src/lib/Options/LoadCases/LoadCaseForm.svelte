@@ -8,7 +8,6 @@
   } from "$lib/store";
   import { _ } from "svelte-i18n";
   import Textfield from "@smui/textfield";
-  import AngleComponent from "../AngleComponent/AngleComponent.svelte";
   import validate, { type ValidationResult } from "../../../utils/validation";
   import { angleRules, createOffsetRules, loadRules } from "./validatiors";
   import HelperText from "@smui/textfield/helper-text";
@@ -108,7 +107,10 @@
         />
       </label>
     </div> -->
-  <div class="loadPosition">
+  <div class="load-selector">
+    <LoadSelector bind:selected={$loads[loadId].anchor} />
+  </div>
+  <div class="grid">
     <Textfield
       type="number"
       bind:value={$loads[loadId].offset}
@@ -122,26 +124,6 @@
         >{offsetValidation.errors.join(", ")}</HelperText
       >
     </Textfield>
-  </div>
-  <div class="loadAngle">
-    <Textfield
-      type="number"
-      bind:value={$loads[loadId].angle}
-      label={$_("options.loadCaseForm.angle.label")}
-      required
-      invalid={!angleValidation.valid}
-      on:blur={validateAngle}
-    >
-      <HelperText validationMsg slot="helper"
-        >{angleValidation.errors.join(", ")}</HelperText
-      >
-    </Textfield>
-    <div class="angleComponent">
-      <AngleComponent {angle} />
-    </div>
-  </div>
-  <LoadSelector bind:selected={$loads[loadId].anchor} />
-  <div class="loadAmount">
     <Textfield
       type="number"
       bind:value={$loads[loadId].value}
@@ -154,6 +136,18 @@
         >{loadValidation.errors.join(", ")}</HelperText
       >
     </Textfield>
+    <Textfield
+      type="number"
+      bind:value={$loads[loadId].angle}
+      label={$_("options.loadCaseForm.angle.label")}
+      required
+      invalid={!angleValidation.valid}
+      on:blur={validateAngle}
+    >
+      <HelperText validationMsg slot="helper"
+        >{angleValidation.errors.join(", ")}</HelperText
+      >
+    </Textfield>
   </div>
   <div class="actions">
     <Button on:click={() => ($selectedLoad = null)}>
@@ -164,25 +158,16 @@
 </div>
 
 <style>
-  .loadPosition {
-    display: flex;
-    padding-top: 15px;
-  }
-  .angleComponent {
-    width: 40%;
-  }
-
   .actions {
     padding-top: 5px;
   }
-  .loadAngle {
-    display: flex;
-    flex-direction: row;
+
+  .load-selector {
+    margin: 5px auto;
   }
 
-  @media (max-width: 480px) {
-    .angleComponent {
-      width: 30%;
-    }
+  .grid {
+    display: flex;
+    gap: 16px;
   }
 </style>

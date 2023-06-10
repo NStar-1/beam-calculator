@@ -6,15 +6,21 @@
   import { _ } from "svelte-i18n";
   import { loads, newEmptyLoadObj, selectedLoad } from "$lib/store";
   import { menuRoute } from "../menuRouter";
-  import IconButton from "@smui/icon-button";
+
+  $selectedLoad = $loads.length > 0 ? 0 : null;
 
   function addLoad() {
     $selectedLoad = $loads.length;
     $loads = [...$loads, newEmptyLoadObj()];
   }
+
+  function onGoBack() {
+    selectedLoad.set(null);
+    menuRoute.set("main");
+  }
 </script>
 
-<Button on:click={() => menuRoute.set("main")}>
+<Button on:click={onGoBack}>
   <Icon class="material-icons">arrow_back</Icon>
   <Label>Back</Label>
 </Button>

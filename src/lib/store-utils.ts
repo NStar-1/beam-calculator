@@ -16,6 +16,14 @@ export function shiftNode(el: any) {
   return res;
 }
 
+export function deg2rad(d: number) {
+  return (d * Math.PI) / 180;
+}
+
+export function rad2deg(d: number) {
+  return (d * 180) / Math.PI;
+}
+
 export const convertFixation = (fixation: FixationType): 0 | 1 => {
   switch (fixation) {
     case "NONE":

@@ -1,5 +1,4 @@
 <script>
-  import { base } from "$app/paths";
   import { profileType, ProfileType } from "../store";
   import Cylinder from "./ProfileTypes/Cylinder.svelte";
   import RoundTube from "./ProfileTypes/RoundTube.svelte";
@@ -11,31 +10,26 @@
   const options = [ 
     {
       component: Cylinder,
-      img: "CircShtr",
       type: ProfileType.CYLINDRICAL,
       icon: ProfileIcon.CircShtr,
     },
     {
       component: RoundTube,
-      img: "CircCircShtr",
       type: ProfileType.ROUND_TUBE,
       icon: ProfileIcon.CircCircShtr,
     },
     {
       component: Rectangle,
-      img: "SquareShtr",
       type: ProfileType.RECTANGLE,
       icon: ProfileIcon.SquareShtr,
     },
     {
       component: RectangularTube,
-      img: "SqwSqwShtr",
       type: ProfileType.RECTANGULAR_TUBE,
       icon: ProfileIcon.SqwSqwFull,
     },
     {
       component: IBeam,
-      img: "IShtr",
       type: ProfileType.I_BEAM,
       icon: ProfileIcon.IShtr,
     },
