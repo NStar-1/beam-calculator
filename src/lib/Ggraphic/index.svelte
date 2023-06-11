@@ -136,6 +136,7 @@
             y={uniform(pos.y) - 23}
             text={String(idx)}
             isActive={idx === $selectedLoad}
+            on:click={() => ($selectedLoad = idx)}
           />
         {/each}
 
