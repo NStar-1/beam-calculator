@@ -23,6 +23,7 @@
   import FixPin from "./FixPin.svelte";
   import type { ComponentType } from "svelte";
   import InputInfoOverlay from "./InputInfoOverlay.svelte";
+  import ResultInfoOverlay from "./ResultInfoOverlay.svelte";
   let clientWidth: number;
   let clientHeight: number;
   const marginRight = 70;
@@ -162,6 +163,7 @@
           />
         {/if}
       </g>
+      <ResultInfoOverlay />
     </g>
   </svg>
 </div>
@@ -186,5 +188,4 @@
     stroke-width: 4;
     fill: none;
   }
-
 </style>
