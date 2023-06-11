@@ -63,19 +63,19 @@ export type Profile = CylindricalProfile &
   HollowRectangularProfile &
   IBeamProfile;
 
-export type CylindricalProfile = Partial<{
+export type CylindricalProfile = {
   outerRadius: number;
-}>;
+};
 
-export type RoundTubeProfile = Partial<{
+export type RoundTubeProfile = {
   outerRadius: number;
   innerRadius: number;
-}>;
+};
 
-export type RectangularProfile = Partial<{
+export type RectangularProfile = {
   width: number;
   height: number;
-}>;
+};
 
 export type HollowRectangularProfile = Partial<{
   width: number;
@@ -451,22 +451,14 @@ export async function solveModel2(): Promise<InputScope> {
   model.points = points;
   model.elements = getElements(points);
   model.pointLoads = getPointLoads(points, get(loads), get(length));
-  //model.profile = get(profile);
   const mat = get(material);
   model.material.E = mat.E;
   model.material.G = mat.G;
   // FIXME: not sure
   model.material.density = mat.density / 1_000_000;
 
-  (model.profile = {
-    Ax: 40.1,
-    Asy: 21.3,
-    Asz: 21.3,
-    Jx: 746,
-    Iy: 373,
-    Iz: 373,
-  }),
-    console.log(model);
+  model.profile = get(profile)
+  console.log(model);
   const res = Frame3DD.calculate(model);
   console.log(res);
   results.set(res.result);
@@ -482,7 +474,7 @@ export async function solveModel2(): Promise<InputScope> {
 
 // virtual store
 const modelState = derived(
-  [length, loads, profileType, profileData, material, firstPoint, lastPoint],
+  [length, loads, profileType, profile, material, firstPoint, lastPoint],
   (x) => x
 );
 

@@ -1,7 +1,6 @@
 <script lang="ts">
   import {
     isPhone,
-    material,
     length,
     firstPoint,
     lastPoint,
@@ -23,6 +22,7 @@
   import FixRoller from "./FixRoller.svelte";
   import FixPin from "./FixPin.svelte";
   import type { ComponentType } from "svelte";
+  import InputInfoOverlay from "./InputInfoOverlay.svelte";
   let clientWidth: number;
   let clientHeight: number;
   const marginRight = 70;
@@ -100,11 +100,7 @@
       class="drawing"
       transform="translate({drawingOffset / 2}, {drawingOffset / 2})"
     >
-      <text class="material-info">
-        <tspan x={0} dy=".6em">{$_("graph.material")}: {$material.name}</tspan>
-        <tspan x={0} dy="1.2em">E: {$material.E} {" " + $_("graph.gpa")}</tspan>
-        <tspan x={0} dy="1.2em">G: {$material.G} {" " + $_("graph.gpa")}</tspan>
-      </text>
+      <InputInfoOverlay />
 
       <g class="drawing-local" transform="translate(0, {drawingHeight / 2})">
         <g class="x-dimension" />
@@ -191,8 +187,4 @@
     fill: none;
   }
 
-  .material-info {
-    font-size: 20px;
-    fill: currentColor;
-  }
 </style>

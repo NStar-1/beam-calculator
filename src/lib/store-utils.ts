@@ -24,17 +24,6 @@ export function rad2deg(d: number) {
   return (d * 180) / Math.PI;
 }
 
-export const convertFixation = (fixation: FixationType): 0 | 1 => {
-  switch (fixation) {
-    case "NONE":
-      return 0;
-    case "FIXED":
-    case "PIN":
-    case "ROLLER":
-      return 1;
-  }
-};
-
 export const convertLoads = (loads: PointLoad[]) => {
   return loads.map((l) => ({
     axial: [Math.cos(l.angle) * l.value, Math.sin(l.angle) * l.value, 0],
