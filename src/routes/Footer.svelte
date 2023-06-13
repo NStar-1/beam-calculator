@@ -57,7 +57,7 @@
     row-gap: 20px;
     @media(max-width: 480px){
       height: auto;
-      padding: 16px;
+      padding:16px  8px ;
     }
   }
   .footer-wrapper  ~ div{
@@ -68,9 +68,6 @@
   .logo {
     height: 40%;
 
-    @media(max-width: 480px){
-      width: min-content;
-    }
   }
   .logo-wrapper{
     margin-right: 40px;
