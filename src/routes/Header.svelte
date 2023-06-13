@@ -8,6 +8,7 @@
   import List, { Item, Separator, Text } from '@smui/list';
   import { dict } from "$lib/dictionary";
   import { onMount } from "svelte";
+  import BeamCalc from "../../static/assets/Beam Calculator.svg?component";
   const lngs = Object.keys(dict);
   let selectedLng = "En"
   let menu = {}
@@ -25,7 +26,7 @@
       link?.setAttribute('href', "/smui-dark.css")
       currentTheme= "dark"
     }else{
-      link?.setAttribute('href', "/smui.css")
+      link?.setAttribute('href', "/global-light.css")
       currentTheme = "light"
     }
 
@@ -36,7 +37,8 @@
 <div class="HeaderWrapper">
     <a href="/" class="no-hover">
       <img alt="logo" src={`${base}/assets/IconColor.svg`}/>
-      <p>Beam Calculator</p>
+      <BeamCalc/>
+      <!-- <p>Beam Calculator</p> -->
     </a>
     <div class="links">
       <a href="/about">{$_("app.about")}</a>
