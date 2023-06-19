@@ -10,7 +10,6 @@
   let dx: number, dy: number;
   $: dx = x1 - x0;
   $: dy = y1 - y0;
-  $: console.info("aa", isActive);
 </script>
 
 <g transform="translate({scale(x0)}, {scale(y0)})">
