@@ -2,6 +2,7 @@
   import { base } from "$app/paths";
   import { Separator } from '@smui/list';
   import { _ } from "svelte-i18n";
+  import BeamCalc from "../../static/assets/Beam Calculator.svg?component";
 </script>
 
 <div class="footer-wrapper">
@@ -13,7 +14,7 @@
       src="{base}/assets/LogoGrey.svg"
       class="logo"
     />
-    <p>Beam Calculator</p>
+    <BeamCalc/>
     </div>
     <div class="column">
       <p class="title">{$_('footer.community.title')}</p>
@@ -44,6 +45,7 @@
 </div>
 
 <style>
+
   .footer-wrapper {
     display: flex;
     background-color: var(--cds-background);
@@ -53,33 +55,42 @@
     box-shadow: var(--box-shadow);
     flex-direction: column;
     row-gap: 20px;
+    @media(max-width: 480px){
+      height: auto;
+      padding:16px  8px ;
+    }
   }
-  .footer-wrapper div{
+  .footer-wrapper  ~ div{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
+
   .logo {
     height: 40%;
+
   }
   .logo-wrapper{
     margin-right: 40px;
-    font-family: 'Josefin Sans';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 20px;
     column-gap: 16px;
+    height: min-content;
+    display: flex;
+    flex-direction: row;
   }
+
   .upper{
     column-gap: 90px;
     height: 100%;
+    display: flex;
+    @media(max-width: 480px){
+      flex-direction: column;
+    }
     & .column{
+      display: flex;
       flex-direction: column;
       row-gap: 16px;
       & .title{
-        font-family: 'Josefin Sans';
-        font-style: normal;
-        font-weight: 500;
+   
+        font-weight: 600;
         margin-bottom: 0;
         font-size: 16px;
         line-height: 20px;
@@ -91,8 +102,12 @@
         text-decoration: none;
       }
     }
+  
   }
   .under{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     color: var(--dark-grey);
     fill: var(--dark-grey);

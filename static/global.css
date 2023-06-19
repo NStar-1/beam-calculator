@@ -33,3 +33,13 @@ p{
 #chart {
   font-family: CMU Concrete Roman;
 }
+
+.beam-calc{
+  fill: var(--cds-text-primary);
+  display: flex;
+  align-self: center;
+}
+
+body *{
+  box-sizing: content-box;
+}

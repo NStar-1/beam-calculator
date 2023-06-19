@@ -7,26 +7,46 @@
   import NightIcon from "../assets/night.svelte"
   import List, { Item, Separator, Text } from '@smui/list';
   import { dict } from "$lib/dictionary";
+  import { onMount } from "svelte";
+  import BeamCalc from "../../static/assets/Beam Calculator.svg?component";
   const lngs = Object.keys(dict);
   let selectedLng = "En"
   let menu = {}
   let currentTheme = "light";
+  onMount(()=>{
+    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+      const link = document.getElementById('theme')
+      link?.setAttribute('href', "/smui-dark.css")
+      currentTheme= "dark"
+    }
+  })
+  function setTheme(){
+    const link = document.getElementById('theme')
+    if(currentTheme == "light"){
+      link?.setAttribute('href', "/smui-dark.css")
+      currentTheme= "dark"
+    }else{
+      link?.setAttribute('href', "/global-light.css")
+      currentTheme = "light"
+    }
 
+  }
 
 </script>
 
 <div class="HeaderWrapper">
     <a href="/" class="no-hover">
       <img alt="logo" src={`${base}/assets/IconColor.svg`}/>
-      <p>Beam Calculator</p>
+      <BeamCalc />
+      <!-- <p>Beam Calculator</p> -->
     </a>
     <div class="links">
       <a href="/about">{$_("app.about")}</a>
       <a href="/contact">{$_("app.contact")}</a>
     </div>
     <div class="active-buttons">
-      <Button variant="outlined" class="styledButton" >
-        {#if currentTheme ==="dark"}
+      <Button variant="outlined" class="styledButton" on:click={setTheme}>
+        {#if currentTheme =="dark"}
         <DayIcon/>
         {:else}
         <NightIcon/>
@@ -74,7 +94,11 @@
     align-items: center;
     font-weight: 500;
     z-index: 1;
+    @media(max-width: 480px){
+      padding: 8px;
+    }
   }
+
   .HeaderWrapper > div{
     display: flex;
   }
@@ -83,18 +107,28 @@
   }
   .links {
     column-gap: 32px;
+    @media(max-width: 480px){
+      column-gap: 16px;
+    }
   }
+
   .no-hover{
-    &:hover{
-        color: initial;
-      }
-      font-family: 'Josefin Sans';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px !important;
-    line-height: 20px;
     column-gap: 16px;
+    &:hover{
+        color: inherit;
+    }
+    @media(max-width: 480px){
+      
+      & img{
+         width: 65%;
+         height: unset;
+      }
+      & svg{
+      display: none;
+     }
+     column-gap: 0;
   }
+}
   a{
     color: inherit;
     cursor: pointer;
@@ -123,6 +157,9 @@
   }
   .active-buttons{
     column-gap: 24px;
+    @media(max-width: 480px){
+      column-gap: 10px;
+    }
   }
   :global(svg){
     &:focus{

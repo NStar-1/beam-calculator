@@ -79,6 +79,13 @@ export const dict = {
         privacy:"Privacy Policy",
         terms:"Terms of service"
       }
+    },
+    contact: {
+      title:"We are here to help",
+      name:"Your Full Name",
+      email:"Your Email Address",
+      message:"Message",
+      button: "Send"
     }
   },
   "Ru": {
@@ -150,6 +157,13 @@ export const dict = {
         privacy:"Политика Конфиденциальности",
         terms:"Условия использования"
       }
+    },
+    contact: {
+      title:"Мы всегда готовы помочь",
+      name:"Ваше полное имя",
+      email:"Ваш email",
+      message:"Сообщение",
+      button: "Отправить"
     }
   },
 };
