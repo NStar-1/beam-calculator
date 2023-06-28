@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <div class="adv bottom ">
+  <div class="adv bottom">
     <ins class="adsbygoogle"
         style="display:block"
         data-ad-client="ca-pub-1770200227566265"
@@ -67,9 +67,7 @@
     display: flex;
     width: auto;
     height: 215px;
-    background-color: bisque;
     margin: 40px;
-
   }
 
   .InlinePage {
