@@ -16,16 +16,13 @@ export function shiftNode(el: any) {
   return res;
 }
 
-export const convertFixation = (fixation: FixationType): 0 | 1 => {
-  switch (fixation) {
-    case "NONE":
-      return 0;
-    case "FIXED":
-    case "PIN":
-    case "ROLLER":
-      return 1;
-  }
-};
+export function deg2rad(d: number) {
+  return (d * Math.PI) / 180;
+}
+
+export function rad2deg(d: number) {
+  return (d * 180) / Math.PI;
+}
 
 export const convertLoads = (loads: PointLoad[]) => {
   return loads.map((l) => ({

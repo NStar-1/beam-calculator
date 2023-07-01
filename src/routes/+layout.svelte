@@ -10,6 +10,7 @@
 
   onMount(() => {
     isPhone.set(window.matchMedia("(max-width: 480px)").matches);
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
   });
 </script>
 
@@ -21,11 +22,23 @@
       <div class="ContentPage">
         <slot />
       </div>
-      <div class="ContentPage adv">advertising</div>
+      <div class="ContentPage adv">
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-1770200227566265"
+            data-ad-slot="1770200227566265"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+      </div>
     </div>
   </div>
-  <div class="adv bottom ">
-    ADV BOTTOM
+  <div class="adv bottom">
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-1770200227566265"
+        data-ad-slot="1770200227566265"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
   </div>
   <Footer />
 </div>
@@ -54,9 +67,7 @@
     display: flex;
     width: auto;
     height: 215px;
-    background-color: bisque;
     margin: 40px;
-
   }
 
   .InlinePage {

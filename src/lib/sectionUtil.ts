@@ -16,7 +16,7 @@ export function roundTube({
   const rio = ri / ro;
   const Asy = Ax / (0.54414 + 2.97294 * rio - 1.51899 * rio * rio);
   const Asz = Asy;
-  const Jx = (Math.PI * (ro ** 4 - ri ** 4)) / 2;
+  const Jx = (ro ** 4 - ri ** 4) * Math.PI / 64;
   const Iy = Jx / 2;
   const Iz = Iy;
 
@@ -30,7 +30,7 @@ export function cylindrical({
   const Ax = Math.PI * ro * ro;
   const Asy = Ax;
   const Asz = Asy;
-  const Jx = (Math.PI * ro ** 4) / 2;
+  const Jx = (ro ** 4) * Math.PI  / 64;
   const Iy = Jx / 2;
   const Iz = Iy;
 
@@ -42,14 +42,16 @@ export function rectangular({
   width: a, height: b,
 }: RectangularProfile): ProfileDescription {
   const Ax = a * b;
+  const Asy = Ax * 5 / 6;
+  const Asz = Asy;
   // FIXME: 'v' is stands for Poisson ratio, need to research how to pick correct value, see http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html#structuralmodeling
   const v = 0.25;
-  const Asy = Ax * (5 + 5 * v) / (6 + 5 * v);
-  const Asz = Asy;
+  //const Asy = Ax * (5 + 5 * v) / (6 + 5 * v);
+  //const Asz = Asy;
   // BUG: yeah yeah, I know that I studied math for 5 years... 
-  const Jx = Math.pow(a, 2) * Math.pow(b, 2) / (a + b);
-  const Iy = (1 / 12) * (a * Math.pow(b, 3) - a);
-  const Iz = (1 / 12) * (b * Math.pow(a, 3) - b);
+  const Jx = Math.min(a, b) * Math.max(a, b) ** 3 / 12;
+  const Iy = (1 / 12) * (a * b** 3);
+  const Iz = (1 / 12) * (b * a ** 3);
 
   return { Ax, Asy, Asz, Jx, Iy, Iz };
 }

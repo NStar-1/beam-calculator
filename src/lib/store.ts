@@ -10,7 +10,11 @@ import {
   iBeam,
 } from "./sectionUtil";
 import type { Material } from "./materials";
-import { convertLoads, getLoadAbsPos as getLoadAbsPos } from "./store-utils";
+import {
+  convertLoads,
+  deg2rad,
+  getLoadAbsPos as getLoadAbsPos,
+} from "./store-utils";
 import * as ProfileIcon from "$lib/assets/xsection";
 
 export enum ProfileType {
@@ -59,19 +63,19 @@ export type Profile = CylindricalProfile &
   HollowRectangularProfile &
   IBeamProfile;
 
-export type CylindricalProfile = Partial<{
+export type CylindricalProfile = {
   outerRadius: number;
-}>;
+};
 
-export type RoundTubeProfile = Partial<{
+export type RoundTubeProfile = {
   outerRadius: number;
   innerRadius: number;
-}>;
+};
 
-export type RectangularProfile = Partial<{
+export type RectangularProfile = {
   width: number;
   height: number;
-}>;
+};
 
 export type HollowRectangularProfile = Partial<{
   width: number;
@@ -240,6 +244,25 @@ export const loads = writable<Array<PointLoad>>([
   },
 ]);
 
+/**
+ * Min and max load values
+ */
+export const minMaxForce = derived(loads, ($loads) => {
+  if ($loads.length === 0) return [0, 0];
+
+  const initial = $loads[0].value;
+  let min = initial;
+  let max = initial;
+
+  for (let i = 1; i < $loads.length; i++) {
+    const current = $loads[i].value;
+    if (current > max) max = current;
+    if (current < min) min = current;
+  }
+
+  return [min, max];
+});
+
 export const selectedLoad = writable<number | null>(null);
 
 export const firstPoint = writable<BeamEnd>({
@@ -253,7 +276,13 @@ export const lastPoint = writable<BeamEnd>({
 export const results = writable({});
 export const context = writable({});
 
-export const newresults = writable([]);
+type AggregatedResult = {
+  x: number;
+  displacement: F3DD.Vec6;
+  reaction: F3DD.Vec6;
+};
+
+export const newresults = writable<Array<AggregatedResult>>([]);
 
 export const solveModel = async function () {
   // TODO: we need normal, form-based validation
@@ -354,8 +383,8 @@ function deduplicatePoints(points: Array<F3DD.Point>): Array<F3DD.Point> {
   );
 }
 
-function getElements(points: Array<F3DD.Point>): Array<F3DD.Element> {
-  const elements: Array<F3DD.Element> = [];
+function getElements(points: Array<F3DD.Point>): Array<F3DD.FrameElement> {
+  const elements: Array<F3DD.FrameElement> = [];
   points.reduce((previous, current, idx) => {
     // Skip first iteration
     if (previous !== current)
@@ -377,12 +406,13 @@ function getPointLoads(
   return (
     loads
       .map((load) => {
+        const radAngle = deg2rad(load.angle);
         const pos = getLoadAbsPos(load, length);
         const point = points.find((d) => d.x === pos)!;
         // derived
-        const xLoad = Math.sin(load.angle) * load.value;
+        const xLoad = Math.sin(radAngle) * load.value;
         // derived
-        const yLoad = -Math.cos(load.angle) * load.value;
+        const yLoad = -Math.cos(radAngle) * load.value;
         return {
           id: point.id,
           axial: [xLoad, yLoad, 0],
@@ -421,22 +451,14 @@ export async function solveModel2(): Promise<InputScope> {
   model.points = points;
   model.elements = getElements(points);
   model.pointLoads = getPointLoads(points, get(loads), get(length));
-  //model.profile = get(profile);
   const mat = get(material);
   model.material.E = mat.E;
   model.material.G = mat.G;
   // FIXME: not sure
   model.material.density = mat.density / 1_000_000;
 
-  (model.profile = {
-    Ax: 40.1,
-    Asy: 21.3,
-    Asz: 21.3,
-    Jx: 746,
-    Iy: 373,
-    Iz: 373,
-  }),
-    console.log(model);
+  model.profile = get(profile)
+  console.log(model);
   const res = Frame3DD.calculate(model);
   console.log(res);
   results.set(res.result);
@@ -452,7 +474,7 @@ export async function solveModel2(): Promise<InputScope> {
 
 // virtual store
 const modelState = derived(
-  [length, loads, profileType, profileData, material, firstPoint, lastPoint],
+  [length, loads, profileType, profile, material, firstPoint, lastPoint],
   (x) => x
 );
 

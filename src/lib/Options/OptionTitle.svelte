@@ -27,8 +27,8 @@
   }
   .separator {
     height: 25px;
-    width: 1.5px;
-    background-color: black;
+    width: 1px;
+    background-color: currentColor;
     margin: 0 7px;
   }
 </style>

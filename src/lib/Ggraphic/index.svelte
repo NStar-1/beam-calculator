@@ -1,19 +1,19 @@
 <script lang="ts">
   import {
     isPhone,
-    material,
     length,
     firstPoint,
     lastPoint,
-    newresults,
     loads,
+    minMaxForce,
+    newresults,
     FixationEnum,
-    solveModel2,
+    selectedLoad,
   } from "$lib/store";
   import { scaleLinear, path, type Path } from "d3";
   import DimensionLine from "./dimension-line.svelte";
   import Point from "./Point.svelte";
-  import ForceLine from "./force-line.svelte";
+  import ForceLineAdaptive from "./forceLineAdaptive.svelte";
   import NodeNumber from "./node-number.svelte";
   import Markers from "./markers.svelte";
   import { _ } from "svelte-i18n";
@@ -22,6 +22,8 @@
   import FixRoller from "./FixRoller.svelte";
   import FixPin from "./FixPin.svelte";
   import type { ComponentType } from "svelte";
+  import InputInfoOverlay from "./InputInfoOverlay.svelte";
+  import ResultInfoOverlay from "./ResultInfoOverlay.svelte";
   let clientWidth: number;
   let clientHeight: number;
   const marginRight = 70;
@@ -44,12 +46,15 @@
   $: fixationLeft = fixationComonent[$firstPoint.isFixed];
   $: fixationRight = fixationComonent[$lastPoint.isFixed];
 
+  let forceScale = scaleLinear().range([100, 250]);
+
   let uniform = scaleLinear();
   let curve: Path;
   $: {
     drawingOffset = $isPhone ? 50 : 100;
     drawingWidth = clientWidth - drawingOffset - marginRight;
     uniform = uniform.range([0, drawingWidth]).domain([0, $length]);
+    forceScale = forceScale.domain($minMaxForce);
     curve = path();
     curve.moveTo(0, 0);
 
@@ -63,7 +68,6 @@
       // Start/end slopes (first derivatives)
       const d0 = -prev.displacement.zz;
       const d1 = -curr.displacement.zz;
-      console.log(dx);
       // Kind of cubic Hermite...
       curve.bezierCurveTo(
         uniform(prev.x + dx / 3),
@@ -83,7 +87,6 @@
   $: loadsPos = $loads.map((load) => {
     const x = getLoadAbsPos(load, $length);
     const result = $newresults.find((d) => d.x === x);
-    console.log(result);
     return {
       x,
       y: result ? -result.displacement.y : 0,
@@ -98,11 +101,7 @@
       class="drawing"
       transform="translate({drawingOffset / 2}, {drawingOffset / 2})"
     >
-      <text class="material-info">
-        <tspan x={0} dy=".6em">{$_("graph.material")}: {$material.name}</tspan>
-        <tspan x={0} dy="1.2em">E: {$material.E} {" " + $_("graph.gpa")}</tspan>
-        <tspan x={0} dy="1.2em">G: {$material.G} {" " + $_("graph.gpa")}</tspan>
-      </text>
+      <InputInfoOverlay />
 
       <g class="drawing-local" transform="translate(0, {drawingHeight / 2})">
         <g class="x-dimension" />
@@ -136,67 +135,24 @@
             x={uniform(pos.x)}
             y={uniform(pos.y) - 23}
             text={String(idx)}
+            isActive={idx === $selectedLoad}
+            on:click={() => ($selectedLoad = idx)}
           />
         {/each}
 
-        <!--{#if $points.length !== 0}
-          {#each $points as point}
-            <NodeNumber
-              x={uniform(point.x)}
-              y={uniform(0) - 20}
-              text={String(point.id)}
-            />
-            {#if $loads && $loads.length > 0}
-              <ForceLine
-                x0={point.x}
-                y0={0}
-                x1={point.x -
-                  (Math.sin(
-                    ($loads.find((load) => load.node === point.id).angle *
-                      Math.PI) /
-                      180
-                  ) *
-                    $loads.find((load) => load.node === point.id).load) /
-                    100}
-                y1={(Math.cos(
-                  ($loads.find((load) => load.node === point.id).angle *
-                    Math.PI) /
-                    180
-                ) *
-                  $loads.find((load) => load.node === point.id).load) /
-                  100}
-                label={"F = " +
-                  $loads.find((load) => load.node === point.id)?.load}
-                scale={uniform}
-              />
-            {/if}
-          {/each}
-        {/if}
-        {#if $tempLoad.node !== -1}
+        {#each $loads as load, idx}
+          <ForceLineAdaptive
+            x={loadsPos[idx].x}
+            y={loadsPos[idx].y}
+            angle={load.angle}
+            force={load.value}
+            label={"F = " + load.value}
+            scale={uniform}
+            {forceScale}
+            isActive={idx === $selectedLoad}
+          />
+        {/each}
 
-        <ForceLine
-          x0={$tempLoad.offset}
-          y0={0}
-          x1={$tempLoad.offset -
-            (Math.sin(
-              ($tempLoad.angle *
-                Math.PI) /
-                180
-            ) *
-              $tempLoad.load) /
-              100}
-          y1={(Math.cos(
-            ($tempLoad.angle *
-              Math.PI) /
-              180
-          ) *
-            $tempLoad.load) /
-            100}
-          label={"F = " +
-            $tempLoad.load}
-          scale={uniform}
-        />
-        {/if}-->
         <DimensionLine x0={0} y0={0} x1={$length} y1={0} scale={uniform} />
 
         {#if fixationRight}
@@ -208,6 +164,7 @@
           />
         {/if}
       </g>
+      <ResultInfoOverlay />
     </g>
   </svg>
 </div>
@@ -231,10 +188,5 @@
     stroke: cornflowerblue;
     stroke-width: 4;
     fill: none;
-  }
-
-  .material-info {
-    font-size: 20px;
-    fill: currentColor;
   }
 </style>
