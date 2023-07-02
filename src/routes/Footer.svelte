@@ -10,7 +10,7 @@
    <div class="upper">
     <div class="logo-wrapper">
       <img
-      alt="github image"
+      alt="github"
       src="{base}/assets/LogoGrey.svg"
       class="logo"
     />
@@ -25,12 +25,12 @@
    <div class="column">
     <p class="title">{$_('footer.help.title')}</p>
     <a href="/contact">{$_('footer.help.contact')}</a>
-    <a href="https://github.com/NStar-1/beam-calculator">{$_('footer.help.faqs')}</a>
+    <a href="/faq">{$_('footer.help.faqs')}</a>
   </div>
   <div class="column">
     <p class="title">{$_('footer.legal.title')}</p>
-    <a href="/about">{$_('footer.legal.privacy')}</a>
-    <a href="https://github.com/NStar-1/beam-calculator">{$_('footer.legal.terms')}</a>
+    <a href="/privacy-policy">{$_('footer.legal.privacy')}</a>
+    <a href="/terms-of-service">{$_('footer.legal.terms')}</a>
   </div>
      </div>
     <Separator/>
@@ -45,7 +45,6 @@
 </div>
 
 <style>
-
   .footer-wrapper {
     display: flex;
     background-color: var(--cds-background);
