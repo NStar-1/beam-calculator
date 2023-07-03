@@ -31,6 +31,16 @@
     />
     <link rel="stylesheet" href="%sveltekit.assets%/global.css" />
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-00JVSLDCZ9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-00JVSLDCZ9');
+    </script>
+
     <title>Beam Calculator</title>
 
     %sveltekit.head%
