@@ -53,6 +53,7 @@
 
   }
   .ContentPage {
+    box-sizing: border-box;
     padding: 30px;
     border-radius: 5px;
     width: 70%;
@@ -89,8 +90,12 @@
       width: 100%;
       height: auto;
     }
-    .ADV {
+  
+    .adv {
       display: none;
+    }
+    .bottom{
+      display: flex;
     }
 
     .ContentPage {

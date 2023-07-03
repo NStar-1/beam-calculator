@@ -2,7 +2,7 @@
   import { base } from "$app/paths";
   import { Separator } from '@smui/list';
   import { _ } from "svelte-i18n";
-  import BeamCalc from "../../static/assets/Beam Calculator.svg?component";
+  import BeamCalc from "../assets/Beam Calculator.svg?component";
 </script>
 
 <div class="footer-wrapper">
@@ -16,6 +16,7 @@
     />
     <BeamCalc/>
     </div>
+    <div class="info-wrapper">
     <div class="column">
       <p class="title">{$_('footer.community.title')}</p>
       <a href="/about">{$_('footer.community.about')}</a>
@@ -32,6 +33,7 @@
     <a href="/privacy-policy">{$_('footer.legal.privacy')}</a>
     <a href="/terms-of-service">{$_('footer.legal.terms')}</a>
   </div>
+</div>
      </div>
     <Separator/>
     <div class="under">
@@ -48,7 +50,7 @@
   .footer-wrapper {
     display: flex;
     background-color: var(--cds-background);
-    height: 200px;
+    min-height: 200px;
     padding: 16px 40px;
     box-sizing: border-box;
     box-shadow: var(--box-shadow);
@@ -80,10 +82,20 @@
     column-gap: 90px;
     height: 100%;
     display: flex;
+    row-gap: 20px;
+    flex-wrap: wrap;
     @media(max-width: 480px){
       flex-direction: column;
     }
-    & .column{
+    & .info-wrapper{
+      display: flex;
+      flex-direction: row;
+      column-gap: 90px;
+      flex-wrap: wrap;
+      @media(max-width: 480px){
+      flex-direction: column;
+    }
+      & .column{
       display: flex;
       flex-direction: column;
       row-gap: 16px;
@@ -101,6 +113,8 @@
         text-decoration: none;
       }
     }
+    }
+   
   
   }
   .under{
@@ -118,6 +132,7 @@
       margin: 0;
     }
   }
+  
   @media (max-width: 480px) {
     .footer-wrapper {
       position: static;
