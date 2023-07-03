@@ -39,7 +39,7 @@
         © 2023 All Rights Reserved 
       </p>
       <div>
-        <p>nameofapp@gmail.com</p>
+        <p>contact@beamcalc.net</p>
       </div>
     </div>
 </div>
