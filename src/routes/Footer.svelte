@@ -39,7 +39,7 @@
         © 2023 All Rights Reserved 
       </p>
       <div>
-        <p>contact@beamcalc.net</p>
+        <a href="mailto:contact@beamcalc.net">contact@beamcalc.net</a>
       </div>
     </div>
 </div>
