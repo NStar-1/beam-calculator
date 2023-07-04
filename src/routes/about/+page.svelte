@@ -1,8 +1,13 @@
 <script></script>
 
-<h1>About page</h1>
+<svelte:head>
+  <title>About us</title>
+  <meta name="description" content="Information about the authors" />
+</svelte:head>
+
+<h1>About us</h1>
 <p>
-  Beam Calculator is an Open Source software for stress analysis, based one
+  Beam Calculator is an Open Source software for stress analysis, based on
   <a href="https://frame3dd.sourceforge.net/">Frame3DD</a>
 </p>
 <h2>Credits</h2>
