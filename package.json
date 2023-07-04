@@ -11,7 +11,8 @@
     "prepare": "npm run smui-theme-light && npm run smui-theme-dark",
     "smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
     "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark",
-    "test": "vitest"
+    "test": "vitest",
+    "postbuild": "npx svelte-sitemap --domain https://beamcalc.net"
   },
   "devDependencies": {
     "@material/elevation": "^14.0.0",
@@ -35,6 +36,7 @@
     "svelte": "^3.54.0",
     "svelte-icon": "^1.3.0",
     "svelte-preprocess": "^5.0.0",
+    "svelte-sitemap": "^2.6.0",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4",
     "vite": "^4.0.0",
