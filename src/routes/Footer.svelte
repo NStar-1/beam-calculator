@@ -1,19 +1,15 @@
 <script>
-  import { base } from "$app/paths";
   import { Separator } from '@smui/list';
   import { _ } from "svelte-i18n";
-  import BeamCalc from "../assets/Beam Calculator.svg?component";
+  import BeamCalc from "../assets/Beam Calculator.svg";
+  import LogoGrey from "../assets/LogoGrey.svg";
 </script>
 
 <div class="footer-wrapper">
 
    <div class="upper">
     <div class="logo-wrapper">
-      <img
-      alt="github"
-      src="{base}/assets/LogoGrey.svg"
-      class="logo"
-    />
+    <LogoGrey />
     <BeamCalc/>
     </div>
     <div class="info-wrapper">

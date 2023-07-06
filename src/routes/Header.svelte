@@ -8,7 +8,8 @@
   import List, { Item, Separator, Text } from '@smui/list';
   import { dict } from "$lib/dictionary";
   import { onMount } from "svelte";
-  import BeamCalc from "../assets/Beam Calculator.svg?component";
+  import BeamCalc from "../assets/Beam Calculator.svg";
+  import IconColor from "../assets/IconColor.svg";
   const lngs = Object.keys(dict);
   let selectedLng = "En"
   let menu = {}
@@ -36,7 +37,7 @@
 
 <div class="HeaderWrapper">
     <a href="/" class="no-hover">
-      <img alt="logo" src={`${base}/assets/IconColor.svg`}/>
+      <IconColor />
       <BeamCalc />
     </a>
     <div class="links">

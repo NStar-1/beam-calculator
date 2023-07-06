@@ -19,7 +19,11 @@ export default defineConfig({
       },
     }),
     svelteSVG({
-      svgoConfig: {},
+      svgoConfig: {
+        plugins: [
+          'preset-default',
+        ]
+      },
       requireSuffix: false,
     }),
   ],
