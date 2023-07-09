@@ -50,10 +50,13 @@
 
   let uniform = scaleLinear();
   let curve: Path;
-  let minDisplacement: number; // Used to define top offset when beam has negative deflection
+  let minDisplacement: number; // Used to define offset when beam has negative deflection
+  let maxDisplacement: number; // Same as above but for positive offset
 
   $: {
+    // min/max must start with 0 for proper negative/positive capturing
     minDisplacement = 0;
+    maxDisplacement = 0;
     drawingOffset = $isPhone ? 50 : 100;
     drawingWidth = clientWidth - drawingOffset - marginRight;
     uniform = uniform.range([0, drawingWidth]).domain([0, $length]);
@@ -71,9 +74,9 @@
       // Start/end slopes (first derivatives)
       const d0 = -prev.displacement.zz;
       const d1 = -curr.displacement.zz;
-      // Update minimal (negative) displacement
-      if (curr.displacement.y > -minDisplacement) minDisplacement = -curr.displacement.y;
-      console.log(curr.displacement.y)
+      // Update minimal (negative) and max (positive) displacement
+      if (minDisplacement > -curr.displacement.y) minDisplacement = -curr.displacement.y;
+      if (maxDisplacement < -curr.displacement.y) maxDisplacement = -curr.displacement.y;
       // Kind of cubic Hermite...
       curve.bezierCurveTo(
         uniform(prev.x + dx / 3),
@@ -89,6 +92,15 @@
     });
   }
 
+  let totalHeight: string = "50%"
+  let topOffset = 0;
+  // If there is a negative displacement, than offset is smaller
+  $: topOffset = minDisplacement < 0 ? 75 : 125
+  const bottomOffset = 100
+
+  // -minDisplacement is less than zero hence '-' inverts it
+  $: totalHeight = `${topOffset + bottomOffset + uniform(maxDisplacement - minDisplacement)}px`
+
   let loadsPos: Array<{}>;
   $: loadsPos = $loads.map((load) => {
     const x = getLoadAbsPos(load, $length);
@@ -101,7 +113,7 @@
 </script>
 
 <div bind:clientWidth bind:clientHeight class="graphic-container">
-  <svg width="100%" height="100%" shape-rendering="geometricPrecision">
+  <svg width="100%" height={totalHeight} shape-rendering="geometricPrecision">
     <Markers />
     <g
       class="drawing"
@@ -109,7 +121,7 @@
     >
       <!--<InputInfoOverlay />-->
 
-      <g class="drawing-local" transform="translate(0, 125)">
+      <g class="drawing-local" transform="translate(0, {topOffset})">
         <g class="x-dimension" />
 
         {#if fixationLeft}
