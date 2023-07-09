@@ -23,7 +23,6 @@
 
 <style>
   .CalculatorWrapper {
-    height: 65vh;
     border: #ff8d48 1px solid;
     margin-top: 20px;
     display: flex;

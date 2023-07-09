@@ -273,7 +273,7 @@ export const lastPoint = writable<BeamEnd>({
   isFixed: FixationEnum.NONE,
 });
 
-export const results = writable({});
+export const results = writable<F3DD.ResultScope['result'] | void>(undefined)
 export const context = writable({});
 
 type AggregatedResult = {

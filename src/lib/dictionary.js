@@ -11,8 +11,8 @@ export const dict = {
         length: "Length",
         fixType: {
           title: "fixation type",
-          none: "none",
-          "fixed end": "fixed end",
+          none: "None",
+          "fixed end": "Fixed end",
           pin: "pin",
           roller: "roller",
         },

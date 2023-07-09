@@ -21,9 +21,8 @@
   import FixRigid from "./FixRigid.svelte";
   import FixRoller from "./FixRoller.svelte";
   import FixPin from "./FixPin.svelte";
+  import Info from './Info.svelte'
   import type { ComponentType } from "svelte";
-  import InputInfoOverlay from "./InputInfoOverlay.svelte";
-  import ResultInfoOverlay from "./ResultInfoOverlay.svelte";
   let clientWidth: number;
   let clientHeight: number;
   const marginRight = 70;
@@ -119,8 +118,6 @@
       class="drawing"
       transform="translate({drawingOffset / 2 + 10}, {-uniform(minDisplacement)})"
     >
-      <!--<InputInfoOverlay />-->
-
       <g class="drawing-local" transform="translate(0, {topOffset})">
         <g class="x-dimension" />
 
@@ -182,9 +179,9 @@
           />
         {/if}
       </g>
-      <!--<ResultInfoOverlay /> -->
     </g>
   </svg>
+  <Info />
 </div>
 
 <style>
