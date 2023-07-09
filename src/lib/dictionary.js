@@ -104,6 +104,15 @@ export const dict = {
       email:"Your Email Address",
       message:"Message",
       button: "Send"
+    },
+    results: {
+      inputData: "Input data",
+      resultData: "Simulation results",
+      density: "Density",
+      gModulus: "Shear modulus",
+      eModulus: "Elastic modulus",
+      displacements: "Displacements",
+      reactions: "Reactions",
     }
   },
   "Ru": {
@@ -114,7 +123,7 @@ export const dict = {
     },
     options: {
       config: {
-        title: "Конфигурация балки",
+        title: "Конфигурация",
         length: "Длина",
         fixType: {
           title: "Тип крепления",
@@ -211,6 +220,15 @@ export const dict = {
       email:"Ваш email",
       message:"Сообщение",
       button: "Отправить"
+    },
+    results: {
+      inputData: "Исходные данные",
+      resultData: "Рассчет",
+      density: "Плотность",
+      gModulus: "Модуль сдвига",
+      eModulus: "Модуль упругости",
+      displacements: "Смещения",
+      reactions: "Реакции",
     }
   },
 };

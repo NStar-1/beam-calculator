@@ -1,6 +1,5 @@
 <script lang="ts">
   import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
-  import Button from "@smui/button";
   import Cut from "./Cut.svelte";
   import Fixation from "./Fixation.svelte";
   import HelperText from "@smui/textfield/helper-text";
@@ -13,7 +12,7 @@
   import { Icon } from "@smui/icon-button";
   import { _ } from "svelte-i18n";
   import { createLengthRules } from "./validators";
-  import { length, profileInfo, material, loads, solveModel2 } from "../store";
+  import { length, profileInfo, material, loads } from "../store";
   import { menuRoute } from "./menuRouter"
 
   import type { ValidationResult } from "../../utils/validation";
@@ -94,7 +93,6 @@
     </Header>
   </Panel>
 </Accordion>
-<Button on:click={solveModel2}>Calculate</Button>
 
 <style>
   :global(.smui-accordion__header__title) {

@@ -185,6 +185,10 @@
 </div>
 
 <style>
+  svg {
+    overflow: visible;
+  }
+
   * {
     font-family: "GOST type A";
   }

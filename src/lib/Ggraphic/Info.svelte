@@ -16,7 +16,7 @@
 
 <div class="root">
   <section>
-    <h3>Input data:</h3>
+    <h3>{$_("results.inputData")}:</h3>
     <details open>
       <summary class="h4">{$_("options.config.title")}:</summary>
       <subsection>
@@ -40,14 +40,14 @@
         {$_("graph.material")}:
       </summary>
       <subsection>
-        <div>Name: {$material.name}</div>
-        <div>Density: {$material.density} &lt;units&gt;</div>
+        <div>{$material.name}</div>
+        <div>{$_("results.density")}: {$material.density} &lt;units&gt;</div>
         <div>
-          <dfn title="Elastic modulus">E</dfn>: {$material.E}
+          <dfn title="{$_("results.eModulus")}">E</dfn>: {$material.E}
           {$_("graph.gpa")}
         </div>
         <div>
-          <dfn title="Shear modulus">G</dfn>: {$material.G}
+          <dfn title="{$_("results.gModulus")}">G</dfn>: {$material.G}
           {$_("graph.gpa")}
         </div>
       </subsection>
@@ -73,9 +73,9 @@
     </details>
   </section>
   <section>
-    <h3>Output data:</h3>
+    <h3>{$_("results.resultData")}:</h3>
     <details open>
-      <summary class="h4">Displacements:</summary>
+      <summary class="h4">{$_("results.displacements")}:</summary>
       <table>
         <tr>
           <th>#</th>
@@ -102,7 +102,7 @@
       </table>
     </details>
     <details open>
-      <summary class="h4">Reactions:</summary>
+      <summary class="h4">{$_("results.reactions")}:</summary>
       <table>
         <tr>
           <th>#</th>
