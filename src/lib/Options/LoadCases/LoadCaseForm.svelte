@@ -152,7 +152,7 @@
   <div class="actions">
     <Button on:click={() => ($selectedLoad = null)}>
       <Icon class="material-icons">close</Icon>
-      <Label>Close</Label>
+      <Label>{$_("options.loadCaseForm.close")}</Label>
     </Button>
   </div>
 </div>

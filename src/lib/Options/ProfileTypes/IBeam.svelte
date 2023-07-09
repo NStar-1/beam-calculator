@@ -6,21 +6,21 @@
 
 <Textfield
   type="number"
-  label={$_("options.profile.iBeam.flangeThickness")}
-  bind:value={$profileData.flangeThickness}
-/>
-<Textfield
-  type="number"
-  label={$_("options.profile.iBeam.webThickness")}
-  bind:value={$profileData.webThickness}
-/>
-<Textfield
-  type="number"
-  label={$_("options.profile.iBeam.width")}
+  label={$_("options.profile.width")}
   bind:value={$profileData.width}
 />
 <Textfield
   type="number"
-  label={$_("options.profile.iBeam.depth")}
+  label={$_("options.profile.depth")}
   bind:value={$profileData.depth}
+/>
+<Textfield
+  type="number"
+  label={$_("options.profile.flangeThickness")}
+  bind:value={$profileData.flangeThickness}
+/>
+<Textfield
+  type="number"
+  label={$_("options.profile.webThickness")}
+  bind:value={$profileData.webThickness}
 />

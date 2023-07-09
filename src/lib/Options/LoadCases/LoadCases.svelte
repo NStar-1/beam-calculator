@@ -22,11 +22,11 @@
 
 <Button on:click={onGoBack}>
   <Icon class="material-icons">arrow_back</Icon>
-  <Label>Back</Label>
+  <Label>{$_("options.loadCaseForm.back")}</Label>
 </Button>
 
 <div class="loads">
-  <div class="subtitle">Loads:</div>
+  <div class="subtitle">{$_("options.loadCaseForm.loads")}:</div>
   {#each $loads as _, i}
     <Item
       style="padding: 10px; text-align: center; justify-content: center"
@@ -42,11 +42,11 @@
   {/if}
   <Button on:click={addLoad}>
     <Icon class="material-icons">add</Icon>
-    <Label>Add</Label>
+    <Label>{$_("options.loadCaseForm.add")}</Label>
   </Button>
 
   {#if $selectedLoad !== null}
-    <div class="subtitle">Editing: #{$selectedLoad}</div>
+    <div class="subtitle">{$_("options.loadCaseForm.editing")}: #{$selectedLoad}</div>
     <LoadCaseForm loadId={$selectedLoad} />
   {/if}
 </div>

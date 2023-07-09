@@ -6,6 +6,6 @@
 
 <Textfield
   type="number"
-  label={$_("options.profile.cylinder.diametre")}
+  label={$_("options.profile.radius")}
   bind:value={$profileData.outerRadius}
 />

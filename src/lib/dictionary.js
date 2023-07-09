@@ -1,7 +1,7 @@
 export const dict = {
   "En": {
     app: {
-      title: "Beam calculator",
+      title: "Static stress analysis online calculator",
       about: "About us",
       contact: "Contact"
     },
@@ -21,12 +21,21 @@ export const dict = {
       },
       profile: {
         title: "Profile",
+        outerRadius: "Outer Radius",
+        innerRadius: "Inner Radius",
+        radius: "Radius",
+        height: "Height",
+        width: "Width",
+        thickness: "Thickness",
+        depth: "Depth",
+        webThickness: "Web Thickness",
+        flangeThickness: "Flange Thickness",
         roundTube: {
           outer: "Outer Diametre",
           inner: "Inner Diametre",
         },
         cylinder: {
-          diametre: "Diametre",
+          diameter: "Diameter",
         },
       },
       material: {
@@ -48,6 +57,15 @@ export const dict = {
         force: "force",
       },
       loadCaseForm: {
+        back: "Back",
+        loads: "Loads",
+        add: "Add",
+        delete: "Delete",
+        editing: "Editing",
+        close: "Close",
+        leftSide: "Left Side",
+        rightSide: "Right Side",
+        middlePoint: "Middle Point",
         offset: {
           label: "Offset",
         },
@@ -90,7 +108,7 @@ export const dict = {
   },
   "Ru": {
     app: {
-      title: "Калькулятор нагрузки",
+      title: "Онлайн-калькулятор анализа структурных напряжений",
       about: "О нас",
       contact: "Контакты"
     },
@@ -99,23 +117,32 @@ export const dict = {
         title: "Конфигурация балки",
         length: "Длина",
         fixType: {
-          title: "тип крепления",
-          none: "никакого",
-          "fixed end": "жесткое крепление",
-          pin: "шарнир",
-          roller: "подвижный шарнир",
+          title: "Тип крепления",
+          none: "Без крепления",
+          "fixed end": "Глухое",
+          pin: "Шарнир",
+          roller: "Подвижный шарнир",
         },
         left: "Слева",
         right: "Справа",
       },
       profile: {
         title: "Профиль",
+        outerRadius: "Внешний радиус",
+        innerRadius: "Внутренний радиус",
+        radius: "Радиус",
+        height: "Высота",
+        width: "Ширина",
+        thickness: "Толщина",
+        depth: "Глубина",
+        webThickness: "Толщина стенкеи",
+        flangeThickness: "Толщина полки",
         roundTube: {
           outer: "Внешний диаметр",
           inner: "Внутренний диаметр",
         },
         cylinder: {
-          diametre: "Диаметр",
+          diameter: "Диаметр",
         },
       },
       material: {
@@ -135,6 +162,26 @@ export const dict = {
         endNode: "конечный узел",
         angle: "угол",
         force: "сила",
+      },
+      loadCaseForm: {
+        back: "Назад",
+        loads: "Нагрузки",
+        add: "Добавить",
+        delete: "Удалить",
+        editing: "Редактирование",
+        close: "Закрыть",
+        leftSide: "Слева",
+        rightSide: "Справа",
+        middlePoint: "В центре",
+        offset: {
+          label: "Отступ",
+        },
+        angle: {
+          label: "Угол",
+        },
+        load: {
+          label: "Нагрузка",
+        },
       },
     },
     graph:{

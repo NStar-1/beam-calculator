@@ -6,16 +6,16 @@
 
 <Textfield
   type="number"
-  label={$_("options.profile.rectangularTube.thickness")}
-  bind:value={$profileData.thickness}
-/>
-<Textfield
-  type="number"
-  label={$_("options.profile.rectangularTube.height")}
+  label={$_("options.profile.height")}
   bind:value={$profileData.height}
 />
 <Textfield
   type="number"
-  label={$_("options.profile.rectangularTube.width")}
+  label={$_("options.profile.width")}
   bind:value={$profileData.width}
+/>
+<Textfield
+  type="number"
+  label={$_("options.profile.thickness")}
+  bind:value={$profileData.thickness}
 />
