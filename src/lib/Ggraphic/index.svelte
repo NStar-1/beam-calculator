@@ -50,7 +50,10 @@
 
   let uniform = scaleLinear();
   let curve: Path;
+  let minDisplacement: number; // Used to define top offset when beam has negative deflection
+
   $: {
+    minDisplacement = 0;
     drawingOffset = $isPhone ? 50 : 100;
     drawingWidth = clientWidth - drawingOffset - marginRight;
     uniform = uniform.range([0, drawingWidth]).domain([0, $length]);
@@ -68,6 +71,9 @@
       // Start/end slopes (first derivatives)
       const d0 = -prev.displacement.zz;
       const d1 = -curr.displacement.zz;
+      // Update minimal (negative) displacement
+      if (curr.displacement.y > -minDisplacement) minDisplacement = -curr.displacement.y;
+      console.log(curr.displacement.y)
       // Kind of cubic Hermite...
       curve.bezierCurveTo(
         uniform(prev.x + dx / 3),
@@ -99,11 +105,11 @@
     <Markers />
     <g
       class="drawing"
-      transform="translate({drawingOffset / 2}, {drawingOffset / 2})"
+      transform="translate({drawingOffset / 2 + 10}, {-uniform(minDisplacement)})"
     >
-      <InputInfoOverlay />
+      <!--<InputInfoOverlay />-->
 
-      <g class="drawing-local" transform="translate(0, {drawingHeight / 2})">
+      <g class="drawing-local" transform="translate(0, 125)">
         <g class="x-dimension" />
 
         {#if fixationLeft}
@@ -164,7 +170,7 @@
           />
         {/if}
       </g>
-      <ResultInfoOverlay />
+      <!--<ResultInfoOverlay /> -->
     </g>
   </svg>
 </div>

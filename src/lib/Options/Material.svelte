@@ -44,9 +44,10 @@
 </script>
 
 <TextField label="Filter" bind:value={query} />
+<br>
 <TreeView
   style="padding-left: 0"
-  labelText="List of materials"
+  labelText="List of materials:"
   children={filtered}
   bind:activeId={materialId}
 />
