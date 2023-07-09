@@ -80,8 +80,6 @@
     width: 100%;
     justify-content: center;
   }
-  
- 
 
   @media (max-width: 480px) {
     .InlinePage {
@@ -101,6 +99,7 @@
     .ContentPage {
       width: 100%;
       height: 100%;
+      padding: 3px;
     }
   }
 </style>

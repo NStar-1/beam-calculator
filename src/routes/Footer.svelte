@@ -1,48 +1,47 @@
 <script>
-  import { Separator } from '@smui/list';
+  import { Separator } from "@smui/list";
   import { _ } from "svelte-i18n";
   import BeamCalc from "../assets/Beam Calculator.svg";
   import LogoGrey from "../assets/LogoGrey.svg";
 </script>
 
 <div class="footer-wrapper">
-
-   <div class="upper">
+  <div class="upper">
     <div class="logo-wrapper">
-    <LogoGrey />
-    <BeamCalc/>
+      <LogoGrey />
+      <BeamCalc />
     </div>
     <div class="info-wrapper">
-    <div class="column">
-      <p class="title">{$_('footer.community.title')}</p>
-      <a href="/about">{$_('footer.community.about')}</a>
-      <a href="https://github.com/NStar-1/beam-calculator">{$_('footer.community.github')}</a>
-    </div>
+      <div class="column">
+        <p class="title">{$_("footer.community.title")}</p>
+        <a href="/about">{$_("footer.community.about")}</a>
+        <a href="https://github.com/NStar-1/beam-calculator"
+          >{$_("footer.community.github")}</a
+        >
+      </div>
 
-   <div class="column">
-    <p class="title">{$_('footer.help.title')}</p>
-    <a href="/contact">{$_('footer.help.contact')}</a>
-    <a href="/faq">{$_('footer.help.faqs')}</a>
-  </div>
-  <div class="column">
-    <p class="title">{$_('footer.legal.title')}</p>
-    <a href="/privacy-policy">{$_('footer.legal.privacy')}</a>
-    <a href="/terms-of-service">{$_('footer.legal.terms')}</a>
-  </div>
-</div>
-     </div>
-    <Separator/>
-    <div class="under">
-      <p>
-        © 2023 All Rights Reserved 
-      </p>
-      <div>
-        <a href="mailto:contact@beamcalc.net">contact@beamcalc.net</a>
+      <div class="column">
+        <p class="title">{$_("footer.help.title")}</p>
+        <a href="/contact">{$_("footer.help.contact")}</a>
+        <a href="/faq">{$_("footer.help.faqs")}</a>
+      </div>
+      <div class="column">
+        <p class="title">{$_("footer.legal.title")}</p>
+        <a href="/privacy-policy">{$_("footer.legal.privacy")}</a>
+        <a href="/terms-of-service">{$_("footer.legal.terms")}</a>
       </div>
     </div>
+  </div>
+  <Separator />
+  <div class="under">
+    <p>© 2023 All Rights Reserved</p>
+    <div>
+      <a href="mailto:contact@beamcalc.net">contact@beamcalc.net</a>
+    </div>
+  </div>
 </div>
 
-<style>
+<style lang="scss">
   .footer-wrapper {
     display: flex;
     background-color: var(--cds-background);
@@ -52,21 +51,20 @@
     box-shadow: var(--box-shadow);
     flex-direction: column;
     row-gap: 20px;
-    @media(max-width: 480px){
+    @media (max-width: 480px) {
       height: auto;
-      padding:16px  8px ;
+      padding: 16px 8px;
     }
   }
-  .footer-wrapper  ~ div{
+  .footer-wrapper ~ div {
     display: flex;
     flex-direction: column;
   }
 
   .logo {
     height: 40%;
-
   }
-  .logo-wrapper{
+  .logo-wrapper {
     margin-right: 40px;
     column-gap: 16px;
     height: min-content;
@@ -74,46 +72,43 @@
     flex-direction: row;
   }
 
-  .upper{
+  .upper {
     column-gap: 90px;
     height: 100%;
     display: flex;
     row-gap: 20px;
     flex-wrap: wrap;
-    @media(max-width: 480px){
+    @media (max-width: 480px) {
       flex-direction: column;
     }
-    & .info-wrapper{
+    & .info-wrapper {
       display: flex;
       flex-direction: row;
       column-gap: 90px;
       flex-wrap: wrap;
-      @media(max-width: 480px){
-      flex-direction: column;
-    }
-      & .column{
-      display: flex;
-      flex-direction: column;
-      row-gap: 16px;
-      & .title{
-   
-        font-weight: 600;
-        margin-bottom: 0;
-        font-size: 16px;
-        line-height: 20px;
-        cursor:default;
-        text-transform: uppercase;
-    }
-      & a{
-        color: var(--dark-grey);
-        text-decoration: none;
+      @media (max-width: 480px) {
+        flex-direction: column;
+      }
+      & .column {
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
+        & .title {
+          font-weight: 600;
+          margin-bottom: 0;
+          font-size: 16px;
+          line-height: 20px;
+          cursor: default;
+          text-transform: uppercase;
+        }
+        & a {
+          color: var(--dark-grey);
+          text-decoration: none;
+        }
       }
     }
-    }
-   
-  
   }
-  .under{
+  .under {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -121,14 +116,14 @@
     color: var(--dark-grey);
     fill: var(--dark-grey);
     font-style: normal;
-    font-weight: 500; 
+    font-weight: 500;
     font-size: 14px;
-    line-height: 20px; 
-    & p{
+    line-height: 20px;
+    & p {
       margin: 0;
     }
   }
-  
+
   @media (max-width: 480px) {
     .footer-wrapper {
       position: static;

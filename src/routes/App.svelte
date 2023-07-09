@@ -60,6 +60,7 @@
     .PictureWrapper {
       width: 100%;
       min-height: 35vh;
+      border: none;
     }
   }
 </style>

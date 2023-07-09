@@ -1,84 +1,77 @@
 <script>
-  import { base } from "$app/paths";
   import { locale, _ } from "svelte-i18n";
-  import Menu from '@smui/menu';
+  import Menu from "@smui/menu";
   import Button from "@smui/button/src/Button.svelte";
-  import DayIcon from "../assets/day.svelte"
-  import NightIcon from "../assets/night.svelte"
-  import List, { Item, Separator, Text } from '@smui/list';
+  import DayIcon from "../assets/day.svelte";
+  import NightIcon from "../assets/night.svelte";
+  import List, { Item, Text } from "@smui/list";
   import { dict } from "$lib/dictionary";
   import { onMount } from "svelte";
   import BeamCalc from "../assets/Beam Calculator.svg";
   import IconColor from "../assets/IconColor.svg";
   const lngs = Object.keys(dict);
-  let selectedLng = "En"
-  let menu = {}
+  let menu = {};
   let currentTheme = "light";
-  onMount(()=>{
-    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-      const link = document.getElementById('theme')
-      link?.setAttribute('href', "/smui-dark.css")
-      currentTheme= "dark"
+  onMount(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      const link = document.getElementById("theme");
+      link?.setAttribute("href", "/smui-dark.css");
+      currentTheme = "dark";
     }
-  })
-  function setTheme(){
-    const link = document.getElementById('theme')
-    if(currentTheme == "light"){
-      link?.setAttribute('href', "/smui-dark.css")
-      currentTheme= "dark"
-    }else{
-      link?.setAttribute('href', "/global-light.css")
-      currentTheme = "light"
+  });
+  function setTheme() {
+    const link = document.getElementById("theme");
+    if (currentTheme == "light") {
+      link?.setAttribute("href", "/smui-dark.css");
+      currentTheme = "dark";
+    } else {
+      link?.setAttribute("href", "/global-light.css");
+      currentTheme = "light";
     }
-
   }
-
 </script>
 
 <div class="HeaderWrapper">
-    <a href="/" class="no-hover">
-      <IconColor />
-      <BeamCalc />
-    </a>
-    <div class="links">
-      <a href="/about">{$_("app.about")}</a>
-      <a href="/contact">{$_("app.contact")}</a>
-    </div>
-    <div class="active-buttons">
-      <Button variant="outlined" class="styledButton" on:click={setTheme}>
-        {#if currentTheme =="dark"}
-        <DayIcon/>
-        {:else}
-        <NightIcon/>
-        {/if}
+  <a href="/" class="no-hover">
+    <IconColor />
+    <BeamCalc />
+  </a>
+  <div class="links">
+    <a href="/about">{$_("app.about")}</a>
+    <a href="/contact">{$_("app.contact")}</a>
+  </div>
+  <div class="active-buttons">
+    <Button variant="outlined" class="styledButton" on:click={setTheme}>
+      {#if currentTheme == "dark"}
+        <DayIcon />
+      {:else}
+        <NightIcon />
+      {/if}
+    </Button>
+    <div>
+      <Button
+        on:click={() => menu.setOpen(true)}
+        class="styledButton normal"
+        style={"color: inherit"}
+      >
+        <span class="material-symbols-outlined"> language </span>
+        {$locale}
+        <span class="material-symbols-outlined"> arrow_drop_down </span>
       </Button>
-      <div>
-        <Button on:click={()=> menu.setOpen(true)} class="styledButton normal" style={"color: inherit"}>
-          <span class="material-symbols-outlined">
-            language
-          </span>
-          {$locale}
-          <span class="material-symbols-outlined">
-            arrow_drop_down
-          </span>
-        </Button>
       <Menu bind:this={menu}>
         <List>
           {#each lngs as lng}
-            <Item on:click={()=> locale.set(lng)}>
+            <Item on:click={() => locale.set(lng)}>
               <Text>{lng}</Text>
-            </Item>        
+            </Item>
           {/each}
         </List>
-      
       </Menu>
-      
-      </div>
-      
     </div>
+  </div>
 </div>
 
-<style>
+<style lang="scss">
   .HeaderWrapper {
     display: flex;
     position: sticky;
@@ -89,85 +82,82 @@
     box-shadow: 0px 3px 20px rgba(64, 64, 64, 0.1);
     padding: 17px 40px;
     box-sizing: border-box;
-    justify-content:space-between;
+    justify-content: space-between;
     font-size: 16px;
     align-items: center;
     font-weight: 500;
     z-index: 1;
-    @media(max-width: 480px){
+    @media (max-width: 480px) {
       padding: 8px;
     }
   }
 
-  .HeaderWrapper > div{
-    display: flex;
-  }
-  .HeaderWrapper ~ div{
-    cursor: pointer;
-  }
   .links {
     column-gap: 32px;
-    @media(max-width: 480px){
-      column-gap: 16px;
+    display: flex;
+    @media (max-width: 480px) {
+      display: none;
     }
   }
 
-  .no-hover{
-    column-gap: 16px;
-    &:hover{
-        color: inherit;
-    }
-    @media(max-width: 550px){
-      
-      & img{
-         max-width: 80%;
-         height: unset;
-      }
-      & svg{
-      display: none;
-     }
-     column-gap: 0;
+  .HeaderWrapper ~ div {
+    cursor: pointer;
   }
-}
-  a{
+
+  .no-hover {
+    column-gap: 16px;
+    &:hover {
+      color: inherit;
+    }
+    @media (max-width: 550px) {
+      & img {
+        max-width: 80%;
+        height: unset;
+      }
+      & svg {
+        display: none;
+      }
+      column-gap: 0;
+    }
+  }
+  a {
     color: inherit;
     cursor: pointer;
     text-decoration: none;
     display: flex;
     flex-direction: row;
-    &:hover{
+    &:hover {
       color: var(--main-orange);
-      
     }
   }
-  :global(.styledButton){
+  :global(.styledButton) {
     aspect-ratio: 1/1;
     padding: 0;
     min-width: unset;
     column-gap: 4px;
   }
-  :global(.normal){
+  :global(.normal) {
     aspect-ratio: unset;
     text-transform: unset;
     color: initial;
     font-size: 16px;
-    font-family: 'Montserrat';
+    font-family: "Montserrat";
     font-style: normal;
     font-weight: 500;
   }
-  .active-buttons{
+  .active-buttons {
     column-gap: 24px;
-    @media(max-width: 480px){
+    display: flex;
+    @media (max-width: 480px) {
       column-gap: 10px;
     }
   }
-  :global(svg){
-    &:focus{
+  :global(svg) {
+    &:focus {
       outline: none;
     }
   }
-  .material-symbols-outlined{
+  .material-symbols-outlined {
     align-self: center;
   }
-
 </style>
