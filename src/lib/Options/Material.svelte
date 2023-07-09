@@ -1,34 +1,46 @@
 <script lang="ts">
-  import { material_id } from "../store";
+  import { material } from "../store";
   import TextField from "@smui/textfield";
   import { TreeView } from "carbon-components-svelte";
   import materials from "../materials";
 
-  let query = "";
+  type TreeNodeId = string | number;
 
-  function filter(items, query) {
-    return items.reduce((acc, v) => {
-      let children = undefined;
-      if (v.hasOwnProperty("children")) {
-        children = filter(v.children, query);
-      }
-      if (v.text.includes(query) || (children && children.length)) {
-        return acc.concat({ ...v, children });
-      }
-      return acc;
-    }, []);
+  interface TreeNode {
+    id: TreeNodeId;
+    text: any;
+    icon?: typeof import("svelte").SvelteComponent;
+    disabled?: boolean;
+    children?: TreeNode[];
   }
 
-  function new_filter(items: typeof materials, query: string) {
+  let query = "";
+
+  //function filter(items, query) {
+  //  return items.reduce((acc, v) => {
+  //    let children = undefined;
+  //    if (v.hasOwnProperty("children")) {
+  //      children = filter(v.children, query);
+  //    }
+  //    if (v.text.includes(query) || (children && children.length)) {
+  //      return acc.concat({ ...v, children });
+  //    }
+  //    return acc;
+  //  }, []);
+  //}
+
+  function mfilter(items: typeof materials, query: string): Array<TreeNode> {
     return items.map((d, idx) => ({
       id: idx,
       text: d.name,
-      children: null,
+      children: undefined,
     }));
   }
 
-  let filtered: typeof materials = [];
-  $: filtered = new_filter(materials, query);
+  let materialId: number = 0;
+  let filtered: TreeNode[] = [];
+  $: $material = materials[materialId];
+  $: filtered = mfilter(materials, query);
 </script>
 
 <TextField label="Filter" bind:value={query} />
@@ -36,5 +48,5 @@
   style="padding-left: 0"
   labelText="List of materials"
   children={filtered}
-  bind:activeId={$material_id}
+  bind:activeId={materialId}
 />

@@ -145,7 +145,7 @@ export const profileData = writable<Profile>({
 });
 
 // TODO add typing
-export const material_id = writable<number>(1);
+//export const material_id = writable<number>(1);
 
 export const material = writable<Material>(materials[0]);
 
