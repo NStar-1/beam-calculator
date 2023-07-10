@@ -1,6 +1,6 @@
 <script>
   import Button, { Label, Icon } from "@smui/button";
-  import List, { Item, Separator } from "@smui/list";
+  import { Item, Separator } from "@smui/list";
   import LoadCase from "./LoadCase.svelte";
   import LoadCaseForm from "./LoadCaseForm.svelte";
   import { _ } from "svelte-i18n";

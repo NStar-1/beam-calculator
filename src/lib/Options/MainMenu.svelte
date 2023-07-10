@@ -1,36 +1,19 @@
 <script lang="ts">
   import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
   import Cut from "./Cut.svelte";
-  import Fixation from "./Fixation.svelte";
-  import HelperText from "@smui/textfield/helper-text";
   import Material from "./Material.svelte";
   import OptionTitle from "./OptionTitle.svelte";
   import ProfileIcon from "./ProfileTypes/ProfileIcon.svelte";
-  import Textfield from "@smui/textfield";
   import Toggler from "./Toggler.svelte";
-  import validate from "../../utils/validation";
   import { Icon } from "@smui/icon-button";
   import { _ } from "svelte-i18n";
-  import { createLengthRules } from "./validators";
   import { length, profileInfo, material, loads } from "../store";
   import { menuRoute } from "./menuRouter"
-
-  import type { ValidationResult } from "../../utils/validation";
+  import BeamConfig from "./BeamConfig.svelte";
 
   let panel1Open = true;
   let panel2Open = false;
   let panel3Open = false;
-
-  let lengthValidation: ValidationResult = { valid: true, errors: [] };
-
-  const validateLength = () => {
-    lengthValidation = validate(
-      createLengthRules(
-        $loads && $loads.length > 0 ? $loads[$loads.length - 1].offset : -1
-      ),
-      $length
-    );
-  };
 </script>
 
 <Accordion>
@@ -44,21 +27,7 @@
       <Toggler isOpen={panel1Open} slot="icon" />
     </Header>
     <Content>
-      <Textfield
-        type="number"
-        label={$_("options.config.length")}
-        bind:value={$length}
-        required
-        invalid={!lengthValidation.valid}
-        on:blur={validateLength}
-        variant="outlined"
-      >
-        <HelperText validationMsg slot="helper"
-          >{lengthValidation.errors.join(", ")}</HelperText
-        >
-      </Textfield>
-      <div style="margin: 10px 0">{$_("options.config.fixType.title")}</div>
-      <Fixation />
+      <BeamConfig />
     </Content>
   </Panel>
   <Panel bind:open={panel2Open}>
