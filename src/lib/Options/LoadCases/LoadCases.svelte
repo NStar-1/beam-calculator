@@ -20,35 +20,38 @@
   }
 </script>
 
-<Button on:click={onGoBack}>
-  <Icon class="material-icons">arrow_back</Icon>
-  <Label>{$_("options.loadCaseForm.back")}</Label>
-</Button>
-
-<div class="loads">
-  <div class="subtitle">{$_("options.loadCaseForm.loads")}:</div>
-  {#each $loads as _, i}
-    <Item
-      style="padding: 10px; text-align: center; justify-content: center"
-      selected={i === $selectedLoad}
-      on:SMUI:action={() => ($selectedLoad = i)}
-    >
-      <LoadCase loadId={i} />
-    </Item>
-    <Separator />
-  {/each}
-  {#if $loads.length === 0}
-    <div class="placeholder">-- empty --</div>
-  {/if}
-  <Button on:click={addLoad}>
-    <Icon class="material-icons">add</Icon>
-    <Label>{$_("options.loadCaseForm.add")}</Label>
+<!-- TODO replace with paper -->
+<div class="smui-paper smui-paper--raised smui-paper--elevation-z1">
+  <Button on:click={onGoBack}>
+    <Icon class="material-icons">arrow_back</Icon>
+    <Label>{$_("options.loadCaseForm.back")}</Label>
   </Button>
 
-  {#if $selectedLoad !== null}
-    <div class="subtitle">{$_("options.loadCaseForm.editing")}: #{$selectedLoad}</div>
-    <LoadCaseForm loadId={$selectedLoad} />
-  {/if}
+  <div class="loads ">
+    <div class="subtitle">{$_("options.loadCaseForm.loads")}:</div>
+    {#each $loads as _, i}
+      <Item
+        style="padding: 10px; text-align: center; justify-content: center"
+        selected={i === $selectedLoad}
+        on:SMUI:action={() => ($selectedLoad = i)}
+      >
+        <LoadCase loadId={i} />
+      </Item>
+      <Separator />
+    {/each}
+    {#if $loads.length === 0}
+      <div class="placeholder">-- empty --</div>
+    {/if}
+    <Button on:click={addLoad}>
+      <Icon class="material-icons">add</Icon>
+      <Label>{$_("options.loadCaseForm.add")}</Label>
+    </Button>
+
+    {#if $selectedLoad !== null}
+      <div class="subtitle">{$_("options.loadCaseForm.editing")}: #{$selectedLoad}</div>
+      <LoadCaseForm loadId={$selectedLoad} />
+    {/if}
+  </div>
 </div>
 
 <style>
