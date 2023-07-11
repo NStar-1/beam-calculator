@@ -6,6 +6,8 @@
   },
   "options": {
     "config": {
+      "unitoflength": "Unit of Length",
+      "unitofforce": "Unit of Force",
       "title": "Beam",
       "length": "Length",
       "fixType": {
@@ -112,5 +114,14 @@
     "eModulus": "Elastic modulus",
     "displacements": "Displacements",
     "reactions": "Reactions"
+  },
+  "units": {
+    "m": "m",
+    "mm": "mm",
+    "ft": "ft",
+    "in": "in",
+    "H": "H",
+    "kg": "kg",
+    "lbf": "lb-force"
   }
 }

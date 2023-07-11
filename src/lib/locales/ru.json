@@ -6,6 +6,8 @@
   },
   "options": {
     "config": {
+      "unitoflength": "Ед. Длины",
+      "unitofforce": "Ед. Силы",
       "title": "Конфигурация",
       "length": "Длина",
       "fixType": {
@@ -112,5 +114,14 @@
     "eModulus": "Модуль упругости",
     "displacements": "Смещения",
     "reactions": "Реакции"
+  },
+  "units": {
+    "m": "м",
+    "mm": "мм",
+    "ft": "фут",
+    "in": "дюйм",
+    "H": "Н",
+    "kg": "кг",
+    "lbf": "фунт-силы"
   }
 }

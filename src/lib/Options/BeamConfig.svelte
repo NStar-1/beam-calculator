@@ -7,6 +7,7 @@
   import { _ } from "svelte-i18n";
   import { length, loads } from "../store";
   import type { ValidationResult } from "../../utils/validation";
+  import Units from "./Units.svelte";
 
   let lengthValidation: ValidationResult = { valid: true, errors: [] };
 
@@ -20,6 +21,7 @@
   };
 </script>
 
+<Units />
 <Textfield
   type="number"
   label={$_("options.config.length")}

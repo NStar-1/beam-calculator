@@ -114,8 +114,6 @@ export type PointLoad = {
   value: number;
 };
 
-export const tempLoad = writable<PointLoad>(newEmptyLoadObj());
-
 export function newEmptyLoadObj(): PointLoad {
   return {
     offset: 0,
@@ -125,12 +123,26 @@ export function newEmptyLoadObj(): PointLoad {
   };
 }
 
+export const LengthUnit = {
+  MM: "mm",
+  M: "m",
+  FT: "ft",
+  IN: "in",
+} as const;
+
+export const lengthUnit = writable<keyof typeof LengthUnit>("M");
+
+export const ForceUnit = {
+  H: "H",
+  KG: "kg",
+  LBF: "lbf",
+} as const;
+
+export const forceUnit = writable<keyof typeof ForceUnit>("H");
+
 export const isPhone = writable(false);
 
 export const length = writable(1000);
-
-export const cutVal = writable(0);
-export const cutInputs = writable([]);
 
 export const profileType = writable<ProfileType>(ProfileType.CYLINDRICAL);
 export const profileData = writable<Profile>({
@@ -273,7 +285,7 @@ export const lastPoint = writable<BeamEnd>({
   isFixed: FixationEnum.NONE,
 });
 
-export const results = writable<F3DD.ResultScope['result'] | void>(undefined)
+export const results = writable<F3DD.ResultScope["result"] | void>(undefined);
 export const context = writable({});
 
 type AggregatedResult = {
@@ -457,7 +469,7 @@ export async function solveModel2(): Promise<InputScope> {
   // FIXME: not sure
   model.material.density = mat.density / 1_000_000;
 
-  model.profile = get(profile)
+  model.profile = get(profile);
   console.log(model);
   const res = Frame3DD.calculate(model);
   console.log(res);

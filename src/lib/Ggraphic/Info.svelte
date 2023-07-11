@@ -8,8 +8,11 @@
     material,
     profile,
     results,
+    lengthUnit,
+    LengthUnit,
   } from "$lib/store";
 
+  $: lengthUnitName = $_("units." + LengthUnit[$lengthUnit])
   $: leftSideFixation = fixations.find((d) => d.value === $firstPoint.isFixed);
   $: rightSideFixation = fixations.find((d) => d.value === $lastPoint.isFixed);
 </script>
@@ -21,7 +24,7 @@
       <details open>
         <summary class="h4">{$_("options.config.title")}:</summary>
         <subsection>
-          <div>{$_("options.config.length")}: {$length} &lt;units&gt;</div>
+          <div>{$_("options.config.length")}: {$length}{lengthUnitName}</div>
           <div>
             {$_("options.config.left")}: {$_(
               `options.config.fixType.${leftSideFixation?.label}`
@@ -59,16 +62,16 @@
         </summary>
         <table>
           <tr>
-            <td><dfn>A<sub>x</sub></dfn>: {$profile.Ax.toFixed(2)}</td>
-            <td><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}</td>
+            <td><dfn>A<sub>x</sub></dfn>: {$profile.Ax.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
+            <td><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
           </tr>
           <tr>
-            <td><dfn>A<sub>sz</sub></dfn>: {$profile.Asz.toFixed(2)}</td>
-            <td><dfn>I<sub>y</sub></dfn> {$profile.Iy.toFixed(2)}</td>
+            <td><dfn>A<sub>sz</sub></dfn>: {$profile.Asz.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
+            <td><dfn>I<sub>y</sub></dfn> {$profile.Iy.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
           </tr>
           <tr>
-            <td><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}</td>
-            <td><dfn>I<sub>z</sub></dfn>: {$profile.Iz.toFixed(2)}</td>
+            <td><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
+            <td><dfn>I<sub>z</sub></dfn>: {$profile.Iz.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
           </tr>
         </table>
       </details>
