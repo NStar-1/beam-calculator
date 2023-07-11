@@ -12,7 +12,6 @@
 
 <h1>{$_("app.title")}</h1>
 <div class="CalculatorWrapper">
-
     <div class="OptionsWrapper">
       <Options />
     </div>

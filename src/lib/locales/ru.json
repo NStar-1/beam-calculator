@@ -1,0 +1,116 @@
+{
+  "app": {
+    "title": "Онлайн-калькулятор анализа структурных напряжений",
+    "about": "О нас",
+    "contact": "Контакты"
+  },
+  "options": {
+    "config": {
+      "title": "Конфигурация",
+      "length": "Длина",
+      "fixType": {
+        "title": "Тип крепления",
+        "none": "Без крепления",
+        "fixed end": "Глухое",
+        "pin": "Шарнир",
+        "roller": "Подвижный шарнир"
+      },
+      "left": "Слева",
+      "right": "Справа"
+    },
+    "profile": {
+      "title": "Профиль",
+      "outerRadius": "Внешний радиус",
+      "innerRadius": "Внутренний радиус",
+      "radius": "Радиус",
+      "height": "Высота",
+      "width": "Ширина",
+      "thickness": "Толщина",
+      "depth": "Глубина",
+      "webThickness": "Толщина стенкеи",
+      "flangeThickness": "Толщина полки",
+      "roundTube": {
+        "outer": "Внешний диаметр",
+        "inner": "Внутренний диаметр"
+      },
+      "cylinder": {
+        "diameter": "Диаметр"
+      }
+    },
+    "material": {
+      "title": "Материал",
+      "filter": "Фильтровать",
+      "desc": "Список материалов"
+    },
+    "load": {
+      "title": "Нагрузки",
+      "type": {
+        "title": "тип",
+        "pointed": "точечная",
+        "distributed": "распределённая"
+      },
+      "node": "узел",
+      "startNode": "начальный узел",
+      "endNode": "конечный узел",
+      "angle": "угол",
+      "force": "сила"
+    },
+    "loadCaseForm": {
+      "back": "Назад",
+      "loads": "Нагрузки",
+      "add": "Добавить",
+      "delete": "Удалить",
+      "editing": "Редактирование",
+      "close": "Закрыть",
+      "leftSide": "Слева",
+      "rightSide": "Справа",
+      "middlePoint": "В центре",
+      "offset": {
+        "label": "Отступ"
+      },
+      "angle": {
+        "label": "Угол"
+      },
+      "load": {
+        "label": "Нагрузка"
+      }
+    }
+  },
+  "graph": {
+    "material": "Материал",
+    "gpa": "МПа"
+  },
+  "footer": {
+    "community": {
+      "title": "Сообщество",
+      "about": "О нас",
+      "github": "GitHub репозиторий"
+    },
+    "help": {
+      "title": "Помощь",
+      "contact": "Контакты",
+      "faqs": "FAQs"
+    },
+    "legal": {
+      "title": "Легальность",
+      "privacy": "Политика Конфиденциальности",
+      "terms": "Условия использования"
+    }
+  },
+  "contact": {
+    "title": "Мы всегда готовы помочь",
+    "name": "Ваше полное имя",
+    "email": "Ваш email",
+    "message": "Сообщение",
+    "button": "Отправить"
+  },
+  "results": {
+    "inputData": "Исходные данные",
+    "resultData": "Рассчет",
+    "density": "Плотность",
+    "gModulus": "Модуль сдвига",
+    "eModulus": "Модуль упругости",
+    "displacements": "Смещения",
+    "reactions": "Реакции"
+  }
+}

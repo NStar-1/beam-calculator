@@ -5,13 +5,14 @@
   import DayIcon from "../assets/day.svelte";
   import NightIcon from "../assets/night.svelte";
   import List, { Item, Text } from "@smui/list";
-  import { dict } from "$lib/dictionary";
+  import { locales } from "svelte-i18n";
   import { onMount } from "svelte";
   import BeamCalc from "../assets/Beam Calculator.svg";
   import IconColor from "../assets/IconColor.svg";
-  const lngs = Object.keys(dict);
+
   let menu = {};
   let currentTheme = "light";
+
   onMount(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       const link = document.getElementById("theme");
@@ -19,6 +20,7 @@
       currentTheme = "dark";
     }
   });
+
   function setTheme() {
     const link = document.getElementById("theme");
     if (currentTheme == "light") {
@@ -60,7 +62,7 @@
       </Button>
       <Menu bind:this={menu}>
         <List>
-          {#each lngs as lng}
+          {#each $locales as lng}
             <Item on:click={() => locale.set(lng)}>
               <Text>{lng}</Text>
             </Item>

@@ -7,3 +7,5 @@
   <meta name="description" content="Static structural analysis of simple 2d frames" />
 </svelte:head>
 <App />
+
+<slot />

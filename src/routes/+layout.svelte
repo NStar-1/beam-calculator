@@ -1,12 +1,10 @@
 <script lang="ts">
-  import { dictionary, locale, _ } from "svelte-i18n";
-  import { dict } from "$lib/dictionary";
+  import { page } from '$app/stores'
+  import { _ } from "svelte-i18n";
   import { onMount } from "svelte";
   import { isPhone } from "$lib/store";
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
-  dictionary.set(dict);
-  locale.set("En");
 
   onMount(() => {
     isPhone.set(window.matchMedia("(max-width: 480px)").matches);
