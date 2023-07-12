@@ -7,7 +7,8 @@ export const prerender = true
 
 export const load: LayoutLoad = async () => {
 	if (browser) {
-		locale.set(window.navigator.language)
+    // TODO make dynamic
+		locale.set('en')
 	}
 	await waitLocale()
 }
