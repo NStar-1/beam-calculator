@@ -11,27 +11,27 @@
     {
       component: Cylinder,
       type: ProfileType.CYLINDRICAL,
-      icon: ProfileIcon.CircShtr,
+      icon: ProfileIcon.Cylinder,
     },
     {
       component: RoundTube,
       type: ProfileType.ROUND_TUBE,
-      icon: ProfileIcon.CircCircShtr,
+      icon: ProfileIcon.Tube,
     },
     {
       component: Rectangle,
       type: ProfileType.RECTANGLE,
-      icon: ProfileIcon.SquareShtr,
+      icon: ProfileIcon.Sqw,
     },
     {
       component: RectangularTube,
       type: ProfileType.RECTANGULAR_TUBE,
-      icon: ProfileIcon.SqwSqwFull,
+      icon: ProfileIcon.SqwTube,
     },
     {
       component: IBeam,
       type: ProfileType.I_BEAM,
-      icon: ProfileIcon.IShtr,
+      icon: ProfileIcon.IBeam,
     },
   ];
 </script>

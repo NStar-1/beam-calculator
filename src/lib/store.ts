@@ -31,27 +31,27 @@ export const profileNamesLnKeys = {
   [ProfileType.CYLINDRICAL]: {
     i18nKey: "profiles.name.cylindrical",
     img: "CircShtr",
-    icon: ProfileIcon.CircShtr,
+    icon: ProfileIcon.Cylinder,
   },
   [ProfileType.ROUND_TUBE]: {
     i18nKey: "profiles.name.roundTube",
     img: "CircCircShtr",
-    icon: ProfileIcon.CircCircShtr,
+    icon: ProfileIcon.Tube,
   },
   [ProfileType.RECTANGLE]: {
     i18nKey: "profiles.name.rectangle",
     img: "SquareShtr",
-    icon: ProfileIcon.SquareShtr,
+    icon: ProfileIcon.Sqw,
   },
   [ProfileType.RECTANGULAR_TUBE]: {
     i18nKey: "profiles.name.rectangularTube",
     img: "SqwSqwShtr",
-    icon: ProfileIcon.SqwSqwShtr,
+    icon: ProfileIcon.SqwTube,
   },
   [ProfileType.I_BEAM]: {
     i18nKey: "profiles.name.iBeam",
     img: "IShtr",
-    icon: ProfileIcon.IShtr,
+    icon: ProfileIcon.IBeam,
   },
 };
 
