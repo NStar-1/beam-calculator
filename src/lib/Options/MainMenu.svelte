@@ -69,6 +69,6 @@
   }
 
   .profileIcon {
-    width: 30px;
+    margin-right: 8px;
   }
 </style>
