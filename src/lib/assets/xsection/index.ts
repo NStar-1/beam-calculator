@@ -11,6 +11,7 @@ import SqwFull from "./SqwFull.svg";
 import SqwSqwFull from "./SqwSqwFull.svg";
 import SqwTube from "./SqwTube.svg";
 import Tube from "./Tube.svg";
+import Custom from "./Custom.svg";
 
 export {
   CircCircFull,
@@ -26,4 +27,5 @@ export {
   SqwSqwFull,
   SqwTube,
   Tube,
+  Custom,
 };

@@ -148,6 +148,10 @@
     padding: 0;
   }
 
+  summary {
+    cursor: pointer;
+  }
+
   h3,
   .h3,
   .h4 {
@@ -169,6 +173,7 @@
   dfn {
     text-decoration: underline;
     text-decoration-style: dotted;
+    cursor: help;
   }
 
   td,

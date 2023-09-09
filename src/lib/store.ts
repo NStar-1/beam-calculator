@@ -23,35 +23,29 @@ export enum ProfileType {
   RECTANGLE,
   RECTANGULAR_TUBE,
   I_BEAM,
+  CUSTOM,
 }
 
 export type FixationType = "NONE" | "FIXED" | "PIN" | "ROLLER";
 
 export const profileNamesLnKeys = {
   [ProfileType.CYLINDRICAL]: {
-    i18nKey: "profiles.name.cylindrical",
-    img: "CircShtr",
     icon: ProfileIcon.Cylinder,
   },
   [ProfileType.ROUND_TUBE]: {
-    i18nKey: "profiles.name.roundTube",
-    img: "CircCircShtr",
     icon: ProfileIcon.Tube,
   },
   [ProfileType.RECTANGLE]: {
-    i18nKey: "profiles.name.rectangle",
-    img: "SquareShtr",
     icon: ProfileIcon.Sqw,
   },
   [ProfileType.RECTANGULAR_TUBE]: {
-    i18nKey: "profiles.name.rectangularTube",
-    img: "SqwSqwShtr",
     icon: ProfileIcon.SqwTube,
   },
   [ProfileType.I_BEAM]: {
-    i18nKey: "profiles.name.iBeam",
-    img: "IShtr",
     icon: ProfileIcon.IBeam,
+  },
+  [ProfileType.CUSTOM]: {
+    icon: ProfileIcon.Custom,
   },
 };
 
@@ -191,6 +185,7 @@ const updateProfile = function () {
     [ProfileType.RECTANGLE]: rectangular,
     [ProfileType.RECTANGULAR_TUBE]: rectangularTube,
     [ProfileType.I_BEAM]: iBeam,
+    [ProfileType.CUSTOM]: cylindrical,
   }[get(profileType)];
   profile.set(calculate(get(profileData)));
 

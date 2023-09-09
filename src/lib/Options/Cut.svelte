@@ -5,6 +5,7 @@
   import Rectangle from "./ProfileTypes/Rectangle.svelte";
   import RectangularTube from "./ProfileTypes/RectangularTube.svelte";
   import IBeam from "./ProfileTypes/IBeam.svelte";
+  import Custom from "./ProfileTypes/Custom.svelte";
   import * as ProfileIcon from "$lib/assets/xsection"
 
   const options = [ 
@@ -32,6 +33,11 @@
       component: IBeam,
       type: ProfileType.I_BEAM,
       icon: ProfileIcon.IBeam,
+    },
+    {
+      component: Custom,
+      type: ProfileType.CUSTOM,
+      icon: ProfileIcon.Custom,
     },
   ];
 </script>
@@ -83,6 +89,6 @@
   }
 
   .profileLabel {
-    width: 40px;
+    cursor: pointer;
   }
 </style>
