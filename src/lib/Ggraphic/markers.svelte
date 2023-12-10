@@ -1,13 +1,14 @@
 <defs>
   <marker
     id="triangle"
-    refX="3"
-    refY="3"
-    markerWidth="12"
-    markerHeight="12"
+    refX="15"
+    refY="5"
+    markerWidth="22"
+    markerHeight="10"
     orient="auto-start-reverse"
+    markerUnits="userSpaceOnUse"
   >
-    <path d="M 0 0 6 3 0 6 1.5 3" />
+    <path d="M0,0 22,5 0,10 3,5" />
   </marker>
 </defs>
 
