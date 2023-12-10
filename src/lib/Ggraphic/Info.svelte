@@ -10,11 +10,14 @@
     results,
     lengthUnit,
     LengthUnit,
+    forceUnit,
   } from "$lib/store";
+  import Value from "./Value.svelte";
 
   $: lengthUnitName = $_("units." + LengthUnit[$lengthUnit])
   $: leftSideFixation = fixations.find((d) => d.value === $firstPoint.isFixed);
   $: rightSideFixation = fixations.find((d) => d.value === $lastPoint.isFixed);
+  $: forceUnitName = $forceUnit
 </script>
 
 <div class="root">
@@ -41,10 +44,9 @@
       </details>
       <details open>
         <summary class="h4">
-          {$_("graph.material")}:
+          {$_("graph.material")}: {$material.name}
         </summary>
         <subsection>
-          <div>{$material.name}</div>
           <div>{$_("results.density")}: {$material.density} &lt;units&gt;</div>
           <div>
             <dfn title={$_("results.eModulus")}>E</dfn>: {$material.E}
@@ -81,7 +83,7 @@
     <summary class="h3">{$_("results.resultData")}:</summary>
     <section>
       <details open>
-        <summary class="h4">{$_("results.displacements")}:</summary>
+        <summary class="h4">{$_("results.displacements")} ({lengthUnitName}):</summary>
         <table>
           <tr>
             <th>#</th>
@@ -96,19 +98,19 @@
             {#each $results.D as d, idx}
               <tr>
                 <td>{idx}</td>
-                <td>{d.x.toFixed(2)}</td>
-                <td>{d.y.toFixed(2)}</td>
-                <td>{d.z.toFixed(2)}</td>
-                <td>{d.xx.toFixed(2)}</td>
-                <td>{d.yy.toFixed(2)}</td>
-                <td>{d.zz.toFixed(2)}</td>
+                <td><Value value={d.x} /></td>
+                <td><Value value={d.y} /></td>
+                <td><Value value={d.z} /></td>
+                <td><Value value={d.xx} /></td>
+                <td><Value value={d.yy} /></td>
+                <td><Value value={d.zz} /></td>
               </tr>
             {/each}
           {/if}
         </table>
       </details>
       <details open>
-        <summary class="h4">{$_("results.reactions")}:</summary>
+        <summary class="h4">{$_("results.reactions")} ({forceUnitName}):</summary>
         <table>
           <tr>
             <th>#</th>
@@ -123,12 +125,12 @@
             {#each $results.R as d, idx}
               <tr>
                 <td>{idx}</td>
-                <td>{d.x.toFixed(2)}</td>
-                <td>{d.y.toFixed(2)}</td>
-                <td>{d.z.toFixed(2)}</td>
-                <td>{d.xx.toFixed(2)}</td>
-                <td>{d.yy.toFixed(2)}</td>
-                <td>{d.zz.toFixed(2)}</td>
+                <td><Value value={d.x} /></td>
+                <td><Value value={d.y} /></td>
+                <td><Value value={d.z} /></td>
+                <td><Value value={d.xx} /></td>
+                <td><Value value={d.yy} /></td>
+                <td><Value value={d.zz} /></td>
               </tr>
             {/each}
           {/if}
@@ -144,8 +146,15 @@
     font-size: 18px;
   }
 
+  section {
+    margin-left: 8px;
+  }
+
   subsection {
+    display: block;
     padding: 0;
+    line-height: 24px;
+    margin-left: 8px;
   }
 
   summary {

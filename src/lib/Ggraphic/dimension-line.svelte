@@ -9,7 +9,7 @@
   const lineOffset = 10; // From the top of the tick
   const tickLength = 45; // Overall tick length
   const tickOffset = 10; // distance betweeb the Point and tick start position
-  const minScreenLiength = 30;
+  const minScreenLiength = 40;
 
   // Calculated
   const linePosY = -tickLength - tickOffset + lineOffset;
