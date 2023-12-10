@@ -104,6 +104,7 @@
   .dimension {
     stroke: currentColor;
     stroke-width: 1;
+    shape-rendering: crispEdges;
   }
 
   .arrow-both {
