@@ -38,7 +38,6 @@
                   `options.config.fixType.${rightSideFixation?.label}`
                 )}
               </div>
-            </div>
           </div></subsection
         >
       </details>

@@ -40,6 +40,7 @@
       }
     },
     "material": {
+      "other": "Other",
       "title": "Material",
       "filter": "Filter",
       "desc": "List of materials"
@@ -122,6 +123,7 @@
     "in": "in",
     "H": "H",
     "kg": "kg",
-    "lbf": "lb-force"
+    "lbf": "lb-force",
+    "mpa": "MPa"
   }
 }

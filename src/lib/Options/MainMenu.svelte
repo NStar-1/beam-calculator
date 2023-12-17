@@ -7,13 +7,14 @@
   import Toggler from "./Toggler.svelte";
   import { Icon } from "@smui/icon-button";
   import { _ } from "svelte-i18n";
-  import { length, profileInfo, material, loads } from "../store";
+  import { length, lengthUnit, LengthUnit, profileInfo, material, loads } from "../store";
   import { menuRoute } from "./menuRouter"
   import BeamConfig from "./BeamConfig.svelte";
 
   let panel1Open = true;
   let panel2Open = false;
   let panel3Open = false;
+  $: lengthUnitName = $_("units." + LengthUnit[$lengthUnit])
 </script>
 
 <Accordion>
@@ -21,7 +22,7 @@
     <Header>
       <OptionTitle title={$_("options.config.title")}>
         <span slot="info"
-          >{!Number.isNaN($length.valueOf()) && `l=${$length}`}</span
+          >{!Number.isNaN($length.valueOf()) && `l=${$length.toLocaleString()}${lengthUnitName}`}</span
         >
       </OptionTitle>
       <Toggler isOpen={panel1Open} slot="icon" />

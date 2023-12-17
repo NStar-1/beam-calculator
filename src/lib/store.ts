@@ -124,7 +124,7 @@ export const LengthUnit = {
   IN: "in",
 } as const;
 
-export const lengthUnit = writable<keyof typeof LengthUnit>("M");
+export const lengthUnit = writable<keyof typeof LengthUnit>("MM");
 
 export const ForceUnit = {
   H: "H",
