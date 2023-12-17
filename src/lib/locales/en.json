@@ -42,8 +42,8 @@
     "material": {
       "other": "Other",
       "title": "Material",
-      "filter": "Filter",
-      "desc": "List of materials"
+      "filter": "Search",
+      "list": "List of materials"
     },
     "load": {
       "title": "Loads",

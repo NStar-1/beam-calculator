@@ -76,10 +76,11 @@
   on:input={() => (isDirty = true)}
   bind:value={$material.G}
 />
-<TextField label="Filter" bind:value={query} />
+<TextField label={$_("options.material.filter")} bind:value={query} />
+<br />
 <TreeView
   style="padding-left: 0"
-  labelText="List of materials:"
+  labelText={$_("options.material.list")}
   children={filtered}
   on:select={() => (isDirty = false)}
   bind:activeId={materialId}
