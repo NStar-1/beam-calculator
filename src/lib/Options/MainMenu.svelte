@@ -7,14 +7,14 @@
   import Toggler from "./Toggler.svelte";
   import { Icon } from "@smui/icon-button";
   import { _ } from "svelte-i18n";
-  import { length, lengthUnit, LengthUnit, profileInfo, material, loads } from "../store";
+  import { length, lengthUnit, profileInfo, material, loads } from "../store";
   import { menuRoute } from "./menuRouter"
   import BeamConfig from "./BeamConfig.svelte";
 
   let panel1Open = true;
   let panel2Open = false;
   let panel3Open = false;
-  $: lengthUnitName = $_("units." + LengthUnit[$lengthUnit])
+  $: lengthUnitName = $_("units." + $lengthUnit)
 </script>
 
 <Accordion>

@@ -13,13 +13,17 @@
 
   let x1: number;
   let y1: number;
+  let x0: number;
+  let y0: number;
   let radAngle: number;
   $: radAngle = deg2rad(angle);
-  $: x1 = x + forceScale(force) * Math.sin(radAngle);
-  $: y1 = y + forceScale(force) * Math.cos(radAngle);
+  $: x0 = scale(x);
+  $: y0 = scale(y);
+  $: x1 = x0 + forceScale(force) * Math.sin(radAngle);
+  $: y1 = y0 + forceScale(force) * Math.cos(radAngle);
 </script>
 
-<ForceLine x0={x} y0={y} {x1} {y1} {label} {scale} {isActive} />
+<ForceLine {x0} {y0} {x1} {y1} {label} {isActive} />
 
 <style>
 </style>

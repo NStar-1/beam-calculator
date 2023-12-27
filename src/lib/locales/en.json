@@ -121,8 +121,9 @@
     "mm": "mm",
     "ft": "ft",
     "in": "in",
-    "H": "H",
-    "kg": "kg",
+    "cm": "cm",
+    "newtons": "Newtons",
+    "kgf": "kg-force",
     "lbf": "lb-force",
     "mpa": "MPa"
   }

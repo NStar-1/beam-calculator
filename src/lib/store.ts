@@ -10,10 +10,12 @@ import {
   iBeam,
 } from "./sectionUtil";
 import type { Material } from "./materials";
+import convert from 'convert'
+import type {Force, Length} from 'convert'
 import {
   convertLoads,
   deg2rad,
-  getLoadAbsPos as getLoadAbsPos,
+  getLoadAbsPos,
 } from "./store-utils";
 import * as ProfileIcon from "$lib/assets/xsection";
 
@@ -117,25 +119,17 @@ export function newEmptyLoadObj(): PointLoad {
   };
 }
 
-export const LengthUnit = {
-  MM: "mm",
-  M: "m",
-  FT: "ft",
-  IN: "in",
-} as const;
+export const LengthUnits = ["mm", "cm", "m", "in", "ft"] satisfies ReadonlyArray<Length>;
+export const lengthUnit = writable<Length>("mm");
 
-export const lengthUnit = writable<keyof typeof LengthUnit>("MM");
-
-export const ForceUnit = {
-  H: "H",
-  KG: "kg",
-  LBF: "lbf",
-} as const;
-
-export const forceUnit = writable<keyof typeof ForceUnit>("H");
+export const ForceUnits = ["newtons", "kgf", "lbf"] satisfies ReadonlyArray<Force>;
+export const forceUnit = writable<Force>("newtons");
 
 export const isPhone = writable(false);
 
+/**
+ * Overall beam length
+ */
 export const length = writable(1000);
 
 export const profileType = writable<ProfileType>(ProfileType.CYLINDRICAL);
@@ -454,10 +448,25 @@ export async function solveModel2(): Promise<InputScope> {
       loadedPoints
     )
   );
+  
+  const pointLoads = getPointLoads(points, get(loads), get(length))
 
-  model.points = points;
+  // Convert units and assign to the model
+  model.points = points.map((d) => ({
+    ...d,
+    x: convert(d.x, get(lengthUnit)).to('mm'),
+    y: convert(d.y, get(lengthUnit)).to('mm'),
+    z: convert(d.z, get(lengthUnit)).to('mm'),
+  }));
   model.elements = getElements(points);
-  model.pointLoads = getPointLoads(points, get(loads), get(length));
+  model.pointLoads = pointLoads.map((d) => ({
+    ...d,
+    axial: [
+      convert(d.axial[0], get(forceUnit)).to('newtons'),
+      convert(d.axial[1], get(forceUnit)).to('newtons'),
+      convert(d.axial[2], get(forceUnit)).to('newtons'),
+    ]
+  }));
   const mat = get(material);
   model.material.E = mat.E;
   model.material.G = mat.G;
@@ -471,7 +480,12 @@ export async function solveModel2(): Promise<InputScope> {
   results.set(res.result);
   const resAgg = res.result.D.map((d, idx) => ({
     x: points[idx].x,
-    displacement: d,
+    displacement: {
+      ...d,
+      x: convert(d.x, 'mm').to(get(lengthUnit)),
+      y: convert(d.y, 'mm').to(get(lengthUnit)),
+      z: convert(d.z, 'mm').to(get(lengthUnit)),
+    },
     reaction: res.result.R[idx],
   }));
   console.log(resAgg);
@@ -481,7 +495,7 @@ export async function solveModel2(): Promise<InputScope> {
 
 // virtual store
 const modelState = derived(
-  [length, loads, profileType, profile, material, firstPoint, lastPoint],
+  [length, lengthUnit, forceUnit, loads, profileType, profile, material, firstPoint, lastPoint],
   (x) => x
 );
 

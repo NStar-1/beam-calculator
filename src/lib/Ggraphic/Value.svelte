@@ -3,7 +3,7 @@
 </script>
 
 <div class:highlight={value != 0}>
-  {value.toFixed(2)}
+  {value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
 </div>
 
 <style>

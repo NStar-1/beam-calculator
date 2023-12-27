@@ -1,6 +1,7 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import { fixations } from "$lib/fixations";
+  import convert from "convert";
   import {
     length,
     firstPoint,
@@ -9,15 +10,14 @@
     profile,
     results,
     lengthUnit,
-    LengthUnit,
     forceUnit,
   } from "$lib/store";
   import Value from "./Value.svelte";
 
-  $: lengthUnitName = $_("units." + LengthUnit[$lengthUnit])
+  $: lengthUnitName = $_("units." + $lengthUnit);
   $: leftSideFixation = fixations.find((d) => d.value === $firstPoint.isFixed);
   $: rightSideFixation = fixations.find((d) => d.value === $lastPoint.isFixed);
-  $: forceUnitName = $forceUnit
+  $: forceUnitName = $forceUnit;
 </script>
 
 <div class="root">
@@ -38,6 +38,7 @@
                   `options.config.fixType.${rightSideFixation?.label}`
                 )}
               </div>
+            </div>
           </div></subsection
         >
       </details>
@@ -46,13 +47,15 @@
           {$_("graph.material")}: {$material.name}
         </summary>
         <subsection>
-          <div>{$_("results.density")}: {$material.density} &lt;units&gt;</div>
           <div>
-            <dfn title={$_("results.eModulus")}>E</dfn>: {$material.E}
+            {$_("results.density")}: {$material.density} kg/m<sup>3</sup>
+          </div>
+          <div>
+            <dfn title={$_("results.eModulus")}>E</dfn>: {$material.E.toLocaleString()}
             {$_("graph.gpa")}
           </div>
           <div>
-            <dfn title={$_("results.gModulus")}>G</dfn>: {$material.G}
+            <dfn title={$_("results.gModulus")}>G</dfn>: {$material.G.toLocaleString()}
             {$_("graph.gpa")}
           </div>
         </subsection>
@@ -63,16 +66,34 @@
         </summary>
         <table>
           <tr>
-            <td><dfn>A<sub>x</sub></dfn>: {$profile.Ax.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
-            <td><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
+            <td
+              ><dfn>A<sub>x</sub></dfn>: {$profile.Ax.toFixed(2)}mm<sup>2</sup
+              ></td
+            >
+            <td
+              ><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}mm<sup>2</sup
+              ></td
+            >
           </tr>
           <tr>
-            <td><dfn>A<sub>sz</sub></dfn>: {$profile.Asz.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
-            <td><dfn>I<sub>y</sub></dfn> {$profile.Iy.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
+            <td
+              ><dfn>A<sub>sz</sub></dfn>: {$profile.Asz.toFixed(2)}mm<sup>2</sup
+              ></td
+            >
+            <td
+              ><dfn>I<sub>y</sub></dfn>
+              {$profile.Iy.toFixed(2)}mm<sup>2</sup></td
+            >
           </tr>
           <tr>
-            <td><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
-            <td><dfn>I<sub>z</sub></dfn>: {$profile.Iz.toFixed(2)}{lengthUnitName}<sup>2</sup></td>
+            <td
+              ><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}mm<sup>2</sup
+              ></td
+            >
+            <td
+              ><dfn>I<sub>z</sub></dfn>: {$profile.Iz.toFixed(2)}mm<sup>2</sup
+              ></td
+            >
           </tr>
         </table>
       </details>
@@ -82,7 +103,9 @@
     <summary class="h3">{$_("results.resultData")}:</summary>
     <section>
       <details open>
-        <summary class="h4">{$_("results.displacements")} ({lengthUnitName}):</summary>
+        <summary class="h4"
+          >{$_("results.displacements")} ({lengthUnitName}):</summary
+        >
         <table>
           <tr>
             <th>#</th>
@@ -97,9 +120,9 @@
             {#each $results.D as d, idx}
               <tr>
                 <td>{idx}</td>
-                <td><Value value={d.x} /></td>
-                <td><Value value={d.y} /></td>
-                <td><Value value={d.z} /></td>
+                <td><Value value={convert(d.x, "mm").to($lengthUnit)} /></td>
+                <td><Value value={convert(d.y, "mm").to($lengthUnit)} /></td>
+                <td><Value value={convert(d.z, "mm").to($lengthUnit)} /></td>
                 <td><Value value={d.xx} /></td>
                 <td><Value value={d.yy} /></td>
                 <td><Value value={d.zz} /></td>
@@ -109,7 +132,9 @@
         </table>
       </details>
       <details open>
-        <summary class="h4">{$_("results.reactions")} ({forceUnitName}):</summary>
+        <summary class="h4"
+          >{$_("results.reactions")} ({forceUnitName}):</summary
+        >
         <table>
           <tr>
             <th>#</th>
@@ -124,9 +149,12 @@
             {#each $results.R as d, idx}
               <tr>
                 <td>{idx}</td>
-                <td><Value value={d.x} /></td>
-                <td><Value value={d.y} /></td>
-                <td><Value value={d.z} /></td>
+                <td><Value value={convert(d.x, "newtons").to($forceUnit)} /></td
+                >
+                <td><Value value={convert(d.y, "newtons").to($forceUnit)} /></td
+                >
+                <td><Value value={convert(d.z, "newtons").to($forceUnit)} /></td
+                >
                 <td><Value value={d.xx} /></td>
                 <td><Value value={d.yy} /></td>
                 <td><Value value={d.zz} /></td>

@@ -11,6 +11,7 @@
     selectedLoad,
   } from "$lib/store";
   import { scaleLinear, path, type Path } from "d3";
+  import { max, min } from "d3-array";
   import DimensionLine from "./dimension-line.svelte";
   import Point from "./Point.svelte";
   import ForceLineAdaptive from "./forceLineAdaptive.svelte";
@@ -21,7 +22,7 @@
   import FixRigid from "./FixRigid.svelte";
   import FixRoller from "./FixRoller.svelte";
   import FixPin from "./FixPin.svelte";
-  import Info from './Info.svelte'
+  import Info from "./Info.svelte";
   import type { ComponentType } from "svelte";
   let clientWidth: number;
   let clientHeight: number;
@@ -45,7 +46,12 @@
   $: fixationLeft = fixationComonent[$firstPoint.isFixed];
   $: fixationRight = fixationComonent[$lastPoint.isFixed];
 
-  let forceScale = scaleLinear().range([100, 250]);
+  let forceScale = scaleLinear().range([25, 50]);
+
+  $: {
+    const values = $loads.map((d) => d.value);
+    forceScale = forceScale.domain([min(values)!, max(values)!]);
+  }
 
   let uniform = scaleLinear();
   let curve: Path;
@@ -69,13 +75,16 @@
       // Skip the first point
       if (idx === 0) return;
       let curr = d;
+      console.log($newresults);
       const dx = curr.x - prev.x;
       // Start/end slopes (first derivatives)
       const d0 = -prev.displacement.zz;
       const d1 = -curr.displacement.zz;
       // Update minimal (negative) and max (positive) displacement
-      if (minDisplacement > -curr.displacement.y) minDisplacement = -curr.displacement.y;
-      if (maxDisplacement < -curr.displacement.y) maxDisplacement = -curr.displacement.y;
+      if (minDisplacement > -curr.displacement.y)
+        minDisplacement = -curr.displacement.y;
+      if (maxDisplacement < -curr.displacement.y)
+        maxDisplacement = -curr.displacement.y;
       // Kind of cubic Hermite...
       curve.bezierCurveTo(
         uniform(prev.x + dx / 3),
@@ -91,14 +100,16 @@
     });
   }
 
-  let totalHeight: string = "50%"
+  let totalHeight: string = "50%";
   let topOffset = 0;
   // If there is a negative displacement, than offset is smaller
-  $: topOffset = minDisplacement < 0 ? 75 : 125
-  const bottomOffset = 100
+  $: topOffset = minDisplacement < 0 ? 75 : 125;
+  const bottomOffset = 100;
 
   // -minDisplacement is less than zero hence '-' inverts it
-  $: totalHeight = `${topOffset + bottomOffset + uniform(maxDisplacement - minDisplacement)}px`
+  $: totalHeight = `${
+    topOffset + bottomOffset + uniform(maxDisplacement - minDisplacement)
+  }px`;
 
   let loadsPos: Array<{}>;
   $: loadsPos = $loads.map((load) => {
@@ -116,7 +127,9 @@
     <Markers />
     <g
       class="drawing"
-      transform="translate({drawingOffset / 2 + 10}, {-uniform(minDisplacement)})"
+      transform="translate({drawingOffset / 2 + 10}, {-uniform(
+        minDisplacement
+      )})"
     >
       <g class="drawing-local" transform="translate(0, {topOffset})">
         <g class="x-dimension" />
