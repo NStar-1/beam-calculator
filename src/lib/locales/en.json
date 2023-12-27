@@ -105,7 +105,8 @@
     "name": "Your Full Name",
     "email": "Your Email Address",
     "message": "Message",
-    "button": "Send"
+    "button": "Send",
+    "ways": "You can use following ways to contact us"
   },
   "results": {
     "inputData": "Input data",

@@ -12,22 +12,22 @@
 
 <h1>{$_("app.title")}</h1>
 <div class="CalculatorWrapper">
-    <div class="OptionsWrapper">
-      <Options />
-    </div>
-    <div class="PictureWrapper">
-      <Graph />
-    </div>
+  <div class="OptionsWrapper">
+    <Options />
+  </div>
+  <div class="PictureWrapper">
+    <Graph />
+  </div>
 </div>
 
 <style>
   .CalculatorWrapper {
     border: #ff8d48 1px solid;
-    margin-top: 20px;
+    margin-top: 1rem;
     display: flex;
     flex-direction: row;
-    column-gap: 2%;
-    padding: 2%;
+    column-gap: 1rem;
+    padding: 1rem;
     justify-content: space-between;
   }
 
@@ -37,11 +37,13 @@
     min-width: 30%;
     overflow-y: scroll;
   }
+
   .PictureWrapper {
     width: 70%;
     height: content-box;
     border: #ff8d48 1px solid;
   }
+
   @media (max-width: 480px) {
     .CalculatorWrapper {
       border: none;

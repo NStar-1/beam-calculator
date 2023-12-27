@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from '$app/stores'
+  import { page } from "$app/stores";
   import { _ } from "svelte-i18n";
   import { onMount } from "svelte";
   import { isPhone } from "$lib/store";
@@ -21,48 +21,52 @@
         <slot />
       </div>
       <div class="ContentPage adv">
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-1770200227566265"
-            data-ad-slot="1770200227566265"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
+        <ins
+          class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-1770200227566265"
+          data-ad-slot="1770200227566265"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
       </div>
     </div>
   </div>
   <div class="adv bottom">
-    <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-1770200227566265"
-        data-ad-slot="1770200227566265"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
+    <ins
+      class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-1770200227566265"
+      data-ad-slot="1770200227566265"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    />
   </div>
   <Footer />
 </div>
 
 <style>
-  .AppWrapper{
+  .AppWrapper {
     display: flex;
     height: 100%;
     min-height: 100vh;
     flex-direction: column;
     justify-content: space-between;
-
   }
   .ContentPage {
     box-sizing: border-box;
+    flex-grow: 1;
     padding: 30px;
+    margin-left: 1rem;
     border-radius: 5px;
-    width: 70%;
     box-shadow: 0 0 10px rgba(153, 153, 153, 0.28);
   }
   .adv {
-    width: 10%;
+    flex: 20rem 0 1;
     height: fit-content;
     box-shadow: none;
   }
-  .bottom{
+  .bottom {
     display: flex;
     width: auto;
     height: 215px;
@@ -86,15 +90,16 @@
       width: 100%;
       height: auto;
     }
-  
+
     .adv {
       display: none;
     }
-    .bottom{
+    .bottom {
       display: flex;
     }
 
     .ContentPage {
+      margin-left: 0;
       width: 100%;
       height: 100%;
       padding: 3px;
