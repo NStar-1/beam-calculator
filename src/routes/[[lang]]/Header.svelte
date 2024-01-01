@@ -1,15 +1,17 @@
 <script>
-  import { locale, _ } from "svelte-i18n";
+  import { t, locale, locales } from "$lib/translations";
   import Menu from "@smui/menu";
-  import Button from "@smui/button/src/Button.svelte";
-  import DayIcon from "../assets/day.svelte";
-  import NightIcon from "../assets/night.svelte";
+  import Button from "@smui/button";
+  import DayIcon from "$lib/assets/day.svelte";
+  import NightIcon from "$lib/assets/night.svelte";
+  import BeamCalc from "$lib/assets/Beam Calculator.svg";
+  import IconColor from "$lib/assets/IconColor.svg";
   import List, { Item, Text } from "@smui/list";
-  import { locales } from "svelte-i18n";
   import { onMount } from "svelte";
-  import BeamCalc from "../assets/Beam Calculator.svg";
-  import IconColor from "../assets/IconColor.svg";
+  import { goto } from "$app/navigation";
+  import { page } from '$app/stores';
 
+  $: ({ route } = $page.data);
   let menu = {};
   let currentTheme = "light";
 
@@ -34,13 +36,13 @@
 </script>
 
 <div class="HeaderWrapper">
-  <a href="/" class="no-hover">
+  <a href="/{$locale}" class="no-hover">
     <IconColor />
     <BeamCalc />
   </a>
   <div class="links">
-    <a href="/about">{$_("app.about")}</a>
-    <a href="/contact">{$_("app.contact")}</a>
+    <a href="/{$locale}/about">{$t("app.about")}</a>
+    <a href="/{$locale}/contact">{$t("app.contact")}</a>
   </div>
   <div class="active-buttons">
     <Button variant="outlined" class="styledButton" on:click={setTheme}>
@@ -63,7 +65,7 @@
       <Menu bind:this={menu}>
         <List>
           {#each $locales as lng}
-            <Item on:click={() => locale.set(lng)}>
+            <Item on:click={() => goto(`/${lng}${route}`)}>
               <Text>{lng}</Text>
             </Item>
           {/each}

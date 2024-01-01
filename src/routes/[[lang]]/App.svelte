@@ -1,16 +1,16 @@
 <script>
-  import { _ } from "svelte-i18n";
   import Graph from "$lib/Ggraphic/index.svelte";
   import Options from "$lib/Options/Options.svelte";
   import { subscribeAutoRefresh } from "$lib/store";
   import { onMount } from "svelte";
+  import { t } from "$lib/translations";
 
   onMount(() => {
     subscribeAutoRefresh();
   });
 </script>
 
-<h1>{$_("app.title")}</h1>
+<h1>{$t("app.title")}</h1>
 <div class="CalculatorWrapper">
   <div class="OptionsWrapper">
     <Options />

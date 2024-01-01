@@ -6,7 +6,7 @@
   import ProfileIcon from "./ProfileTypes/ProfileIcon.svelte";
   import Toggler from "./Toggler.svelte";
   import { Icon } from "@smui/icon-button";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
   import { length, lengthUnit, profileInfo, material, loads } from "../store";
   import { menuRoute } from "./menuRouter"
   import BeamConfig from "./BeamConfig.svelte";
@@ -14,13 +14,13 @@
   let panel1Open = true;
   let panel2Open = false;
   let panel3Open = false;
-  $: lengthUnitName = $_("units." + $lengthUnit)
+  $: lengthUnitName = $t("units." + $lengthUnit)
 </script>
 
 <Accordion>
   <Panel bind:open={panel1Open}>
     <Header>
-      <OptionTitle title={$_("options.config.title")}>
+      <OptionTitle title={$t("options.config.title")}>
         <span slot="info"
           >{!Number.isNaN($length.valueOf()) && `l=${$length.toLocaleString()}${lengthUnitName}`}</span
         >
@@ -33,7 +33,7 @@
   </Panel>
   <Panel bind:open={panel2Open}>
     <Header>
-      <OptionTitle title={$_("options.profile.title")}
+      <OptionTitle title={$t("options.profile.title")}
         ><div class="profileIcon" slot="icon"><ProfileIcon /></div>
         <span slot="info">{$profileInfo}</span>
       </OptionTitle>
@@ -45,7 +45,7 @@
   </Panel>
   <Panel bind:open={panel3Open}>
     <Header>
-      <OptionTitle title={$_("options.material.title")}
+      <OptionTitle title={$t("options.material.title")}
         ><span slot="info">{$material.name}</span></OptionTitle
       >
       <Toggler isOpen={panel3Open} slot="icon" />
@@ -56,7 +56,7 @@
   </Panel>
   <Panel>
     <Header on:click={() => menuRoute.set("loads")}>
-      <OptionTitle title={$_("options.load.title")}
+      <OptionTitle title={$t("options.load.title")}
         ><span slot="info">{`n=${$loads.length || 0}`}</span></OptionTitle
       >
       <Icon slot="icon" class="material-icons">arrow_forward</Icon>

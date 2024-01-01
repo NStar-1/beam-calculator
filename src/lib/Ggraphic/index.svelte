@@ -17,7 +17,6 @@
   import ForceLineAdaptive from "./forceLineAdaptive.svelte";
   import NodeNumber from "./node-number.svelte";
   import Markers from "./markers.svelte";
-  import { _ } from "svelte-i18n";
   import { getLoadAbsPos } from "$lib/store-utils";
   import FixRigid from "./FixRigid.svelte";
   import FixRoller from "./FixRoller.svelte";

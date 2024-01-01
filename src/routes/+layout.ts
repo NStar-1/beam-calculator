@@ -1,14 +1,22 @@
-import { browser } from '$app/environment'
-import '$lib/i18n' // Import to initialize. Important :)
-import { locale, waitLocale } from 'svelte-i18n'
-import type { LayoutLoad } from './$types'
+import { browser } from "$app/environment";
+import { goto } from "$app/navigation";
+import { setLocale, setRoute, defaultLocale } from "$lib/translations";
 
-export const prerender = true
+export const trailingSlash = "always";
+export const prerender = true;
 
-export const load: LayoutLoad = async () => {
-	if (browser) {
-    // TODO make dynamic
-		locale.set('en')
-	}
-	await waitLocale()
-}
+export const load = async ({ url }) => {
+  const { pathname } = url;
+
+  const lang = pathname.match(/\w+?(?=\/|$)/)?.toString() || defaultLocale;
+
+  const route = pathname.replace(new RegExp(`^/${lang}`), "");
+
+  await setLocale(lang);
+  await setRoute(route === "/" ? "/en" : route);
+  if (browser && route === "/") {
+    await goto(`/${lang}`, { replaceState: true });
+  }
+
+  return { route, lang };
+};

@@ -1,4 +1,3 @@
-import { _ } from "svelte-i18n";
 import { FixationEnum } from "$lib/store";
 import ImgFixed from "$lib/assets/fixations/fixed.svg?component";
 import ImgRoller from "$lib/assets/fixations/roller.svg?component";

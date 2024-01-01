@@ -1,14 +1,14 @@
 <script>
-  import Button from "@smui/button/src/Button.svelte";
+  import Button from "@smui/button";
   import Textfield from "@smui/textfield";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
 
   let name = "";
 </script>
 
 <div class="contact-wrapper">
-  <h2>{$_("contact.title")}</h2>
-  {$_("contact.ways")}:
+  <h2>{$t("contact.title")}</h2>
+  {$t("contact.ways")}:
   <ul>
     <li><a href="mailto:ruslan.panasiuk@gmail.com">ruslan.panasiuk@gmail.com</a></li>
     <li><a href="https://github.com/NStar-1/beam-calculator">GitHub</a></li>
@@ -16,11 +16,11 @@
   </ul>
   <!--<div>
     <div>
-      <p>{$_("contact.name")}</p>
+      <p>{$t("contact.name")}</p>
       <Textfield bind:value={name} variant="outlined" required />
     </div>
   </div>
-  <Button variant="raised">{$_("contact.button")}</Button>-->
+  <Button variant="raised">{$t("contact.button")}</Button>-->
 </div>
 
 <style lang="scss">

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fixations } from "../fixations";
   import Select, { Option } from "@smui/select";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
   import type { FixationEnum } from "$lib/store";
 
   export let value: FixationEnum;
@@ -15,18 +15,18 @@
   $: value = +strVal;
 </script>
 
-<Select bind:value={strVal} label={$_(`options.config.${side}`)} style="width: 50%">
+<Select bind:value={strVal} label={$t(`options.config.${side}`)} style="width: 50%">
   {#each fixations as fixation}
     <Option value={"" + fixation.value}>
       {#if fixation.icon === undefined}
         <div />
         <div class="label">
-          {$_(`options.config.fixType.${fixation.label}`)}
+          {$t(`options.config.fixType.${fixation.label}`)}
         </div>
       {:else}
         <svelte:component this={fixation.icon} width="32" height="32" viewBox="6 6 90 90"/>
         <div class="label">
-          {$_(`options.config.fixType.${fixation.label}`)}
+          {$t(`options.config.fixType.${fixation.label}`)}
         </div>
       {/if}
     </Option>

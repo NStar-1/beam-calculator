@@ -2,7 +2,7 @@
   import { material } from "../store";
   import TextField from "@smui/textfield";
   import { TreeView } from "carbon-components-svelte";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
   import materials from "../materials";
 
   type TreeNodeId = string | number;
@@ -48,7 +48,7 @@
     if (isDirty) {
       // Deselect
       materialId = undefined;
-      $material.name = $_("options.material.other");
+      $material.name = $t("options.material.other");
     } else if (materialId !== undefined) {
       // Copying
       $material = Object.assign({}, materials[materialId]);
@@ -60,27 +60,27 @@
 
 <TextField
   type="number"
-  label={`${$_("results.density")}`}
+  label={`${$t("results.density")}`}
   on:input={() => (isDirty = true)}
   bind:value={$material.density}
 />
 <TextField
   type="number"
-  label={`${$_("results.eModulus")} (E, ${$_("units.mpa")})`}
+  label={`${$t("results.eModulus")} (E, ${$t("units.mpa")})`}
   on:input={() => (isDirty = true)}
   bind:value={$material.E}
 />
 <TextField
   type="number"
-  label={`${$_("results.gModulus")} (G, ${$_("units.mpa")})`}
+  label={`${$t("results.gModulus")} (G, ${$t("units.mpa")})`}
   on:input={() => (isDirty = true)}
   bind:value={$material.G}
 />
-<TextField label={$_("options.material.filter")} bind:value={query} />
+<TextField label={$t("options.material.filter")} bind:value={query} />
 <br />
 <TreeView
   style="padding-left: 0"
-  labelText={$_("options.material.list")}
+  labelText={$t("options.material.list")}
   children={filtered}
   on:select={() => (isDirty = false)}
   bind:activeId={materialId}

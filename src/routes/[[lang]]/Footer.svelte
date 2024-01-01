@@ -1,8 +1,8 @@
 <script>
   import { Separator } from "@smui/list";
-  import { _ } from "svelte-i18n";
-  import BeamCalc from "../assets/Beam Calculator.svg";
-  import LogoGrey from "../assets/LogoGrey.svg";
+  import { t } from "$lib/translations";
+  import BeamCalc from "$lib/assets/Beam Calculator.svg";
+  import LogoGrey from "$lib/assets/LogoGrey.svg";
 </script>
 
 <div class="footer-wrapper">
@@ -13,22 +13,22 @@
     </div>
     <div class="info-wrapper">
       <div class="column">
-        <p class="title">{$_("footer.community.title")}</p>
-        <a href="/about">{$_("footer.community.about")}</a>
+        <p class="title">{$t("footer.community.title")}</p>
+        <a href="/about">{$t("footer.community.about")}</a>
         <a href="https://github.com/NStar-1/beam-calculator"
-          >{$_("footer.community.github")}</a
+          >{$t("footer.community.github")}</a
         >
       </div>
 
       <div class="column">
-        <p class="title">{$_("footer.help.title")}</p>
-        <a href="/contact">{$_("footer.help.contact")}</a>
-        <a href="/faq">{$_("footer.help.faqs")}</a>
+        <p class="title">{$t("footer.help.title")}</p>
+        <a href="/contact">{$t("footer.help.contact")}</a>
+        <a href="/faq">{$t("footer.help.faqs")}</a>
       </div>
       <div class="column">
-        <p class="title">{$_("footer.legal.title")}</p>
-        <a href="/privacy-policy">{$_("footer.legal.privacy")}</a>
-        <a href="/terms-of-service">{$_("footer.legal.terms")}</a>
+        <p class="title">{$t("footer.legal.title")}</p>
+        <a href="/privacy-policy">{$t("footer.legal.privacy")}</a>
+        <a href="/terms-of-service">{$t("footer.legal.terms")}</a>
       </div>
     </div>
   </div>

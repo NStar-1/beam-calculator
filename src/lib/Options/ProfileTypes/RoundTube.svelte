@@ -1,16 +1,16 @@
 <script>
   import Textfield from "@smui/textfield";
   import { profileData } from "$lib/store";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
 </script>
 
 <Textfield
   type="number"
-  label={$_("options.profile.outerRadius")}
+  label={$t("options.profile.outerRadius")}
   bind:value={$profileData.outerRadius}
 />
 <Textfield
   type="number"
-  label={$_("options.profile.innerRadius")}
+  label={$t("options.profile.innerRadius")}
   bind:value={$profileData.innerRadius}
 />

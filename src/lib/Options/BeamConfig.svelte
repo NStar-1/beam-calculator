@@ -4,7 +4,7 @@
   import Textfield from "@smui/textfield";
   import validate from "../../utils/validation";
   import { createLengthRules } from "./validators";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
   import { length, loads } from "../store";
   import type { ValidationResult } from "../../utils/validation";
   import Units from "./Units.svelte";
@@ -24,7 +24,7 @@
 <Units />
 <Textfield
   type="number"
-  label={$_("options.config.length")}
+  label={$t("options.config.length")}
   bind:value={$length}
   required
   invalid={!lengthValidation.valid}
@@ -35,5 +35,5 @@
     >{lengthValidation.errors.join(", ")}</HelperText
   >
 </Textfield>
-<div style="margin: 10px 0">{$_("options.config.fixType.title")}</div>
+<div style="margin: 10px 0">{$t("options.config.fixType.title")}</div>
 <Fixation />

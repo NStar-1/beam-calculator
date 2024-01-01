@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import content from "@originjs/vite-plugin-content";
-import svelteSVG from "vite-plugin-svelte-svg";
+import svg from '@poppanator/sveltekit-svg'
 
 import { sveltekit } from "@sveltejs/kit/vite";
 
@@ -18,13 +18,12 @@ export default defineConfig({
         },
       },
     }),
-    svelteSVG({
-      svgoConfig: {
+    svg({
+      svgoOptions: {
         plugins: [
           'preset-default',
         ]
-      },
-      requireSuffix: false,
+      }
     }),
   ],
   resolve: {

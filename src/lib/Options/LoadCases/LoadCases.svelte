@@ -3,7 +3,7 @@
   import { Item, Separator } from "@smui/list";
   import LoadCase from "./LoadCase.svelte";
   import LoadCaseForm from "./LoadCaseForm.svelte";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
   import { loads, newEmptyLoadObj, selectedLoad } from "$lib/store";
   import { menuRoute } from "../menuRouter";
 
@@ -24,11 +24,11 @@
 <div class="smui-paper smui-paper--raised smui-paper--elevation-z1">
   <Button on:click={onGoBack}>
     <Icon class="material-icons">arrow_back</Icon>
-    <Label>{$_("options.loadCaseForm.back")}</Label>
+    <Label>{$t("options.loadCaseForm.back")}</Label>
   </Button>
 
   <div class="loads ">
-    <div class="subtitle">{$_("options.loadCaseForm.loads")}:</div>
+    <div class="subtitle">{$t("options.loadCaseForm.loads")}:</div>
     {#each $loads as _, i}
       <Item
         style="padding: 10px; text-align: center; justify-content: center"
@@ -44,11 +44,11 @@
     {/if}
     <Button on:click={addLoad}>
       <Icon class="material-icons">add</Icon>
-      <Label>{$_("options.loadCaseForm.add")}</Label>
+      <Label>{$t("options.loadCaseForm.add")}</Label>
     </Button>
 
     {#if $selectedLoad !== null}
-      <div class="subtitle">{$_("options.loadCaseForm.editing")}: #{$selectedLoad}</div>
+      <div class="subtitle">{$t("options.loadCaseForm.editing")}: #{$selectedLoad}</div>
       <LoadCaseForm loadId={$selectedLoad} />
     {/if}
   </div>

@@ -6,7 +6,7 @@
     AnchorPoint,
     type PointLoad,
   } from "$lib/store";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
   import Textfield from "@smui/textfield";
   import validate, { type ValidationResult } from "../../../utils/validation";
   import { angleRules, createOffsetRules, loadRules } from "./validatiors";
@@ -115,7 +115,7 @@
       type="number"
       bind:value={$loads[loadId].offset}
       disabled={anchor === AnchorPoint.MIDDLE}
-      label={$_("options.loadCaseForm.offset.label")}
+      label={$t("options.loadCaseForm.offset.label")}
       required
       invalid={!offsetValidation.valid}
       on:blur={validateOffset}
@@ -127,7 +127,7 @@
     <Textfield
       type="number"
       bind:value={$loads[loadId].value}
-      label={$_("options.loadCaseForm.load.label")}
+      label={$t("options.loadCaseForm.load.label")}
       required
       invalid={!loadValidation.valid}
       on:blur={validateLoad}
@@ -139,7 +139,7 @@
     <Textfield
       type="number"
       bind:value={$loads[loadId].angle}
-      label={$_("options.loadCaseForm.angle.label")}
+      label={$t("options.loadCaseForm.angle.label")}
       required
       invalid={!angleValidation.valid}
       on:blur={validateAngle}
@@ -152,7 +152,7 @@
   <div class="actions">
     <Button on:click={() => ($selectedLoad = null)}>
       <Icon class="material-icons">close</Icon>
-      <Label>{$_("options.loadCaseForm.close")}</Label>
+      <Label>{$t("options.loadCaseForm.close")}</Label>
     </Button>
   </div>
 </div>

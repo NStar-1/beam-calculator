@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
   import { fixations } from "$lib/fixations";
   import convert from "convert";
   import {
@@ -14,7 +14,7 @@
   } from "$lib/store";
   import Value from "./Value.svelte";
 
-  $: lengthUnitName = $_("units." + $lengthUnit);
+  $: lengthUnitName = $t("units." + $lengthUnit);
   $: leftSideFixation = fixations.find((d) => d.value === $firstPoint.isFixed);
   $: rightSideFixation = fixations.find((d) => d.value === $lastPoint.isFixed);
   $: forceUnitName = $forceUnit;
@@ -22,19 +22,19 @@
 
 <div class="root">
   <details open>
-    <summary class="h3">{$_("results.inputData")}:</summary>
+    <summary class="h3">{$t("results.inputData")}:</summary>
     <section>
       <details open>
-        <summary class="h4">{$_("options.config.title")}:</summary>
+        <summary class="h4">{$t("options.config.title")}:</summary>
         <subsection>
-          <div>{$_("options.config.length")}: {$length}{lengthUnitName}</div>
+          <div>{$t("options.config.length")}: {$length}{lengthUnitName}</div>
           <div>
-            {$_("options.config.left")}: {$_(
+            {$t("options.config.left")}: {$t(
               `options.config.fixType.${leftSideFixation?.label}`
             )}
             <div>
               <div>
-                {$_("options.config.right")}: {$_(
+                {$t("options.config.right")}: {$t(
                   `options.config.fixType.${rightSideFixation?.label}`
                 )}
               </div>
@@ -44,25 +44,25 @@
       </details>
       <details open>
         <summary class="h4">
-          {$_("graph.material")}: {$material.name}
+          {$t("graph.material")}: {$material.name}
         </summary>
         <subsection>
           <div>
-            {$_("results.density")}: {$material.density} kg/m<sup>3</sup>
+            {$t("results.density")}: {$material.density} kg/m<sup>3</sup>
           </div>
           <div>
-            <dfn title={$_("results.eModulus")}>E</dfn>: {$material.E.toLocaleString()}
-            {$_("graph.gpa")}
+            <dfn title={$t("results.eModulus")}>E</dfn>: {$material.E.toLocaleString()}
+            {$t("graph.gpa")}
           </div>
           <div>
-            <dfn title={$_("results.gModulus")}>G</dfn>: {$material.G.toLocaleString()}
-            {$_("graph.gpa")}
+            <dfn title={$t("results.gModulus")}>G</dfn>: {$material.G.toLocaleString()}
+            {$t("graph.gpa")}
           </div>
         </subsection>
       </details>
       <details open>
         <summary class="h4">
-          {$_("options.profile.title")}:
+          {$t("options.profile.title")}:
         </summary>
         <table>
           <tr>
@@ -100,11 +100,11 @@
     </section>
   </details>
   <details open>
-    <summary class="h3">{$_("results.resultData")}:</summary>
+    <summary class="h3">{$t("results.resultData")}:</summary>
     <section>
       <details open>
         <summary class="h4"
-          >{$_("results.displacements")} ({lengthUnitName}):</summary
+          >{$t("results.displacements")} ({lengthUnitName}):</summary
         >
         <table>
           <tr>
@@ -133,7 +133,7 @@
       </details>
       <details open>
         <summary class="h4"
-          >{$_("results.reactions")} ({forceUnitName}):</summary
+          >{$t("results.reactions")} ({forceUnitName}):</summary
         >
         <table>
           <tr>

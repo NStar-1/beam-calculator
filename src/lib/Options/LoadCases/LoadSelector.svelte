@@ -1,6 +1,6 @@
 <script lang="ts">
   import { AnchorPoint } from "$lib/store";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
   import Button from "@smui/button";
   import IconLeftSide from "$lib/assets/icons/leftSide.svg";
   import IconRightSide from "$lib/assets/icons/rightSide.svg";
@@ -11,7 +11,7 @@
 
 <Button
   variant="outlined"
-  title="{$_('options.loadCaseForm.leftSide')}"
+  title="{$t('options.loadCaseForm.leftSide')}"
   color={selected === AnchorPoint.START ? "primary" : "secondary"}
   on:click={() => (selected = AnchorPoint.START)}
 >
@@ -20,7 +20,7 @@
 
 <Button
   variant="outlined"
-  title="{$_('options.loadCaseForm.middlePoint')}"
+  title="{$t('options.loadCaseForm.middlePoint')}"
   color={selected === AnchorPoint.MIDDLE ? "primary" : "secondary"}
   on:click={() => (selected = AnchorPoint.MIDDLE)}
 >
@@ -29,7 +29,7 @@
 
 <Button
   variant="outlined"
-  title="{$_('options.loadCaseForm.rightSide')}"
+  title="{$t('options.loadCaseForm.rightSide')}"
   color={selected === AnchorPoint.END ? "primary" : "secondary"}
   on:click={() => (selected = AnchorPoint.END)}
 >

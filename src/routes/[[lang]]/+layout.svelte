@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { page } from "$app/stores";
-  import { _ } from "svelte-i18n";
   import { onMount } from "svelte";
   import { isPhone } from "$lib/store";
   import Header from "./Header.svelte";

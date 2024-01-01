@@ -1,26 +1,26 @@
 <script>
   import Textfield from "@smui/textfield";
   import { profileData } from "$lib/store";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
 </script>
 
 <Textfield
   type="number"
-  label={$_("options.profile.width")}
+  label={$t("options.profile.width")}
   bind:value={$profileData.width}
 />
 <Textfield
   type="number"
-  label={$_("options.profile.depth")}
+  label={$t("options.profile.depth")}
   bind:value={$profileData.depth}
 />
 <Textfield
   type="number"
-  label={$_("options.profile.flangeThickness")}
+  label={$t("options.profile.flangeThickness")}
   bind:value={$profileData.flangeThickness}
 />
 <Textfield
   type="number"
-  label={$_("options.profile.webThickness")}
+  label={$t("options.profile.webThickness")}
   bind:value={$profileData.webThickness}
 />

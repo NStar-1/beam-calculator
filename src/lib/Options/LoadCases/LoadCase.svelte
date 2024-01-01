@@ -3,7 +3,7 @@
   import { loads, selectedLoad } from "../../store";
   import { shiftNode } from "$lib/store-utils";
   import IconPointLoad from "$lib/assets/icons/pointLoad.svg?component";
-  import { _ } from "svelte-i18n";
+  import { t } from "$lib/translations";
 
   export let loadId: number;
 
@@ -49,7 +49,7 @@
     <div>{load.offset} |</div>
     <div>{load.angle} |</div>
     <div>{load.value} |</div>
-    <IconButton title="{$_('options.loadCaseForm.delete')}" class="material-icons" on:click={deleteLoad}>delete</IconButton>
+    <IconButton title="{$t('options.loadCaseForm.delete')}" class="material-icons" on:click={deleteLoad}>delete</IconButton>
   </div>
 {/if}
 
