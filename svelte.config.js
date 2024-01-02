@@ -1,5 +1,8 @@
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import lang from './src/lib/translations/lang.js';
+
+const supportedLocales = Object.keys(lang);
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -19,6 +22,9 @@ const config = {
       strict: true,
       appDir: 'internal',
     }),
+    prerender: {
+      entries: supportedLocales.reduce((acc, locale) => [...acc, `/${locale}`/*, `/${locale}/404` */], ['*']),
+    }
     //paths: {
     //  base: "/beam-calculator",
     //},
