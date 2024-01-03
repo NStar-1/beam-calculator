@@ -1,5 +1,3 @@
-import { browser } from "$app/environment";
-import { goto } from "$app/navigation";
 import { setLocale, setRoute, defaultLocale } from "$lib/translations";
 
 export const prerender = true;
@@ -13,9 +11,6 @@ export const load = async ({ url }) => {
 
   await setLocale(lang);
   await setRoute(route === "/" ? "/en" : route);
-  if (browser && route === "/") {
-    await goto(`/${lang}`, { replaceState: true });
-  }
 
   return { route, lang };
 };
