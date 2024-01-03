@@ -4,10 +4,10 @@
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
 
-  onMount(() => {
-    isPhone.set(window.matchMedia("(max-width: 480px)").matches);
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-  });
+  //onMount(() => {
+  //  isPhone.set(window.matchMedia("(max-width: 480px)").matches);
+  //  (window.adsbygoogle = window.adsbygoogle || []).push({});
+  //});
 </script>
 
 <div class="AppWrapper">
