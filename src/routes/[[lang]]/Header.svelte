@@ -12,10 +12,11 @@
   import { goto } from "$app/navigation";
   import { page } from '$app/stores';
   import Select, { Option } from "@smui/select";
+  import {browser} from "$app/environment";
 
   $: ({ route } = $page.data);
   locale.subscribe((lng) => {
-    if (route !== undefined && lng !== undefined) {
+    if (route !== undefined && lng !== undefined && browser === true) {
       goto(`/${lng}${route}`)
     }
   })
