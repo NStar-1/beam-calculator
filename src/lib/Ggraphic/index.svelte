@@ -74,7 +74,6 @@
       // Skip the first point
       if (idx === 0) return;
       let curr = d;
-      console.log($newresults);
       const dx = curr.x - prev.x;
       // Start/end slopes (first derivatives)
       const d0 = -prev.displacement.zz;

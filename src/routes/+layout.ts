@@ -2,7 +2,6 @@ import { browser } from "$app/environment";
 import { goto } from "$app/navigation";
 import { setLocale, setRoute, defaultLocale } from "$lib/translations";
 
-export const trailingSlash = "always";
 export const prerender = true;
 
 export const load = async ({ url }) => {

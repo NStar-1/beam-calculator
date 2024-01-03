@@ -72,16 +72,6 @@
     height: 100%;
   }
 
-  .materialInput:checked + img {
-    border: 2px solid #ff9859;
-  }
-
-  .materialInput + img {
-    padding: 2px;
-    width: 100%;
-    border: 2px solid #ababab;
-  }
-
   .column {
     display: flex;
     flex-direction: column;

@@ -8,5 +8,3 @@
 </svelte:head>
 
 <App />
-
-<slot />

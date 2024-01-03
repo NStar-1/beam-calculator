@@ -8,13 +8,13 @@
   import { Icon } from "@smui/icon-button";
   import { t } from "$lib/translations";
   import { length, lengthUnit, profileInfo, material, loads } from "../store";
-  import { menuRoute } from "./menuRouter"
+  import { menuRoute } from "./menuRouter";
   import BeamConfig from "./BeamConfig.svelte";
 
   let panel1Open = true;
   let panel2Open = false;
   let panel3Open = false;
-  $: lengthUnitName = $t("units." + $lengthUnit)
+  $: lengthUnitName = $t("units." + $lengthUnit);
 </script>
 
 <Accordion>
@@ -22,7 +22,8 @@
     <Header>
       <OptionTitle title={$t("options.config.title")}>
         <span slot="info"
-          >{!Number.isNaN($length.valueOf()) && `l=${$length.toLocaleString()}${lengthUnitName}`}</span
+          >{!Number.isNaN($length.valueOf()) &&
+            `l=${$length.toLocaleString()}${lengthUnitName}`}</span
         >
       </OptionTitle>
       <Toggler isOpen={panel1Open} slot="icon" />

@@ -2,6 +2,7 @@
   import { t, locale, locales } from "$lib/translations";
   import Menu from "@smui/menu";
   import Button from "@smui/button";
+  import Icon from '@smui/select/icon'
   import DayIcon from "$lib/assets/day.svelte";
   import NightIcon from "$lib/assets/night.svelte";
   import BeamCalc from "$lib/assets/Beam Calculator.svg";
@@ -10,9 +11,14 @@
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
   import { page } from '$app/stores';
+  import Select, { Option } from "@smui/select";
 
   $: ({ route } = $page.data);
-  let menu = {};
+  locale.subscribe((lng) => {
+    if (route !== undefined && lng !== undefined) {
+      goto(`/${lng}${route}`)
+    }
+  })
   let currentTheme = "light";
 
   onMount(() => {
@@ -52,26 +58,14 @@
         <NightIcon />
       {/if}
     </Button>
-    <div>
-      <Button
-        on:click={() => menu.setOpen(true)}
-        class="styledButton normal"
-        style={"color: inherit"}
-      >
-        <span class="material-symbols-outlined"> language </span>
-        {$locale}
-        <span class="material-symbols-outlined"> arrow_drop_down </span>
-      </Button>
-      <Menu bind:this={menu}>
-        <List>
+      <Select bind:value={$locale}>
+          <Icon class="material-symbols-outlined" slot="leadingIcon"> language </Icon>
           {#each $locales as lng}
-            <Item on:click={() => goto(`/${lng}${route}`)}>
-              <Text>{lng}</Text>
-            </Item>
+            <Option value={lng}>
+              {$t(`lang.${lng}`)}
+            </Option>
           {/each}
-        </List>
-      </Menu>
-    </div>
+      </Select>
   </div>
 </div>
 
@@ -104,23 +98,12 @@
     }
   }
 
-  .HeaderWrapper ~ div {
-    cursor: pointer;
-  }
-
   .no-hover {
     column-gap: 16px;
     &:hover {
       color: inherit;
     }
     @media (max-width: 550px) {
-      & img {
-        max-width: 80%;
-        height: unset;
-      }
-      & svg {
-        display: none;
-      }
       column-gap: 0;
     }
   }
@@ -152,6 +135,7 @@
   .active-buttons {
     column-gap: 24px;
     display: flex;
+    align-items: center;
     @media (max-width: 480px) {
       column-gap: 10px;
     }
@@ -160,8 +144,5 @@
     &:focus {
       outline: none;
     }
-  }
-  .material-symbols-outlined {
-    align-self: center;
   }
 </style>
