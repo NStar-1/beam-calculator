@@ -10,13 +10,9 @@ import {
   iBeam,
 } from "./sectionUtil";
 import type { Material } from "./materials";
-import convert from 'convert'
-import type {Force, Length} from 'convert'
-import {
-  convertLoads,
-  deg2rad,
-  getLoadAbsPos,
-} from "./store-utils";
+import convert from "convert";
+import type { Force, Length } from "convert";
+import { convertLoads, deg2rad, getLoadAbsPos } from "./store-utils";
 import * as ProfileIcon from "$lib/assets/xsection";
 
 export enum ProfileType {
@@ -119,10 +115,20 @@ export function newEmptyLoadObj(): PointLoad {
   };
 }
 
-export const LengthUnits = ["mm", "cm", "m", "in", "ft"] satisfies ReadonlyArray<Length>;
+export const LengthUnits = [
+  "mm",
+  "cm",
+  "m",
+  "in",
+  "ft",
+] satisfies ReadonlyArray<Length>;
 export const lengthUnit = writable<Length>("mm");
 
-export const ForceUnits = ["newtons", "kgf", "lbf"] satisfies ReadonlyArray<Force>;
+export const ForceUnits = [
+  "newtons",
+  "kgf",
+  "lbf",
+] satisfies ReadonlyArray<Force>;
 export const forceUnit = writable<Force>("newtons");
 
 export const isPhone = writable(false);
@@ -448,24 +454,24 @@ export async function solveModel2(): Promise<InputScope> {
       loadedPoints
     )
   );
-  
-  const pointLoads = getPointLoads(points, get(loads), get(length))
+
+  const pointLoads = getPointLoads(points, get(loads), get(length));
 
   // Convert units and assign to the model
   model.points = points.map((d) => ({
     ...d,
-    x: convert(d.x, get(lengthUnit)).to('mm'),
-    y: convert(d.y, get(lengthUnit)).to('mm'),
-    z: convert(d.z, get(lengthUnit)).to('mm'),
+    x: convert(d.x, get(lengthUnit)).to("mm"),
+    y: convert(d.y, get(lengthUnit)).to("mm"),
+    z: convert(d.z, get(lengthUnit)).to("mm"),
   }));
   model.elements = getElements(points);
   model.pointLoads = pointLoads.map((d) => ({
     ...d,
     axial: [
-      convert(d.axial[0], get(forceUnit)).to('newtons'),
-      convert(d.axial[1], get(forceUnit)).to('newtons'),
-      convert(d.axial[2], get(forceUnit)).to('newtons'),
-    ]
+      convert(d.axial[0], get(forceUnit)).to("newtons"),
+      convert(d.axial[1], get(forceUnit)).to("newtons"),
+      convert(d.axial[2], get(forceUnit)).to("newtons"),
+    ],
   }));
   const mat = get(material);
   model.material.E = mat.E;
@@ -482,9 +488,9 @@ export async function solveModel2(): Promise<InputScope> {
     x: points[idx].x,
     displacement: {
       ...d,
-      x: convert(d.x, 'mm').to(get(lengthUnit)),
-      y: convert(d.y, 'mm').to(get(lengthUnit)),
-      z: convert(d.z, 'mm').to(get(lengthUnit)),
+      x: convert(d.x, "mm").to(get(lengthUnit)),
+      y: convert(d.y, "mm").to(get(lengthUnit)),
+      z: convert(d.z, "mm").to(get(lengthUnit)),
     },
     reaction: res.result.R[idx],
   }));
@@ -495,8 +501,22 @@ export async function solveModel2(): Promise<InputScope> {
 
 // virtual store
 const modelState = derived(
-  [length, lengthUnit, forceUnit, loads, profileType, profile, material, firstPoint, lastPoint],
-  (x) => x
+  [
+    length,
+    lengthUnit,
+    forceUnit,
+    loads,
+    profileType,
+    profile,
+    material,
+    firstPoint,
+    lastPoint,
+  ],
+  // Debounce
+  ($value, set) => {
+    const intervalId = setTimeout(() => set($value), 300);
+    return () => clearTimeout(intervalId);
+  }
 );
 
 // FIXME this would fail if you try to subscribe Hermite
