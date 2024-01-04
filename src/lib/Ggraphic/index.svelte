@@ -110,12 +110,17 @@
   }px`;
 
   let loadsPos: Array<{}>;
-  $: loadsPos = $loads.map((load) => {
+  let previousDisplacements: Array<number> = []; // previous calculation displacement values
+  $: loadsPos = $loads.map((load, index) => {
     const x = getLoadAbsPos(load, $length);
     const result = $newresults.find((d) => d.x === x);
+    if (result) {
+      // Keep old data as a placeholder
+      previousDisplacements[index] = -result.displacement.y;
+    }
     return {
       x,
-      y: result ? -result.displacement.y : 0,
+      y: result ? -result.displacement.y : previousDisplacements[index] || 0,
     };
   });
 </script>
