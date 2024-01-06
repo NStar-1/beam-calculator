@@ -8,19 +8,6 @@
 
   let query = "";
 
-  //function filter(items, query) {
-  //  return items.reduce((acc, v) => {
-  //    let children = undefined;
-  //    if (v.hasOwnProperty("children")) {
-  //      children = filter(v.children, query);
-  //    }
-  //    if (v.text.includes(query) || (children && children.length)) {
-  //      return acc.concat({ ...v, children });
-  //    }
-  //    return acc;
-  //  }, []);
-  //}
-
   function groupByCategory(items: typeof materials) {
     const grouped: NodeConfig[] = []
     items.map((d, idx) => {
@@ -50,17 +37,7 @@
 
   const data = groupByCategory(materials)
 
-  function mfilter(items: typeof materials, query: string): Array<NodeConfig> {
-    return items.map((d, idx) => ({
-      id: '' + idx,
-      text: d.name,
-      children: undefined,
-    }));
-  }
-
   let materialId: string | undefined = '0';
-  let filtered: NodeConfig[] = [];
-  console.log(filtered)
 
   let isDirty = false;
 
@@ -71,12 +48,14 @@
       materialId = undefined;
       $material.name = $t("options.material.other");
     } else if (materialId !== undefined) {
-      // Copying
-      $material = Object.assign({}, materials[+materialId]);
+      // Check if ID is number (real material ID) and not a group ID (group as 'Construction Steels')
+      if (Number.isInteger(+materialId)) {
+        // Copying
+        $material = Object.assign({}, materials[+materialId]);
+      }
     }
   }
 
-  $: filtered = mfilter(materials, query);
 </script>
 
 <TextField

@@ -28,7 +28,6 @@
   }
 
   tree.on('node.selected', (node) => {
-    console.log(node)
     activeId = node.id
     dispatch("select", node)
   })
