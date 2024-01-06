@@ -480,9 +480,9 @@ export async function solveModel2(): Promise<InputScope> {
   model.material.density = mat.density / 1_000_000;
 
   model.profile = get(profile);
-  console.log(model);
+  //console.log(model);
   const res = Frame3DD.calculate(model);
-  console.log(res);
+  //console.log(res);
   results.set(res.result);
   const resAgg = res.result.D.map((d, idx) => ({
     x: points[idx].x,
@@ -494,7 +494,7 @@ export async function solveModel2(): Promise<InputScope> {
     },
     reaction: res.result.R[idx],
   }));
-  console.log(resAgg);
+  //console.log(resAgg);
   newresults.set(resAgg);
   return model;
 }

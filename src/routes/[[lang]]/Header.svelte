@@ -72,12 +72,12 @@
 
 <style lang="scss">
   .HeaderWrapper {
+    fill: --light-grey;
     display: flex;
     position: sticky;
     top: 0;
     width: 100%;
     height: 78px;
-    background: var(--cds-background);
     box-shadow: 0px 3px 20px rgba(64, 64, 64, 0.1);
     padding: 17px 40px;
     box-sizing: border-box;

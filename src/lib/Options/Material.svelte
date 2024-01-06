@@ -1,9 +1,9 @@
 <script lang="ts">
   import { material } from "../store";
   import TextField from "@smui/textfield";
-  import { TreeView } from "carbon-components-svelte";
   import { t } from "$lib/translations";
   import materials from "../materials";
+  import MyTreeView from "$lib/MyTreeView.svelte";
 
   type TreeNodeId = string | number;
 
@@ -32,14 +32,15 @@
 
   function mfilter(items: typeof materials, query: string): Array<TreeNode> {
     return items.map((d, idx) => ({
-      id: idx,
+      id: '' + idx,
       text: d.name,
       children: undefined,
     }));
   }
 
-  let materialId: number | undefined = 0;
+  let materialId: string | undefined = '0';
   let filtered: TreeNode[] = [];
+  console.log(filtered)
 
   let isDirty = false;
 
@@ -55,6 +56,7 @@
     }
   }
 
+  $: console.log(materialId);
   $: filtered = mfilter(materials, query);
 </script>
 
@@ -78,10 +80,14 @@
 />
 <TextField label={$t("options.material.filter")} bind:value={query} />
 <br />
-<TreeView
-  style="padding-left: 0"
-  labelText={$t("options.material.list")}
-  children={filtered}
+
+<MyTreeView
+  data={filtered}
   on:select={() => (isDirty = false)}
   bind:activeId={materialId}
 />
+
+<br />
+
+<style lang="scss">
+</style>
