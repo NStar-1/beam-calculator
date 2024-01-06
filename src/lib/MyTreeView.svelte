@@ -7,6 +7,10 @@
 
   export let data: NodeConfigsProvider = [];
   export let activeId: string | undefined;
+  export let search: string = '';
+
+  let clazz = ''
+  export {clazz as class}
   
   const dispatch = createEventDispatcher();
   const tree = new InspireTree({data});
@@ -16,6 +20,12 @@
   } else {
     tree.node(activeId)?.select()
   };
+
+  $: if (search !== '') {
+    tree.search(search)
+  } else {
+    tree.clearSearch()
+  }
 
   tree.on('node.selected', (node) => {
     console.log(node)
@@ -28,7 +38,11 @@
   })
 </script>
 
-<div class="inspire-tree"></div>
+<div class="inspire-tree {clazz}"></div>
 
 <style lang="scss">
+  .inspire-tree {
+    max-height: 12rem;
+    overflow-y: scroll;
+  }
 </style>

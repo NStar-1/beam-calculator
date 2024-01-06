@@ -4,16 +4,7 @@
   import { t } from "$lib/translations";
   import materials from "../materials";
   import MyTreeView from "$lib/MyTreeView.svelte";
-
-  type TreeNodeId = string | number;
-
-  interface TreeNode {
-    id: TreeNodeId;
-    text: any;
-    icon?: typeof import("svelte").SvelteComponent;
-    disabled?: boolean;
-    children?: TreeNode[];
-  }
+  import type { NodeConfig } from "inspire-tree";
 
   let query = "";
 
@@ -30,7 +21,36 @@
   //  }, []);
   //}
 
-  function mfilter(items: typeof materials, query: string): Array<TreeNode> {
+  function groupByCategory(items: typeof materials) {
+    const grouped: NodeConfig[] = []
+    items.map((d, idx) => {
+      const group = d.categories.reduce((parent, category) => {
+        const group = parent.find((d) => d.text === category)
+        if (group) {
+          return group.children as Array<NodeConfig>
+        } else {
+          const children: NodeConfig[] = []
+          parent.push({
+            id: undefined,
+            text: category,
+            children,
+          })
+          return children
+        }
+      }, grouped)
+      const val = {
+        id: '' + idx,
+        text: d.name,
+        children: false,
+      }
+      group.push(val)
+    })
+    return grouped
+  }
+
+  const data = groupByCategory(materials)
+
+  function mfilter(items: typeof materials, query: string): Array<NodeConfig> {
     return items.map((d, idx) => ({
       id: '' + idx,
       text: d.name,
@@ -39,7 +59,7 @@
   }
 
   let materialId: string | undefined = '0';
-  let filtered: TreeNode[] = [];
+  let filtered: NodeConfig[] = [];
   console.log(filtered)
 
   let isDirty = false;
@@ -52,11 +72,10 @@
       $material.name = $t("options.material.other");
     } else if (materialId !== undefined) {
       // Copying
-      $material = Object.assign({}, materials[materialId]);
+      $material = Object.assign({}, materials[+materialId]);
     }
   }
 
-  $: console.log(materialId);
   $: filtered = mfilter(materials, query);
 </script>
 
@@ -82,12 +101,11 @@
 <br />
 
 <MyTreeView
-  data={filtered}
+  search={query}
+  data={data}
   on:select={() => (isDirty = false)}
   bind:activeId={materialId}
 />
-
-<br />
 
 <style lang="scss">
 </style>
