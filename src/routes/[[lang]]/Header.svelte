@@ -74,7 +74,7 @@
   .HeaderWrapper {
     fill: --light-grey;
     display: flex;
-    position: sticky;
+    position: static;
     top: 0;
     width: 100%;
     height: 78px;
