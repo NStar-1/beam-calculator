@@ -1,0 +1,6 @@
+{
+  "main": {
+    "title": "Beam Calculator",
+    "desc": "Static structural analysis of simple 2d frames based on Frame3DD"
+  }
+}
