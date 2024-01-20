@@ -11,6 +11,7 @@
 </script>
 
 <h1>{$t("app.title")}</h1>
+<p>{$t("page.main.helpText")}</p>
 <div class="CalculatorWrapper">
   <div class="OptionsWrapper">
     <Options />

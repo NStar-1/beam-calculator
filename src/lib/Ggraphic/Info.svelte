@@ -82,16 +82,16 @@
             >
             <td
               ><dfn>I<sub>y</sub></dfn>
-              {$profile.Iy.toFixed(2)}mm<sup>2</sup></td
+              {$profile.Iy.toFixed(2)}mm<sup>4</sup></td
             >
           </tr>
           <tr>
             <td
-              ><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}mm<sup>2</sup
+              ><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}mm<sup>4</sup
               ></td
             >
             <td
-              ><dfn>I<sub>z</sub></dfn>: {$profile.Iz.toFixed(2)}mm<sup>2</sup
+              ><dfn>I<sub>z</sub></dfn>: {$profile.Iz.toFixed(2)}mm<sup>4</sup
               ></td
             >
           </tr>
