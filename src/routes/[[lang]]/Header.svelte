@@ -2,7 +2,7 @@
   import { t, locale, locales } from "$lib/translations";
   import Menu from "@smui/menu";
   import Button from "@smui/button";
-  import Icon from '@smui/select/icon'
+  import Icon from "@smui/select/icon";
   import DayIcon from "$lib/assets/day.svelte";
   import NightIcon from "$lib/assets/night.svelte";
   import BeamCalc from "$lib/assets/Beam Calculator.svg";
@@ -10,16 +10,16 @@
   import List, { Item, Text } from "@smui/list";
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
-  import { page } from '$app/stores';
+  import { page } from "$app/stores";
   import Select, { Option } from "@smui/select";
-  import {browser} from "$app/environment";
+  import { browser } from "$app/environment";
 
   $: ({ route } = $page.data);
   locale.subscribe((lng) => {
     if (route !== undefined && lng !== undefined && browser === true) {
-      goto(`/${lng}${route}`)
+      goto(`/${lng}${route}`);
     }
-  })
+  });
   let currentTheme = "light";
 
   onMount(() => {
@@ -35,9 +35,11 @@
     if (currentTheme == "light") {
       link?.setAttribute("href", "/smui-dark.css");
       currentTheme = "dark";
+      import("/node_modules/inspire-tree-dom/dist/inspire-tree-dark.min.css");
     } else {
       link?.setAttribute("href", "/global-light.css");
       currentTheme = "light";
+      import("/node_modules/inspire-tree-dom/dist/inspire-tree-light.min.css");
     }
   }
 </script>
@@ -59,14 +61,14 @@
         <NightIcon />
       {/if}
     </Button>
-      <Select bind:value={$locale}>
-          <Icon class="material-symbols-outlined" slot="leadingIcon"> language </Icon>
-          {#each $locales as lng}
-            <Option value={lng}>
-              {$t(`lang.${lng}`)}
-            </Option>
-          {/each}
-      </Select>
+    <Select bind:value={$locale}>
+      <Icon class="material-symbols-outlined" slot="leadingIcon">language</Icon>
+      {#each $locales as lng}
+        <Option value={lng}>
+          {$t(`lang.${lng}`)}
+        </Option>
+      {/each}
+    </Select>
   </div>
 </div>
 

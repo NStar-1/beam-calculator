@@ -3,7 +3,6 @@
   import { onMount } from "svelte";
   import InspireTree, { type NodeConfig } from "inspire-tree";
   import InspireTreeDOM from "inspire-tree-dom";
-  import "/node_modules/inspire-tree-dom/dist/inspire-tree-dark.min.css";
 
   export let data: NodeConfig[] = [];
   export let activeId: string | undefined;
