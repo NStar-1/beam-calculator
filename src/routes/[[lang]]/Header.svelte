@@ -50,6 +50,7 @@
     <BeamCalc />
   </a>
   <div class="links">
+    <!-- <a href="/{$locale}/howto">{$t("app.howto")}</a> -->
     <a href="/{$locale}/about">{$t("app.about")}</a>
     <a href="/{$locale}/contact">{$t("app.contact")}</a>
   </div>

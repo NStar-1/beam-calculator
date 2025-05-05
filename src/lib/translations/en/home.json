@@ -2,7 +2,8 @@
   "app": {
     "title": "Static stress analysis online calculator",
     "about": "About us",
-    "contact": "Contact"
+    "contact": "Contact",
+    "howto": "How To Use"
   },
   "options": {
     "config": {

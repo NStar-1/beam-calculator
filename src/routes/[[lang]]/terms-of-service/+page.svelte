@@ -9,8 +9,8 @@
   implement the most accurate calculations using Frame3DD.
 </p>
 
+<h3>Disclaimer and Limitation of Liability</h3>
 <p>
-  <b>Disclaimer and Limitation of Liability</b>
 
 The beamcalc.net is provided "as is" and is intended for informational and educational purposes only. While every effort has been made to ensure the accuracy and reliability of the calculations, the developer makes no guarantees, representations, or warranties of any kind, express or implied, regarding the completeness, accuracy, or suitability of the results.
 
