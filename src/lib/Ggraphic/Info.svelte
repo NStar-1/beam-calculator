@@ -18,6 +18,8 @@
   $: leftSideFixation = fixations.find((d) => d.value === $firstPoint.isFixed);
   $: rightSideFixation = fixations.find((d) => d.value === $lastPoint.isFixed);
   $: forceUnitName = $forceUnit;
+  $: taxonomy = $material.categories.map((d) => $t(`materials.${d}`)).join(' / ')
+  
 </script>
 
 <div class="root">
@@ -44,7 +46,7 @@
       </details>
       <details open>
         <summary class="h4">
-          {$t("graph.material")}: {$material.name}
+          {$t("graph.material")}: {$material.name} ({taxonomy})
         </summary>
         <subsection>
           <div>
