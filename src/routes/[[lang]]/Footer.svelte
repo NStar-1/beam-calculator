@@ -34,10 +34,7 @@
   </div>
   <Separator />
   <div class="under">
-    <p>© 2023 All Rights Reserved</p>
-    <div>
-      <a href="mailto:contact@beamcalc.net">contact@beamcalc.net</a>
-    </div>
+    <p>© 2025 All Rights Reserved</p>
   </div>
 </div>
 
