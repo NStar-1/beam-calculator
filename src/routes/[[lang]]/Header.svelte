@@ -27,6 +27,7 @@
       const link = document.getElementById("theme");
       link?.setAttribute("href", "/smui-dark.css");
       currentTheme = "dark";
+      import("/node_modules/inspire-tree-dom/dist/inspire-tree-dark.min.css");
     }
   });
 
