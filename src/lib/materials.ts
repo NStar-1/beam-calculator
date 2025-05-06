@@ -1,4 +1,5 @@
 import materials from './materials.json'
+import other from './materials_other.json'
 
 export type Material = {
   categories: Array<string>;
@@ -8,4 +9,4 @@ export type Material = {
   density: number;
 };
 
-export default <Array<Material>>materials;
+export default (materials as Material[]).concat(other as Material[]);

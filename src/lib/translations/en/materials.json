@@ -29,5 +29,19 @@
   "Магниевые сплавы литейные": "Magnesium Alloys (Deforming)",
   "Меди": "Copper",
   "Оловянные бронзы": "Tin-Brass",
-  "Титан и титановые сплавы": "Titamium & Alloys"
+  "Титан и титановые сплавы": "Titamium & Alloys",
+  "//GOST": "",
+   "Алюминий": "Aluminium",
+   "Вольфрам": "Tungstern",
+   "Железо": "Iron",
+   "Золото": "Gold",
+   "Медь": "Copper",
+   "Олово": "Tin",
+   "Свинец": "Lead",
+   "Титан": "Titanium",
+  "// Other": "",
+  "Generic": "Generic",
+  "Aluminum": "Aluminium",
+  "Aluminum Bronze": "Aluminium Bronze",
+  "Tungsten": "Tungstern"
 }

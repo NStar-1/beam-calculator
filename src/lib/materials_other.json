@@ -1,0 +1,177 @@
+[
+  {
+    "name": "Aluminum",
+    "density": 2695,
+    "E": 69000,
+    "G": 24000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Aluminum Bronze",
+    "density": 8200,
+    "E": 110000,
+    "G": 44000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Beryllium",
+    "density": 1820,
+    "E": 112500,
+    "G": 110000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Beryllium Copper",
+    "density": 8175,
+    "E": 303800,
+    "G": 145300,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Brass (60/40)",
+    "density": 8500,
+    "E": 125000,
+    "G": 38500,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Brass (Red)",
+    "density": 8746,
+    "E": 120000,
+    "G": 39000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Brass (Yellow)",
+    "density": 8470,
+    "E": 105000,
+    "G": 35000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Bronze",
+    "density": 8150,
+    "E": 108000,
+    "G": 44850,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Cadmium",
+    "density": 8650,
+    "E": 50000,
+    "G": 18970,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Chromium",
+    "density": 7190,
+    "E": 279000,
+    "G": 114540,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Cobalt",
+    "density": 8900,
+    "E": 211000,
+    "G": 75000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Copper",
+    "density": 8940,
+    "E": 115000,
+    "G": 43500,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Gold (24K) Pure",
+    "density": 19300,
+    "E": 78500,
+    "G": 27000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Iron",
+    "density": 7870,
+    "E": 210000,
+    "G": 50500,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Iron (Cast)",
+    "density": 7200,
+    "E": 126500,
+    "G": 75000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Iron (Wrought)",
+    "density": 7200,
+    "E": 211000,
+    "G": 82000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Lead",
+    "density": 11350,
+    "E": 16100,
+    "G": 13248,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Magnesium",
+    "density": 1740,
+    "E": 45000,
+    "G": 16491,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Nickel",
+    "density": 8850,
+    "E": 190000,
+    "G": 80000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Platinum",
+    "density": 21450,
+    "E": 146900,
+    "G": 276000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Silver",
+    "density": 10500,
+    "E": 74000,
+    "G": 27800,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Tin",
+    "density": 7300,
+    "E": 43099,
+    "G": 18000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Titanium",
+    "density": 4500,
+    "E": 120200,
+    "G": 41500,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Tungsten",
+    "density": 19300,
+    "E": 411000,
+    "G": 162150,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Zinc",
+    "density": 6920,
+    "E": 82737,
+    "G": 42090,
+    "categories": ["Generic"]
+  }
+]

@@ -31,9 +31,11 @@
           return children;
         }
       }, grouped);
+      // Leaf node
       const val = {
         id: "" + idx,
-        text: d.name,
+        // Use self name as fallback
+        text: $t(`materials.${d.name}`, {default: d.name}),
         children: false,
       };
       group.push(val);
