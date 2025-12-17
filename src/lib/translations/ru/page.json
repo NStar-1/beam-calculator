@@ -4,5 +4,13 @@
     "desc": "Статический рассчет балки на прогиб с использование Frame3DD",
     "helpText": "This online tool can compute deflections, reactions, internal element forces of two dimensional elastic structures using direct stiffness and mass assembly. You can choose from multiple beam configurations, profiles and materials. Also you can add any number of point loads. This software generates extensive output, thankfully to a Frame3DD solver.",
     "helpText": "Данный онлайн-калькулятор поможет посчитать прогиб, реакции опоры, внутренние напряжения для двухмерных эластичных структур (балки). Вы можете выбирать различные конфигурации закрепления балки, профили и материалы. А так же добавлять любое количество точечных нагрузок. BeamCalc предоставляет подробный отчет с результатом с использованием программы Frame3DD в своем ядре."
+  },
+  "cookieConsent": {
+    "title": "Согласие на использование Cookies",
+    "mainText": "Это веб сайт использует опциональные аналитические Cookies (Google Analytics от Google LLC) только в случае вашего согласия. В аналитику входит обобщенная статистика, посещенные страницы и клики, примерное местоположение (страна), использовали ли вы поиск или прямую сслыку. Использование функций отслеживается для определения важных и популярных функций для пользователей. Сбор этой статистики не является обязательным для работы приложения, но полезен разработчикам для исправления ошибок и внедрения новых функций.",
+    "privacyPolicy": "Политика Конфиденциальности",
+    "youCanChange": "Вы можете изменить это решение в любой момент на странице",
+    "accept": "Согласен",
+    "reject": "Отказываюсь"
   }
 }

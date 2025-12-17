@@ -1,4 +1,5 @@
 import { writable, get, derived } from "svelte/store";
+import { persisted } from "svelte-persisted-store";
 // TODO
 import Frame3ddLoader, { type InputScope, type F3DD } from "frame3dd-wasm-js";
 import materials from "./materials";
@@ -121,14 +122,20 @@ export const LengthUnits = [
   "m",
   "in",
   "ft",
-] satisfies ReadonlyArray<Length>;
+]satisfies ReadonlyArray<Length>;
+
+export const cookieConsent = persisted('cookies-preferences', {
+  initialized: false,
+  hasConsent: false,
+})
+
 export const lengthUnit = writable<Length>("mm");
 
 export const ForceUnits = [
   "newtons",
   "kgf",
   "lbf",
-] satisfies ReadonlyArray<Force>;
+]satisfies ReadonlyArray<Force>;
 export const forceUnit = writable<Force>("newtons");
 
 export const isPhone = writable(false);
@@ -178,7 +185,7 @@ const defaultProfileDescription = {
 export const profile = writable<ProfileDescription>(defaultProfileDescription);
 export const profileInfo = writable();
 
-const updateProfile = function () {
+const updateProfile = function() {
   const calculate = {
     [ProfileType.CYLINDRICAL]: cylindrical,
     [ProfileType.ROUND_TUBE]: roundTube,
@@ -291,7 +298,7 @@ type AggregatedResult = {
 
 export const newresults = writable<Array<AggregatedResult>>([]);
 
-export const solveModel = async function () {
+export const solveModel = async function() {
   // TODO: we need normal, form-based validation
   //const pointsArr = [...get(points)];
   const loadsArr = [...get(loads)];

@@ -48,9 +48,11 @@
   "dependencies": {
     "@carbon/themes": "^11.17.0",
     "@smui/menu": "^7.0.0-beta.8",
+    "@smui/switch": "^7.0.0",
     "frame3dd-wasm-js": "github:NStar-1/frame3dd-wasm-js#v0.3.1",
     "inspire-tree": "^7.0.0-beta.2",
     "inspire-tree-dom": "^4.0.6",
-    "svelte-material-ui": "^7.0.0-beta.0"
+    "svelte-material-ui": "^7.0.0-beta.0",
+    "svelte-persisted-store": "^0.12.0"
   }
 }

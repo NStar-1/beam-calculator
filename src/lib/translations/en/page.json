@@ -3,5 +3,13 @@
     "title": "Beam Calculator",
     "desc": "Static structural analysis of simple 2d frames based on Frame3DD",
     "helpText": "This online tool can compute deflections, reactions, internal element forces of two dimensional elastic structures using direct stiffness and mass assembly. You can choose from multiple beam configurations, profiles and materials. Also you can add any number of point loads. This software generates extensive output, thankfully to a Frame3DD solver."
+  },
+  "cookieConsent": {
+    "title": "Cookies Consent",
+    "mainText": "This site uses optional analytics cookies (Google Analytics by Google LLC) only if you accept, to collect aggregated statistics, page visits and clicks, approximate location (country), whether you used a search or direct link. Feature usage is tracked to better understand what features are popular and which are not. This analytics information is not essential for the web app to work, but helpful for the app development and bug fixes.",
+    "privacyPolicy": "Privacy Policy",
+    "youCanChange": "You can change your choice at any time at",
+    "accept": "Accept",
+    "reject": "Reject"
   }
 }

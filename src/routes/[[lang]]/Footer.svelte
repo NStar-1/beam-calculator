@@ -1,6 +1,6 @@
 <script>
   import { Separator } from "@smui/list";
-  import { t } from "$lib/translations";
+  import { t, locale } from "$lib/translations";
   import BeamCalc from "$lib/assets/Beam Calculator.svg";
   import LogoGrey from "$lib/assets/LogoGrey.svg";
 </script>
@@ -14,7 +14,7 @@
     <div class="info-wrapper">
       <div class="column">
         <p class="title">{$t("footer.community.title")}</p>
-        <a href="/about">{$t("footer.community.about")}</a>
+        <a href={`/${$locale}/about`}>{$t("footer.community.about")}</a>
         <a href="https://github.com/NStar-1/beam-calculator"
           >{$t("footer.community.github")}</a
         >
@@ -27,8 +27,8 @@
       </div>
       <div class="column">
         <p class="title">{$t("footer.legal.title")}</p>
-        <a href="/privacy-policy">{$t("footer.legal.privacy")}</a>
-        <a href="/terms-of-service">{$t("footer.legal.terms")}</a>
+        <a href={`/${$locale}/privacy-policy`}>{$t("footer.legal.privacy")}</a>
+        <a href={`/${$locale}/terms-of-service`}>{$t("footer.legal.terms")}</a>
       </div>
     </div>
   </div>

@@ -1,8 +1,18 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { isPhone } from "$lib/store";
+  import { isPhone, cookieConsent } from "$lib/store";
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
+  import CookiesConsent from "./CookiesConsent.svelte";
+
+  $: if ($cookieConsent.initialized) {
+    console.log(
+      `Google Analytics ${$cookieConsent.hasConsent ? "enabled" : "disabled"}`
+    );
+    gtag("consent", "update", {
+      analytics_storage: $cookieConsent.hasConsent ? "granted" : "denied",
+    });
+  }
 
   //onMount(() => {
   //  isPhone.set(window.matchMedia("(max-width: 480px)").matches);
@@ -18,28 +28,11 @@
       <div class="ContentPage">
         <slot />
       </div>
-      <div class="ContentPage adv">
-        <ins
-          class="adsbygoogle"
-          style="display:block"
-          data-ad-client="ca-pub-1770200227566265"
-          data-ad-slot="1770200227566265"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-      </div>
     </div>
   </div>
-  <div class="adv bottom">
-    <ins
-      class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-1770200227566265"
-      data-ad-slot="1770200227566265"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    />
-  </div>
+  {#if !$cookieConsent.initialized}
+    <CookiesConsent />
+  {/if}
   <Footer />
 </div>
 
