@@ -208,14 +208,14 @@ const updateProfile = function () {
       profileInfo.set(`ri=${innerRadius}, ro=${outerRadius}`);
       break;
     case ProfileType.RECTANGLE:
-      profileInfo.set(`h=${height},w=${width}`);
+      profileInfo.set(`h=${height}, w=${width}`);
       break;
     case ProfileType.RECTANGULAR_TUBE:
-      profileInfo.set(`h=${height},w=${width},t=${thickness}`);
+      profileInfo.set(`h=${height}, w=${width}, t=${thickness}`);
       break;
     case ProfileType.I_BEAM:
       profileInfo.set(
-        `d=${depth},w=${width},t=${webThickness},f=${flangeThickness}`
+        `d=${depth}, w=${width}, t=${webThickness}, f=${flangeThickness}`
       );
       break;
   }

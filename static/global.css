@@ -7,6 +7,11 @@
   font-family: "GOST type A"; 
   src: url("fonts/GOST_A_.ttf") format("truetype");
 }
+
+:root {
+  color-scheme: light dark;
+}
+
 :root{
   --dark-grey: #8A9099;
   --light-grey: #E0E0E0;

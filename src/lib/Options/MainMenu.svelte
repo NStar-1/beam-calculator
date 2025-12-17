@@ -21,10 +21,10 @@
   <Panel bind:open={panel1Open}>
     <Header>
       <OptionTitle title={$t("options.config.title")}>
-        <span slot="info"
-          >{!Number.isNaN($length.valueOf()) &&
-            `l=${$length.toLocaleString()}${lengthUnitName}`}</span
-        >
+        <span slot="info">
+          {!Number.isNaN($length.valueOf()) &&
+            `l=${$length.toLocaleString()}${lengthUnitName}`}
+        </span>
       </OptionTitle>
       <Toggler isOpen={panel1Open} slot="icon" />
     </Header>
@@ -34,8 +34,10 @@
   </Panel>
   <Panel bind:open={panel2Open}>
     <Header>
-      <OptionTitle title={$t("options.profile.title")}
-        ><div class="profileIcon" slot="icon"><ProfileIcon /></div>
+      <OptionTitle title={$t("options.profile.title")}>
+        <div class="profileIcon" slot="icon">
+          <ProfileIcon />
+        </div>
         <span slot="info">{$profileInfo}</span>
       </OptionTitle>
       <Toggler isOpen={panel2Open} slot="icon" />
@@ -46,9 +48,9 @@
   </Panel>
   <Panel bind:open={panel3Open}>
     <Header>
-      <OptionTitle title={$t("options.material.title")}
-        ><span slot="info">{$material.name}</span></OptionTitle
-      >
+      <OptionTitle title={$t("options.material.title")}>
+        <span slot="info">{$material.name}</span>
+      </OptionTitle>
       <Toggler isOpen={panel3Open} slot="icon" />
     </Header>
     <Content>
@@ -57,9 +59,9 @@
   </Panel>
   <Panel>
     <Header on:click={() => menuRoute.set("loads")}>
-      <OptionTitle title={$t("options.load.title")}
-        ><span slot="info">{`n=${$loads.length || 0}`}</span></OptionTitle
-      >
+      <OptionTitle title={$t("options.load.title")}>
+        <span slot="info">{`n=${$loads.length || 0}`}</span>
+      </OptionTitle>
       <Icon slot="icon" class="material-icons">arrow_forward</Icon>
     </Header>
   </Panel>
@@ -72,5 +74,6 @@
 
   .profileIcon {
     margin-right: 8px;
+    margin-top: -4px;
   }
 </style>

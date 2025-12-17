@@ -1,13 +1,11 @@
 <script>
   import { t, locale, locales } from "$lib/translations";
-  import Menu from "@smui/menu";
   import Button from "@smui/button";
   import Icon from "@smui/select/icon";
   import DayIcon from "$lib/assets/day.svelte";
   import NightIcon from "$lib/assets/night.svelte";
   import BeamCalc from "$lib/assets/Beam Calculator.svg";
   import IconColor from "$lib/assets/IconColor.svg";
-  import List, { Item, Text } from "@smui/list";
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
@@ -27,6 +25,7 @@
       const link = document.getElementById("theme");
       link?.setAttribute("href", "/smui-dark.css");
       currentTheme = "dark";
+      document.body.className = "dark"
       import("/node_modules/inspire-tree-dom/dist/inspire-tree-dark.min.css");
     }
   });
@@ -36,10 +35,12 @@
     if (currentTheme == "light") {
       link?.setAttribute("href", "/smui-dark.css");
       currentTheme = "dark";
+      document.body.className = "dark"
       import("/node_modules/inspire-tree-dom/dist/inspire-tree-dark.min.css");
     } else {
       link?.setAttribute("href", "/global-light.css");
       currentTheme = "light";
+      document.body.className = "light"
       import("/node_modules/inspire-tree-dom/dist/inspire-tree-light.min.css");
     }
   }
