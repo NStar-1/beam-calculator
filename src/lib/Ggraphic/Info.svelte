@@ -18,8 +18,9 @@
   $: leftSideFixation = fixations.find((d) => d.value === $firstPoint.isFixed);
   $: rightSideFixation = fixations.find((d) => d.value === $lastPoint.isFixed);
   $: forceUnitName = $forceUnit;
-  $: taxonomy = $material.categories.map((d) => $t(`materials.${d}`)).join(' / ')
-  
+  $: taxonomy = $material.categories
+    .map((d) => $t(`materials.${d}`))
+    .join(" / ");
 </script>
 
 <div class="root">
@@ -69,32 +70,39 @@
         <table>
           <tr>
             <td
-              ><dfn>A<sub>x</sub></dfn>: {$profile.Ax.toFixed(2)}mm<sup>2</sup
-              ></td
+              ><dfn title="Cross section area">A<sub>x</sub></dfn>: {$profile.Ax.toFixed(
+                2
+              )}mm<sup>2</sup></td
             >
             <td
-              ><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}mm<sup>2</sup
-              ></td
+              ><dfn title="Torsional moment of inertia - X axis"
+                >J<sub>xx</sub></dfn
+              >: {$profile.Jx.toFixed(2)}mm<sup>4</sup></td
             >
           </tr>
           <tr>
             <td
-              ><dfn>A<sub>sz</sub></dfn>: {$profile.Asz.toFixed(2)}mm<sup>2</sup
-              ></td
+              ><dfn title="Shear area Z-directionfor">A<sub>sy</sub></dfn>: {$profile.Asy.toFixed(
+                2
+              )}mm<sup>2</sup></td
             >
             <td
-              ><dfn>I<sub>y</sub></dfn>
+              ><dfn title="Bending moment of inertia - Y axis"
+                >I<sub>yy</sub></dfn
+              >
               {$profile.Iy.toFixed(2)}mm<sup>4</sup></td
             >
           </tr>
           <tr>
             <td
-              ><dfn>J<sub>x</sub></dfn>: {$profile.Jx.toFixed(2)}mm<sup>4</sup
-              ></td
+              ><dfn title="Shear area Z-directionfor">A<sub>sz</sub></dfn>: {$profile.Asz.toFixed(
+                2
+              )}mm<sup>2</sup></td
             >
             <td
-              ><dfn>I<sub>z</sub></dfn>: {$profile.Iz.toFixed(2)}mm<sup>4</sup
-              ></td
+              ><dfn title="Bending moment of inertia - Z axis"
+                >I<sub>zz</sub></dfn
+              >: {$profile.Iz.toFixed(2)}mm<sup>4</sup></td
             >
           </tr>
         </table>
@@ -109,28 +117,47 @@
           >{$t("results.displacements")} ({lengthUnitName}):</summary
         >
         <table>
-          <tr>
-            <th>#</th>
-            <th>x</th>
-            <th>y</th>
-            <th>z</th>
-            <th>xx</th>
-            <th>yy</th>
-            <th>zz</th>
-          </tr>
-          {#if $results?.D}
-            {#each $results.D as d, idx}
-              <tr>
-                <td>{idx}</td>
-                <td><Value value={convert(d.x, "mm").to($lengthUnit)} /></td>
-                <td><Value value={convert(d.y, "mm").to($lengthUnit)} /></td>
-                <td><Value value={convert(d.z, "mm").to($lengthUnit)} /></td>
-                <td><Value value={d.xx} /></td>
-                <td><Value value={d.yy} /></td>
-                <td><Value value={d.zz} /></td>
-              </tr>
-            {/each}
-          {/if}
+          <thead>
+            <tr>
+              <th class="border">#</th>
+              <th>x</th>
+              <th>y</th>
+              <th class="border">z</th>
+              <th>xx</th>
+              <th>yy</th>
+              <th>zz<br /></th>
+            </tr>
+          </thead>
+          <tbody>
+            {#if $results?.D}
+              {#each $results.D as d, idx}
+                <tr>
+                  <td class="border">{idx}</td>
+                  <td><Value value={convert(d.x, "mm").to($lengthUnit)} /></td>
+                  <td><Value value={convert(d.y, "mm").to($lengthUnit)} /></td>
+                  <td class="border"
+                    ><Value value={convert(d.z, "mm").to($lengthUnit)} /></td
+                  >
+                  <td
+                    ><Value
+                      value={convert(d.xx, "radian").to("degrees")}
+                    />°</td
+                  >
+                  <td
+                    ><Value
+                      value={convert(d.yy, "radian").to("degrees")}
+                    />°</td
+                  >
+                  <td
+                    ><Value
+                      value={convert(d.zz, "radian").to("degrees")}
+                    />°</td
+                  >
+                  <br />
+                </tr>
+              {/each}
+            {/if}
+          </tbody>
         </table>
       </details>
       <details open>
@@ -138,31 +165,45 @@
           >{$t("results.reactions")} ({forceUnitName}):</summary
         >
         <table>
-          <tr>
-            <th>#</th>
-            <th>x</th>
-            <th>y</th>
-            <th>z</th>
-            <th>xx</th>
-            <th>yy</th>
-            <th>zz</th>
-          </tr>
-          {#if $results?.R}
-            {#each $results.R as d, idx}
-              <tr>
-                <td>{idx}</td>
-                <td><Value value={convert(d.x, "newtons").to($forceUnit)} /></td
-                >
-                <td><Value value={convert(d.y, "newtons").to($forceUnit)} /></td
-                >
-                <td><Value value={convert(d.z, "newtons").to($forceUnit)} /></td
-                >
-                <td><Value value={d.xx} /></td>
-                <td><Value value={d.yy} /></td>
-                <td><Value value={d.zz} /></td>
-              </tr>
-            {/each}
-          {/if}
+          <thead>
+            <tr>
+              <th class="border">#</th>
+              <th>x</th>
+              <th>y</th>
+              <th class="border">z</th>
+              <th>xx</th>
+              <th>yy</th>
+              <th>zz<br /></th>
+            </tr>
+          </thead>
+          <tbody>
+            {#if $results?.R}
+              {#each $results.R as d, idx}
+                <tr>
+                  <td class="border">{idx}</td>
+                  <td
+                    ><Value
+                      value={convert(d.x, "newtons").to($forceUnit)}
+                    /></td
+                  >
+                  <td
+                    ><Value
+                      value={convert(d.y, "newtons").to($forceUnit)}
+                    /></td
+                  >
+                  <td class="border"
+                    ><Value
+                      value={convert(d.z, "newtons").to($forceUnit)}
+                    /></td
+                  >
+                  <td><Value value={d.xx} /></td>
+                  <td><Value value={d.yy} /></td>
+                  <td><Value value={d.zz} /></td>
+                  <br />
+                </tr>
+              {/each}
+            {/if}
+          </tbody>
         </table>
       </details>
     </section>
@@ -193,7 +234,7 @@
   h3,
   .h3,
   .h4 {
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.1rem;
     text-decoration: underline;
     line-height: 2rem;
     margin: 0;
@@ -214,8 +255,26 @@
     cursor: help;
   }
 
+  table {
+    border-collapse: collapse;
+  }
+
   td,
   th {
     padding-right: 1rem;
+    text-align: right;
+  }
+
+  thead {
+    border-bottom: 2px solid currentColor;
+  }
+
+  .border {
+    border-right: 2px solid currentColor;
+    padding-right: 0.5rem;
+    & + td,
+    & + th {
+      padding-left: 0.5rem;
+    }
   }
 </style>

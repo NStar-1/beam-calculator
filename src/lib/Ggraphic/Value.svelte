@@ -2,9 +2,9 @@
   export let value: number;
 </script>
 
-<div class:highlight={value != 0}>
+<span class:highlight={value != 0}>
   {value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-</div>
+</span>
 
 <style>
   .highlight {
