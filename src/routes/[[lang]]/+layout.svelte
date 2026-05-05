@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { isPhone, cookieConsent } from "$lib/store";
+  import { browser } from "$app/environment";
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
   import CookiesConsent from "./CookiesConsent.svelte";
@@ -13,6 +14,18 @@
       analytics_storage: $cookieConsent.hasConsent ? "granted" : "denied",
     });
   }
+
+  // Plausible tracking/analytics
+  onMount(async () => {
+    if (!browser) return;
+
+    const { init } = await import("@plausible-analytics/tracker");
+    init({
+      domain: 'beamcalc.net',
+      hashBasedRouting: true,
+      endpoint: 'https://analytics.based.lt/api/event',
+    })
+  })
 
   //onMount(() => {
   //  isPhone.set(window.matchMedia("(max-width: 480px)").matches);
