@@ -21,11 +21,10 @@
 
     const { init } = await import("@plausible-analytics/tracker");
     init({
-      domain: 'beamcalc.net',
-      hashBasedRouting: true,
-      endpoint: 'https://analytics.based.lt/api/event',
-    })
-  })
+      domain: "beamcalc.net",
+      endpoint: "https://analytics.based.lt/api/event",
+    });
+  });
 
   //onMount(() => {
   //  isPhone.set(window.matchMedia("(max-width: 480px)").matches);
