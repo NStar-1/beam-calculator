@@ -17,11 +17,6 @@ import { convertLoads, deg2rad, getLoadAbsPos } from "./store-utils";
 import * as ProfileIcon from "$lib/assets/xsection";
 import { browser } from "$app/environment";
 
-let track: any;
-if (browser) {
-  track = (await import('@plausible-analytics/tracker')).track;
-};
-
 export enum ProfileType {
   CYLINDRICAL,
   ROUND_TUBE,
@@ -522,11 +517,13 @@ export async function solveModel2(): Promise<InputScope> {
   const uptime = new Date().getTime() - get(appStartTime).getTime()
   if (uptime > SKIP_ANALYTICS_MS) {
     clearTimeout(deboubceTimer);
-    deboubceTimer = setTimeout(() => {
-      console.info('log event')
-      track('Model Solved', {
-        uptime,
-      })
+    deboubceTimer = setTimeout(async () => {
+      if (browser) {
+        const track = (await import('@plausible-analytics/tracker')).track;
+        track('Model Solved', {
+          uptime,
+        })
+      };
     }, DEBOUNCE_EVENT_MS)
   }
 
