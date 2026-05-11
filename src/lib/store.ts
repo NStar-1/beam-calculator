@@ -1,4 +1,4 @@
-import { writable, get, derived } from "svelte/store";
+import { writable, get, derived, readable } from "svelte/store";
 import { persisted } from "svelte-persisted-store";
 // TODO
 import Frame3ddLoader, { type InputScope, type F3DD } from "frame3dd-wasm-js";
@@ -15,6 +15,12 @@ import convert from "convert";
 import type { Force, Length } from "convert";
 import { convertLoads, deg2rad, getLoadAbsPos } from "./store-utils";
 import * as ProfileIcon from "$lib/assets/xsection";
+import { browser } from "$app/environment";
+
+let track: any;
+if (browser) {
+  track = (await import('@plausible-analytics/tracker')).track;
+};
 
 export enum ProfileType {
   CYLINDRICAL,
@@ -128,6 +134,8 @@ export const cookieConsent = persisted('cookies-preferences', {
   initialized: false,
   hasConsent: false,
 })
+
+export const appStartTime = readable(new Date());
 
 export const lengthUnit = writable<Length>("mm");
 
@@ -298,6 +306,7 @@ type AggregatedResult = {
 
 export const newresults = writable<Array<AggregatedResult>>([]);
 
+/*
 export const solveModel = async function() {
   // TODO: we need normal, form-based validation
   //const pointsArr = [...get(points)];
@@ -334,6 +343,7 @@ export const solveModel = async function() {
   // TODO map result back to frame data
   results.set(res.result);
 };
+*/
 
 function getF3DDFixation(fixation: FixationEnum): number[] {
   return {
@@ -451,6 +461,11 @@ function getPointLoads(
   );
 }
 
+// Disable solve model analytics reporting to skip the initial model solve event
+const SKIP_ANALYTICS_MS = 3000;
+const DEBOUNCE_EVENT_MS = 1000;
+let deboubceTimer = setTimeout(() => 0);
+
 export async function solveModel2(): Promise<InputScope> {
   const Frame3DD = await Frame3ddLoader();
   const model = Frame3DD.inputScopeJSON;
@@ -503,6 +518,18 @@ export async function solveModel2(): Promise<InputScope> {
   }));
   //console.log(resAgg);
   newresults.set(resAgg);
+
+  const uptime = new Date().getTime() - get(appStartTime).getTime()
+  if (uptime > SKIP_ANALYTICS_MS) {
+    clearTimeout(deboubceTimer);
+    deboubceTimer = setTimeout(() => {
+      console.info('log event')
+      track('Model Solved', {
+        uptime,
+      })
+    }, DEBOUNCE_EVENT_MS)
+  }
+
   return model;
 }
 
