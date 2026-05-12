@@ -1,17 +1,17 @@
-import CircCircFull from "./CircCircFull.svg";
-import CircCircShtr from "./CircCircShtr.svg";
-import CircFull from "./CircFull.svg";
-import Cylinder from "./Cylinder.svg";
-import IBeam from "./IBeam.svg";
-import IFull from "./IFull.svg";
-import IShtr from "./IShtr.svg";
-import IShtr2 from "./IShtr2.svg";
-import Sqw from "./Sqw.svg";
-import SqwFull from "./SqwFull.svg";
-import SqwSqwFull from "./SqwSqwFull.svg";
-import SqwTube from "./SqwTube.svg";
-import Tube from "./Tube.svg";
-import Custom from "./Custom.svg";
+import CircCircFull from "./CircCircFull.svg?component";
+import CircCircShtr from "./CircCircShtr.svg?component";
+import CircFull from "./CircFull.svg?component";
+import Cylinder from "./Cylinder.svg?component";
+import IBeam from "./IBeam.svg?component";
+import IFull from "./IFull.svg?component";
+import IShtr from "./IShtr.svg?component";
+import IShtr2 from "./IShtr2.svg?component";
+import Sqw from "./Sqw.svg?component";
+import SqwFull from "./SqwFull.svg?component";
+import SqwSqwFull from "./SqwSqwFull.svg?component";
+import SqwTube from "./SqwTube.svg?component";
+import Tube from "./Tube.svg?component";
+import Custom from "./Custom.svg?component";
 
 export {
   CircCircFull,

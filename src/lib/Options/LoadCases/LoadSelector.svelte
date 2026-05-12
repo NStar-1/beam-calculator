@@ -2,9 +2,9 @@
   import { AnchorPoint } from "$lib/store";
   import { t } from "$lib/translations";
   import Button from "@smui/button";
-  import IconLeftSide from "$lib/assets/icons/leftSide.svg";
-  import IconRightSide from "$lib/assets/icons/rightSide.svg";
-  import IconMiddlePoint from "$lib/assets/icons/middlePoint.svg";
+  import IconLeftSide from "$lib/assets/icons/leftSide.svg?component";
+  import IconRightSide from "$lib/assets/icons/rightSide.svg?component";
+  import IconMiddlePoint from "$lib/assets/icons/middlePoint.svg?component";
 
   export let selected: AnchorPoint = AnchorPoint.START;
 </script>

@@ -4,8 +4,8 @@
   import Icon from "@smui/select/icon";
   import DayIcon from "$lib/assets/day.svelte";
   import NightIcon from "$lib/assets/night.svelte";
-  import BeamCalc from "$lib/assets/Beam Calculator.svg";
-  import IconColor from "$lib/assets/IconColor.svg";
+  import BeamCalc from "$lib/assets/Beam Calculator.svg?component";
+  import IconColor from "$lib/assets/IconColor.svg?component";
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";

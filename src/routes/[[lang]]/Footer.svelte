@@ -1,8 +1,8 @@
 <script>
   import { Separator } from "@smui/list";
   import { t, locale } from "$lib/translations";
-  import BeamCalc from "$lib/assets/Beam Calculator.svg";
-  import LogoGrey from "$lib/assets/LogoGrey.svg";
+  import BeamCalc from "$lib/assets/Beam Calculator.svg?component";
+  import LogoGrey from "$lib/assets/LogoGrey.svg?component";
 </script>
 
 <div class="footer-wrapper">
