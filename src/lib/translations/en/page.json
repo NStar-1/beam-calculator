@@ -2,7 +2,7 @@
   "main": {
     "title": "Beam Calculator",
     "desc": "Static structural analysis of simple 2d frames based on Frame3DD",
-    "helpText": "This online tool can compute deflections, reactions, internal element forces of two dimensional elastic structures using direct stiffness and mass assembly. You can choose from multiple beam configurations, profiles and materials. Also you can add any number of point loads. This software generates extensive output, thankfully to a Frame3DD solver."
+    "helpText": "This free online calculator can solve various beam loadin problems, such as cantilever beam, roller and pin supports with any number of point loads. At your disposal are number of materials and beam cross sections, includin custom ones. Results would include deftion, reaction, internal element forces, etc. The calculator uses advanced structural analysis kernel Frame3DD that guarantees correctness and precision."
   },
   "cookieConsent": {
     "title": "Cookies Consent",
