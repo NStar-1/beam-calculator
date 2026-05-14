@@ -58,12 +58,12 @@ export type Profile = CylindricalProfile &
   IBeamProfile;
 
 export type CylindricalProfile = {
-  outerRadius: number;
+  outerDiameter: number;
 };
 
 export type RoundTubeProfile = {
-  outerRadius: number;
-  innerRadius: number;
+  outerDiameter: number;
+  innerDiameter: number;
 };
 
 export type RectangularProfile = {
@@ -123,7 +123,7 @@ export const LengthUnits = [
   "m",
   "in",
   "ft",
-]satisfies ReadonlyArray<Length>;
+] satisfies ReadonlyArray<Length>;
 
 export const cookieConsent = persisted('cookies-preferences', {
   initialized: false,
@@ -138,7 +138,7 @@ export const ForceUnits = [
   "newtons",
   "kgf",
   "lbf",
-]satisfies ReadonlyArray<Force>;
+] satisfies ReadonlyArray<Force>;
 export const forceUnit = writable<Force>("newtons");
 
 export const isPhone = writable(false);
@@ -150,8 +150,8 @@ export const length = writable(1000);
 
 export const profileType = writable<ProfileType>(ProfileType.CYLINDRICAL);
 export const profileData = writable<Profile>({
-  outerRadius: 10,
-  innerRadius: 8,
+  outerDiameter: 10,
+  innerDiameter: 8,
   height: 10,
   width: 20,
   thickness: 3,
@@ -200,8 +200,8 @@ const updateProfile = function() {
   profile.set(calculate(get(profileData)));
 
   const {
-    outerRadius,
-    innerRadius,
+    outerDiameter,
+    innerDiameter,
     thickness,
     height,
     width,
@@ -212,10 +212,10 @@ const updateProfile = function() {
 
   switch (get(profileType)) {
     case ProfileType.CYLINDRICAL:
-      profileInfo.set(`r=${outerRadius}`);
+      profileInfo.set(`d=${outerDiameter}`);
       break;
     case ProfileType.ROUND_TUBE:
-      profileInfo.set(`ri=${innerRadius}, ro=${outerRadius}`);
+      profileInfo.set(`di=${innerDiameter}, do=${outerDiameter}`);
       break;
     case ProfileType.RECTANGLE:
       profileInfo.set(`h=${height}, w=${width}`);

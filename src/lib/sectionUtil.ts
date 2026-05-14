@@ -9,14 +9,14 @@ import type {
 
 // From http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html
 export function roundTube({
-  innerRadius: ri,
-  outerRadius: ro,
+  innerDiameter: di,
+  outerDiameter: do_,
 }: RoundTubeProfile): ProfileDescription {
-  const Ax = Math.PI * (ro * ro - ri * ri);
-  const rio = ri / ro;
+  const Ax = Math.PI * (do_ * do_ - di * di) / 4;
+  const rio = di / do_;
   const Asy = Ax / (0.54414 + 2.97294 * rio - 1.51899 * rio * rio);
   const Asz = Asy;
-  const Jx = (ro ** 4 - ri ** 4) * Math.PI / 64;
+  const Jx = (do_ ** 4 - di ** 4) * Math.PI / 32;
   const Iy = Jx / 2;
   const Iz = Iy;
 
@@ -25,12 +25,12 @@ export function roundTube({
 
 // From http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html
 export function cylindrical({
-  outerRadius: ro,
+  outerDiameter: d,
 }: CylindricalProfile): ProfileDescription {
-  const Ax = Math.PI * ro * ro;
+  const Ax = Math.PI * d * d / 4;
   const Asy = Ax;
   const Asz = Asy;
-  const Jx = (ro ** 4) * Math.PI  / 64;
+  const Jx = d ** 4 * Math.PI / 32;
   const Iy = Jx / 2;
   const Iz = Iy;
 

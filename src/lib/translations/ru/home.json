@@ -23,9 +23,9 @@
     },
     "profile": {
       "title": "Профиль",
-      "outerRadius": "Внешний радиус",
-      "innerRadius": "Внутренний радиус",
-      "radius": "Радиус",
+      "outerDiameter": "Внешний диаметр",
+      "innerDiameter": "Внутренний диаметр",
+      "diameter": "Диаметр",
       "height": "Высота",
       "width": "Ширина",
       "thickness": "Толщина",
