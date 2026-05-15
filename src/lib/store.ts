@@ -54,7 +54,7 @@ export const profileNamesLnKeys = {
 // similar profiles
 export type Profile = CylindricalProfile &
   RoundTubeProfile &
-  HollowRectangularProfile &
+  RectangularTubeProfile &
   IBeamProfile;
 
 export type CylindricalProfile = {
@@ -71,18 +71,18 @@ export type RectangularProfile = {
   height: number;
 };
 
-export type HollowRectangularProfile = Partial<{
-  width: number;
-  height: number;
+export type RectangularTubeProfile = RectangularProfile & {
   thickness: number;
-}>;
+};
 
-export type IBeamProfile = Partial<{
+export type PartialProfileData = Partial<Profile>;
+
+export type IBeamProfile = {
   width: number;
   depth: number;
   flangeThickness: number;
   webThickness: number;
-}>;
+};
 
 export type TBeamProfile = Partial<{
   width: number;

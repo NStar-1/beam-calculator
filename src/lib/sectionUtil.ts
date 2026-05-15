@@ -1,9 +1,9 @@
 import type {
   CylindricalProfile,
-  HollowRectangularProfile,
   IBeamProfile,
   ProfileDescription,
   RectangularProfile,
+  RectangularTubeProfile,
   RoundTubeProfile,
 } from "./store";
 
@@ -39,18 +39,16 @@ export function cylindrical({
 
 // From http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html
 export function rectangular({
-  width: a, height: b,
+  height: a, width: b,
 }: RectangularProfile): ProfileDescription {
   const Ax = a * b;
-  const Asy = Ax * 5 / 6;
+  const Asy = Ax * 2 / 3;
   const Asz = Asy;
-  // FIXME: 'v' is stands for Poisson ratio, need to research how to pick correct value, see http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html#structuralmodeling
-  const v = 0.25;
-  //const Asy = Ax * (5 + 5 * v) / (6 + 5 * v);
-  //const Asz = Asy;
-  // BUG: yeah yeah, I know that I studied math for 5 years... 
-  const Jx = Math.min(a, b) * Math.max(a, b) ** 3 / 12;
-  const Iy = (1 / 12) * (a * b** 3);
+  const longSide = Math.max(a, b);
+  const shortSide = Math.min(a, b);
+  const sideRatio = shortSide / longSide;
+  const Jx = (1 / 3) * longSide * shortSide ** 3 * (1 - 0.63 * sideRatio + 0.052 * sideRatio ** 5);
+  const Iy = (1 / 12) * (a * b ** 3);
   const Iz = (1 / 12) * (b * a ** 3);
 
   return { Ax, Asy, Asz, Jx, Iy, Iz };
@@ -58,8 +56,8 @@ export function rectangular({
 
 // From http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html
 export function rectangularTube({
-  width: a, height: b, thickness: t,
-}: HollowRectangularProfile): ProfileDescription {
+  height: a, width: b, thickness: t,
+}: RectangularTubeProfile): ProfileDescription {
   const Ax = a * b - (a - 2 * t) * (b - 2 * t);
   if (a === b) {
     const Asy = Ax / (2.39573 - 0.25009 * (t / b) - 7.89675 * Math.pow(t / b, 2));
