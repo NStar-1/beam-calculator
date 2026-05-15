@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { cylindrical, rectangular, rectangularTube, roundTube } from "./sectionUtil";
+import { astmWideFlangeBeams } from "./hbeams-astm";
+import { cylindrical, iBeam, rectangular, rectangularTube, roundTube } from "./sectionUtil";
 
 const expectSectionValue = (actual: number, expected: number) => {
   expect(actual).toBeCloseTo(expected, 10);
@@ -11,6 +12,14 @@ const expectSectionValueWithin = (
   tolerance: number,
 ) => {
   expect(Math.abs(actual - expected)).toBeLessThanOrEqual(tolerance);
+};
+
+const expectSectionRelativeErrorWithin = (
+  actual: number,
+  expected: number,
+  tolerance: number,
+) => {
+  expect(Math.abs(actual - expected) / expected).toBeLessThanOrEqual(tolerance);
 };
 
 describe("roundTube", () => {
@@ -103,4 +112,54 @@ describe("rectangularTube", () => {
     expectSectionValue(section.Iz, 2778.666666666667);
     expect(section.Iz).toBeGreaterThan(section.Iy);
   });
+});
+
+describe("iBeam", () => {
+  it("maps app depth to Iz so vertical bending is depth-sensitive", () => {
+    const section = iBeam({
+      depth: 20,
+      width: 10,
+      flangeThickness: 2,
+      webThickness: 1,
+    });
+
+    // Independently evaluated from Frame3DD I-section formulas with app depth
+    // treated as the vertical y dimension:
+    // A = bd - (d - 2t)(b - w)
+    // Jx = 1 / 3 * (2bt^3 + dw^3)
+    // Iz = 1 / 12 * (bd^3 - (b - w)(d - 2t)^3)
+    // Iy = 1 / 12 * (2tb^3 + (d - 2t)w^3)
+    expectSectionValue(section.Ax, 56);
+    expectSectionValue(section.Asy, 20);
+    expectSectionValue(section.Asz, 32.8);
+    expectSectionValue(section.Jx, 60);
+    expectSectionValue(section.Iy, 334.666666666667);
+    expectSectionValue(section.Iz, 3594.666666666667);
+    expect(section.Iz).toBeGreaterThan(section.Iy);
+  });
+
+  it.each(astmWideFlangeBeams)(
+    "matches ASTM W-shape catalog values for %s",
+    (
+      _name,
+      area,
+      depth,
+      width,
+      flangeThickness,
+      webThickness,
+      strongAxisInertia,
+      weakAxisInertia,
+    ) => {
+      const section = iBeam({
+        depth,
+        width,
+        flangeThickness,
+        webThickness,
+      });
+
+      expectSectionRelativeErrorWithin(section.Ax, area, 0.035);
+      expectSectionRelativeErrorWithin(section.Iz, strongAxisInertia, 0.04);
+      expectSectionRelativeErrorWithin(section.Iy, weakAxisInertia, 0.01);
+    },
+  );
 });

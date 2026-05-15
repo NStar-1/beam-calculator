@@ -96,13 +96,12 @@ export function rectangularTube({
 export function iBeam({
   depth: d, width: b, flangeThickness: t, webThickness: w,
 }: IBeamProfile): ProfileDescription {
-  console.log(d, b, t, w);
   const Ax = b * d - (d - 2 * t) * (b - w);
-  const Asy = 1.64 * b * t;
-  const Asz = d * w;
+  const Asy = d * w;
+  const Asz = 1.64 * b * t;
   const Jx = (1 / 3) * (2 * b * Math.pow(t, 3) + d * Math.pow(w, 3));
-  const Iy = (1 / 12) * (b * Math.pow(d, 3) - (b - w) * Math.pow(d - 2 * t, 3));
-  const Iz = (1 / 12) * (2 * t * Math.pow(b, 3) + (d - 2 * t) * Math.pow(w, 3));
+  const Iy = (1 / 12) * (2 * t * Math.pow(b, 3) + (d - 2 * t) * Math.pow(w, 3));
+  const Iz = (1 / 12) * (b * Math.pow(d, 3) - (b - w) * Math.pow(d - 2 * t, 3));
 
   return { Ax, Asy, Asz, Jx, Iy, Iz };
 }
