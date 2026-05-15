@@ -86,9 +86,10 @@
   },
   "footer": {
     "community": {
-      "title": "Community",
       "about": "About",
-      "github": "GitHub Repo"
+      "changelog": "Changelog",
+      "github": "GitHub Repo",
+      "title": "Community"
     },
     "help": {
       "title": "Help",

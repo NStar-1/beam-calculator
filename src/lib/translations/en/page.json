@@ -11,5 +11,9 @@
     "youCanChange": "You can change your choice at any time at",
     "accept": "Accept",
     "reject": "Reject"
+  },
+  "changelog": {
+    "title": "Changelog",
+    "description": "Recent user-facing Beam Calculator changes and fixes."
   }
 }

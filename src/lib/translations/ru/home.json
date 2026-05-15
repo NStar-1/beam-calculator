@@ -86,9 +86,10 @@
   },
   "footer": {
     "community": {
-      "title": "Сообщество",
       "about": "О нас",
-      "github": "GitHub репозиторий"
+      "changelog": "Список изменений",
+      "github": "GitHub репозиторий",
+      "title": "Сообщество"
     },
     "help": {
       "title": "Помощь",
