@@ -12,7 +12,7 @@
     "smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
     "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark",
     "test": "vitest",
-    "postbuild": "npx svelte-sitemap --domain https://beamcalc.net --ignore 'undefined/**'"
+    "postbuild": "npx svelte-sitemap --domain https://beamcalc.net --ignore 'index.html'"
   },
   "devDependencies": {
     "@material/elevation": "^14.0.0",

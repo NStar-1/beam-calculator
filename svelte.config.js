@@ -3,6 +3,16 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import lang from './src/lib/translations/lang.js';
 
 const supportedLocales = Object.keys(lang);
+const localizedRoutes = [
+  '',
+  '/about',
+  '/changelog',
+  '/contact',
+  '/faq',
+  '/howto',
+  '/privacy-policy',
+  '/terms-of-service',
+];
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -26,7 +36,12 @@ const config = {
       appDir: 'internal',
     }),
     prerender: {
-      entries: supportedLocales.reduce((acc, locale) => [...acc, `/${locale}`/*, `/${locale}/404` */], ['*']),
+      entries: [
+        '/',
+        ...supportedLocales.flatMap((locale) =>
+          localizedRoutes.map((route) => `/${locale}${route}`)
+        ),
+      ],
     }
     //paths: {
     //  base: "/beam-calculator",
