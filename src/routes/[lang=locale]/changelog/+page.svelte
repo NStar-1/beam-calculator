@@ -5,16 +5,16 @@
 </script>
 
 <svelte:head>
-  <title>{$t("changelog.title")}</title>
+  <title>{$t("page.changelog.title")}</title>
   <meta
     name="description"
-    content={$t("changelog.description")}
+    content={$t("page.changelog.description")}
   />
 </svelte:head>
 
 <main class="changelog">
   <header>
-    <h1>{$t("changelog.title")}</h1>
+    <h1>{$t("page.changelog.title")}</h1>
   </header>
 
   <!--
