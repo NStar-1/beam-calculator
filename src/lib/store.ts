@@ -241,6 +241,10 @@ export enum FixationEnum {
   PIN = 3,
 }
 
+export type StructuralMode = "1d" | "2d" | "3d";
+
+export const structuralMode = writable<StructuralMode>("1d");
+
 export type BeamEnd = {
   isFixed: FixationEnum;
 };

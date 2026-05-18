@@ -17,6 +17,25 @@ Localized routes live under `src/routes/[lang=locale]`.
 Supported locales come from `src/lib/translations/lang.js`.
 Static prerender entries are configured in `svelte.config.js`.
 
+## Structural Modes
+
+The product is expected to support `1d`, `2d`, and `3d` structural modes over
+time. Only 1D is available today, and the UI should keep that mode implicit for
+users until higher-dimensional modes exist.
+
+Keep mode concepts explicit in code where they clarify behavior. In 1D mode,
+tailor the UX to the common beam workflow instead of exposing every Frame3DD
+degree of freedom by default.
+
+For 1D result tables, `src/lib/Ggraphic/Info.svelte` renders
+`src/lib/Ggraphic/ResultTable.svelte`. Displacements and reactions should
+primarily show the beam-relevant values. Hide `z`, `xx`, and `yy` columns when
+they are all zero. If any hidden-by-default component is non-zero, treat it as a
+data/model warning: log it with `console.error`, show the value in the table,
+and make the value visually obvious, for example red and bold. The `x`
+component is expected to be zero in most 1D simulations but is not an error when
+non-zero, so prefer keeping it visible unless a clearer design is chosen.
+
 ## Sitemap
 
 `npm run build` runs `scripts/generate-sitemap.js` via `postbuild`.

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { t } from "$lib/translations";
   import { fixations } from "$lib/fixations";
-  import convert from "convert";
   import {
     length,
     firstPoint,
@@ -11,8 +10,9 @@
     results,
     lengthUnit,
     forceUnit,
+    structuralMode,
   } from "$lib/store";
-  import Value from "./Value.svelte";
+  import ResultTable from "./ResultTable";
 
   $: lengthUnitName = $t("units." + $lengthUnit);
   $: leftSideFixation = fixations.find((d) => d.value === $firstPoint.isFixed);
@@ -112,100 +112,24 @@
   <details open>
     <summary class="h3">{$t("results.resultData")}:</summary>
     <section>
-      <details open>
-        <summary class="h4"
-          >{$t("results.displacements")} ({lengthUnitName}):</summary
-        >
-        <table>
-          <thead>
-            <tr>
-              <th class="border">#</th>
-              <th>x</th>
-              <th>y</th>
-              <th class="border">z</th>
-              <th>xx</th>
-              <th>yy</th>
-              <th>zz<br /></th>
-            </tr>
-          </thead>
-          <tbody>
-            {#if $results?.D}
-              {#each $results.D as d, idx}
-                <tr>
-                  <td class="border">{idx}</td>
-                  <td><Value value={convert(d.x, "mm").to($lengthUnit)} /></td>
-                  <td><Value value={convert(d.y, "mm").to($lengthUnit)} /></td>
-                  <td class="border"
-                    ><Value value={convert(d.z, "mm").to($lengthUnit)} /></td
-                  >
-                  <td
-                    ><Value
-                      value={convert(d.xx, "radian").to("degrees")}
-                    />°</td
-                  >
-                  <td
-                    ><Value
-                      value={convert(d.yy, "radian").to("degrees")}
-                    />°</td
-                  >
-                  <td
-                    ><Value
-                      value={convert(d.zz, "radian").to("degrees")}
-                    />°</td
-                  >
-                  <br />
-                </tr>
-              {/each}
-            {/if}
-          </tbody>
-        </table>
-      </details>
-      <details open>
-        <summary class="h4"
-          >{$t("results.reactions")} ({forceUnitName}):</summary
-        >
-        <table>
-          <thead>
-            <tr>
-              <th class="border">#</th>
-              <th>x</th>
-              <th>y</th>
-              <th class="border">z</th>
-              <th>xx</th>
-              <th>yy</th>
-              <th>zz<br /></th>
-            </tr>
-          </thead>
-          <tbody>
-            {#if $results?.R}
-              {#each $results.R as d, idx}
-                <tr>
-                  <td class="border">{idx}</td>
-                  <td
-                    ><Value
-                      value={convert(d.x, "newtons").to($forceUnit)}
-                    /></td
-                  >
-                  <td
-                    ><Value
-                      value={convert(d.y, "newtons").to($forceUnit)}
-                    /></td
-                  >
-                  <td class="border"
-                    ><Value
-                      value={convert(d.z, "newtons").to($forceUnit)}
-                    /></td
-                  >
-                  <td><Value value={d.xx} /></td>
-                  <td><Value value={d.yy} /></td>
-                  <td><Value value={d.zz} /></td>
-                  <br />
-                </tr>
-              {/each}
-            {/if}
-          </tbody>
-        </table>
-      </details>
+      <ResultTable
+        title={$t("results.displacements")}
+        unitName={lengthUnitName}
+        kind="displacement"
+        mode={$structuralMode}
+        rows={$results?.D}
+        lengthUnit={$lengthUnit}
+        forceUnit={$forceUnit}
+      />
+      <ResultTable
+        title={$t("results.reactions")}
+        unitName={forceUnitName}
+        kind="reaction"
+        mode={$structuralMode}
+        rows={$results?.R}
+        lengthUnit={$lengthUnit}
+        forceUnit={$forceUnit}
+      />
     </section>
   </details>
 </div>
@@ -213,6 +137,7 @@
 <style lang="scss">
   .root {
     margin-left: 2rem;
+    margin-bottom: 1rem;
     font-size: 18px;
   }
 
@@ -231,7 +156,6 @@
     cursor: pointer;
   }
 
-  h3,
   .h3,
   .h4 {
     letter-spacing: 0.1rem;
@@ -259,22 +183,8 @@
     border-collapse: collapse;
   }
 
-  td,
-  th {
+  td {
     padding-right: 1rem;
     text-align: right;
-  }
-
-  thead {
-    border-bottom: 2px solid currentColor;
-  }
-
-  .border {
-    border-right: 2px solid currentColor;
-    padding-right: 0.5rem;
-    & + td,
-    & + th {
-      padding-left: 0.5rem;
-    }
   }
 </style>
