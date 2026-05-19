@@ -18,16 +18,26 @@
   </header>
 
   <!--
-    Changelog update marker: cac1bcc
+    Changelog update marker: de14e94
     Future LLM instructions:
     - Treat this hash as the last commit already reviewed for this static changelog.
     - On the next changelog update, inspect commits after this marker with:
-      git log cac1bcc..HEAD --date=short --pretty=format:"%h%x09%ad%x09%s"
+      git log de14e94..HEAD --date=short --pretty=format:"%h%x09%ad%x09%s"
     - Add only user-facing changes worth publishing; skip internal cleanup,
       editor setup, dependency churn, and commits with no visible product impact.
     - Place commit links beside the specific bullet they support using CommitLink.
     - After updating entries, replace this marker with the current HEAD hash.
   -->
+  <ChangelogItem date="2026-05-18" title="Simplified 1D result tables">
+    <ul>
+      <li>
+        Focused displacement and reaction tables on beam-relevant values in 1D
+        mode, hiding normally zero out-of-plane components unless unexpected
+        non-zero results need attention. <CommitLink hash="4e3dc9c" />
+      </li>
+    </ul>
+  </ChangelogItem>
+
   <ChangelogItem
     date="2026-05-15"
     title="Corrected cross-section calculations for common profiles"
