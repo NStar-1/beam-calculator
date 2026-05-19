@@ -27,8 +27,8 @@ Keep mode concepts explicit in code where they clarify behavior. In 1D mode,
 tailor the UX to the common beam workflow instead of exposing every Frame3DD
 degree of freedom by default.
 
-For 1D result tables, `src/lib/Ggraphic/Info.svelte` renders
-`src/lib/Ggraphic/ResultTable.svelte`. Displacements and reactions should
+For 1D result tables, `src/lib/graphics/Info.svelte` renders
+`src/lib/graphics/ResultTable.svelte`. Displacements and reactions should
 primarily show the beam-relevant values. Hide `z`, `xx`, and `yy` columns when
 they are all zero. If any hidden-by-default component is non-zero, treat it as a
 data/model warning: log it with `console.error`, show the value in the table,

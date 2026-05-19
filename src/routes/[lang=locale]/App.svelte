@@ -1,5 +1,5 @@
 <script>
-  import Graph from "$lib/Ggraphic/index.svelte";
+  import Graph from "$lib/graphics/index.svelte";
   import Options from "$lib/Options/Options.svelte";
   import { subscribeAutoRefresh } from "$lib/store";
   import { onMount } from "svelte";
