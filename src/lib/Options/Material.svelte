@@ -1,7 +1,7 @@
 <script lang="ts">
   import { material } from "../store";
   import TextField from "@smui/textfield";
-  import Icon from '@smui/textfield/icon';
+  import Icon from "@smui/textfield/icon";
   import { t, locale } from "$lib/translations";
   import materials from "../materials";
   import MyTreeView from "$lib/MyTreeView.svelte";
@@ -35,7 +35,7 @@
       const val = {
         id: "" + idx,
         // Use self name as fallback
-        text: $t(`materials.${d.name}`, {default: d.name}),
+        text: $t(`materials.${d.name}`, { default: d.name }),
         children: false,
       };
       group.push(val);
@@ -46,7 +46,13 @@
   // Enable reactive rerender for $t change
   $: data = groupByCategory(materials, $locale);
 
-  let materialId: string | undefined = "0";
+  /** Returns material index in materials store */
+  function getMaterialId(name: string) {
+    const idx = materials.findIndex((d) => d.name === name);
+    return idx === -1 ? undefined : "" + idx;
+  }
+
+  let materialId: string | undefined = getMaterialId($material.name);
 
   let isDirty = false;
 
@@ -67,37 +73,37 @@
 </script>
 
 <div class="container">
-<TextField
-  type="number"
-  label={`${$t("results.density")}`}
-  on:input={() => (isDirty = true)}
-  bind:value={$material.density}
-/>
-<TextField
-  type="number"
-  label={`${$t("results.eModulus")} (E, ${$t("units.mpa")})`}
-  on:input={() => (isDirty = true)}
-  bind:value={$material.E}
-/>
-<TextField
-  type="number"
-  label={`${$t("results.gModulus")} (G, ${$t("units.mpa")})`}
-  on:input={() => (isDirty = true)}
-  bind:value={$material.G}
-/>
-<TextField
-  variant="outlined"
-  label={$t("options.material.filter")}
-  bind:value={query}
->
-  <Icon slot="leadingIcon" class="material-icons">search</Icon>
-</TextField>
-<MyTreeView
-  search={query}
-  {data}
-  on:select={() => (isDirty = false)}
-  bind:activeId={materialId}
-/>
+  <TextField
+    type="number"
+    label={`${$t("results.density")}`}
+    on:input={() => (isDirty = true)}
+    bind:value={$material.density}
+  />
+  <TextField
+    type="number"
+    label={`${$t("results.eModulus")} (E, ${$t("units.mpa")})`}
+    on:input={() => (isDirty = true)}
+    bind:value={$material.E}
+  />
+  <TextField
+    type="number"
+    label={`${$t("results.gModulus")} (G, ${$t("units.mpa")})`}
+    on:input={() => (isDirty = true)}
+    bind:value={$material.G}
+  />
+  <TextField
+    variant="outlined"
+    label={$t("options.material.filter")}
+    bind:value={query}
+  >
+    <Icon slot="leadingIcon" class="material-icons">search</Icon>
+  </TextField>
+  <MyTreeView
+    search={query}
+    {data}
+    on:select={() => (isDirty = false)}
+    bind:activeId={materialId}
+  />
 </div>
 
 <style lang="scss">

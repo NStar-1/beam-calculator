@@ -98,6 +98,83 @@
     "categories": ["Generic"]
   },
   {
+    "name": "Construction steel",
+    "density": 7850,
+    "E": 200000,
+    "G": 77000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Stainless steel",
+    "density": 8000,
+    "E": 193000,
+    "G": 74000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "Tool steel",
+    "density": 7700,
+    "E": 207000,
+    "G": 80000,
+    "categories": ["Generic"]
+  },
+  {
+    "name": "ASTM A36",
+    "density": 7850,
+    "E": 200000,
+    "G": 77000,
+    "categories": ["Western", "Steels", "Structural carbon steel"]
+  },
+  {
+    "name": "AISI 1018",
+    "density": 7850,
+    "E": 205000,
+    "G": 80000,
+    "categories": ["Western", "Steels", "Mild low-carbon steel"]
+  },
+  {
+    "name": "ASTM A572 Grade 50",
+    "density": 7850,
+    "E": 200000,
+    "G": 77000,
+    "categories": ["Western", "Steels", "High-strength low-alloy steel"]
+  },
+  {
+    "name": "AISI 4140",
+    "density": 7850,
+    "E": 205000,
+    "G": 80000,
+    "categories": ["Western", "Steels", "Chromium-molybdenum alloy steel"]
+  },
+  {
+    "name": "AISI 304",
+    "density": 8000,
+    "E": 193000,
+    "G": 74000,
+    "categories": ["Western", "Steels", "Austenitic stainless steel"]
+  },
+  {
+    "name": "AISI 316",
+    "density": 8000,
+    "E": 193000,
+    "G": 74000,
+    "categories": ["Western", "Steels", "Austenitic stainless steel"]
+  },
+  {
+    "name": "AISI 1095",
+    "density": 7850,
+    "E": 205000,
+    "G": 80000,
+    "categories": ["Western", "Steels", "High-carbon spring steel"]
+  },
+  {
+    "name": "AISI D2",
+    "density": 7700,
+    "E": 207000,
+    "G": 80000,
+    "categories": ["Western", "Steels", "Cold-work tool steel"]
+  },
+  {
     "name": "Iron (Cast)",
     "density": 7200,
     "E": 126500,

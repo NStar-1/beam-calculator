@@ -163,7 +163,7 @@ export const profileData = writable<Profile>({
 // TODO add typing
 //export const material_id = writable<number>(1);
 
-export const material = writable<Material>(materials[0]);
+export const material = writable<Material>(materials.find((d) => d.name === "Construction steel")!);
 
 export type ProfileDescription = {
   // Cross-section areas including shear
@@ -497,7 +497,6 @@ export async function solveModel2(): Promise<InputScope> {
   const mat = get(material);
   model.material.E = mat.E;
   model.material.G = mat.G;
-  // FIXME: not sure
   model.material.density = mat.density / 1_000_000;
 
   model.profile = get(profile);
