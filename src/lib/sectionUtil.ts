@@ -5,7 +5,7 @@ import type {
   ProfileDescription,
   RectangularProfile,
   RoundTubeProfile,
-} from "./store";
+} from "./model";
 
 // From http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html
 export function roundTube({

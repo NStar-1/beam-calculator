@@ -4,7 +4,7 @@ import {
   type FixationType,
   type BeamEnd,
   type PointLoad,
-} from "./store";
+} from "./model";
 
 export function shiftNode(el: any) {
   const res = { ...el };

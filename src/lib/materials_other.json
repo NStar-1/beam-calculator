@@ -4,174 +4,199 @@
     "density": 2695,
     "E": 69000,
     "G": 24000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 390
   },
   {
     "name": "Aluminum Bronze",
     "density": 8200,
     "E": 110000,
     "G": 44000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 391
   },
   {
     "name": "Beryllium",
     "density": 1820,
     "E": 112500,
     "G": 110000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 392
   },
   {
     "name": "Beryllium Copper",
     "density": 8175,
     "E": 303800,
     "G": 145300,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 393
   },
   {
     "name": "Brass (60/40)",
     "density": 8500,
     "E": 125000,
     "G": 38500,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 394
   },
   {
     "name": "Brass (Red)",
     "density": 8746,
     "E": 120000,
     "G": 39000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 395
   },
   {
     "name": "Brass (Yellow)",
     "density": 8470,
     "E": 105000,
     "G": 35000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 396
   },
   {
     "name": "Bronze",
     "density": 8150,
     "E": 108000,
     "G": 44850,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 397
   },
   {
     "name": "Cadmium",
     "density": 8650,
     "E": 50000,
     "G": 18970,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 398
   },
   {
     "name": "Chromium",
     "density": 7190,
     "E": 279000,
     "G": 114540,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 399
   },
   {
     "name": "Cobalt",
     "density": 8900,
     "E": 211000,
     "G": 75000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 400
   },
   {
     "name": "Copper",
     "density": 8940,
     "E": 115000,
     "G": 43500,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 401
   },
   {
     "name": "Gold (24K) Pure",
     "density": 19300,
     "E": 78500,
     "G": 27000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 402
   },
   {
     "name": "Iron",
     "density": 7870,
     "E": 210000,
     "G": 50500,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 403
   },
   {
     "name": "Iron (Cast)",
     "density": 7200,
     "E": 126500,
     "G": 75000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 404
   },
   {
     "name": "Iron (Wrought)",
     "density": 7200,
     "E": 211000,
     "G": 82000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 405
   },
   {
     "name": "Lead",
     "density": 11350,
     "E": 16100,
     "G": 13248,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 406
   },
   {
     "name": "Magnesium",
     "density": 1740,
     "E": 45000,
     "G": 16491,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 407
   },
   {
     "name": "Nickel",
     "density": 8850,
     "E": 190000,
     "G": 80000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 408
   },
   {
     "name": "Platinum",
     "density": 21450,
     "E": 146900,
     "G": 276000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 409
   },
   {
     "name": "Silver",
     "density": 10500,
     "E": 74000,
     "G": 27800,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 410
   },
   {
     "name": "Tin",
     "density": 7300,
     "E": 43099,
     "G": 18000,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 411
   },
   {
     "name": "Titanium",
     "density": 4500,
     "E": 120200,
     "G": 41500,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 412
   },
   {
     "name": "Tungsten",
     "density": 19300,
     "E": 411000,
     "G": 162150,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 413
   },
   {
     "name": "Zinc",
     "density": 6920,
     "E": 82737,
     "G": 42090,
-    "categories": ["Generic"]
+    "categories": ["Generic"],
+    "id": 414
   }
 ]

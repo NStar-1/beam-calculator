@@ -3,7 +3,7 @@
   import TextField from "@smui/textfield";
   import Icon from '@smui/textfield/icon';
   import { t, locale } from "$lib/translations";
-  import materials from "../materials";
+  import { materials } from "../materials";
   import MyTreeView from "$lib/MyTreeView.svelte";
   import type { NodeConfig } from "inspire-tree";
 

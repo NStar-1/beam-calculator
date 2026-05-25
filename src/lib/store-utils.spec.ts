@@ -1,37 +1,21 @@
-import { describe, it, expect } from "vitest";
-import { isBeamPoint, isBeamEndForce } from "./store-utils";
-import { type BeamEnd, type PointLoad, FixationEnum, AnchorPoint } from "./store";
+import { describe, expect, it } from "vitest";
+import {
+  convertLoads,
+  deg2rad,
+  getLoadAbsPos,
+  rad2deg,
+  shiftNode,
+} from "./store-utils";
+import { AnchorPoint, type PointLoad } from "./model";
 
 const LENGTH = 1000;
-const beam: Array<BeamEnd> = [
-  {
-    id: 1,
-    isFixed: FixationEnum.FIXED,
-    x: 0,
-    y: 0,
-    z: 0,
-  },
-  {
-    id: 2,
-    isFixed: FixationEnum.NONE,
-    x: LENGTH,
-    y: 0,
-    z: 0,
-  },
-];
 
-/**
- * util to reduce copypasting of mandatory point load fields
- */
 const basePointLoad = new (class PointLoadUtil {
   #basePointLoad: PointLoad = {
-    node: -1,
-    type: "pointed",
     anchor: AnchorPoint.START,
     offset: 0,
     angle: 0,
-    load: 0,
-    loadValueType: "force",
+    value: 10,
   };
 
   with(modifiers: Partial<PointLoad>): PointLoad {
@@ -39,95 +23,63 @@ const basePointLoad = new (class PointLoadUtil {
   }
 })();
 
-describe("isBeamPoint", () => {
-  it("checks point is the same as the start point", () => {
-    expect(isBeamPoint(beam, beam[0])).toBe(beam[0]);
+describe("angle conversion", () => {
+  it("converts degrees to radians", () => {
+    expect(deg2rad(180)).toBeCloseTo(Math.PI);
+    expect(deg2rad(90)).toBeCloseTo(Math.PI / 2);
   });
 
-  it("checks point is the same as the end point", () => {
-    expect(isBeamPoint(beam, beam[1])).toBe(beam[1]);
-  });
-
-  it("checks point is placed at beam start", () => {
-    const point = {
-      id: 3,
-      isFixed: FixationEnum.NONE,
-      x: 0,
-      y: 0,
-      z: 0,
-    };
-    expect(isBeamPoint(beam, point)).toBe(beam[0]);
-  });
-
-  it("checks point is placed at beam end (pos = beam length)", () => {
-    const point = {
-      id: 3,
-      isFixed: FixationEnum.NONE,
-      x: LENGTH,
-      y: 0,
-      z: 0,
-    };
-    expect(isBeamPoint(beam, point)).toBe(beam[1]);
-  });
-
-  it("checks point is in between", () => {
-    const point = {
-      id: 3,
-      isFixed: FixationEnum.NONE,
-      x: LENGTH / 2,
-      y: 0,
-      z: 0,
-    };
-    expect(isBeamPoint(beam, point)).toBe(false);
+  it("converts radians to degrees", () => {
+    expect(rad2deg(Math.PI)).toBeCloseTo(180);
+    expect(rad2deg(Math.PI / 2)).toBeCloseTo(90);
   });
 });
 
-describe("isBeamEndForce", () => {
-  it("checks force applied to the start node", () => {
-    const pointLoad = basePointLoad.with({
-      offset: 0,
-      anchor: AnchorPoint.START,
-    });
-    expect(isBeamEndForce(beam, pointLoad)).toBe(beam[0]);
+describe("getLoadAbsPos", () => {
+  it("uses offset from the beam start", () => {
+    const load = basePointLoad.with({ anchor: AnchorPoint.START, offset: 125 });
+    expect(getLoadAbsPos(load, LENGTH)).toBe(125);
   });
 
-  it("checks force applied to the start node using offset", () => {
-    const pointLoad = basePointLoad.with({
-      offset: LENGTH,
-      anchor: AnchorPoint.END,
-    });
-    expect(isBeamEndForce(beam, pointLoad)).toBe(beam[0]);
+  it("uses offset from the beam end", () => {
+    const load = basePointLoad.with({ anchor: AnchorPoint.END, offset: 125 });
+    expect(getLoadAbsPos(load, LENGTH)).toBe(875);
   });
 
-  it("checks force applied to the end node", () => {
-    const pointLoad = basePointLoad.with({
-      offset: 0,
-      anchor: AnchorPoint.END,
+  it("ignores offset for middle anchor", () => {
+    const load = basePointLoad.with({ anchor: AnchorPoint.MIDDLE, offset: 125 });
+    expect(getLoadAbsPos(load, LENGTH)).toBe(500);
+  });
+});
+
+describe("convertLoads", () => {
+  it("maps point loads to axial and rotational load vectors", () => {
+    const loads = [
+      basePointLoad.with({ angle: 0, value: 10 }),
+      basePointLoad.with({ angle: Math.PI / 2, value: 20 }),
+    ];
+
+    const converted = convertLoads(loads);
+
+    expect(converted[0]).toEqual({
+      axial: [10, 0, 0],
+      number: 1,
+      rotational: [0, 0, 0],
     });
-    expect(isBeamEndForce(beam, pointLoad)).toBe(beam[1]);
+    expect(converted[1].axial[0]).toBeCloseTo(0);
+    expect(converted[1].axial[1]).toBeCloseTo(20);
+    expect(converted[1].axial[2]).toBe(0);
+    expect(converted[1].number).toBe(1);
+    expect(converted[1].rotational).toEqual([0, 0, 0]);
+  });
+});
+
+describe("shiftNode", () => {
+  it("decrements id when an element has an id and non-zero position", () => {
+    expect(shiftNode({ id: 5, x: 10 })).toEqual({ id: 4, x: 10 });
   });
 
-  it("checks force applied to the end node using offset", () => {
-    const pointLoad = basePointLoad.with({
-      offset: LENGTH,
-      anchor: AnchorPoint.START,
-    });
-    expect(isBeamEndForce(beam, pointLoad)).toBe(beam[1]);
-  });
-
-  it("checks force applied somewhere in between", () => {
-    const pointLoad = basePointLoad.with({
-      offset: LENGTH / 3,
-      anchor: AnchorPoint.START,
-    });
-    expect(isBeamEndForce(beam, pointLoad)).toBe(false);
-  });
-
-  it("checks force applied to middle exactly", () => {
-    const pointLoad = basePointLoad.with({
-      offset: 0,
-      anchor: AnchorPoint.MIDDLE,
-    });
-    expect(isBeamEndForce(beam, pointLoad)).toBe(false);
+  it("decrements node otherwise", () => {
+    expect(shiftNode({ node: 5, x: 0 })).toEqual({ node: 4, x: 0 });
   });
 });
