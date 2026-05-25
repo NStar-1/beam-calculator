@@ -20,29 +20,34 @@
   });
   let currentTheme = "light";
 
+  function applyTheme(theme) {
+    const link = document.getElementById("theme");
+    link?.setAttribute(
+      "href",
+      theme === "dark" ? "/smui-dark.css" : "/global-light.css"
+    );
+    document.body.className = theme;
+  }
+
   onMount(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      const link = document.getElementById("theme");
-      link?.setAttribute("href", "/smui-dark.css");
       currentTheme = "dark";
-      document.body.className = "dark"
       import("/node_modules/inspire-tree-dom/dist/inspire-tree-dark.min.css");
+    } else {
+      import("/node_modules/inspire-tree-dom/dist/inspire-tree-light.min.css");
     }
+    applyTheme(currentTheme);
   });
 
   function setTheme() {
-    const link = document.getElementById("theme");
     if (currentTheme == "light") {
-      link?.setAttribute("href", "/smui-dark.css");
       currentTheme = "dark";
-      document.body.className = "dark"
       import("/node_modules/inspire-tree-dom/dist/inspire-tree-dark.min.css");
     } else {
-      link?.setAttribute("href", "/global-light.css");
       currentTheme = "light";
-      document.body.className = "light"
       import("/node_modules/inspire-tree-dom/dist/inspire-tree-light.min.css");
     }
+    applyTheme(currentTheme);
   }
 </script>
 

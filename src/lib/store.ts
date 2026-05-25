@@ -14,6 +14,7 @@ import type { Material } from "./materials";
 import convert from "convert";
 import type { Force, Length } from "convert";
 import { convertLoads, deg2rad, getLoadAbsPos } from "./store-utils";
+import type { AnchorLinkModel, AnchorLinkProfile } from "./modelSerialization";
 import * as ProfileIcon from "$lib/assets/xsection";
 import {
   AnchorPoint,
@@ -451,6 +452,7 @@ const modelState = derived(
     forceUnit,
     loads,
     profileType,
+    profileData,
     profile,
     material,
     firstPoint,
@@ -463,8 +465,85 @@ const modelState = derived(
   }
 );
 
+function getSerializableProfile(): AnchorLinkProfile {
+  const data = get(profileData);
+  switch (get(profileType)) {
+    case ProfileType.CYLINDRICAL:
+      return {
+        profileType: ProfileType.CYLINDRICAL,
+        profileData: { outerRadius: data.outerRadius },
+      };
+    case ProfileType.ROUND_TUBE:
+      return {
+        profileType: ProfileType.ROUND_TUBE,
+        profileData: {
+          outerRadius: data.outerRadius,
+          innerRadius: data.innerRadius,
+        },
+      };
+    case ProfileType.RECTANGLE:
+      return {
+        profileType: ProfileType.RECTANGLE,
+        profileData: { width: data.width, height: data.height },
+      };
+    case ProfileType.RECTANGULAR_TUBE:
+      return {
+        profileType: ProfileType.RECTANGULAR_TUBE,
+        profileData: {
+          width: data.width,
+          height: data.height,
+          thickness: data.thickness,
+        },
+      };
+    case ProfileType.I_BEAM:
+      return {
+        profileType: ProfileType.I_BEAM,
+        profileData: {
+          width: data.width,
+          depth: data.depth,
+          flangeThickness: data.flangeThickness,
+          webThickness: data.webThickness,
+        },
+      };
+    case ProfileType.CUSTOM:
+      return {
+        profileType: ProfileType.CYLINDRICAL,
+        profileData: { outerRadius: data.outerRadius },
+      };
+  }
+}
+
+export function getSerializableModel(): AnchorLinkModel {
+  return {
+    length: get(length),
+    lengthUnit: get(lengthUnit),
+    forceUnit: get(forceUnit),
+    firstPoint: get(firstPoint),
+    lastPoint: get(lastPoint),
+    ...getSerializableProfile(),
+    material: get(material),
+    loads: get(loads),
+  };
+}
+
+export function applySerializableModel(model: AnchorLinkModel) {
+  length.set(model.length);
+  lengthUnit.set(model.lengthUnit);
+  forceUnit.set(model.forceUnit);
+  firstPoint.set(model.firstPoint);
+  lastPoint.set(model.lastPoint);
+  profileType.set(model.profileType);
+  profileData.update((current) => ({ ...current, ...model.profileData }));
+  material.set(model.material);
+  loads.set(model.loads);
+}
+
+export function subscribeModelChanges(callback: () => void) {
+  return modelState.subscribe(callback);
+}
+
 // FIXME this would fail if you try to subscribe Hermite
 // Probably, svelete(kit) executes code here on compile time
 export function subscribeAutoRefresh() {
-  modelState.subscribe(() => solveModel2());
+  return subscribeModelChanges(() => solveModel2());
 }

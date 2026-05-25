@@ -1,29 +1,38 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { isPhone, cookieConsent } from "$lib/store";
+  import { cookieConsent } from "$lib/store";
   import { browser } from "$app/environment";
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
   import CookiesConsent from "./CookiesConsent.svelte";
 
-  $: if ($cookieConsent.initialized) {
+  let canShowCookieConsent = false;
+
+  $: if (browser && $cookieConsent.initialized) {
     console.log(
       `Google Analytics ${$cookieConsent.hasConsent ? "enabled" : "disabled"}`
     );
-    gtag("consent", "update", {
+    (globalThis as any).gtag?.("consent", "update", {
       analytics_storage: $cookieConsent.hasConsent ? "granted" : "denied",
     });
   }
 
   // Plausible tracking/analytics
-  onMount(async () => {
-    if (!browser) return;
+  onMount(() => {
+    const cookieConsentTimer = window.setTimeout(() => {
+      canShowCookieConsent = true;
+    }, 0);
 
-    const { init } = await import("@plausible-analytics/tracker");
-    init({
-      domain: "beamcalc.net",
-      endpoint: "https://analytics.based.lt/api/event",
+    import("@plausible-analytics/tracker").then(({ init }) => {
+      init({
+        domain: "beamcalc.net",
+        endpoint: "https://analytics.based.lt/api/event",
+      });
     });
+
+    return () => {
+      window.clearTimeout(cookieConsentTimer);
+    };
   });
 
   //onMount(() => {
@@ -42,7 +51,7 @@
       </div>
     </div>
   </div>
-  {#if !$cookieConsent.initialized}
+  {#if canShowCookieConsent && !$cookieConsent.initialized}
     <CookiesConsent />
   {/if}
   <Footer />

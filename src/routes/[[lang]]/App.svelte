@@ -1,12 +1,93 @@
 <script>
   import Graph from "$lib/Ggraphic/index.svelte";
   import Options from "$lib/Options/Options.svelte";
-  import { subscribeAutoRefresh } from "$lib/store";
+  import {
+    applySerializableModel,
+    getSerializableModel,
+    solveModel2,
+    subscribeAutoRefresh,
+    subscribeModelChanges,
+  } from "$lib/store";
   import { onMount } from "svelte";
   import { t } from "$lib/translations";
 
+  function clearUrlHash() {
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${window.location.search}`
+    );
+  }
+
+  function replaceUrlHash(hash) {
+    if (window.location.hash === hash) return;
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${window.location.search}${hash}`
+    );
+  }
+
   onMount(() => {
-    subscribeAutoRefresh();
+    const initialHash = window.location.hash;
+    let disposed = false;
+    let isFirstUrlSync = true;
+    let shouldSkipFirstUrlSync = true;
+    let serializationModulePromise;
+    let unsubscribeUrlSync = () => {};
+    let unsubscribeAutoRefresh = () => {};
+
+    const getSerializationModule = () =>
+      (serializationModulePromise ??= import("$lib/modelSerialization"));
+
+    async function syncUrlHash() {
+      if (isFirstUrlSync && shouldSkipFirstUrlSync) {
+        isFirstUrlSync = false;
+        return;
+      }
+
+      isFirstUrlSync = false;
+      const { encodeAnchorLink } = await getSerializationModule();
+      if (disposed) return;
+
+      const encoded = encodeAnchorLink(getSerializableModel());
+      if (encoded.error) {
+        console.error("Failed to encode model into URL", encoded.message);
+        return;
+      }
+
+      replaceUrlHash(encoded.data);
+    }
+
+    async function initialize() {
+      if (initialHash) {
+        const { decodeAnchorLink } = await getSerializationModule();
+        if (disposed) return;
+
+        const decoded = decodeAnchorLink(initialHash);
+        if (decoded.error) {
+          alert(decoded.message);
+          clearUrlHash();
+        } else {
+          applySerializableModel(decoded.data);
+          shouldSkipFirstUrlSync = false;
+          solveModel2();
+        }
+      }
+
+      unsubscribeUrlSync = subscribeModelChanges(() => {
+        syncUrlHash();
+      });
+      unsubscribeAutoRefresh = subscribeAutoRefresh();
+    }
+
+    initialize();
+
+    return () => {
+      disposed = true;
+      unsubscribeUrlSync();
+      unsubscribeAutoRefresh();
+    };
   });
 </script>
 
