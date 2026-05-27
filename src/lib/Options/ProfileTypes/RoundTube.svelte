@@ -6,11 +6,11 @@
 
 <Textfield
   type="number"
-  label={$t("options.profile.outerRadius")}
-  bind:value={$profileData.outerRadius}
+  label={$t("options.profile.roundTube.outer")}
+  bind:value={$profileData.outerDiameter}
 />
 <Textfield
   type="number"
-  label={$t("options.profile.innerRadius")}
-  bind:value={$profileData.innerRadius}
+  label={$t("options.profile.roundTube.inner")}
+  bind:value={$profileData.innerDiameter}
 />

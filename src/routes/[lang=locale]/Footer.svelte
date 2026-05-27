@@ -1,8 +1,8 @@
 <script>
   import { Separator } from "@smui/list";
   import { t, locale } from "$lib/translations";
-  import BeamCalc from "$lib/assets/Beam Calculator.svg";
-  import LogoGrey from "$lib/assets/LogoGrey.svg";
+  import BeamCalc from "$lib/assets/Beam Calculator.svg?component";
+  import LogoGrey from "$lib/assets/LogoGrey.svg?component";
 </script>
 
 <div class="footer-wrapper">
@@ -15,6 +15,7 @@
       <div class="column">
         <p class="title">{$t("footer.community.title")}</p>
         <a href={`/${$locale}/about`}>{$t("footer.community.about")}</a>
+        <a href={`/${$locale}/changelog`}>{$t("footer.community.changelog")}</a>
         <a href="https://github.com/NStar-1/beam-calculator"
           >{$t("footer.community.github")}</a
         >
@@ -22,8 +23,8 @@
 
       <div class="column">
         <p class="title">{$t("footer.help.title")}</p>
-        <a href="/contact">{$t("footer.help.contact")}</a>
-        <a href="/faq">{$t("footer.help.faqs")}</a>
+        <a href={`/${$locale}/contact`}>{$t("footer.help.contact")}</a>
+        <a href={`/${$locale}/faq`}>{$t("footer.help.faqs")}</a>
       </div>
       <div class="column">
         <p class="title">{$t("footer.legal.title")}</p>
@@ -34,7 +35,7 @@
   </div>
   <Separator />
   <div class="under">
-    <p>© 2025 All Rights Reserved</p>
+    <p>© 2026 All Rights Reserved</p>
   </div>
 </div>
 

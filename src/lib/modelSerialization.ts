@@ -6,7 +6,7 @@ import {
   ProfileType,
   type BeamEnd,
   type CylindricalProfile,
-  type HollowRectangularProfile,
+  type RectangularTubeProfile,
   type IBeamProfile,
   type PointLoad,
   type RectangularProfile,
@@ -42,7 +42,7 @@ export type AnchorLinkProfile =
   | { profileType: ProfileType.RECTANGLE; profileData: RectangularProfile }
   | {
       profileType: ProfileType.RECTANGULAR_TUBE;
-      profileData: HollowRectangularProfile;
+      profileData: RectangularTubeProfile;
     }
   | { profileType: ProfileType.I_BEAM; profileData: IBeamProfile };
 
@@ -208,11 +208,11 @@ export function decodeAnchorLink(
 function writeProfile(writer: BinaryWriter, profile: AnchorLinkProfile) {
   switch (profile.profileType) {
     case ProfileType.CYLINDRICAL:
-      writer.writeF32(profile.profileData.outerRadius);
+      writer.writeF32(profile.profileData.outerDiameter);
       break;
     case ProfileType.ROUND_TUBE:
-      writer.writeF32(profile.profileData.outerRadius);
-      writer.writeF32(profile.profileData.innerRadius);
+      writer.writeF32(profile.profileData.outerDiameter);
+      writer.writeF32(profile.profileData.innerDiameter);
       break;
     case ProfileType.RECTANGLE:
       writer.writeF32(profile.profileData.width);
@@ -238,14 +238,14 @@ function readProfile(reader: BinaryReader): AnchorLinkProfile {
     case ProfileType.CYLINDRICAL:
       return {
         profileType,
-        profileData: { outerRadius: readFiniteF32(reader, "outer radius") },
+        profileData: { outerDiameter: readFiniteF32(reader, "outer diameter") },
       };
     case ProfileType.ROUND_TUBE:
       return {
         profileType,
         profileData: {
-          outerRadius: readFiniteF32(reader, "outer radius"),
-          innerRadius: readFiniteF32(reader, "inner radius"),
+          outerDiameter: readFiniteF32(reader, "outer diameter"),
+          innerDiameter: readFiniteF32(reader, "inner diameter"),
         },
       };
     case ProfileType.RECTANGLE:
@@ -365,13 +365,13 @@ function validateModel(model: AnchorLinkModel) {
 function validateProfile(profile: AnchorLinkProfile) {
   switch (profile.profileType) {
     case ProfileType.CYLINDRICAL:
-      assertPositiveFinite(profile.profileData.outerRadius, "outer radius");
+      assertPositiveFinite(profile.profileData.outerDiameter, "outer diameter");
       break;
     case ProfileType.ROUND_TUBE:
-      assertPositiveFinite(profile.profileData.outerRadius, "outer radius");
-      assertPositiveFinite(profile.profileData.innerRadius, "inner radius");
-      if (profile.profileData.innerRadius >= profile.profileData.outerRadius) {
-        throw new AnchorLinkError("Inner radius must be less than outer radius");
+      assertPositiveFinite(profile.profileData.outerDiameter, "outer diameter");
+      assertPositiveFinite(profile.profileData.innerDiameter, "inner diameter");
+      if (profile.profileData.innerDiameter >= profile.profileData.outerDiameter) {
+        throw new AnchorLinkError("Inner radius must be less than outer diameter");
       }
       break;
     case ProfileType.RECTANGLE:

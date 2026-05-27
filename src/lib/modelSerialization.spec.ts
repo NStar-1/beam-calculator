@@ -24,7 +24,7 @@ const profileCases: Array<{ name: string; seed: number; profile: AnchorLinkProfi
     seed: 1000,
     profile: {
       profileType: ProfileType.CYLINDRICAL,
-      profileData: { outerRadius: 11 },
+      profileData: { outerDiameter: 11 },
     },
   },
   {
@@ -32,7 +32,7 @@ const profileCases: Array<{ name: string; seed: number; profile: AnchorLinkProfi
     seed: 2000,
     profile: {
       profileType: ProfileType.ROUND_TUBE,
-      profileData: { outerRadius: 31, innerRadius: 13 },
+      profileData: { outerDiameter: 31, innerDiameter: 13 },
     },
   },
   {
@@ -122,9 +122,9 @@ function expectRoundTripModel(decoded: AnchorLinkModel, model: AnchorLinkModel) 
 function profileNumbers(profile: AnchorLinkProfile): number[] {
   switch (profile.profileType) {
     case ProfileType.CYLINDRICAL:
-      return [profile.profileData.outerRadius];
+      return [profile.profileData.outerDiameter];
     case ProfileType.ROUND_TUBE:
-      return [profile.profileData.outerRadius, profile.profileData.innerRadius];
+      return [profile.profileData.outerDiameter, profile.profileData.innerDiameter];
     case ProfileType.RECTANGLE:
       return [profile.profileData.width, profile.profileData.height];
     case ProfileType.RECTANGULAR_TUBE:

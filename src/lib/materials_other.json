@@ -112,12 +112,100 @@
     "id": 403
   },
   {
+    "name": "Construction steel",
+    "density": 7850,
+    "E": 200000,
+    "G": 77000,
+    "categories": ["Generic"],
+    "id": 404
+  },
+  {
+    "name": "Stainless steel",
+    "density": 8000,
+    "E": 193000,
+    "G": 74000,
+    "categories": ["Generic"],
+    "id": 405
+  },
+  {
+    "name": "Tool steel",
+    "density": 7700,
+    "E": 207000,
+    "G": 80000,
+    "categories": ["Generic"],
+    "id": 406
+  },
+  {
+    "name": "ASTM A36",
+    "density": 7850,
+    "E": 200000,
+    "G": 77000,
+    "categories": ["Western", "Steels", "Structural carbon steel"],
+    "id": 407
+  },
+  {
+    "name": "AISI 1018",
+    "density": 7850,
+    "E": 205000,
+    "G": 80000,
+    "categories": ["Western", "Steels", "Mild low-carbon steel"],
+    "id": 408
+  },
+  {
+    "name": "ASTM A572 Grade 50",
+    "density": 7850,
+    "E": 200000,
+    "G": 77000,
+    "categories": ["Western", "Steels", "High-strength low-alloy steel"],
+    "id": 409
+  },
+  {
+    "name": "AISI 4140",
+    "density": 7850,
+    "E": 205000,
+    "G": 80000,
+    "categories": ["Western", "Steels", "Chromium-molybdenum alloy steel"],
+    "id": 410
+  },
+  {
+    "name": "AISI 304",
+    "density": 8000,
+    "E": 193000,
+    "G": 74000,
+    "categories": ["Western", "Steels", "Austenitic stainless steel"],
+    "id": 411
+  },
+  {
+    "name": "AISI 316",
+    "density": 8000,
+    "E": 193000,
+    "G": 74000,
+    "categories": ["Western", "Steels", "Austenitic stainless steel"],
+    "id": 412
+  },
+  {
+    "name": "AISI 1095",
+    "density": 7850,
+    "E": 205000,
+    "G": 80000,
+    "categories": ["Western", "Steels", "High-carbon spring steel"],
+    "id": 413
+  },
+  {
+    "name": "AISI D2",
+    "density": 7700,
+    "E": 207000,
+    "G": 80000,
+    "categories": ["Western", "Steels", "Cold-work tool steel"],
+    "id": 414
+  },
+  {
     "name": "Iron (Cast)",
     "density": 7200,
     "E": 126500,
     "G": 75000,
     "categories": ["Generic"],
-    "id": 404
+    "id": 415
   },
   {
     "name": "Iron (Wrought)",
@@ -125,7 +213,7 @@
     "E": 211000,
     "G": 82000,
     "categories": ["Generic"],
-    "id": 405
+    "id": 416
   },
   {
     "name": "Lead",
@@ -133,7 +221,7 @@
     "E": 16100,
     "G": 13248,
     "categories": ["Generic"],
-    "id": 406
+    "id": 417
   },
   {
     "name": "Magnesium",
@@ -141,7 +229,7 @@
     "E": 45000,
     "G": 16491,
     "categories": ["Generic"],
-    "id": 407
+    "id": 418
   },
   {
     "name": "Nickel",
@@ -149,7 +237,7 @@
     "E": 190000,
     "G": 80000,
     "categories": ["Generic"],
-    "id": 408
+    "id": 419
   },
   {
     "name": "Platinum",
@@ -157,7 +245,7 @@
     "E": 146900,
     "G": 276000,
     "categories": ["Generic"],
-    "id": 409
+    "id": 420
   },
   {
     "name": "Silver",
@@ -165,7 +253,7 @@
     "E": 74000,
     "G": 27800,
     "categories": ["Generic"],
-    "id": 410
+    "id": 421
   },
   {
     "name": "Tin",
@@ -173,7 +261,7 @@
     "E": 43099,
     "G": 18000,
     "categories": ["Generic"],
-    "id": 411
+    "id": 422
   },
   {
     "name": "Titanium",
@@ -181,7 +269,7 @@
     "E": 120200,
     "G": 41500,
     "categories": ["Generic"],
-    "id": 412
+    "id": 423
   },
   {
     "name": "Tungsten",
@@ -189,7 +277,7 @@
     "E": 411000,
     "G": 162150,
     "categories": ["Generic"],
-    "id": 413
+    "id": 424
   },
   {
     "name": "Zinc",
@@ -197,6 +285,6 @@
     "E": 82737,
     "G": 42090,
     "categories": ["Generic"],
-    "id": 414
+    "id": 425
   }
 ]

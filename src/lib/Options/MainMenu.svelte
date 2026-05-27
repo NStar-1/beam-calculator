@@ -49,7 +49,7 @@
   <Panel bind:open={panel3Open}>
     <Header>
       <OptionTitle title={$t("options.material.title")}>
-        <span slot="info">{$material.name}</span>
+        <span slot="info">{$t(`materials.${$material.name}`)}</span>
       </OptionTitle>
       <Toggler isOpen={panel3Open} slot="icon" />
     </Header>

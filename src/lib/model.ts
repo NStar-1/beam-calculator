@@ -14,16 +14,16 @@ export type FixationType = "NONE" | "FIXED" | "PIN" | "ROLLER";
 // similar profiles.
 export type Profile = CylindricalProfile &
   RoundTubeProfile &
-  HollowRectangularProfile &
+  RectangularTubeProfile &
   IBeamProfile;
 
 export type CylindricalProfile = {
-  outerRadius: number;
+  outerDiameter: number;
 };
 
 export type RoundTubeProfile = {
-  outerRadius: number;
-  innerRadius: number;
+  outerDiameter: number;
+  innerDiameter: number;
 };
 
 export type RectangularProfile = {
@@ -31,18 +31,20 @@ export type RectangularProfile = {
   height: number;
 };
 
-export type HollowRectangularProfile = Partial<{
-  width: number;
-  height: number;
+export type RectangularTubeProfile = RectangularProfile & {
   thickness: number;
-}>;
+};
 
-export type IBeamProfile = Partial<{
+export type HollowRectangularProfile = RectangularTubeProfile;
+
+export type PartialProfileData = Partial<Profile>;
+
+export type IBeamProfile = {
   width: number;
   depth: number;
   flangeThickness: number;
   webThickness: number;
-}>;
+};
 
 export type TBeamProfile = Partial<{
   width: number;

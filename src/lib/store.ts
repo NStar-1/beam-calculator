@@ -1,4 +1,4 @@
-import { writable, get, derived } from "svelte/store";
+import { writable, get, derived, readable } from "svelte/store";
 import { persisted } from "svelte-persisted-store";
 // TODO
 import Frame3ddLoader, { type InputScope, type F3DD } from "frame3dd-wasm-js";
@@ -16,18 +16,19 @@ import type { Force, Length } from "convert";
 import { convertLoads, deg2rad, getLoadAbsPos } from "./store-utils";
 import type { AnchorLinkModel, AnchorLinkProfile } from "./modelSerialization";
 import * as ProfileIcon from "$lib/assets/xsection";
+import { browser } from "$app/environment";
 import {
   AnchorPoint,
   FixationEnum,
   ProfileType,
   type BeamEnd,
   type CylindricalProfile,
-  type HollowRectangularProfile,
   type IBeamProfile,
   type PointLoad,
   type Profile,
   type ProfileDescription,
   type RectangularProfile,
+  type RectangularTubeProfile,
   type RoundTubeProfile,
 } from "./model";
 export { AnchorPoint, FixationEnum, ProfileType } from "./model";
@@ -35,13 +36,14 @@ export type {
   BeamEnd,
   CylindricalProfile,
   FixationType,
-  HollowRectangularProfile,
   IBeamProfile,
   LoadType,
+  PartialProfileData,
   PointLoad,
   Profile,
   ProfileDescription,
   RectangularProfile,
+  RectangularTubeProfile,
   RoundTubeProfile,
   TBeamProfile,
 } from "./model";
@@ -82,12 +84,14 @@ export const LengthUnits = [
   "m",
   "in",
   "ft",
-]satisfies ReadonlyArray<Length>;
+] satisfies ReadonlyArray<Length>;
 
 export const cookieConsent = persisted('cookies-preferences', {
   initialized: false,
   hasConsent: false,
 })
+
+export const appStartTime = readable(new Date());
 
 export const lengthUnit = writable<Length>("mm");
 
@@ -95,7 +99,7 @@ export const ForceUnits = [
   "newtons",
   "kgf",
   "lbf",
-]satisfies ReadonlyArray<Force>;
+] satisfies ReadonlyArray<Force>;
 export const forceUnit = writable<Force>("newtons");
 
 export const isPhone = writable(false);
@@ -107,8 +111,8 @@ export const length = writable(1000);
 
 export const profileType = writable<ProfileType>(ProfileType.CYLINDRICAL);
 export const profileData = writable<Profile>({
-  outerRadius: 10,
-  innerRadius: 8,
+  outerDiameter: 10,
+  innerDiameter: 8,
   height: 10,
   width: 20,
   thickness: 3,
@@ -120,7 +124,9 @@ export const profileData = writable<Profile>({
 // TODO add typing
 //export const material_id = writable<number>(1);
 
-export const material = writable<Material>(materials[0]);
+const defaultMaterial = materials.find((d) => d.name === "Construction steel") ?? materials[0];
+
+export const material = writable<Material>(defaultMaterial);
 
 const defaultProfileDescription = {
   Ax: 36,
@@ -146,8 +152,8 @@ const updateProfile = function() {
   profile.set(calculate(get(profileData)));
 
   const {
-    outerRadius,
-    innerRadius,
+    outerDiameter,
+    innerDiameter,
     thickness,
     height,
     width,
@@ -158,10 +164,10 @@ const updateProfile = function() {
 
   switch (get(profileType)) {
     case ProfileType.CYLINDRICAL:
-      profileInfo.set(`r=${outerRadius}`);
+      profileInfo.set(`d=${outerDiameter}`);
       break;
     case ProfileType.ROUND_TUBE:
-      profileInfo.set(`ri=${innerRadius}, ro=${outerRadius}`);
+      profileInfo.set(`di=${innerDiameter}, do=${outerDiameter}`);
       break;
     case ProfileType.RECTANGLE:
       profileInfo.set(`h=${height}, w=${width}`);
@@ -179,6 +185,10 @@ const updateProfile = function() {
 
 profileType.subscribe(updateProfile);
 profileData.subscribe(updateProfile);
+
+export type StructuralMode = "1d" | "2d" | "3d";
+
+export const structuralMode = writable<StructuralMode>("1d");
 
 //export const points = writable<Array<BeamEnd>>([]);
 //export const getNextPointId = () => {
@@ -236,6 +246,7 @@ type AggregatedResult = {
 
 export const newresults = writable<Array<AggregatedResult>>([]);
 
+/*
 export const solveModel = async function() {
   // TODO: we need normal, form-based validation
   //const pointsArr = [...get(points)];
@@ -272,6 +283,7 @@ export const solveModel = async function() {
   // TODO map result back to frame data
   results.set(res.result);
 };
+*/
 
 function getF3DDFixation(fixation: FixationEnum): number[] {
   return {
@@ -389,6 +401,11 @@ function getPointLoads(
   );
 }
 
+// Disable solve model analytics reporting to skip the initial model solve event
+const SKIP_ANALYTICS_MS = 3000;
+const DEBOUNCE_EVENT_MS = 1000;
+let deboubceTimer = setTimeout(() => 0);
+
 export async function solveModel2(): Promise<InputScope> {
   const Frame3DD = await Frame3ddLoader();
   const model = Frame3DD.inputScopeJSON;
@@ -421,7 +438,6 @@ export async function solveModel2(): Promise<InputScope> {
   const mat = get(material);
   model.material.E = mat.E;
   model.material.G = mat.G;
-  // FIXME: not sure
   model.material.density = mat.density / 1_000_000;
 
   model.profile = get(profile);
@@ -441,6 +457,20 @@ export async function solveModel2(): Promise<InputScope> {
   }));
   //console.log(resAgg);
   newresults.set(resAgg);
+
+  const uptime = new Date().getTime() - get(appStartTime).getTime()
+  if (uptime > SKIP_ANALYTICS_MS) {
+    clearTimeout(deboubceTimer);
+    deboubceTimer = setTimeout(async () => {
+      if (browser) {
+        const track = (await import('@plausible-analytics/tracker')).track;
+        track('Model Solved', {
+          uptime,
+        })
+      };
+    }, DEBOUNCE_EVENT_MS)
+  }
+
   return model;
 }
 
@@ -471,14 +501,14 @@ function getSerializableProfile(): AnchorLinkProfile {
     case ProfileType.CYLINDRICAL:
       return {
         profileType: ProfileType.CYLINDRICAL,
-        profileData: { outerRadius: data.outerRadius },
+        profileData: { outerDiameter: data.outerDiameter },
       };
     case ProfileType.ROUND_TUBE:
       return {
         profileType: ProfileType.ROUND_TUBE,
         profileData: {
-          outerRadius: data.outerRadius,
-          innerRadius: data.innerRadius,
+          outerDiameter: data.outerDiameter,
+          innerDiameter: data.innerDiameter,
         },
       };
     case ProfileType.RECTANGLE:
@@ -508,7 +538,7 @@ function getSerializableProfile(): AnchorLinkProfile {
     case ProfileType.CUSTOM:
       return {
         profileType: ProfileType.CYLINDRICAL,
-        profileData: { outerRadius: data.outerRadius },
+        profileData: { outerDiameter: data.outerDiameter },
       };
   }
 }

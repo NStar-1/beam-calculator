@@ -1,22 +1,22 @@
 import type {
   CylindricalProfile,
-  HollowRectangularProfile,
   IBeamProfile,
   ProfileDescription,
   RectangularProfile,
+  RectangularTubeProfile,
   RoundTubeProfile,
 } from "./model";
 
 // From http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html
 export function roundTube({
-  innerRadius: ri,
-  outerRadius: ro,
+  innerDiameter: di,
+  outerDiameter: do_,
 }: RoundTubeProfile): ProfileDescription {
-  const Ax = Math.PI * (ro * ro - ri * ri);
-  const rio = ri / ro;
+  const Ax = Math.PI * (do_ * do_ - di * di) / 4;
+  const rio = di / do_;
   const Asy = Ax / (0.54414 + 2.97294 * rio - 1.51899 * rio * rio);
   const Asz = Asy;
-  const Jx = (ro ** 4 - ri ** 4) * Math.PI / 64;
+  const Jx = (do_ ** 4 - di ** 4) * Math.PI / 32;
   const Iy = Jx / 2;
   const Iz = Iy;
 
@@ -25,12 +25,12 @@ export function roundTube({
 
 // From http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html
 export function cylindrical({
-  outerRadius: ro,
+  outerDiameter: d,
 }: CylindricalProfile): ProfileDescription {
-  const Ax = Math.PI * ro * ro;
+  const Ax = Math.PI * d * d / 4;
   const Asy = Ax;
   const Asz = Asy;
-  const Jx = (ro ** 4) * Math.PI  / 64;
+  const Jx = d ** 4 * Math.PI / 32;
   const Iy = Jx / 2;
   const Iz = Iy;
 
@@ -39,18 +39,16 @@ export function cylindrical({
 
 // From http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html
 export function rectangular({
-  width: a, height: b,
+  height: a, width: b,
 }: RectangularProfile): ProfileDescription {
   const Ax = a * b;
-  const Asy = Ax * 5 / 6;
+  const Asy = Ax * 2 / 3;
   const Asz = Asy;
-  // FIXME: 'v' is stands for Poisson ratio, need to research how to pick correct value, see http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html#structuralmodeling
-  const v = 0.25;
-  //const Asy = Ax * (5 + 5 * v) / (6 + 5 * v);
-  //const Asz = Asy;
-  // BUG: yeah yeah, I know that I studied math for 5 years... 
-  const Jx = Math.min(a, b) * Math.max(a, b) ** 3 / 12;
-  const Iy = (1 / 12) * (a * b** 3);
+  const longSide = Math.max(a, b);
+  const shortSide = Math.min(a, b);
+  const sideRatio = shortSide / longSide;
+  const Jx = (1 / 3) * longSide * shortSide ** 3 * (1 - 0.63 * sideRatio + 0.052 * sideRatio ** 5);
+  const Iy = (1 / 12) * (a * b ** 3);
   const Iz = (1 / 12) * (b * a ** 3);
 
   return { Ax, Asy, Asz, Jx, Iy, Iz };
@@ -58,8 +56,8 @@ export function rectangular({
 
 // From http://svn.code.sourceforge.net/p/frame3dd/code/trunk/doc/Frame3DD-manual.html
 export function rectangularTube({
-  width: a, height: b, thickness: t,
-}: HollowRectangularProfile): ProfileDescription {
+  height: a, width: b, thickness: t,
+}: RectangularTubeProfile): ProfileDescription {
   const Ax = a * b - (a - 2 * t) * (b - 2 * t);
   if (a === b) {
     const Asy = Ax / (2.39573 - 0.25009 * (t / b) - 7.89675 * Math.pow(t / b, 2));
@@ -98,13 +96,12 @@ export function rectangularTube({
 export function iBeam({
   depth: d, width: b, flangeThickness: t, webThickness: w,
 }: IBeamProfile): ProfileDescription {
-  console.log(d, b, t, w);
   const Ax = b * d - (d - 2 * t) * (b - w);
-  const Asy = 1.64 * b * t;
-  const Asz = d * w;
+  const Asy = d * w;
+  const Asz = 1.64 * b * t;
   const Jx = (1 / 3) * (2 * b * Math.pow(t, 3) + d * Math.pow(w, 3));
-  const Iy = (1 / 12) * (b * Math.pow(d, 3) - (b - w) * Math.pow(d - 2 * t, 3));
-  const Iz = (1 / 12) * (2 * t * Math.pow(b, 3) + (d - 2 * t) * Math.pow(w, 3));
+  const Iy = (1 / 12) * (2 * t * Math.pow(b, 3) + (d - 2 * t) * Math.pow(w, 3));
+  const Iz = (1 / 12) * (b * Math.pow(d, 3) - (b - w) * Math.pow(d - 2 * t, 3));
 
   return { Ax, Asy, Asz, Jx, Iy, Iz };
 }
