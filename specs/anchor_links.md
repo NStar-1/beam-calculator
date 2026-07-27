@@ -8,10 +8,10 @@ Anchor links use an unencoded version prefix followed by a base64url-encoded
 binary payload:
 
 ```text
-#v0-<payload>
+#v1-<payload>
 ```
 
-`v0-` is required and is not part of the base64url payload. The payload uses
+`v1-` is required and is not part of the base64url payload. The payload uses
 base64url characters (`A-Z`, `a-z`, `0-9`, `-`, `_`). Padding (`=`) is omitted.
 
 # Binary Encoding
@@ -30,10 +30,11 @@ The binary payload is a packed byte stream. It is not a native C struct.
 # Structure
 
 ```text
-model_type: u8
-beam: Beam
-profile: Profile
-material: Material
+header_0: u8
+header_1: u8
+length: f32
+profile_data: ProfileData
+material_data: MaterialData
 loads: Load[]
 ```
 
@@ -44,10 +45,30 @@ count: u8
 items: T[count]
 ```
 
-The `count` value is the number of array members, not the byte length. `v0`
+The `count` value is the number of array members, not the byte length. `v1`
 therefore supports up to 255 loads.
 
-## Model Type
+## Packed Headers
+
+`header_0` packs model and unit enums:
+
+```text
+bits 0..1: model_type
+bits 2..4: length_unit
+bits 5..6: force_unit
+bit 7: reserved, must be 0
+```
+
+`header_1` packs fixation, profile, and material enums:
+
+```text
+bits 0..1: fixation_left
+bits 2..3: fixation_right
+bits 4..6: profile_type
+bit 7: material_encoding
+```
+
+### Model Type
 
 ```text
 1 = 1d
@@ -55,20 +76,16 @@ therefore supports up to 255 loads.
 3 = 3d
 ```
 
-Only `1d` is supported by BeamCalc in `v0`. Other model types are reserved for
+Only `1d` is supported by BeamCalc in `v1`. Other model types are reserved for
 future versions and must be rejected by current decoders.
 
 ## Beam
 
 ```text
 length: f32
-length_unit: u8
-force_unit: u8
-fixation_left: u8
-fixation_right: u8
 ```
 
-`length` is stored in `length_unit`.
+`length` is stored in `length_unit` from `header_0`.
 
 ### Length Unit
 
@@ -99,13 +116,8 @@ fixation_right: u8
 
 ## Profile
 
-Profiles are discriminated by a `u8` profile type. Each profile type has its own
-corresponding binary struct.
-
-```text
-type: u8
-data: ProfileData
-```
+Profiles are discriminated by `profile_type` in `header_1`. Each profile type has
+its own corresponding binary struct.
 
 ### Profile Type
 
@@ -117,19 +129,19 @@ data: ProfileData
 4 = i_beam
 ```
 
-Custom profiles are not encoded in `v0`.
+Custom profiles are not encoded in `v1`.
 
 ### Cylindrical Profile
 
 ```text
-outer_radius: f32
+outer_diameter: f32
 ```
 
 ### Round Tube Profile
 
 ```text
-outer_radius: f32
-inner_radius: f32
+outer_diameter: f32
+inner_diameter: f32
 ```
 
 ### Rectangle Profile
@@ -160,12 +172,7 @@ All profile dimensions are stored in `length_unit`.
 
 ## Material
 
-Materials are controlled by a `u8` material encoding flag.
-
-```text
-encoding: u8
-data: MaterialData
-```
+Materials are controlled by `material_encoding` in `header_1`.
 
 ### Material Encoding
 
@@ -196,8 +203,8 @@ material list.
 
 ## Loads
 
-`v0` supports point loads only. The load type is still encoded to reserve the
-field for future load kinds.
+`v1` supports point loads only. The load type is not encoded in the binary
+payload; decoders construct point-load model entries from each load item.
 
 ```text
 count: u8
@@ -207,21 +214,11 @@ items: Load[count]
 ## Load
 
 ```text
-type: u8
 anchor: u8
 offset: f32
 value: f32
 angle: f32
 ```
-
-### Load Type
-
-```text
-0 = point
-```
-
-Other load types are reserved for future versions and must be rejected by `v0`
-decoders.
 
 ### Load Anchor
 
@@ -255,9 +252,10 @@ Decoders must validate at least:
 
 - Required `v<int>-` prefix exists and the version is supported.
 - Payload is valid unpadded base64url.
-- Binary payload exactly matches the expected `v0` layout.
+- Binary payload exactly matches the expected `v1` layout.
+- Packed header reserved bits are unset.
 - Model type is `1d`.
-- Enum values are known and supported by `v0`.
+- Enum values are known and supported by `v1`.
 - All floats are finite.
 - Beam length is greater than zero.
 - Profile dimensions are greater than zero and geometrically valid for the

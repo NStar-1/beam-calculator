@@ -108,6 +108,12 @@ function roundTrip(model: AnchorLinkModel): AnchorLinkModel {
   return decoded.data;
 }
 
+function encodedByteLength(anchorLink: string): number {
+  const payload = anchorLink.slice(`#${ANCHOR_LINK_VERSION}-`.length);
+  const paddingLength = (4 - (payload.length % 4)) % 4;
+  return Buffer.from(`${payload}${"=".repeat(paddingLength)}`, "base64url").length;
+}
+
 function expectRoundTripModel(decoded: AnchorLinkModel, model: AnchorLinkModel) {
   expect(decoded.length).toBe(model.length);
   expect(decoded.lengthUnit).toBe(model.lengthUnit);
@@ -197,6 +203,22 @@ describe("anchor links", () => {
     expectNoRepeatedNumericPayloadValues(decoded);
   });
 
+  it("encodes packed enums and point loads without load type bytes", () => {
+    const model = createModel(profileCases[3].profile, builtInMaterial, 6000);
+    const encoded = encodeAnchorLink(model);
+    if (encoded.error) throw new Error(encoded.message);
+
+    const expectedByteLength =
+      2 + // packed headers
+      4 + // beam length
+      3 * 4 + // rectangular tube profile dimensions
+      2 + // built-in material id
+      1 + // load count
+      model.loads.length * (1 + 3 * 4); // anchor plus offset/value/angle
+
+    expect(encodedByteLength(encoded.data)).toBe(expectedByteLength);
+  });
+
   it("round-trips custom material branch with no repeated numeric payload values", () => {
     const model = createModel(profileCases[4].profile, customMaterial, 7000);
     expectNoRepeatedNumericPayloadValues(model);
@@ -209,7 +231,7 @@ describe("anchor links", () => {
 
   it("returns an error result for invalid input", () => {
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-    const decoded = decodeAnchorLink("#v0-not=base64url");
+    const decoded = decodeAnchorLink("#v1-not=base64url");
     expect(decoded.error).toBe(true);
     if (!decoded.error) throw new Error("Expected invalid decode");
     expect(decoded.data).toBeNull();

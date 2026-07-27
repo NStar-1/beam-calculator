@@ -13,7 +13,7 @@ import {
   type RoundTubeProfile,
 } from "./model";
 
-export const ANCHOR_LINK_VERSION = "v0";
+export const ANCHOR_LINK_VERSION = "v1";
 const PREFIX = `${ANCHOR_LINK_VERSION}-`;
 
 const LENGTH_UNITS: ReadonlyArray<Length> = ["mm", "cm", "m", "in", "ft"];
@@ -28,9 +28,34 @@ const enum MaterialEncoding {
   Custom = 1,
 }
 
-const enum LoadType {
-  Point = 0,
+const enum Header0 {
+  ModelTypeMask = 0b00000011,
+  LengthUnitShift = 2,
+  LengthUnitMask = 0b00011100,
+  ForceUnitShift = 5,
+  ForceUnitMask = 0b01100000,
+  ReservedMask = 0b10000000,
 }
+
+const enum Header1 {
+  LeftFixationMask = 0b00000011,
+  RightFixationShift = 2,
+  RightFixationMask = 0b00001100,
+  ProfileTypeShift = 4,
+  ProfileTypeMask = 0b01110000,
+  MaterialEncodingShift = 7,
+  MaterialEncodingMask = 0b10000000,
+}
+
+type PackedHeader = {
+  modelType: ModelType;
+  lengthUnit: Length;
+  forceUnit: Force;
+  firstPoint: BeamEnd;
+  lastPoint: BeamEnd;
+  profileType: ProfileType;
+  materialEncoding: MaterialEncoding;
+};
 
 export type AnchorLinkResult<T> =
   | { error: false; data: T; message: "" }
@@ -133,20 +158,14 @@ export function encodeAnchorLink(
     validateModel(model);
 
     const writer = new BinaryWriter();
-    writer.writeU8(ModelType.OneDimensional);
+    const materialEncoding = getMaterialEncoding(model.material);
+    writeHeader(writer, model, materialEncoding);
     writer.writeF32(model.length);
-    writer.writeU8(indexOfUnit(LENGTH_UNITS, model.lengthUnit, "length unit"));
-    writer.writeU8(indexOfUnit(FORCE_UNITS, model.forceUnit, "force unit"));
-    writer.writeU8(model.firstPoint.isFixed);
-    writer.writeU8(model.lastPoint.isFixed);
-
-    writer.writeU8(model.profileType);
     writeProfile(writer, model);
-    writeMaterial(writer, model.material);
+    writeMaterialData(writer, model.material, materialEncoding);
 
     writer.writeU8(model.loads.length);
     for (const load of model.loads) {
-      writer.writeU8(LoadType.Point);
       writer.writeU8(load.anchor);
       writer.writeF32(load.offset);
       writer.writeF32(load.value);
@@ -166,18 +185,10 @@ export function decodeAnchorLink(
     const payload = getPayload(anchorLink);
     const reader = new BinaryReader(base64UrlToBytes(payload));
 
-    const modelType = reader.readU8("model type");
-    if (modelType !== ModelType.OneDimensional) {
-      throw new AnchorLinkError(`Unsupported model type: ${modelType}`);
-    }
-
+    const header = readHeader(reader);
     const length = readFiniteF32(reader, "beam length");
-    const lengthUnit = readLengthUnit(reader);
-    const forceUnit = readForceUnit(reader);
-    const firstPoint: BeamEnd = { isFixed: readFixation(reader, "left fixation") };
-    const lastPoint: BeamEnd = { isFixed: readFixation(reader, "right fixation") };
-    const profile = readProfile(reader);
-    const material = readMaterial(reader);
+    const profile = readProfile(reader, header.profileType);
+    const material = readMaterial(reader, header.materialEncoding);
     const loads = readLoads(reader, length);
 
     if (reader.offset !== reader.length) {
@@ -188,10 +199,10 @@ export function decodeAnchorLink(
 
     const model: AnchorLinkModel = {
       length,
-      lengthUnit,
-      forceUnit,
-      firstPoint,
-      lastPoint,
+      lengthUnit: header.lengthUnit,
+      forceUnit: header.forceUnit,
+      firstPoint: header.firstPoint,
+      lastPoint: header.lastPoint,
       ...profile,
       material,
       loads,
@@ -203,6 +214,78 @@ export function decodeAnchorLink(
     console.error("Failed to decode anchor link", message);
     return fail(message);
   }
+}
+
+function writeHeader(
+  writer: BinaryWriter,
+  model: AnchorLinkModel,
+  materialEncoding: MaterialEncoding
+) {
+  const lengthUnit = indexOfUnit(LENGTH_UNITS, model.lengthUnit, "length unit");
+  const forceUnit = indexOfUnit(FORCE_UNITS, model.forceUnit, "force unit");
+  const header0 =
+    ModelType.OneDimensional |
+    (lengthUnit << Header0.LengthUnitShift) |
+    (forceUnit << Header0.ForceUnitShift);
+  const header1 =
+    model.firstPoint.isFixed |
+    (model.lastPoint.isFixed << Header1.RightFixationShift) |
+    (model.profileType << Header1.ProfileTypeShift) |
+    (materialEncoding << Header1.MaterialEncodingShift);
+
+  writer.writeU8(header0);
+  writer.writeU8(header1);
+}
+
+function readHeader(reader: BinaryReader): PackedHeader {
+  const header0 = reader.readU8("header 0");
+  const header1 = reader.readU8("header 1");
+
+  if ((header0 & Header0.ReservedMask) !== 0) {
+    throw new AnchorLinkError("Unsupported header 0 reserved bits");
+  }
+
+  const modelType = header0 & Header0.ModelTypeMask;
+  if (modelType !== ModelType.OneDimensional) {
+    throw new AnchorLinkError(`Unsupported model type: ${modelType}`);
+  }
+
+  const materialEncoding =
+    (header1 & Header1.MaterialEncodingMask) >> Header1.MaterialEncodingShift;
+  if (
+    materialEncoding !== MaterialEncoding.BuiltInId &&
+    materialEncoding !== MaterialEncoding.Custom
+  ) {
+    throw new AnchorLinkError(
+      `Unsupported material encoding: ${materialEncoding}`
+    );
+  }
+
+  return {
+    modelType: modelType as ModelType,
+    lengthUnit: readLengthUnitFromIndex(
+      (header0 & Header0.LengthUnitMask) >> Header0.LengthUnitShift
+    ),
+    forceUnit: readForceUnitFromIndex(
+      (header0 & Header0.ForceUnitMask) >> Header0.ForceUnitShift
+    ),
+    firstPoint: {
+      isFixed: readFixationValue(
+        header1 & Header1.LeftFixationMask,
+        "left fixation"
+      ),
+    },
+    lastPoint: {
+      isFixed: readFixationValue(
+        (header1 & Header1.RightFixationMask) >> Header1.RightFixationShift,
+        "right fixation"
+      ),
+    },
+    profileType: readProfileTypeValue(
+      (header1 & Header1.ProfileTypeMask) >> Header1.ProfileTypeShift
+    ),
+    materialEncoding: materialEncoding as MaterialEncoding,
+  };
 }
 
 function writeProfile(writer: BinaryWriter, profile: AnchorLinkProfile) {
@@ -232,8 +315,10 @@ function writeProfile(writer: BinaryWriter, profile: AnchorLinkProfile) {
   }
 }
 
-function readProfile(reader: BinaryReader): AnchorLinkProfile {
-  const profileType = reader.readU8("profile type");
+function readProfile(
+  reader: BinaryReader,
+  profileType: ProfileType
+): AnchorLinkProfile {
   switch (profileType) {
     case ProfileType.CYLINDRICAL:
       return {
@@ -280,25 +365,37 @@ function readProfile(reader: BinaryReader): AnchorLinkProfile {
   }
 }
 
-function writeMaterial(writer: BinaryWriter, material: Material) {
-  if (material.id !== undefined) {
-    assertU16(material.id, "material id");
-    if (!getMaterialById(material.id)) {
-      throw new AnchorLinkError(`Unknown material id: ${material.id}`);
-    }
-    writer.writeU8(MaterialEncoding.BuiltInId);
-    writer.writeU16(material.id);
-    return;
-  }
-
-  writer.writeU8(MaterialEncoding.Custom);
-  writer.writeF32(material.E);
-  writer.writeF32(material.G);
-  writer.writeF32(material.density);
+function getMaterialEncoding(material: Material): MaterialEncoding {
+  return material.id !== undefined
+    ? MaterialEncoding.BuiltInId
+    : MaterialEncoding.Custom;
 }
 
-function readMaterial(reader: BinaryReader): Material {
-  const materialEncoding = reader.readU8("material encoding");
+function writeMaterialData(
+  writer: BinaryWriter,
+  material: Material,
+  materialEncoding: MaterialEncoding
+) {
+  switch (materialEncoding) {
+    case MaterialEncoding.BuiltInId:
+      assertU16(material.id!, "material id");
+      if (!getMaterialById(material.id!)) {
+        throw new AnchorLinkError(`Unknown material id: ${material.id}`);
+      }
+      writer.writeU16(material.id!);
+      return;
+    case MaterialEncoding.Custom:
+      writer.writeF32(material.E);
+      writer.writeF32(material.G);
+      writer.writeF32(material.density);
+      return;
+  }
+}
+
+function readMaterial(
+  reader: BinaryReader,
+  materialEncoding: MaterialEncoding
+): Material {
   switch (materialEncoding) {
     case MaterialEncoding.BuiltInId: {
       const id = reader.readU16("material id");
@@ -327,11 +424,6 @@ function readLoads(reader: BinaryReader, length: number): PointLoad[] {
   const count = reader.readU8("load count");
   const loads: PointLoad[] = [];
   for (let index = 0; index < count; index++) {
-    const loadType = reader.readU8(`load ${index} type`);
-    if (loadType !== LoadType.Point) {
-      throw new AnchorLinkError(`Unsupported load type: ${loadType}`);
-    }
-
     const anchor = readAnchor(reader, index);
     const load: PointLoad = {
       anchor,
@@ -355,7 +447,7 @@ function validateModel(model: AnchorLinkModel) {
   validateMaterial(model.material);
 
   if (model.loads.length > 255) {
-    throw new AnchorLinkError("Too many loads: v0 supports at most 255");
+    throw new AnchorLinkError("Too many loads: v1 supports at most 255");
   }
   for (const load of model.loads) {
     validateLoad(load, model.length);
@@ -371,7 +463,7 @@ function validateProfile(profile: AnchorLinkProfile) {
       assertPositiveFinite(profile.profileData.outerDiameter, "outer diameter");
       assertPositiveFinite(profile.profileData.innerDiameter, "inner diameter");
       if (profile.profileData.innerDiameter >= profile.profileData.outerDiameter) {
-        throw new AnchorLinkError("Inner radius must be less than outer diameter");
+        throw new AnchorLinkError("Inner diameter must be less than outer diameter");
       }
       break;
     case ProfileType.RECTANGLE:
@@ -433,8 +525,7 @@ function validateLoad(load: PointLoad, length: number) {
   }
 }
 
-function readLengthUnit(reader: BinaryReader): Length {
-  const index = reader.readU8("length unit");
+function readLengthUnitFromIndex(index: number): Length {
   const unit = LENGTH_UNITS[index];
   if (!unit) {
     throw new AnchorLinkError(`Unsupported length unit: ${index}`);
@@ -442,8 +533,7 @@ function readLengthUnit(reader: BinaryReader): Length {
   return unit;
 }
 
-function readForceUnit(reader: BinaryReader): Force {
-  const index = reader.readU8("force unit");
+function readForceUnitFromIndex(index: number): Force {
   const unit = FORCE_UNITS[index];
   if (!unit) {
     throw new AnchorLinkError(`Unsupported force unit: ${index}`);
@@ -451,9 +541,21 @@ function readForceUnit(reader: BinaryReader): Force {
   return unit;
 }
 
-function readFixation(reader: BinaryReader, label: string): FixationEnum {
-  const value = reader.readU8(label);
+function readFixationValue(value: number, label: string): FixationEnum {
   validateFixation(value, label);
+  return value;
+}
+
+function readProfileTypeValue(value: number): ProfileType {
+  if (
+    value !== ProfileType.CYLINDRICAL &&
+    value !== ProfileType.ROUND_TUBE &&
+    value !== ProfileType.RECTANGLE &&
+    value !== ProfileType.RECTANGULAR_TUBE &&
+    value !== ProfileType.I_BEAM
+  ) {
+    throw new AnchorLinkError(`Unsupported profile type: ${value}`);
+  }
   return value;
 }
 
@@ -537,7 +639,7 @@ function getPayload(anchorLink: string): string {
     : anchorLink;
 
   if (!withoutHash.startsWith(PREFIX)) {
-    throw new AnchorLinkError("Missing required v0- anchor-link prefix");
+    throw new AnchorLinkError("Missing required v1- anchor-link prefix");
   }
 
   const payload = withoutHash.slice(PREFIX.length);

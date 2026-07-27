@@ -2,6 +2,7 @@ import { writable, get, derived, readable } from "svelte/store";
 import { persisted } from "svelte-persisted-store";
 // TODO
 import Frame3ddLoader, { type InputScope, type F3DD } from "frame3dd-wasm-js";
+
 import { materials } from "./materials";
 import {
   cylindrical,
@@ -47,6 +48,17 @@ export type {
   RoundTubeProfile,
   TBeamProfile,
 } from "./model";
+
+type Frame3DDModule = Awaited<ReturnType<typeof Frame3ddLoader>>;
+let frame3DDPromise: Promise<Frame3DDModule> | undefined;
+
+function loadFrame3DD() {
+  return (frame3DDPromise ??= Frame3ddLoader());
+}
+
+export function preloadFrame3DD() {
+  void loadFrame3DD();
+}
 
 export const profileNamesLnKeys = {
   [ProfileType.CYLINDRICAL]: {
@@ -407,7 +419,7 @@ const DEBOUNCE_EVENT_MS = 1000;
 let deboubceTimer = setTimeout(() => 0);
 
 export async function solveModel2(): Promise<InputScope> {
-  const Frame3DD = await Frame3ddLoader();
+  const Frame3DD = await loadFrame3DD();
   const model = Frame3DD.inputScopeJSON;
 
   const loadedPoints = generateLoadedPoints(get(loads), get(length));
@@ -568,12 +580,26 @@ export function applySerializableModel(model: AnchorLinkModel) {
   loads.set(model.loads);
 }
 
-export function subscribeModelChanges(callback: () => void) {
-  return modelState.subscribe(callback);
+export function subscribeModelChanges(
+  callback: () => void,
+  options: { skipInitial?: boolean } = {}
+) {
+  let isInitialEmission = true;
+
+  return modelState.subscribe((value) => {
+    if (value === undefined) return;
+
+    if (isInitialEmission) {
+      isInitialEmission = false;
+      if (options.skipInitial) return;
+    }
+
+    callback();
+  });
 }
 
 // FIXME this would fail if you try to subscribe Hermite
 // Probably, svelete(kit) executes code here on compile time
-export function subscribeAutoRefresh() {
-  return subscribeModelChanges(() => solveModel2());
+export function subscribeAutoRefresh(options: { skipInitial?: boolean } = {}) {
+  return subscribeModelChanges(() => solveModel2(), options);
 }

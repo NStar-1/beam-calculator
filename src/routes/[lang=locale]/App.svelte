@@ -4,6 +4,7 @@
   import {
     applySerializableModel,
     getSerializableModel,
+    preloadFrame3DD,
     solveModel2,
     subscribeAutoRefresh,
     subscribeModelChanges,
@@ -30,9 +31,10 @@
 
   onMount(() => {
     const initialHash = window.location.hash;
+    preloadFrame3DD();
+
     let disposed = false;
-    let isFirstUrlSync = true;
-    let shouldSkipFirstUrlSync = true;
+    let appliedInitialHash = false;
     let serializationModulePromise;
     let unsubscribeUrlSync = () => {};
     let unsubscribeAutoRefresh = () => {};
@@ -41,12 +43,6 @@
       (serializationModulePromise ??= import("$lib/modelSerialization"));
 
     async function syncUrlHash() {
-      if (isFirstUrlSync && shouldSkipFirstUrlSync) {
-        isFirstUrlSync = false;
-        return;
-      }
-
-      isFirstUrlSync = false;
       const { encodeAnchorLink } = await getSerializationModule();
       if (disposed) return;
 
@@ -70,15 +66,20 @@
           clearUrlHash();
         } else {
           applySerializableModel(decoded.data);
-          shouldSkipFirstUrlSync = false;
+          appliedInitialHash = true;
           solveModel2();
         }
       }
 
-      unsubscribeUrlSync = subscribeModelChanges(() => {
-        syncUrlHash();
+      unsubscribeUrlSync = subscribeModelChanges(
+        () => {
+          syncUrlHash();
+        },
+        { skipInitial: true }
+      );
+      unsubscribeAutoRefresh = subscribeAutoRefresh({
+        skipInitial: appliedInitialHash,
       });
-      unsubscribeAutoRefresh = subscribeAutoRefresh();
     }
 
     initialize();
