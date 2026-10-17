@@ -1,0 +1,12 @@
+{
+  "calculator": "Calculator",
+  "calculatorHint": "This calculator is already set up for the problem above. Change the length, the load, the profile or the material and it recalculates immediately; the address bar keeps a shareable link to your exact configuration.",
+  "directLink": "Direct link to this setup:",
+  "modelled": "How the beam is modelled",
+  "reading": "How to read the results",
+  "formulas": "Formulas",
+  "formula": "Formula",
+  "formulaMeaning": "What it gives",
+  "faq": "FAQ",
+  "moreExamples": "More beam examples"
+}

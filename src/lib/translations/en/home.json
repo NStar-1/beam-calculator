@@ -3,7 +3,8 @@
     "title": "Static stress analysis online calculator",
     "about": "About us",
     "contact": "Contact",
-    "howto": "How To Use"
+    "howto": "How To Use",
+    "examples": "Beam Examples"
   },
   "options": {
     "config": {
@@ -94,7 +95,8 @@
     "help": {
       "title": "Help",
       "contact": "Contact us",
-      "faqs": "FAQs"
+      "faqs": "FAQs",
+      "examples": "Beam examples"
     },
     "legal": {
       "title": "Legal",

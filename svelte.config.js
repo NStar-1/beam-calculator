@@ -11,6 +11,7 @@ const localizedRoutes = [
   '/faq',
   '/howto',
   '/privacy-policy',
+  '/solve',
   '/terms-of-service',
 ];
 
@@ -38,6 +39,8 @@ const config = {
     prerender: {
       entries: [
         '/',
+        // Agent-facing index of the beam problem catalog.
+        '/llms.txt',
         ...supportedLocales.flatMap((locale) =>
           localizedRoutes.map((route) => `/${locale}${route}`)
         ),

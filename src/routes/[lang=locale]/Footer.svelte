@@ -24,6 +24,7 @@
       <div class="column">
         <p class="title">{$t("footer.help.title")}</p>
         <a href={`/${$locale}/contact`}>{$t("footer.help.contact")}</a>
+        <a href={`/${$locale}/solve`}>{$t("footer.help.examples")}</a>
         <a href={`/${$locale}/faq`}>{$t("footer.help.faqs")}</a>
       </div>
       <div class="column">

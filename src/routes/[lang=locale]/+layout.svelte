@@ -1,10 +1,17 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { cookieConsent } from "$lib/store";
+  import { locale } from "$lib/translations";
   import { browser } from "$app/environment";
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
   import CookiesConsent from "./CookiesConsent.svelte";
+
+  // `src/app.html` hardcodes `lang="en"`, so keep the document language in
+  // sync with the active locale for crawlers and screen readers.
+  $: if (browser && $locale) {
+    document.documentElement.lang = $locale;
+  }
 
   let canShowCookieConsent = false;
 
