@@ -52,23 +52,25 @@
     return idx === -1 ? undefined : "" + idx;
   }
 
-  let materialId: string | undefined = getMaterialId($material.name);
+  // Presets and shared links are authoritative; reflecting them in the tree
+  // must never write an older selection back into the model.
+  $: materialId = getMaterialId($material.name);
 
-  let isDirty = false;
+  function selectMaterial(event: CustomEvent<{ id: string }>) {
+    const id = event.detail.id;
+    if (!/^\d+$/.test(id)) return;
+    const selected = materials[Number(id)];
+    if (selected) $material = structuredClone(selected);
+  }
 
-  $: {
-    // Set material to other
-    if (isDirty) {
-      // Deselect
-      materialId = undefined;
-      $material.name = $t("options.material.other");
-    } else if (materialId !== undefined) {
-      // Check if ID is number (real material ID) and not a group ID (group as 'Construction Steels')
-      if (Number.isInteger(+materialId)) {
-        // Copying
-        $material = Object.assign({}, materials[+materialId]);
-      }
-    }
+  function editMaterial() {
+    // Custom properties must be serialized as values, not as a catalog ID.
+    $material = {
+      ...$material,
+      id: undefined,
+      name: $t("options.material.other"),
+      categories: [],
+    };
   }
 </script>
 
@@ -76,19 +78,19 @@
   <TextField
     type="number"
     label={`${$t("results.density")}`}
-    on:input={() => (isDirty = true)}
+    on:input={editMaterial}
     bind:value={$material.density}
   />
   <TextField
     type="number"
     label={`${$t("results.eModulus")} (E, ${$t("units.mpa")})`}
-    on:input={() => (isDirty = true)}
+    on:input={editMaterial}
     bind:value={$material.E}
   />
   <TextField
     type="number"
     label={`${$t("results.gModulus")} (G, ${$t("units.mpa")})`}
-    on:input={() => (isDirty = true)}
+    on:input={editMaterial}
     bind:value={$material.G}
   />
   <TextField
@@ -101,8 +103,8 @@
   <MyTreeView
     search={query}
     {data}
-    on:select={() => (isDirty = false)}
-    bind:activeId={materialId}
+    on:select={selectMaterial}
+    activeId={materialId}
   />
 </div>
 

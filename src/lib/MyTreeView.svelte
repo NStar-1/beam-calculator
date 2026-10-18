@@ -13,19 +13,27 @@
 
   const dispatch = createEventDispatcher();
   const tree = new InspireTree({ data });
+  let element: HTMLDivElement;
 
-  function reloadData(data: NodeConfig[]) {
-    tree.removeAll();
-    tree.addNodes(data);
+  let synchronizing = false;
+  let previousData = data;
+
+  function syncTree(data: NodeConfig[], activeId: string | undefined) {
+    synchronizing = true;
+    try {
+      if (data !== previousData) {
+        tree.removeAll();
+        tree.addNodes(data);
+        previousData = data;
+      }
+      tree.deselect();
+      if (activeId !== undefined) tree.node(activeId)?.select();
+    } finally {
+      synchronizing = false;
+    }
   }
 
-  $: reloadData(data);
-
-  $: if (activeId === undefined) {
-    tree.deselect();
-  } else {
-    tree.node(activeId)?.select();
-  }
+  $: syncTree(data, activeId);
 
   $: if (search !== "") {
     tree.search(search);
@@ -34,18 +42,21 @@
   }
 
   tree.on("node.selected", (node) => {
+    // InspireTree emits this event for programmatic selection too. Only
+    // forward user selections to the model owner.
+    if (synchronizing) return;
     activeId = node.id;
     dispatch("select", node);
   });
 
   onMount(() => {
     new InspireTreeDOM(tree, {
-      target: document.querySelector(".inspire-tree")!,
+      target: element,
     });
   });
 </script>
 
-<div class="inspire-tree {clazz}" />
+<div bind:this={element} class="inspire-tree {clazz}" />
 
 <style lang="scss">
   .inspire-tree {
