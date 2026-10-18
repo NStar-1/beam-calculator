@@ -18,16 +18,56 @@
   </header>
 
   <!--
-    Changelog update marker: de14e94
+    Changelog update marker: fb57cd4291708fcad0c850e9d4fc7f7107e4cbd8
     Future LLM instructions:
     - Treat this hash as the last commit already reviewed for this static changelog.
     - On the next changelog update, inspect commits after this marker with:
-      git log de14e94..HEAD --date=short --pretty=format:"%h%x09%ad%x09%s"
+      git log fb57cd4291708fcad0c850e9d4fc7f7107e4cbd8..HEAD --date=short --pretty=format:"%h%x09%ad%x09%s"
     - Add only user-facing changes worth publishing; skip internal cleanup,
       editor setup, dependency churn, and commits with no visible product impact.
     - Place commit links beside the specific bullet they support using CommitLink.
     - After updating entries, replace this marker with the current HEAD hash.
   -->
+  <ChangelogItem date="2026-10-18" title="Ready-to-use beam examples">
+    <ul>
+      <li>
+        Added 12 beam examples in English and Russian, with preconfigured
+        calculators, setup explanations, formulas, and answers to common
+        questions. Examples cover cantilevers, simply supported beams, and
+        beams with fixed supports. <CommitLink hash="c800685" />
+      </li>
+      <li>
+        Added a beam examples catalog and related-example links to help find
+        the right starting setup. <CommitLink hash="c800685" />
+      </li>
+      <li>
+        Fixed restoring a preset while editing an added load so the load
+        editor keeps a valid selection. <CommitLink hash="fb57cd4" />
+      </li>
+    </ul>
+  </ChangelogItem>
+
+  <ChangelogItem date="2026-07-27" title="Shareable beam calculations">
+    <ul>
+      <li>
+        Share a calculation by copying its address. Model changes update the
+        link, and opening it restores the beam length, units, supports,
+        cross section, material, and point loads.
+        <CommitLink hash="548021e" />
+      </li>
+    </ul>
+  </ChangelogItem>
+
+  <ChangelogItem date="2026-05-21" title="More steel materials">
+    <ul>
+      <li>
+        Expanded the material selector with generic construction, stainless,
+        and tool steels, plus ASTM and AISI grades including ASTM A36 and
+        AISI 304. <CommitLink hash="687e7aa" />
+      </li>
+    </ul>
+  </ChangelogItem>
+
   <ChangelogItem date="2026-05-18" title="Simplified 1D result tables">
     <ul>
       <li>
