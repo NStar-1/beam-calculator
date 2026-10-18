@@ -101,6 +101,11 @@
 
     async function initialize() {
       await applyLocationState();
+      // The await above yields even on the no-hash path, and with a hash it
+      // waits for the codec import. If the component was destroyed meanwhile,
+      // cleanup has already run and these subscriptions would never be
+      // removed — so bail out instead of subscribing.
+      if (disposed) return;
 
       unsubscribeUrlSync = subscribeModelChanges(
         () => {

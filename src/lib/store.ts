@@ -578,6 +578,16 @@ export function applySerializableModel(model: AnchorLinkModel) {
   profileData.update((current) => ({ ...current, ...model.profileData }));
   material.set(model.material);
   loads.set(model.loads);
+  // The editor may point at an index the new model does not have — restoring
+  // a single-load preset after the visitor added a second load did exactly
+  // that, and the form then read properties off undefined. Clamp the
+  // selection instead; with no loads left there is nothing to select.
+  selectedLoad.update((current) => {
+    if (current === null) return null;
+    return model.loads.length > 0
+      ? Math.min(current, model.loads.length - 1)
+      : null;
+  });
 }
 
 export function subscribeModelChanges(

@@ -5,9 +5,11 @@ import {
   getSerializableModel,
   material,
   profileData,
+  selectedLoad,
 } from "./store";
 import { iBeamMidLoad } from "./problems/i-beam-mid-load";
 import { pipeCantileverEndLoad } from "./problems/pipe-cantilever-end-load";
+import { simplySupportedTwoLoads } from "./problems/simply-supported-two-loads";
 import { resolvePreset } from "./problems/presets";
 
 // These two problems differ in every part a switch could leave behind:
@@ -59,5 +61,29 @@ describe("applySerializableModel", () => {
     expect(
       JSON.stringify(resolvePreset(pipeCantileverEndLoad.preset).material)
     ).toBe(materialBefore);
+  });
+
+  it("keeps the load selection valid when the model is replaced", () => {
+    // The reported failure: open a single-load example, add and select a
+    // second load, then restore the original preset. The editor still points
+    // at index 1, which no longer exists, and reads properties off undefined.
+    applySerializableModel(resolvePreset(simplySupportedTwoLoads.preset));
+    selectedLoad.set(1);
+    expect(get(selectedLoad)).toBe(1);
+
+    applySerializableModel(tubeModel());
+    expect(get(selectedLoad)).toBe(0);
+
+    // A model without loads leaves nothing to select.
+    applySerializableModel({ ...tubeModel(), loads: [] });
+    expect(get(selectedLoad)).toBeNull();
+
+    // Applying a model never opens a selection on its own, and one the new
+    // model still covers is left alone.
+    applySerializableModel(resolvePreset(simplySupportedTwoLoads.preset));
+    expect(get(selectedLoad)).toBeNull();
+    selectedLoad.set(1);
+    applySerializableModel(resolvePreset(simplySupportedTwoLoads.preset));
+    expect(get(selectedLoad)).toBe(1);
   });
 });
