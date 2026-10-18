@@ -18,16 +18,31 @@
   </header>
 
   <!--
-    Changelog update marker: fb57cd4291708fcad0c850e9d4fc7f7107e4cbd8
+    Changelog update marker: 4435fefc1a6ed28a79159abe0ca6372f06302325
     Future LLM instructions:
     - Treat this hash as the last commit already reviewed for this static changelog.
     - On the next changelog update, inspect commits after this marker with:
-      git log fb57cd4291708fcad0c850e9d4fc7f7107e4cbd8..HEAD --date=short --pretty=format:"%h%x09%ad%x09%s"
+      git log 4435fefc1a6ed28a79159abe0ca6372f06302325..HEAD --date=short --pretty=format:"%h%x09%ad%x09%s"
     - Add only user-facing changes worth publishing; skip internal cleanup,
       editor setup, dependency churn, and commits with no visible product impact.
     - Place commit links beside the specific bullet they support using CommitLink.
     - After updating entries, replace this marker with the current HEAD hash.
   -->
+  <ChangelogItem date="2026-10-18" title="Correct material selection for beam examples">
+    <ul>
+      <li>
+        Fixed the material selector overriding example presets, so the aluminium
+        cantilever opens with aluminium instead of steel. Material selection
+        now follows presets and shared links. <CommitLink hash="4435fef" />
+      </li>
+      <li>
+        Fixed shared links preserving custom material properties after editing
+        density or elastic moduli, instead of reverting to the original catalog
+        material. <CommitLink hash="4435fef" />
+      </li>
+    </ul>
+  </ChangelogItem>
+
   <ChangelogItem date="2026-10-18" title="Ready-to-use beam examples">
     <ul>
       <li>
